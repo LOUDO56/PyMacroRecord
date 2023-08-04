@@ -76,5 +76,5 @@ with mouse_listener, keyboard_listener:
 print('record fini')
 json_macroEvents = json.dumps(macroEvents, indent=4)
 
-with open(os.path.join("C:/Users/Lucas/Desktop/rien/data", macroName+".json"),"w") as macroRecord:
+with open(os.path.join("C:/Users/lucas/OneDrive/Bureau/projet/data", macroName+".json"), "w") as macroRecord:
     macroRecord.write(json_macroEvents)
