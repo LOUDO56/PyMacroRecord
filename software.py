@@ -1,8 +1,22 @@
 import threading
 from tkinter import *
 from tkinter.ttk import *
+from pynput import keyboard
+import subprocess
+import atexit
+import os
+import signal
+import time
 
-from macro import startRecord, stopRecord, playRec
+keyboardControl = keyboard.Controller()
+
+def cleanup():
+    if 'macro_process' in globals():
+        macro_process.terminate()
+
+atexit.register(cleanup)
+
+macro_process = subprocess.Popen(['python', 'macro.py'])
 
 # Window Setup
 window = Tk()
@@ -16,18 +30,32 @@ window.config(menu=my_menu)
 
 def startRecordingAndChangeImg():
     global stopBtn
+    global lenghtOfRecord
     recordBtn.pack_forget()
-    stopBtn = Button(window, image=stopImg, command=stopRecordingAndChangeImg)
     stopBtn.pack(side=RIGHT, padx=50)
-    startRecord()
-    window.wait_variable()
+    keyboardControl.press('1')
+    keyboardControl.release('1')
+    lenghtOfRecord = time.time()
 
 def stopRecordingAndChangeImg():
     global recordBtn
+    global lenghtOfRecord
     stopBtn.pack_forget()
     recordBtn = Button(window, image=recordImg, command=startRecordingAndChangeImg)
     recordBtn.pack(side=RIGHT, padx=50)
-    stopRecord()
+    keyboardControl.press('2')
+    keyboardControl.release('2')
+    lenghtOfRecord = (time.time() - lenghtOfRecord) + 0.5
+
+def replay():
+    recordBtn.configure(state=DISABLED)
+    keyboardControl.press('3')
+    keyboardControl.release('3')
+    threading.Thread(target=buttonDisabledToEnable).start()
+
+def buttonDisabledToEnable():
+    time.sleep(lenghtOfRecord)
+    recordBtn.configure(state=NORMAL)
 
 
 # Menu Bar
@@ -41,7 +69,7 @@ file_menu.add_command(label="Settings", command=window.quit)
 
 # Play Button
 playImg = PhotoImage(file=r"assets/button/play.png")
-playBtn = Button(window, image=playImg, command=playRec)
+playBtn = Button(window, image=playImg, command=replay)
 playBtn.pack(side=LEFT, padx=50)
 
 # Record Button
@@ -51,5 +79,7 @@ recordBtn.pack(side=RIGHT, padx=50)
 
 # Stop Button
 stopImg = PhotoImage(file=r"assets/button/stop.png")
+stopBtn = Button(window, image=stopImg, command=stopRecordingAndChangeImg)
+
 
 window.mainloop()

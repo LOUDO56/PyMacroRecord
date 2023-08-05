@@ -1,7 +1,7 @@
 from pynput import mouse, keyboard
 from pynput.mouse import Button
 from pynput.keyboard import Key
-from tkinter import *
+from keyboard import is_pressed
 import time
 import threading
 import json
@@ -11,21 +11,23 @@ mouseControl = mouse.Controller()
 keyboardControl = keyboard.Controller()
 special_keys = {"Key.shift": Key.shift, "Key.tab": Key.tab, "Key.caps_lock": Key.caps_lock, "Key.ctrl": Key.ctrl, "Key.ctrl_l": Key.ctrl_l, "Key.alt": Key.alt, "Key.cmd": Key.cmd, "Key.cmd_r": Key.cmd_r, "Key.alt_r": Key.alt_r, "Key.ctrl_r": Key.ctrl_r, "Key.shift_r": Key.shift_r, "Key.enter": Key.enter, "Key.backspace": Key.backspace, "Key.f19": Key.f19, "Key.f18": Key.f18, "Key.f17": Key.f17, "Key.f16": Key.f16, "Key.f15": Key.f15, "Key.f14": Key.f14, "Key.f13": Key.f13, "Key.media_volume_up": Key.media_volume_up, "Key.media_volume_down": Key.media_volume_down, "Key.media_volume_mute": Key.media_volume_mute, "Key.media_play_pause": Key.media_play_pause, "Key.f6": Key.f6, "Key.f5": Key.f5, "Key.right": Key.right, "Key.down": Key.down, "Key.left": Key.left, "Key.up": Key.up, "Key.page_up": Key.page_up, "Key.page_down": Key.page_down, "Key.home": Key.home, "Key.end": Key.end, "Key.delete": Key.delete, "Key.space": Key.space}
 
-
+record = False
+playback = False
 
 def startRecord():
     global start_time
     global mouse_listener
     global keyboard_listener
     global macroEvents
+    global record
+    record = True
     macroEvents = {'events': []}
     start_time = time.time()
     mouse_listener = mouse.Listener(on_move=on_move, on_click=on_click, on_scroll=on_scroll)
     keyboard_listener = keyboard.Listener(on_press=on_press, on_release=on_release)
     print('record started')
-    with mouse_listener, keyboard_listener:
-        mouse_listener.join()
-        keyboard_listener.join()
+    mouse_listener.start()
+    keyboard_listener.start()
 
 def stopRecord():
     mouse_listener.stop()
@@ -80,8 +82,6 @@ def on_press(key):
     except AttributeError:
         macroEvents["events"].append(
             {'type': 'keyboardEvent', 'key': str(key), 'timestamp': time.time() - start_time, 'pressed': True})
-    if key.char == 'o':
-        stopRecord()
     start_time = time.time()
 
 
@@ -97,6 +97,7 @@ def on_release(key):
 
 
 def playRec():
+    playback = True
     print('record playing')
     for i in range(len(macroEvents["events"])):
         time.sleep(macroEvents["events"][i]["timestamp"])
@@ -125,3 +126,20 @@ def playRec():
                 keyboardControl.press(keyToPress)
             else:
                 keyboardControl.release(keyToPress)
+    playback = False
+
+
+
+
+while True:
+
+    if is_pressed('1'):
+        if record == False:
+            startRecord()
+    if is_pressed('2'):
+        if record == True:
+            record = False
+            stopRecord()
+    if is_pressed('3'):
+        if playback == False:
+            playRec()
