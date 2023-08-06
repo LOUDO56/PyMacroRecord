@@ -4,8 +4,6 @@ from tkinter.ttk import *
 from pynput import keyboard
 import subprocess
 import atexit
-import os
-import signal
 import time
 
 keyboardControl = keyboard.Controller()
@@ -23,6 +21,7 @@ window = Tk()
 window.title("MacroRecorder")
 window.geometry("350x200")
 window.iconbitmap("assets/logo.ico")
+window.resizable(False,False)
 
 my_menu = Menu(window)
 window.config(menu=my_menu)
@@ -31,21 +30,20 @@ window.config(menu=my_menu)
 def startRecordingAndChangeImg():
     global stopBtn
     global lenghtOfRecord
-    recordBtn.pack_forget()
-    stopBtn.pack(side=RIGHT, padx=50)
     keyboardControl.press('1')
     keyboardControl.release('1')
     lenghtOfRecord = time.time()
+    recordBtn.configure(image=stopImg, command=stopRecordingAndChangeImg)
+
 
 def stopRecordingAndChangeImg():
     global recordBtn
     global lenghtOfRecord
-    stopBtn.pack_forget()
-    recordBtn = Button(window, image=recordImg, command=startRecordingAndChangeImg)
-    recordBtn.pack(side=RIGHT, padx=50)
     keyboardControl.press('2')
     keyboardControl.release('2')
-    lenghtOfRecord = (time.time() - lenghtOfRecord) + 0.5
+    lenghtOfRecord = (time.time() - lenghtOfRecord) + 1
+    recordBtn.configure(image=recordImg, command=startRecordingAndChangeImg)
+    playBtn.configure(state=NORMAL)
 
 def replay():
     recordBtn.configure(state=DISABLED)
@@ -69,7 +67,7 @@ file_menu.add_command(label="Settings", command=window.quit)
 
 # Play Button
 playImg = PhotoImage(file=r"assets/button/play.png")
-playBtn = Button(window, image=playImg, command=replay)
+playBtn = Button(window, image=playImg, command=replay, state=DISABLED)
 playBtn.pack(side=LEFT, padx=50)
 
 # Record Button
@@ -79,7 +77,7 @@ recordBtn.pack(side=RIGHT, padx=50)
 
 # Stop Button
 stopImg = PhotoImage(file=r"assets/button/stop.png")
-stopBtn = Button(window, image=stopImg, command=stopRecordingAndChangeImg)
+
 
 
 window.mainloop()

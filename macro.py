@@ -1,7 +1,8 @@
 from pynput import mouse, keyboard
 from pynput.mouse import Button
 from pynput.keyboard import Key
-from keyboard import is_pressed
+from keyboard import is_pressed, read_key
+from tkinter import filedialog
 import time
 import threading
 import json
@@ -13,13 +14,12 @@ special_keys = {"Key.shift": Key.shift, "Key.tab": Key.tab, "Key.caps_lock": Key
 
 record = False
 playback = False
+fileAlreadySaved = False
+saveFile = False
+
 
 def startRecord():
-    global start_time
-    global mouse_listener
-    global keyboard_listener
-    global macroEvents
-    global record
+    global start_time, mouse_listener, keyboard_listener, macroEvents, record, recordLenght
     record = True
     macroEvents = {'events': []}
     start_time = time.time()
@@ -32,19 +32,29 @@ def startRecord():
 def stopRecord():
     mouse_listener.stop()
     keyboard_listener.stop()
-    json_macroEvents = json.dumps(macroEvents, indent=4)
-    with open(os.path.join("C:/Users/Lucas/Desktop/autre/projey python/macro-recorder/data/test.json"), "w") as macroRecord:
-        macroRecord.write(json_macroEvents)
     print('record stopped')
 
 
 
 
 
-# def saveMacro():
-#     json_macroEvents = json.dumps(macroEvents, indent=4)
-#     with open(os.path.join("C:/Users/lucas/OneDrive/Bureau/projet/data", macroName + ".json"), "w") as macroRecord:
-#         macroRecord.write(json_macroEvents)
+
+def saveMacro():
+    global saveFile
+    global fileAlreadySaved
+    global macroPath
+    json_macroEvents = json.dumps(macroEvents, indent=4)
+    if fileAlreadySaved == False:
+        macroSaved = filedialog.asksaveasfile(filetypes = [('Json Files', '*.json')], defaultextension = '.json')
+        if macroSaved is not None:
+            macroPath = macroSaved.name
+            macroSaved.write(json_macroEvents)
+            macroSaved.close()
+            fileAlreadySaved = True
+    else:
+        open(os.path.join(macroPath), "w").write(json_macroEvents)
+    time.sleep(0.5)
+    saveFile = False
 
 
 
@@ -97,6 +107,7 @@ def on_release(key):
 
 
 def playRec():
+    global playback
     playback = True
     print('record playing')
     for i in range(len(macroEvents["events"])):
@@ -132,14 +143,23 @@ def playRec():
 
 
 while True:
-
-    if is_pressed('1'):
-        if record == False:
+    if record == False:
+        if is_pressed('1'):
+            print("pressed 1")
             startRecord()
-    if is_pressed('2'):
-        if record == True:
+    if playback == False:
+        if is_pressed('3'):
+            playRec()
+
+    if (record == False and playback == False):
+        if saveFile == False:
+            if is_pressed('ctrl+s'):
+                saveFile = True
+                saveMacro()
+
+    if record == True:
+        if is_pressed('2'):
+            print(read_key())
+            print("pressed 2")
             record = False
             stopRecord()
-    if is_pressed('3'):
-        if playback == False:
-            playRec()
