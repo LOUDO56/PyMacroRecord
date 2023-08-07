@@ -19,6 +19,7 @@ macroEvents = {"events": []}
 
 mouseControl = mouse.Controller()
 keyboardControl = keyboard.Controller()
+<<<<<<< HEAD
 special_keys = {"Key.esc": Key.esc, "Key.shift": Key.shift, "Key.tab": Key.tab, "Key.caps_lock": Key.caps_lock,
                 "Key.ctrl": Key.ctrl, "Key.ctrl_l": Key.ctrl_l, "Key.alt": Key.alt, "Key.cmd": Key.cmd,
                 "Key.cmd_r": Key.cmd_r, "Key.alt_r": Key.alt_r, "Key.ctrl_r": Key.ctrl_r, "Key.shift_r": Key.shift_r,
@@ -29,6 +30,9 @@ special_keys = {"Key.esc": Key.esc, "Key.shift": Key.shift, "Key.tab": Key.tab, 
                 "Key.f6": Key.f6, "Key.f5": Key.f5, "Key.right": Key.right, "Key.down": Key.down, "Key.left": Key.left,
                 "Key.up": Key.up, "Key.page_up": Key.page_up, "Key.page_down": Key.page_down, "Key.home": Key.home,
                 "Key.end": Key.end, "Key.delete": Key.delete, "Key.space": Key.space}
+=======
+special_keys = {"Key.esc": Key.esc, "Key.shift": Key.shift, "Key.tab": Key.tab, "Key.caps_lock": Key.caps_lock, "Key.ctrl": Key.ctrl, "Key.ctrl_l": Key.ctrl_l, "Key.alt": Key.alt, "Key.cmd": Key.cmd, "Key.cmd_r": Key.cmd_r, "Key.alt_r": Key.alt_r, "Key.ctrl_r": Key.ctrl_r, "Key.shift_r": Key.shift_r, "Key.enter": Key.enter, "Key.backspace": Key.backspace, "Key.f19": Key.f19, "Key.f18": Key.f18, "Key.f17": Key.f17, "Key.f16": Key.f16, "Key.f15": Key.f15, "Key.f14": Key.f14, "Key.f13": Key.f13, "Key.media_volume_up": Key.media_volume_up, "Key.media_volume_down": Key.media_volume_down, "Key.media_volume_mute": Key.media_volume_mute, "Key.media_play_pause": Key.media_play_pause, "Key.f6": Key.f6, "Key.f5": Key.f5, "Key.right": Key.right, "Key.down": Key.down, "Key.left": Key.left, "Key.up": Key.up, "Key.page_up": Key.page_up, "Key.page_down": Key.page_down, "Key.home": Key.home, "Key.end": Key.end, "Key.delete": Key.delete, "Key.space": Key.space}
+>>>>>>> 7043313f60759a798761a735a23a23dd99d0135b
 
 record = False
 playback = False
@@ -49,11 +53,18 @@ def startRecord():
 
 
 def stopRecord():
+<<<<<<< HEAD
     global macroEvents, record
     mouse_listener.stop()
     keyboard_listener.stop()
     json_macroEvents = json.dumps(macroEvents, indent=4)
     open(os.path.join(appdata_local+"/temprecord.json"), "w").write(json_macroEvents)
+=======
+    global macroEvents
+    mouse_listener.stop()
+    keyboard_listener.stop()
+    macroEvents["events"].pop()
+>>>>>>> 7043313f60759a798761a735a23a23dd99d0135b
     print('record stopped')
 
 
@@ -160,6 +171,17 @@ def playRec():
 
 
 while True:
+<<<<<<< HEAD
+=======
+    if record == False:
+        if is_pressed('è'):
+            print("pressed 1")
+            startRecord()
+    if playback == False:
+        if is_pressed('à'):
+            playRec()
+
+>>>>>>> 7043313f60759a798761a735a23a23dd99d0135b
     if (record == False and playback == False):
         if is_pressed('o'):
             keyboardControl.release('o')
@@ -192,6 +214,7 @@ while True:
                 saveFile = True
                 saveMacro()
 
+<<<<<<< HEAD
     if is_pressed('ctrl+n'):
         if (record == False and playback == False and len(macroEvents['events']) != 0):
             macroEvents = {"events": []}
@@ -214,5 +237,11 @@ while True:
     if (record == True and playback == False):
         if is_pressed('escape'):
             keyboardControl.release(Key.esc)
+=======
+    if record == True:
+        if is_pressed('escape'):
+            print(read_key())
+            print("pressed 2")
+>>>>>>> 7043313f60759a798761a735a23a23dd99d0135b
             record = False
             stopRecord()
