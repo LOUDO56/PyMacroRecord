@@ -11,7 +11,6 @@ import os
 
 playback2 = False
 record2 = False
-<<<<<<< HEAD
 recordSet = False
 keyboardControl = keyboard.Controller()
 
@@ -179,9 +178,6 @@ def buttonDisabledToEnable():
     time.sleep(lengthOfRecord)
     recordBtn.configure(state=NORMAL)
     playback2 = False
-
-
->>>>>>> 7043313f60759a798761a735a23a23dd99d0135b
 
 
 def saveMacro():
