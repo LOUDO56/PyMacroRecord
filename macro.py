@@ -1,18 +1,13 @@
 from pynput import mouse, keyboard
 from pynput.mouse import Button
 from pynput.keyboard import Key
-from keyboard import is_pressed, read_key
-from tkinter import filedialog
-import time
-import threading
-from multiprocessing import Process
-import json
-import os
-import subprocess
-import time
+from keyboard import is_pressed
+from json import load, dumps
+from os import getenv, path
+from time import sleep, time
 
 
-appdata_local = os.getenv('LOCALAPPDATA')+"/MacroRecorder"
+appdata_local = getenv('LOCALAPPDATA')+"/MacroRecorder"
 appdata_local = appdata_local.replace('\\', "/")
 
 macroEvents = {"events": []}
@@ -40,7 +35,7 @@ def startRecord():
     global start_time, mouse_listener, keyboard_listener, macroEvents, record, recordLenght
     record = True
     macroEvents = {'events': []}
-    start_time = time.time()
+    start_time = time()
     mouse_listener = mouse.Listener(on_move=on_move, on_click=on_click, on_scroll=on_scroll)
     keyboard_listener = keyboard.Listener(on_press=on_press, on_release=on_release)
     mouse_listener.start()
@@ -51,34 +46,34 @@ def stopRecord():
     global macroEvents, record
     mouse_listener.stop()
     keyboard_listener.stop()
-    json_macroEvents = json.dumps(macroEvents, indent=4)
-    open(os.path.join(appdata_local+"/temprecord.json"), "w").write(json_macroEvents)
+    json_macroEvents = dumps(macroEvents, indent=4)
+    open(path.join(appdata_local+"/temprecord.json"), "w").write(json_macroEvents)
 
 
 def on_move(x, y):
     global start_time
-    macroEvents["events"].append({'type': 'cursorMove', 'x': x, 'y': y, 'timestamp': time.time() - start_time})
-    start_time = time.time()
+    macroEvents["events"].append({'type': 'cursorMove', 'x': x, 'y': y, 'timestamp': time() - start_time})
+    start_time = time()
 
 
 def on_click(x, y, button, pressed):
     global start_time
     if button == Button.left:
         macroEvents["events"].append(
-            {'type': 'leftClickEvent', 'x': x, 'y': y, 'timestamp': time.time() - start_time, 'pressed': pressed})
+            {'type': 'leftClickEvent', 'x': x, 'y': y, 'timestamp': time() - start_time, 'pressed': pressed})
     elif button == Button.right:
         macroEvents["events"].append(
-            {'type': 'rightClickEvent', 'x': x, 'y': y, 'timestamp': time.time() - start_time, 'pressed': pressed})
+            {'type': 'rightClickEvent', 'x': x, 'y': y, 'timestamp': time() - start_time, 'pressed': pressed})
     elif button == Button.middle:
         macroEvents["events"].append(
-            {'type': 'middleClickEvent', 'x': x, 'y': y, 'timestamp': time.time() - start_time, 'pressed': pressed})
-    start_time = time.time()
+            {'type': 'middleClickEvent', 'x': x, 'y': y, 'timestamp': time() - start_time, 'pressed': pressed})
+    start_time = time()
 
 
 def on_scroll(x, y, dx, dy):
     global start_time
-    macroEvents["events"].append({'type': 'scrollEvent', 'dx': dx, 'dy': dy, 'timestamp': time.time() - start_time})
-    start_time = time.time()
+    macroEvents["events"].append({'type': 'scrollEvent', 'dx': dx, 'dy': dy, 'timestamp': time() - start_time})
+    start_time = time()
 
 
 def on_press(key):
@@ -91,22 +86,22 @@ def on_press(key):
     else:
         try:
             macroEvents["events"].append(
-                {'type': 'keyboardEvent', 'key': key.char, 'timestamp': time.time() - start_time, 'pressed': True})
+                {'type': 'keyboardEvent', 'key': key.char, 'timestamp': time() - start_time, 'pressed': True})
         except AttributeError:
             macroEvents["events"].append(
-                {'type': 'keyboardEvent', 'key': str(key), 'timestamp': time.time() - start_time, 'pressed': True})
-        start_time = time.time()
+                {'type': 'keyboardEvent', 'key': str(key), 'timestamp': time() - start_time, 'pressed': True})
+        start_time = time()
 
 
 def on_release(key):
     global start_time
     try:
         macroEvents["events"].append(
-            {'type': 'keyboardEvent', 'key': key.char, 'timestamp': time.time() - start_time, 'pressed': False})
+            {'type': 'keyboardEvent', 'key': key.char, 'timestamp': time() - start_time, 'pressed': False})
     except AttributeError:
         macroEvents["events"].append(
-            {'type': 'keyboardEvent', 'key': str(key), 'timestamp': time.time() - start_time, 'pressed': False})
-    start_time = time.time()
+            {'type': 'keyboardEvent', 'key': str(key), 'timestamp': time() - start_time, 'pressed': False})
+    start_time = time()
 
 
 def playRec():
@@ -114,11 +109,11 @@ def playRec():
     playback = True
     keyboard_listener = keyboard.Listener(on_press=on_press)
     keyboard_listener.start()
-    macroEvents = json.load(open(os.path.join(appdata_local + "/temprecord.json"), "r"))
+    macroEvents = load(open(path.join(appdata_local + "/temprecord.json"), "r"))
     for i in range(len(macroEvents["events"])):
         if playback == False:
             return
-        time.sleep(macroEvents["events"][i]["timestamp"])
+        sleep(macroEvents["events"][i]["timestamp"])
         if macroEvents["events"][i]["type"] == "cursorMove":
             mouseControl.position = (macroEvents["events"][i]["x"], macroEvents["events"][i]["y"])
         elif macroEvents["events"][i]["type"] == "leftClickEvent":

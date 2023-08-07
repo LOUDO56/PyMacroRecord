@@ -1,13 +1,11 @@
-import json
-import threading
+from json import load, dumps
 from tkinter import *
 from tkinter.ttk import *
 from tkinter import filedialog
 from pynput import keyboard
-import subprocess
-import atexit
-import time
-import os
+from subprocess import Popen
+from atexit import register
+from os import path, mkdir, getenv
 
 
 playback2 = False
@@ -18,10 +16,10 @@ fileAlreadySaved = False
 keyboardControl = keyboard.Controller()
 
 
-appdata_local = os.getenv('LOCALAPPDATA')+"/MacroRecorder"
+appdata_local = getenv('LOCALAPPDATA')+"/MacroRecorder"
 appdata_local = appdata_local.replace('\\', "/")
-if os.path.isdir(appdata_local) == False:
-    os.mkdir(appdata_local)
+if path.isdir(appdata_local) == False:
+    mkdir(appdata_local)
 
 
 
@@ -51,9 +49,9 @@ def cleanup():
     if 'macro_process' in globals():
         macro_process.terminate()
 
-atexit.register(cleanup)
+register(cleanup)
 
-macro_process = subprocess.Popen(['python', 'macro.py'])
+macro_process = Popen(['python', 'macro.py'])
 
 # Window Setup
 window = Tk()
@@ -110,9 +108,9 @@ def saveMacroAs(e=None):
     if (record2 == False and playback2 == False and recordSet == True):
         macroSaved = filedialog.asksaveasfile(filetypes=[('Json Files', '*.json')], defaultextension='.json')
         if macroSaved is not None:
-            macroContent = open(os.path.join(appdata_local + "/temprecord.json"), "r")
-            macroEvents = json.load(macroContent)
-            json_macroEvents = json.dumps(macroEvents, indent=4)
+            macroContent = open(path.join(appdata_local + "/temprecord.json"), "r")
+            macroEvents = load(macroContent)
+            json_macroEvents = dumps(macroEvents, indent=4)
             open(macroSaved.name, "w").write(json_macroEvents)
             macroPath = macroSaved.name
             macroSaved.close()
@@ -123,10 +121,10 @@ def saveMacroAs(e=None):
 def saveMacro(e=None):
     if(record2 == False and playback2 == False and recordSet == True):
         if fileAlreadySaved == True:
-            macroContent = open(os.path.join(appdata_local + "/temprecord.json"), "r")
-            macroSaved = open(os.path.join(macroPath), "w")
-            macroEvents = json.load(macroContent)
-            json_macroEvents = json.dumps(macroEvents, indent=4)
+            macroContent = open(path.join(appdata_local + "/temprecord.json"), "r")
+            macroSaved = open(path.join(macroPath), "w")
+            macroEvents = load(macroContent)
+            json_macroEvents = dumps(macroEvents, indent=4)
             macroSaved.write(json_macroEvents)
             print('saved')
         else:
@@ -138,9 +136,9 @@ def loadMacro(e=None):
         macroFile = filedialog.askopenfile(filetypes=[('Json Files', '*.json')], defaultextension='.json')
         macroContent = open(macroFile.name)
         macroPath = macroFile.name
-        macroEvents = json.load(macroContent)
-        json_macroEvents = json.dumps(macroEvents, indent=4)
-        open(os.path.join(appdata_local + "/temprecord.json"), "w").write(json_macroEvents)
+        macroEvents = load(macroContent)
+        json_macroEvents = dumps(macroEvents, indent=4)
+        open(path.join(appdata_local + "/temprecord.json"), "w").write(json_macroEvents)
         playBtn.configure(state=NORMAL)
         file_menu.entryconfig('Save', state=NORMAL, command=saveMacro)
         file_menu.entryconfig('Save as', state=NORMAL, command=saveMacroAs)
@@ -150,7 +148,7 @@ def loadMacro(e=None):
 
 
 def newMacro():
-    global recordSet
+    global recordSet, fileAlreadySaved
     keyboardControl.press(keyboard.Key.ctrl)
     keyboardControl.press('n')
     keyboardControl.release(keyboard.Key.ctrl)
@@ -161,6 +159,7 @@ def newMacro():
     file_menu.entryconfig('New', state=DISABLED)
     playBtn.configure(state=DISABLED)
     recordSet = False
+    fileAlreadySaved = False
 
 
 # Menu Bar
