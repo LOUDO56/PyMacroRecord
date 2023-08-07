@@ -1,6 +1,8 @@
+import json
 import threading
 from tkinter import *
 from tkinter.ttk import *
+from tkinter import filedialog
 from pynput import keyboard
 import subprocess
 import atexit
@@ -11,6 +13,8 @@ import os
 playback2 = False
 record2 = False
 recordSet = False
+saveFile = False
+fileAlreadySaved = False
 keyboardControl = keyboard.Controller()
 
 
@@ -18,6 +22,7 @@ appdata_local = os.getenv('LOCALAPPDATA')+"/MacroRecorder"
 appdata_local = appdata_local.replace('\\', "/")
 if os.path.isdir(appdata_local) == False:
     os.mkdir(appdata_local)
+
 
 
 def on_release(key):
@@ -39,12 +44,7 @@ def on_release(key):
                 recordBtn.configure(state=NORMAL)
                 playBtn.configure(image=playImg)
                 file_menu.entryconfig('Load', state=NORMAL)
-        if key == keyboard.Key.f12:
-            playBtn.configure(state=NORMAL)
-            file_menu.entryconfig('Save', state=NORMAL, command=saveMacro)
-            file_menu.entryconfig('Save as', state=NORMAL, command=saveMacroAs)
-            file_menu.entryconfig('New', state=NORMAL, command=newMacro)
-            recordSet = True
+
 
 
 def cleanup():
@@ -105,17 +105,48 @@ def replay(pressKey=True):
 
 
 
-def saveMacro():
-    keyboardControl.press(keyboard.Key.ctrl_l)
-    keyboardControl.press('s')
-    keyboardControl.release(keyboard.Key.ctrl_l)
-    keyboardControl.release('s')
+def saveMacroAs(e=None):
+    global macroPath, fileAlreadySaved
+    if (record2 == False and playback2 == False and recordSet == True):
+        macroSaved = filedialog.asksaveasfile(filetypes=[('Json Files', '*.json')], defaultextension='.json')
+        if macroSaved is not None:
+            macroContent = open(os.path.join(appdata_local + "/temprecord.json"), "r")
+            macroEvents = json.load(macroContent)
+            json_macroEvents = json.dumps(macroEvents, indent=4)
+            open(macroSaved.name, "w").write(json_macroEvents)
+            macroPath = macroSaved.name
+            macroSaved.close()
+            fileAlreadySaved = True
 
-def saveMacroAs():
-    keyboardControl.press(keyboard.Key.ctrl_l)
-    keyboardControl.press(keyboard.Key.alt)
-    keyboardControl.press('s')
 
+
+def saveMacro(e=None):
+    if(record2 == False and playback2 == False and recordSet == True):
+        if fileAlreadySaved == True:
+            macroContent = open(os.path.join(appdata_local + "/temprecord.json"), "r")
+            macroSaved = open(os.path.join(macroPath), "w")
+            macroEvents = json.load(macroContent)
+            json_macroEvents = json.dumps(macroEvents, indent=4)
+            macroSaved.write(json_macroEvents)
+            print('saved')
+        else:
+            saveMacroAs()
+
+def loadMacro(e=None):
+    global macroPath, recordSet
+    if (record2 == False and playback2 == False):
+        macroFile = filedialog.askopenfile(filetypes=[('Json Files', '*.json')], defaultextension='.json')
+        macroContent = open(macroFile.name)
+        macroPath = macroFile.name
+        macroEvents = json.load(macroContent)
+        json_macroEvents = json.dumps(macroEvents, indent=4)
+        open(os.path.join(appdata_local + "/temprecord.json"), "w").write(json_macroEvents)
+        playBtn.configure(state=NORMAL)
+        file_menu.entryconfig('Save', state=NORMAL, command=saveMacro)
+        file_menu.entryconfig('Save as', state=NORMAL, command=saveMacroAs)
+        file_menu.entryconfig('New', state=NORMAL, command=newMacro)
+        recordSet = True
+        macroFile.close()
 
 
 def newMacro():
@@ -127,13 +158,10 @@ def newMacro():
     recordBtn.configure(image=recordImg, command=startRecordingAndChangeImg)
     file_menu.entryconfig('Save', state=DISABLED)
     file_menu.entryconfig('Save as', state=DISABLED)
+    file_menu.entryconfig('New', state=DISABLED)
     playBtn.configure(state=DISABLED)
     recordSet = False
 
-def loadMacro():
-    if (playback2 == False and record2 == False):
-        keyboardControl.press(keyboard.Key.ctrl)
-        keyboardControl.press('l')
 
 # Menu Bar
 file_menu = Menu(my_menu, tearoff=0)
@@ -156,6 +184,9 @@ recordBtn.pack(side=RIGHT, padx=50)
 # Stop Button
 stopImg = PhotoImage(file=r"assets/button/stop.png")
 
+window.bind('<Control-Shift-S>', saveMacroAs)
+window.bind('<Control-s>', saveMacro)
+window.bind('<Control-l>', loadMacro)
 
 keyboardListener = keyboard.Listener(on_release=on_release)
 keyboardListener.start()

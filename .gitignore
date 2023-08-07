@@ -1,3 +1,5 @@
-data/
+data
 .idea
 __pycache__
+venv
+software.spec

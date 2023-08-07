@@ -43,7 +43,6 @@ def startRecord():
     start_time = time.time()
     mouse_listener = mouse.Listener(on_move=on_move, on_click=on_click, on_scroll=on_scroll)
     keyboard_listener = keyboard.Listener(on_press=on_press, on_release=on_release)
-    print('record started')
     mouse_listener.start()
     keyboard_listener.start()
 
@@ -54,26 +53,6 @@ def stopRecord():
     keyboard_listener.stop()
     json_macroEvents = json.dumps(macroEvents, indent=4)
     open(os.path.join(appdata_local+"/temprecord.json"), "w").write(json_macroEvents)
-    print('record stopped')
-
-
-
-def saveMacro():
-    global saveFile
-    global fileAlreadySaved
-    global macroPath
-    json_macroEvents = json.dumps(macroEvents, indent=4)
-    if fileAlreadySaved == False:
-        macroSaved = filedialog.asksaveasfile(filetypes=[('Json Files', '*.json')], defaultextension='.json')
-        if macroSaved is not None:
-            macroPath = macroSaved.name
-            macroSaved.write(json_macroEvents)
-            macroSaved.close()
-            fileAlreadySaved = True
-    else:
-        open(os.path.join(macroPath), "w").write(json_macroEvents)
-    time.sleep(0.5)
-    saveFile = False
 
 
 def on_move(x, y):
@@ -103,14 +82,20 @@ def on_scroll(x, y, dx, dy):
 
 
 def on_press(key):
-    global start_time
-    try:
-        macroEvents["events"].append(
-            {'type': 'keyboardEvent', 'key': key.char, 'timestamp': time.time() - start_time, 'pressed': True})
-    except AttributeError:
-        macroEvents["events"].append(
-            {'type': 'keyboardEvent', 'key': str(key), 'timestamp': time.time() - start_time, 'pressed': True})
-    start_time = time.time()
+    global start_time, playback, keyboard_listener
+    if (record == False and playback == True):
+        if is_pressed('escape'):
+            keyboardControl.release(keyboard.Key.esc)
+            playback = False
+            keyboard_listener.stop()
+    else:
+        try:
+            macroEvents["events"].append(
+                {'type': 'keyboardEvent', 'key': key.char, 'timestamp': time.time() - start_time, 'pressed': True})
+        except AttributeError:
+            macroEvents["events"].append(
+                {'type': 'keyboardEvent', 'key': str(key), 'timestamp': time.time() - start_time, 'pressed': True})
+        start_time = time.time()
 
 
 def on_release(key):
@@ -125,10 +110,14 @@ def on_release(key):
 
 
 def playRec():
-    global playback
+    global playback, keyboard_listener
     playback = True
-    print('record playing')
+    keyboard_listener = keyboard.Listener(on_press=on_press)
+    keyboard_listener.start()
+    macroEvents = json.load(open(os.path.join(appdata_local + "/temprecord.json"), "r"))
     for i in range(len(macroEvents["events"])):
+        if playback == False:
+            return
         time.sleep(macroEvents["events"][i]["timestamp"])
         if macroEvents["events"][i]["type"] == "cursorMove":
             mouseControl.position = (macroEvents["events"][i]["x"], macroEvents["events"][i]["y"])
@@ -150,14 +139,16 @@ def playRec():
         elif macroEvents["events"][i]["type"] == "scrollEvent":
             mouseControl.scroll(macroEvents["events"][i]["dx"], macroEvents["events"][i]["dy"])
         elif macroEvents["events"][i]["type"] == "keyboardEvent":
-            keyToPress = macroEvents["events"][i]["key"] if 'Key.' not in macroEvents["events"][i]["key"] else \
-            special_keys[macroEvents["events"][i]["key"]]
+            keyToPress = macroEvents["events"][i]["key"] if 'Key.' not in macroEvents["events"][i]["key"] else special_keys[macroEvents["events"][i]["key"]]
             if macroEvents["events"][i]["pressed"] == True:
                 keyboardControl.press(keyToPress)
             else:
                 keyboardControl.release(keyToPress)
     playback = False
 
+
+                
+            
 
 while True:
     if (record == False and playback == False):
@@ -169,47 +160,14 @@ while True:
         if is_pressed('p'):
             keyboardControl.release('p')
             playback = True
-            playbackstarted = subprocess.Popen(['python', 'play.py'])
-
-    if (record == False and playback == True):
-        if is_pressed('escape'):
-            keyboardControl.release(keyboard.Key.esc)
-            playback = False
-            playbackstarted.terminate()
-
-    if (record == False and playback == False and len(macroEvents['events']) != 0):
-        if is_pressed('ctrl+alt+s'):
-            keyboardControl.release(Key.ctrl_l)
-            keyboardControl.release(Key.alt)
-            keyboardControl.release('s')
-            if saveFile == False:
-                saveFile = True
-                fileAlreadySaved = False
-                saveMacro()
-    if (record == False and playback == False and len(macroEvents['events']) != 0):
-        if is_pressed('ctrl+s'):
-            if saveFile == False:
-                saveFile = True
-                saveMacro()
+            print('playback started')
+            playRec()
 
     if is_pressed('ctrl+n'):
         if (record == False and playback == False and len(macroEvents['events']) != 0):
             macroEvents = {"events": []}
             fileAlreadySaved = False
 
-    if is_pressed('ctrl+l'):
-        if (record == False and playback == False):
-            keyboardControl.release(Key.ctrl)
-            keyboardControl.release('l')
-            macroFile = filedialog.askopenfile(filetypes=[('Json Files', '*.json')], defaultextension='.json')
-            macroContent = open(macroFile.name)
-            data = json.load(macroContent)
-            macroEvents = data
-            json_macroEvents = json.dumps(macroEvents, indent=4)
-            open(os.path.join(appdata_local+"/temprecord.json"), "w").write(json_macroEvents)
-            macroFile.close()
-            keyboardControl.press(Key.f12)
-            keyboardControl.release(Key.f12)
 
     if (record == True and playback == False):
         if is_pressed('escape'):
