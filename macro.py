@@ -10,7 +10,7 @@ from time import sleep, time
 appdata_local = getenv('LOCALAPPDATA')+"/MacroRecorder"
 appdata_local = appdata_local.replace('\\', "/")
 
-macroEvents = {"events": []}
+macroEvents = {"events": []} # The core of this script, it serves to store all data events, so it can be replayable or saved on a file
 
 mouseControl = mouse.Controller()
 keyboardControl = keyboard.Controller()
@@ -24,32 +24,12 @@ special_keys = {"Key.esc": Key.esc, "Key.shift": Key.shift, "Key.tab": Key.tab, 
                 "Key.f6": Key.f6, "Key.f5": Key.f5, "Key.right": Key.right, "Key.down": Key.down, "Key.left": Key.left,
                 "Key.up": Key.up, "Key.page_up": Key.page_up, "Key.page_down": Key.page_down, "Key.home": Key.home,
                 "Key.end": Key.end, "Key.delete": Key.delete, "Key.space": Key.space}
+# Special keys are for on press and on release event so when the playback is on, it can press special keys without errors
 
-record = False
-playback = False
-fileAlreadySaved = False
-saveFile = False
+record = False # Know if record is active
+playback = False # Know if playback is active
 
-
-def startRecord():
-    global start_time, mouse_listener, keyboard_listener, macroEvents, record, recordLenght
-    record = True
-    macroEvents = {'events': []}
-    start_time = time()
-    mouse_listener = mouse.Listener(on_move=on_move, on_click=on_click, on_scroll=on_scroll)
-    keyboard_listener = keyboard.Listener(on_press=on_press, on_release=on_release)
-    mouse_listener.start()
-    keyboard_listener.start()
-
-
-def stopRecord():
-    global macroEvents, record
-    mouse_listener.stop()
-    keyboard_listener.stop()
-    json_macroEvents = dumps(macroEvents, indent=4)
-    open(path.join(appdata_local+"/temprecord.json"), "w").write(json_macroEvents)
-
-
+# All events from mouse and keyboard when record is active
 def on_move(x, y):
     global start_time
     macroEvents["events"].append({'type': 'cursorMove', 'x': x, 'y': y, 'timestamp': time() - start_time})
@@ -104,7 +84,41 @@ def on_release(key):
     start_time = time()
 
 
+
+
+def startRecord():
+    """
+        Start record
+    """
+    global start_time, mouse_listener, keyboard_listener, macroEvents, record, recordLenght
+    record = True
+    macroEvents = {'events': []}
+    start_time = time()
+    mouse_listener = mouse.Listener(on_move=on_move, on_click=on_click, on_scroll=on_scroll)
+    keyboard_listener = keyboard.Listener(on_press=on_press, on_release=on_release)
+    mouse_listener.start()
+    keyboard_listener.start()
+
+
+def stopRecord():
+    """
+        Stop record
+    """
+    global macroEvents, record
+    mouse_listener.stop()
+    keyboard_listener.stop()
+    json_macroEvents = dumps(macroEvents, indent=4)
+    open(path.join(appdata_local+"/temprecord.json"), "w").write(json_macroEvents)
+
 def playRec():
+    """
+        Playback function
+        I retrieve data from temprecord to prevents conflict, like the user loaded a new record.
+        Then I loop all the events, and for each event, he sleeps some time and then trigger is specific events.
+
+        To detect the stop of playback, I don't use the detection on the While loop because it won't work,
+        and if I put the for loop in a thread, the playback is incredibly slow.
+    """
     global playback, keyboard_listener
     playback = True
     keyboard_listener = keyboard.Listener(on_press=on_press)
@@ -144,7 +158,7 @@ def playRec():
 
                 
             
-
+# While loop to detect keybind of user
 while True:
     if (record == False and playback == False):
         if is_pressed('o'):
@@ -155,14 +169,7 @@ while True:
         if is_pressed('p'):
             keyboardControl.release('p')
             playback = True
-            print('playback started')
             playRec()
-
-    if is_pressed('ctrl+n'):
-        if (record == False and playback == False and len(macroEvents['events']) != 0):
-            macroEvents = {"events": []}
-            fileAlreadySaved = False
-
 
     if (record == True and playback == False):
         if is_pressed('escape'):
