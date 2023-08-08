@@ -40,7 +40,10 @@ def on_release(key):
                 playbackStatement = False
                 recordBtn.configure(state=NORMAL)
                 playBtn.configure(image=playImg)
+                file_menu.entryconfig('New', state=NORMAL)
                 file_menu.entryconfig('Load', state=NORMAL)
+                file_menu.entryconfig('Save', state=NORMAL)
+                file_menu.entryconfig('Save as', state=NORMAL)
 
 
 def startRecordingAndChangeImg(pressKey=True):
@@ -87,8 +90,9 @@ def replay(pressKey=True):
         Replay the last recorded macro or the loaded one
     """
     global playbackStatement, recordBtn, recordSet
-    playBtn.configure(image=stopImg)
     if recordSet == True:
+        playBtn.configure(image=stopImg)
+        print('playback')
         playbackStatement = True
         file_menu.entryconfig('Save', state=DISABLED)
         file_menu.entryconfig('Save as', state=DISABLED)
@@ -142,17 +146,19 @@ def loadMacro(e=None):
     global macroPath, recordSet
     if recordStatement == False and playbackStatement == False:
         macroFile = filedialog.askopenfile(filetypes=[('Json Files', '*.json')], defaultextension='.json')
-        macroContent = open(macroFile.name)
-        macroPath = macroFile.name
-        macroEvents = load(macroContent)
-        json_macroEvents = dumps(macroEvents, indent=4)
-        open(path.join(appdata_local + "/temprecord.json"), "w").write(json_macroEvents)
-        playBtn.configure(state=NORMAL)
-        file_menu.entryconfig('Save', state=NORMAL, command=saveMacro)
-        file_menu.entryconfig('Save as', state=NORMAL, command=saveMacroAs)
-        file_menu.entryconfig('New', state=NORMAL, command=newMacro)
-        recordSet = True
-        macroFile.close()
+        if macroFile is not None:
+            macroContent = open(macroFile.name)
+            macroPath = macroFile.name
+            macroEvents = load(macroContent)
+            json_macroEvents = dumps(macroEvents, indent=4)
+            open(path.join(appdata_local + "/temprecord.json"), "w").write(json_macroEvents)
+            playBtn.configure(state=NORMAL)
+            file_menu.entryconfig('Save', state=NORMAL, command=saveMacro)
+            file_menu.entryconfig('Save as', state=NORMAL, command=saveMacroAs)
+            file_menu.entryconfig('New', state=NORMAL, command=newMacro)
+            macroFile.close()
+            print("loaded")
+            recordSet = True
 
 
 def newMacro(e=None):
@@ -197,12 +203,48 @@ window.config(menu=my_menu)
 # File Section
 file_menu = Menu(my_menu, tearoff=0)
 my_menu.add_cascade(label="File", menu=file_menu)
-file_menu.add_command(label="New", state=DISABLED)
-file_menu.add_command(label="Load", command=loadMacro)
-file_menu.add_command(label="Save", state=DISABLED)
-file_menu.add_command(label="Save as", state=DISABLED)
+file_menu.add_command(label="New", state=DISABLED, accelerator="Ctrl+N")
+file_menu.add_command(label="Load", command=loadMacro, accelerator="Ctrl+L")
+file_menu.add_command(label="Save", state=DISABLED, accelerator="Ctrl+S")
+file_menu.add_command(label="Save as", state=DISABLED, accelerator="Ctrl+Shift+S")
 file_menu.add_separator()
 file_menu.add_command(label="Exit", command=window.quit)
+
+# Options Section
+options_menu = Menu(my_menu, tearoff=0)
+my_menu.add_cascade(label="Options", menu=options_menu)
+
+# Playback Sub
+playback_sub = Menu(options_menu, tearoff=0)
+options_menu.add_cascade(label="Playback", menu=playback_sub)
+playback_sub.add_command(label="Speed")
+playback_sub.add_command(label="Repeat")
+
+# Recordings Sub
+recordings_sub = Menu(options_menu, tearoff=0)
+options_menu.add_cascade(label="Recordings", menu=recordings_sub)
+recordings_sub.add_command(label="Mouse movement")
+recordings_sub.add_command(label="Mouse Click")
+recordings_sub.add_command(label="Keyboard")
+
+# Options Sub
+options_sub = Menu(options_menu, tearoff=0)
+options_menu.add_cascade(label="Options", menu=options_sub)
+options_sub.add_command(label="Hotkeys")
+
+minimization_sub = Menu(options_sub, tearoff=0)
+options_sub.add_cascade(label="Minimization", menu=minimization_sub)
+minimization_sub.add_command(label="Minimized when playing")
+minimization_sub.add_command(label="Minimized when recording")
+
+options_sub.add_command(label="Run on startup")
+options_sub.add_command(label="After recording")
+
+help_section = Menu(my_menu, tearoff=0)
+my_menu.add_cascade(label="Help", menu=help_section)
+help_section.add_command(label="Github Page")
+help_section.add_command(label="About")
+
 
 # Play Button
 playImg = PhotoImage(file=r"assets/button/play.png")

@@ -98,6 +98,7 @@ def startRecord():
     keyboard_listener = keyboard.Listener(on_press=on_press, on_release=on_release)
     mouse_listener.start()
     keyboard_listener.start()
+    print('record started')
 
 
 def stopRecord():
@@ -105,10 +106,13 @@ def stopRecord():
         Stop record
     """
     global macroEvents, record
+    record = False
     mouse_listener.stop()
     keyboard_listener.stop()
     json_macroEvents = dumps(macroEvents, indent=4)
     open(path.join(appdata_local+"/temprecord.json"), "w").write(json_macroEvents)
+    print('record stopped')
+
 
 def playRec():
     """
@@ -160,19 +164,20 @@ def playRec():
             
 # While loop to detect keybind of user
 while True:
-    if (record == False and playback == False):
+    # Start Record
+    if record == False and playback == False:
         if is_pressed('o'):
-            keyboardControl.release('o')
+            keyboardControl.release('o') # I release here because for some reason sometimes startRecord is called and then right after stopRecord is called
             startRecord()
-
-    if (record == False and playback == False and len(macroEvents['events']) != 0):
+    # Play Back
+    if record == False and playback == False and len(macroEvents["events"]) != 0:
         if is_pressed('p'):
             keyboardControl.release('p')
-            playback = True
             playRec()
 
-    if (record == True and playback == False):
+    # Stop Record
+    if record == True and playback == False:
         if is_pressed('escape'):
             keyboardControl.release(Key.esc)
-            record = False
             stopRecord()
+
