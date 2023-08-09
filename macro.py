@@ -6,11 +6,12 @@ from json import load, dumps
 from os import getenv, path
 from time import sleep, time
 
-
-appdata_local = getenv('LOCALAPPDATA')+"/MacroRecorder"
+appdata_local = getenv('LOCALAPPDATA') + "/MacroRecorder"
 appdata_local = appdata_local.replace('\\', "/")
 
-macroEvents = {"events": []} # The core of this script, it serves to store all data events, so it can be replayable or saved on a file
+macroEvents = {
+    "events": []}  # The core of this script, it serves to store all data events, so it can be replayable or saved on a file
+userSettings = load(open(path.join(appdata_local + "/userSettings.json")))
 
 mouseControl = mouse.Controller()
 keyboardControl = keyboard.Controller()
@@ -26,8 +27,9 @@ special_keys = {"Key.esc": Key.esc, "Key.shift": Key.shift, "Key.tab": Key.tab, 
                 "Key.end": Key.end, "Key.delete": Key.delete, "Key.space": Key.space}
 # Special keys are for on press and on release event so when the playback is on, it can press special keys without errors
 
-record = False # Know if record is active
-playback = False # Know if playback is active
+record = False  # Know if record is active
+playback = False  # Know if playback is active
+
 
 # All events from mouse and keyboard when record is active
 def on_move(x, y):
@@ -84,8 +86,6 @@ def on_release(key):
     start_time = time()
 
 
-
-
 def startRecord():
     """
         Start record
@@ -94,10 +94,17 @@ def startRecord():
     record = True
     macroEvents = {'events': []}
     start_time = time()
-    mouse_listener = mouse.Listener(on_move=on_move, on_click=on_click, on_scroll=on_scroll)
+    userSettings = load(open(path.join(appdata_local + "/userSettings.json")))
+    if userSettings["Recordings"]["Mouse_Move"] and userSettings["Recordings"]["Mouse_Click"]:
+        mouse_listener = mouse.Listener(on_move=on_move, on_click=on_click, on_scroll=on_scroll)
+    elif userSettings["Recordings"]["Mouse_Move"] and not userSettings["Recordings"]["Mouse_Click"]:
+        mouse_listener = mouse.Listener(on_move=on_move, on_scroll=on_scroll)
+    else:
+        mouse_listener = mouse.Listener(on_click=on_click, on_scroll=on_scroll)
     keyboard_listener = keyboard.Listener(on_press=on_press, on_release=on_release)
     mouse_listener.start()
-    keyboard_listener.start()
+    if userSettings["Recordings"]["Keyboard"]:
+        keyboard_listener.start()
     print('record started')
 
 
@@ -107,10 +114,14 @@ def stopRecord():
     """
     global macroEvents, record
     record = False
+    userSettings = load(open(path.join(appdata_local + "/userSettings.json")))
     mouse_listener.stop()
-    keyboard_listener.stop()
+    if userSettings["Recordings"]["Keyboard"]:
+        keyboard_listener.stop()
+    macroEvents["events"].remove(macroEvents["events"][-1])
+    macroEvents["events"].remove(macroEvents["events"][-1])
     json_macroEvents = dumps(macroEvents, indent=4)
-    open(path.join(appdata_local+"/temprecord.json"), "w").write(json_macroEvents)
+    open(path.join(appdata_local + "/temprecord.json"), "w").write(json_macroEvents)
     print('record stopped')
 
 
@@ -135,16 +146,19 @@ def playRec():
         if macroEvents["events"][i]["type"] == "cursorMove":
             mouseControl.position = (macroEvents["events"][i]["x"], macroEvents["events"][i]["y"])
         elif macroEvents["events"][i]["type"] == "leftClickEvent":
+            mouseControl.position = (macroEvents["events"][i]["x"], macroEvents["events"][i]["y"])
             if macroEvents["events"][i]["pressed"] == True:
                 mouseControl.press(Button.left)
             else:
                 mouseControl.release(Button.left)
         elif macroEvents["events"][i]["type"] == "rightClickEvent":
+            mouseControl.position = (macroEvents["events"][i]["x"], macroEvents["events"][i]["y"])
             if macroEvents["events"][i]["pressed"] == True:
                 mouseControl.press(Button.right)
             else:
                 mouseControl.release(Button.right)
         elif macroEvents["events"][i]["type"] == "middleClickEvent":
+            mouseControl.position = (macroEvents["events"][i]["x"], macroEvents["events"][i]["y"])
             if macroEvents["events"][i]["pressed"] == True:
                 mouseControl.press(Button.middle)
             else:
@@ -152,25 +166,27 @@ def playRec():
         elif macroEvents["events"][i]["type"] == "scrollEvent":
             mouseControl.scroll(macroEvents["events"][i]["dx"], macroEvents["events"][i]["dy"])
         elif macroEvents["events"][i]["type"] == "keyboardEvent":
-            keyToPress = macroEvents["events"][i]["key"] if 'Key.' not in macroEvents["events"][i]["key"] else special_keys[macroEvents["events"][i]["key"]]
+            keyToPress = macroEvents["events"][i]["key"] if 'Key.' not in macroEvents["events"][i]["key"] else \
+            special_keys[macroEvents["events"][i]["key"]]
             if macroEvents["events"][i]["pressed"] == True:
                 keyboardControl.press(keyToPress)
             else:
                 keyboardControl.release(keyToPress)
+    keyboardControl.press(Key.esc)
+    keyboardControl.release(Key.esc)
     playback = False
 
 
-                
-            
 # While loop to detect keybind of user
 while True:
     # Start Record
     if record == False and playback == False:
         if is_pressed('o'):
-            keyboardControl.release('o') # I release here because for some reason sometimes startRecord is called and then right after stopRecord is called
+            keyboardControl.release(
+                'o')  # I release here because for some reason sometimes startRecord is called and then right after stopRecord is called
             startRecord()
     # Play Back
-    if record == False and playback == False and len(macroEvents["events"]) != 0:
+    if record == False and playback == False and path.exists(path.join(appdata_local + "/temprecord.json")):
         if is_pressed('p'):
             keyboardControl.release('p')
             playRec()
@@ -180,4 +196,3 @@ while True:
         if is_pressed('escape'):
             keyboardControl.release(Key.esc)
             stopRecord()
-
