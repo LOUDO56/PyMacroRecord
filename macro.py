@@ -1,3 +1,5 @@
+import threading
+
 from pynput import mouse, keyboard
 from pynput.mouse import Button
 from pynput.keyboard import Key
@@ -12,6 +14,7 @@ appdata_local = appdata_local.replace('\\', "/")
 macroEvents = {
     "events": []}  # The core of this script, it serves to store all data events, so it can be replayable or saved on a file
 userSettings = load(open(path.join(appdata_local + "/userSettings.json")))
+
 
 mouseControl = mouse.Controller()
 keyboardControl = keyboard.Controller()
@@ -60,30 +63,56 @@ def on_scroll(x, y, dx, dy):
 
 def on_press(key):
     global start_time, playback, keyboard_listener
-    if (record == False and playback == True):
-        if is_pressed('escape'):
-            keyboardControl.release(keyboard.Key.esc)
-            playback = False
-            keyboard_listener.stop()
-    else:
+    if record == False and playback == False:
         try:
-            macroEvents["events"].append(
-                {'type': 'keyboardEvent', 'key': key.char, 'timestamp': time() - start_time, 'pressed': True})
+            if key.char == 'o':
+                startRecord()
         except AttributeError:
-            macroEvents["events"].append(
-                {'type': 'keyboardEvent', 'key': str(key), 'timestamp': time() - start_time, 'pressed': True})
-        start_time = time()
+            pass
+        # Play Back
+        if record == False and playback == False and path.exists(path.join(appdata_local + "/temprecord.json")):
+            try:
+                if key.char == 'p':
+                    threading.Thread(target=playRec).start()
+            except AttributeError:
+                pass
+    if record == False and playback == True:
+        try:
+            if key == Key.esc:
+                playback = False
+        except AttributeError:
+            pass
+
+    if record == True and playback == False:
+        # Stop Record
+        print()
+        try:
+            if key == Key.esc:
+                stopRecord()
+        except AttributeError:
+            pass
+        if userSettings["Recordings"]["Keyboard"]:
+            try:
+                macroEvents["events"].append(
+                    {'type': 'keyboardEvent', 'key': key.char, 'timestamp': time() - start_time, 'pressed': True})
+            except AttributeError:
+                macroEvents["events"].append(
+                    {'type': 'keyboardEvent', 'key': str(key), 'timestamp': time() - start_time, 'pressed': True})
+            start_time = time()
+
 
 
 def on_release(key):
     global start_time
-    try:
-        macroEvents["events"].append(
-            {'type': 'keyboardEvent', 'key': key.char, 'timestamp': time() - start_time, 'pressed': False})
-    except AttributeError:
-        macroEvents["events"].append(
-            {'type': 'keyboardEvent', 'key': str(key), 'timestamp': time() - start_time, 'pressed': False})
-    start_time = time()
+    if record == True and playback == False:
+        if userSettings["Recordings"]["Keyboard"]:
+            try:
+                macroEvents["events"].append(
+                    {'type': 'keyboardEvent', 'key': key.char, 'timestamp': time() - start_time, 'pressed': False})
+            except AttributeError:
+                macroEvents["events"].append(
+                    {'type': 'keyboardEvent', 'key': str(key), 'timestamp': time() - start_time, 'pressed': False})
+            start_time = time()
 
 
 def startRecord():
@@ -101,10 +130,7 @@ def startRecord():
         mouse_listener = mouse.Listener(on_move=on_move, on_scroll=on_scroll)
     else:
         mouse_listener = mouse.Listener(on_click=on_click, on_scroll=on_scroll)
-    keyboard_listener = keyboard.Listener(on_press=on_press, on_release=on_release)
     mouse_listener.start()
-    if userSettings["Recordings"]["Keyboard"]:
-        keyboard_listener.start()
     print('record started')
 
 
@@ -114,12 +140,11 @@ def stopRecord():
     """
     global macroEvents, record
     record = False
-    userSettings = load(open(path.join(appdata_local + "/userSettings.json")))
     mouse_listener.stop()
-    if userSettings["Recordings"]["Keyboard"]:
-        keyboard_listener.stop()
     macroEvents["events"].remove(macroEvents["events"][-1])
     macroEvents["events"].remove(macroEvents["events"][-1])
+    macroEvents["events"].remove(macroEvents["events"][0])
+    print(macroEvents)
     json_macroEvents = dumps(macroEvents, indent=4)
     open(path.join(appdata_local + "/temprecord.json"), "w").write(json_macroEvents)
     print('record stopped')
@@ -135,9 +160,9 @@ def playRec():
         and if I put the for loop in a thread, the playback is incredibly slow.
     """
     global playback, keyboard_listener
+    # keyboard_listener.stop()
+    print('function playrec called')
     playback = True
-    keyboard_listener = keyboard.Listener(on_press=on_press)
-    keyboard_listener.start()
     macroEvents = load(open(path.join(appdata_local + "/temprecord.json"), "r"))
     for i in range(len(macroEvents["events"])):
         if playback == False:
@@ -177,22 +202,6 @@ def playRec():
     playback = False
 
 
-# While loop to detect keybind of user
-while True:
-    # Start Record
-    if record == False and playback == False:
-        if is_pressed('o'):
-            keyboardControl.release(
-                'o')  # I release here because for some reason sometimes startRecord is called and then right after stopRecord is called
-            startRecord()
-    # Play Back
-    if record == False and playback == False and path.exists(path.join(appdata_local + "/temprecord.json")):
-        if is_pressed('p'):
-            keyboardControl.release('p')
-            playRec()
 
-    # Stop Record
-    if record == True and playback == False:
-        if is_pressed('escape'):
-            keyboardControl.release(Key.esc)
-            stopRecord()
+with keyboard.Listener(on_press=on_press, on_release=on_release) as keyboard_listener:
+    keyboard_listener.join()

@@ -3,6 +3,7 @@ from tkinter import *
 from tkinter.ttk import *
 from tkinter import filedialog
 from tkinter import messagebox
+from tkinter import font
 from pynput import keyboard
 from subprocess import Popen
 from os import path, mkdir, getenv, remove
@@ -287,23 +288,37 @@ def remove_temprecord():
 
 
 def changeSpeed():
-    global speedWin, horizontal_line, speedTestVal
+    global speedWin, horizontal_line, speedTestVal, setNewSpeedInput
     speedWin = Toplevel(window)
     speedWin.geometry("300x150")
     speedWin.title("Change Speed")
     speedWin.grab_set()
     speedWin.resizable(False, False)
     speedWin.attributes("-toolwindow", 1)
-    speedTestVal = Label(speedWin, text="Speed 0")
-    speedTestVal.pack()
-    speedTestVal.pack(side=TOP)
-    horizontal_line = Scale(speedWin, from_=0.1, to=10, command=getSpeedNumber)
-    horizontal_line.set('1')
-    horizontal_line.pack(side=BOTTOM, pady=30)
+    # Label(speedWin, text="Enter Speed Number 0.1 to 10", font = ('Segoe UI', 15)).pack(side=TOP, pady=20)
+    userSettings = load(open(path.join(appdata_local + "/userSettings.json")))
+    # setNewSpeedInput = Entry(speedWin, width=10)
+    # setNewSpeedInput.insert(0, str(userSettings["Playback"]["Speed"]))
+    # setNewSpeedInput.pack(side=BOTTOM, pady=30)
+    buttonArea = Frame()
+    buttonArea.pack(padx=20, pady=20)
+    Button(buttonArea, text="Confirm", command=setNewSpeedNumber).pack(side=LEFT, padx=10)
+    bouton_confirmer = Button(buttonArea, text="Confirm", command=setNewSpeedNumber)
+    Button(buttonArea, text="Cancel", command=speedWin.destroy).pack(side=LEFT, padx=10)
+    bouton_annuler = Button(buttonArea, text="Confirm", command=setNewSpeedNumber)
+    frame = Frame(speedWin)
+    frame.pack(padx=20, pady=20)
 
-def getSpeedNumber(val=0):
-    val = round(float(val))
-    speedTestVal.config(text = f"Speed {val}")
+    # Créer le bouton "Confirmer"
+    bouton_confirmer = Button(frame, text="Confirmer")
+    bouton_confirmer.pack(side=LEFT, padx=10)
+
+    # Créer le bouton "Annuler"
+    bouton_annuler = Button(frame, text="Annuler")
+    bouton_annuler.pack(side=LEFT, padx=10)
+
+def setNewSpeedNumber():
+    print(setNewSpeedInput.get())
 
 def cleanup():
     """
@@ -315,7 +330,7 @@ def cleanup():
 
 register(cleanup)
 
-macro_process = Popen(['pythonw',
+macro_process = Popen(['python',
                        'macro.py'])  # it serves to run macro.py in the background because thread make the recording slower for some reasons
 
 # Window Setup
@@ -334,6 +349,7 @@ file_menu = Menu(my_menu, tearoff=0)
 my_menu.add_cascade(label="File", menu=file_menu)
 file_menu.add_command(label="New", state=DISABLED, accelerator="Ctrl+N")
 file_menu.add_command(label="Load", command=loadMacro, accelerator="Ctrl+L")
+file_menu.add_separator()
 file_menu.add_command(label="Save", state=DISABLED, accelerator="Ctrl+S")
 file_menu.add_command(label="Save as", state=DISABLED, accelerator="Ctrl+Shift+S")
 file_menu.add_separator()
@@ -405,5 +421,5 @@ keyboardListener = keyboard.Listener(on_release=on_release)
 keyboardListener.start()
 
 window.protocol("WM_DELETE_WINDOW", stopProgram)
-
+print(font.nametofont('TkTextFont').actual())
 window.mainloop()
