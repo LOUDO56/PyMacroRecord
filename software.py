@@ -65,7 +65,7 @@ if path.isdir(appdata_local) == False:
 userSettings = load(open(path.join(appdata_local+"/userSettings.json")))
 
 
-def changeSettings(category, option=None, newValue=None):
+def changeSettings(category, option=None, option2=None, newValue=None):
     """Change settings of user"""
     if newValue is None:
         if option is None:
@@ -82,6 +82,8 @@ def changeSettings(category, option=None, newValue=None):
     if option is not None and newValue is not None:
         if option == None:
             userSettings[category] = newValue
+        elif option2 != None:
+            userSettings[category][option][option2] = newValue
         else:
             userSettings[category][option] = newValue
     userSettings_json = dumps(userSettings, indent=4)
@@ -243,12 +245,13 @@ def newMacro(e=None):
         Load a script that the user did, to play it or overwrite it (if he saved his new record of course)
     """
     global recordSet, fileAlreadySaved
-    if recordStatement == False and playbackStatement == False and recordSet == True:
-        wantToSave = warningPopUpSave()
-        if wantToSave == None:
-            return
-        elif wantToSave:
-            saveMacro()
+    if recordStatement == False and playbackStatement == False:
+        if recordSet == True:
+            wantToSave = warningPopUpSave()
+            if wantToSave == None:
+                return
+            elif wantToSave:
+                saveMacro()
         recordBtn.configure(image=recordImg, command=startRecordingAndChangeImg)
         file_menu.entryconfig('Save', state=DISABLED)
         file_menu.entryconfig('Save as', state=DISABLED)
@@ -265,7 +268,7 @@ def stopProgram():
     """
         When the users want to stop the software, the macro.py in the background is terminated
     """
-    if recordSet == True:
+    if recordSet == True and fileAlreadySaved == False:
         closeWindow = True
         wantToSave = warningPopUpSave()
         if wantToSave:
@@ -286,39 +289,66 @@ def remove_temprecord():
     except FileNotFoundError:
         pass
 
+def validate_input(action, value_if_allowed):
+    if action == "1":  # Insert
+        try:
+            float(value_if_allowed)
+            return True
+        except ValueError:
+            return False
+    return True
+
 
 def changeSpeed():
-    global speedWin, horizontal_line, speedTestVal, setNewSpeedInput
+    global speedWin, horizontal_line, speedTestVal
     speedWin = Toplevel(window)
-    speedWin.geometry("300x150")
+    # speedWin.geometry("300x150")
+    w = 300
+    h = 150
+    speedWin.geometry('%dx%d+%d+%d' % (w, h, x, y))
     speedWin.title("Change Speed")
     speedWin.grab_set()
     speedWin.resizable(False, False)
     speedWin.attributes("-toolwindow", 1)
-    # Label(speedWin, text="Enter Speed Number 0.1 to 10", font = ('Segoe UI', 15)).pack(side=TOP, pady=20)
+    Label(speedWin, text="Enter Speed Number 0.1 to 10", font = ('Segoe UI', 10)).pack(side=TOP, pady=10)
     userSettings = load(open(path.join(appdata_local + "/userSettings.json")))
-    # setNewSpeedInput = Entry(speedWin, width=10)
-    # setNewSpeedInput.insert(0, str(userSettings["Playback"]["Speed"]))
-    # setNewSpeedInput.pack(side=BOTTOM, pady=30)
-    buttonArea = Frame()
-    buttonArea.pack(padx=20, pady=20)
-    Button(buttonArea, text="Confirm", command=setNewSpeedNumber).pack(side=LEFT, padx=10)
-    bouton_confirmer = Button(buttonArea, text="Confirm", command=setNewSpeedNumber)
+    setNewSpeedInput = Entry(speedWin, width=10)
+    setNewSpeedInput.insert(0, str(userSettings["Playback"]["Speed"]))
+    setNewSpeedInput.pack(pady=20)
+    buttonArea = Frame(speedWin)
+    Button(buttonArea, text="Confirm", command=lambda: setNewSpeedNumber(setNewSpeedInput.get())).pack(side=LEFT, padx=10)
     Button(buttonArea, text="Cancel", command=speedWin.destroy).pack(side=LEFT, padx=10)
-    bouton_annuler = Button(buttonArea, text="Confirm", command=setNewSpeedNumber)
-    frame = Frame(speedWin)
-    frame.pack(padx=20, pady=20)
+    buttonArea.pack(side=BOTTOM, pady=10)
 
-    # Créer le bouton "Confirmer"
-    bouton_confirmer = Button(frame, text="Confirmer")
-    bouton_confirmer.pack(side=LEFT, padx=10)
+def setNewSpeedNumber(val):
+    try:
+        if float(val) <= 0 or float(val) > 10:
+            messagebox.showerror("Wrong Speed Number", "Your speed value must be between 0.1 and 10!")
+        else:
+            changeSettings("Playback", "Speed", None, float(val))
+            speedWin.destroy()
+    except ValueError:
+        messagebox.showerror("Wrong Speed Number", "Your input must be a number!")
 
-    # Créer le bouton "Annuler"
-    bouton_annuler = Button(frame, text="Annuler")
-    bouton_annuler.pack(side=LEFT, padx=10)
 
-def setNewSpeedNumber():
-    print(setNewSpeedInput.get())
+def repeatGuiSettings():
+    repeatGui = Toplevel(window)
+    w = 300
+    h = 150
+    repeatGui.geometry('%dx%d+%d+%d' % (w, h, x, y))
+    repeatGui.title("Change Speed")
+    repeatGui.grab_set()
+    repeatGui.resizable(False, False)
+    repeatGui.attributes("-toolwindow", 1)
+    Label(repeatGui, text="Enter Repeat Number ", font=('Segoe UI', 10)).pack(side=TOP, pady=10)
+    userSettings = load(open(path.join(appdata_local + "/userSettings.json")))
+    repeatTimes = Spinbox(repeatGui, from_=1, to=100000000, width=7, validate="key", validatecommand=(validate_cmd, "%d", "%P"))
+    repeatTimes.insert(0, userSettings["Playback"]["Repeat"]["Times"])
+    repeatTimes.pack(pady=20)
+    buttonArea = Frame(repeatGui)
+    Button(buttonArea, text="Confirm", command=lambda: [changeSettings("Playback", "Repeat", "Times", int(repeatTimes.get())), repeatGui.destroy()]).pack(side=LEFT,padx=10)
+    Button(buttonArea, text="Cancel", command=repeatGui.destroy).pack(side=LEFT, padx=10)
+    buttonArea.pack(side=BOTTOM, pady=10)
 
 def cleanup():
     """
@@ -336,7 +366,14 @@ macro_process = Popen(['python',
 # Window Setup
 window = Tk()
 window.title("MacroRecorder")
-window.geometry("350x200")
+w = 350
+h = 200
+ws = window.winfo_screenwidth()
+hs = window.winfo_screenheight()
+x = (ws/2) - (w/2)
+y = (hs/2) - (h/2)
+window.geometry('%dx%d+%d+%d' % (w, h, x, y))
+
 window.iconbitmap("assets/logo.ico")
 window.resizable(False, False)
 
@@ -363,7 +400,7 @@ my_menu.add_cascade(label="Options", menu=options_menu)
 playback_sub = Menu(options_menu, tearoff=0)
 options_menu.add_cascade(label="Playback", menu=playback_sub)
 playback_sub.add_command(label="Speed", command=changeSpeed)
-playback_sub.add_command(label="Repeat")
+playback_sub.add_command(label="Repeat", command=repeatGuiSettings)
 
 # Recordings Sub
 mouseMove = BooleanVar()
@@ -419,6 +456,8 @@ window.bind('<Control-n>', newMacro)
 
 keyboardListener = keyboard.Listener(on_release=on_release)
 keyboardListener.start()
+
+validate_cmd = window.register(validate_input)
 
 window.protocol("WM_DELETE_WINDOW", stopProgram)
 print(font.nametofont('TkTextFont').actual())

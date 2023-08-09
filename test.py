@@ -1,26 +1,20 @@
 import tkinter as tk
 
-def confirmer():
-    print("Action confirmée!")
+def validate_input(action, value_if_allowed):
+    if action == "1":  # Insert
+        try:
+            float(value_if_allowed)
+            return True
+        except ValueError:
+            return False
+    return True
 
-def annuler():
-    print("Action annulée!")
-
-# Créer la fenêtre principale
 root = tk.Tk()
-root.title("Exemple de Boutons")
+root.title("Entrée Nombres Seulement")
 
-# Créer une frame pour contenir les boutons
-frame = tk.Frame(root)
-frame.pack(padx=20, pady=20)
+validate_cmd = root.register(validate_input)
 
-# Créer le bouton "Confirmer"
-bouton_confirmer = tk.Button(frame, text="Confirmer", command=confirmer)
-bouton_confirmer.pack(side=tk.LEFT, padx=10)
+entry = tk.Entry(root, validate="key", validatecommand=(validate_cmd, "%d", "%P"))
+entry.pack(padx=20, pady=20)
 
-# Créer le bouton "Annuler"
-bouton_annuler = tk.Button(frame, text="Annuler", command=annuler)
-bouton_annuler.pack(side=tk.LEFT, padx=10)
-
-# Lancer la boucle principale
 root.mainloop()

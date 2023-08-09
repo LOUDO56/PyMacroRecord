@@ -160,43 +160,44 @@ def playRec():
         and if I put the for loop in a thread, the playback is incredibly slow.
     """
     global playback, keyboard_listener
-    # keyboard_listener.stop()
     print('function playrec called')
     playback = True
+    userSettings = load(open(path.join(appdata_local + "/userSettings.json")))
     macroEvents = load(open(path.join(appdata_local + "/temprecord.json"), "r"))
-    for i in range(len(macroEvents["events"])):
-        if playback == False:
-            return
-        sleep(macroEvents["events"][i]["timestamp"])
-        if macroEvents["events"][i]["type"] == "cursorMove":
-            mouseControl.position = (macroEvents["events"][i]["x"], macroEvents["events"][i]["y"])
-        elif macroEvents["events"][i]["type"] == "leftClickEvent":
-            mouseControl.position = (macroEvents["events"][i]["x"], macroEvents["events"][i]["y"])
-            if macroEvents["events"][i]["pressed"] == True:
-                mouseControl.press(Button.left)
-            else:
-                mouseControl.release(Button.left)
-        elif macroEvents["events"][i]["type"] == "rightClickEvent":
-            mouseControl.position = (macroEvents["events"][i]["x"], macroEvents["events"][i]["y"])
-            if macroEvents["events"][i]["pressed"] == True:
-                mouseControl.press(Button.right)
-            else:
-                mouseControl.release(Button.right)
-        elif macroEvents["events"][i]["type"] == "middleClickEvent":
-            mouseControl.position = (macroEvents["events"][i]["x"], macroEvents["events"][i]["y"])
-            if macroEvents["events"][i]["pressed"] == True:
-                mouseControl.press(Button.middle)
-            else:
-                mouseControl.release(Button.middle)
-        elif macroEvents["events"][i]["type"] == "scrollEvent":
-            mouseControl.scroll(macroEvents["events"][i]["dx"], macroEvents["events"][i]["dy"])
-        elif macroEvents["events"][i]["type"] == "keyboardEvent":
-            keyToPress = macroEvents["events"][i]["key"] if 'Key.' not in macroEvents["events"][i]["key"] else \
-            special_keys[macroEvents["events"][i]["key"]]
-            if macroEvents["events"][i]["pressed"] == True:
-                keyboardControl.press(keyToPress)
-            else:
-                keyboardControl.release(keyToPress)
+    for repeat in range(userSettings["Playback"]["Repeat"]["Times"]):
+        for events in range(len(macroEvents["events"])):
+            if playback == False:
+                return
+            sleep(macroEvents["events"][events]["timestamp"] * userSettings["Playback"]["Speed"])
+            if macroEvents["events"][events]["type"] == "cursorMove":
+                mouseControl.position = (macroEvents["events"][events]["x"], macroEvents["events"][events]["y"])
+            elif macroEvents["events"][events]["type"] == "leftClickEvent":
+                mouseControl.position = (macroEvents["events"][events]["x"], macroEvents["events"][events]["y"])
+                if macroEvents["events"][events]["pressed"] == True:
+                    mouseControl.press(Button.left)
+                else:
+                    mouseControl.release(Button.left)
+            elif macroEvents["events"][events]["type"] == "rightClickEvent":
+                mouseControl.position = (macroEvents["events"][events]["x"], macroEvents["events"][events]["y"])
+                if macroEvents["events"][events]["pressed"] == True:
+                    mouseControl.press(Button.right)
+                else:
+                    mouseControl.release(Button.right)
+            elif macroEvents["events"][events]["type"] == "middleClickEvent":
+                mouseControl.position = (macroEvents["events"][events]["x"], macroEvents["events"][events]["y"])
+                if macroEvents["events"][events]["pressed"] == True:
+                    mouseControl.press(Button.middle)
+                else:
+                    mouseControl.release(Button.middle)
+            elif macroEvents["events"][events]["type"] == "scrollEvent":
+                mouseControl.scroll(macroEvents["events"][events]["dx"], macroEvents["events"][events]["dy"])
+            elif macroEvents["events"][events]["type"] == "keyboardEvent":
+                keyToPress = macroEvents["events"][events]["key"] if 'Key.' not in macroEvents["events"][events]["key"] else \
+                special_keys[macroEvents["events"][events]["key"]]
+                if macroEvents["events"][events]["pressed"] == True:
+                    keyboardControl.press(keyToPress)
+                else:
+                    keyboardControl.release(keyToPress)
     keyboardControl.press(Key.esc)
     keyboardControl.release(Key.esc)
     playback = False
