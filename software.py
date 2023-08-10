@@ -1,11 +1,9 @@
-import sys
 import threading
 from json import load, dumps
 from tkinter import *
 from tkinter.ttk import *
 from tkinter import filedialog
 from tkinter import messagebox
-from tkinter import font
 from pynput import keyboard
 from pynput.keyboard import Key
 from subprocess import Popen
@@ -13,9 +11,8 @@ from os import path, mkdir, getenv, remove
 from webbrowser import open as OpenUrl
 from atexit import register
 from time import sleep
-from pystray import MenuItem as item
 import pystray
-from PIL import Image, ImageTk
+from PIL import Image
 import os
 
 special_keys = {"Key.esc": Key.esc, "Key.shift": Key.shift, "Key.tab": Key.tab, "Key.caps_lock": Key.caps_lock,
@@ -34,6 +31,7 @@ recordStatement = False  # Know if record is active
 recordSet = False  # Know if user set recorded so he can save it
 fileAlreadySaved = False  # Know if user already save is macro once so not neet to save as
 closeWindow = False # Know if user is about to close the window
+changeKey = False # Know to change hotkey
 keyboardControl = keyboard.Controller()  # Keyboard controller to detect keypress
 
 appdata_local = getenv('LOCALAPPDATA') + "/MacroRecorder"
@@ -61,6 +59,7 @@ if path.isdir(appdata_local) == False:
         },
 
         "Hotkeys": {
+            "Active": False,
             "Record_Start": "o",
             "Record_Stop": str(keyboard.Key.esc),
             "Playback_Start": "p",
@@ -112,12 +111,25 @@ def changeSettings(category, option=None, option2=None, newValue=None):
     open(path.join(appdata_local + "/userSettings.json"), "w").write(userSettings_json)
 
 
-def on_release(key):
+def on_press(key):
     """
     Detect key release to change buttons in the gui
     """
-    global recordStatement, playbackStatement, recordBtn, playBtn, recordSet
+    global changeKey, recordStatement, playbackStatement, recordBtn, playBtn, recordSet
+    if changeKey == True:
+        try:
+            keyPressed = key.char
+        except AttributeError:
+            keyPressed = str(key)
+            keyboardControl.release(key)
+        if keyPressed not in hotkey:
+            hotkey.append(keyPressed)
+        if "ctrl" not in keyPressed and "alt" not in keyPressed and "shift" not in keyPressed:
+            changeSettings("Hotkeys", typeOfHotKey, None, hotkey)
+            changeSettings("Hotkeys", "Active")
+            changeKey = False
     if changeKey == False:
+        print(changeKey)
         try:
             if key.char == 'o':
                 if (recordStatement == False and playbackStatement == False):
@@ -422,7 +434,7 @@ def afterPlaybackGui():
 
 
 def hotkeySettingsGui():
-    global changeKey, typeOfHotKey
+    global typeOfHotKey
     hotkeyGui = Toplevel(window)
     w = 300
     h = 200
@@ -434,19 +446,19 @@ def hotkeySettingsGui():
     hotkeyColumn = Frame(hotkeyGui)
     hotkeyLine = Frame(hotkeyColumn)
 
-    Button(hotkeyLine, text="Start Record", command=enableHotKeyDetection("Start_Record")).grid(row=0, column=0)
+    Button(hotkeyLine, text="Start Record", command=lambda: enableHotKeyDetection("Record_Start")).grid(row=0, column=0)
     startKey = Entry(hotkeyLine)
     startKey.grid(row=0, column=1)
 
-    Button(hotkeyLine, text="Stop Record", command=enableHotKeyDetection("Stop_Record")).grid(row=1, column=0)
+    Button(hotkeyLine, text="Stop Record", command=lambda: enableHotKeyDetection("Record_Stop")).grid(row=1, column=0)
     stopKey = Entry(hotkeyLine)
     stopKey.grid(row=1, column=1)
 
-    Button(hotkeyLine, text="Playback Start", command=enableHotKeyDetection("Playback_Start")).grid(row=2, column=0)
+    Button(hotkeyLine, text="Playback Start", command=lambda: enableHotKeyDetection("Playback_Start")).grid(row=2, column=0)
     playbackStart = Entry(hotkeyLine)
     playbackStart.grid(row=2, column=1)
 
-    Button(hotkeyLine, text="Playback Stop", command=enableHotKeyDetection("Playback_Stop")).grid(row=3, column=0)
+    Button(hotkeyLine, text="Playback Stop", command=lambda: enableHotKeyDetection("Playback_Stop")).grid(row=3, column=0)
     playbackStop = Entry(hotkeyLine)
     playbackStop.grid(row=3, column=1)
 
@@ -456,25 +468,12 @@ def hotkeySettingsGui():
 
 def enableHotKeyDetection(mode):
     global changeKey, typeOfHotKey, hotkey
+    changeSettings("Hotkeys", "Active")
     changeKey = True
     typeOfHotKey = mode
     hotkey = []
 
-def changeHotKey(key):
-    global changeKey
-    if changeKey == True:
-        try:
-            keyPressed = key.char
-        except AttributeError:
-            keyPressed = str(key)
-            keyboardControl.release(key)
-        print(keyPressed)
-        if keyPressed not in hotkey:
-            hotkey.append(keyPressed)
-        if "ctrl" not in keyPressed and "alt" not in keyPressed and "shift" not in keyPressed:
-            print("not ctrl or alt")
-            changeSettings("Hotkeys", typeOfHotKey, None, hotkey)
-            changeKey = False
+
 
 
 
@@ -590,7 +589,7 @@ window.bind('<Control-s>', saveMacro)
 window.bind('<Control-l>', loadMacro)
 window.bind('<Control-n>', newMacro)
 
-keyboardListener = keyboard.Listener(on_release=on_release, on_press=changeHotKey)
+keyboardListener = keyboard.Listener(on_press=on_press)
 keyboardListener.start()
 
 validate_cmd = window.register(validate_input)

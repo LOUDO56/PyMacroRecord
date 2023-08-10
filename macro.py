@@ -120,10 +120,13 @@ def startRecord():
         Start record
     """
     global start_time, mouse_listener, keyboard_listener, macroEvents, record, recordLenght
+    userSettings = load(open(path.join(appdata_local + "/userSettings.json")))
+    print(userSettings["Hotkeys"]["Active"])
+    if userSettings["Hotkeys"]["Active"] == True:
+        return
     record = True
     macroEvents = {'events': []}
     start_time = time()
-    userSettings = load(open(path.join(appdata_local + "/userSettings.json")))
     if userSettings["Recordings"]["Mouse_Move"] and userSettings["Recordings"]["Mouse_Click"]:
         mouse_listener = mouse.Listener(on_move=on_move, on_click=on_click, on_scroll=on_scroll)
     elif userSettings["Recordings"]["Mouse_Move"] and not userSettings["Recordings"]["Mouse_Click"]:
@@ -160,9 +163,11 @@ def playRec():
         and if I put the for loop in a thread, the playback is incredibly slow.
     """
     global playback, keyboard_listener
+    userSettings = load(open(path.join(appdata_local + "/userSettings.json")))
+    if userSettings["Hotkeys"]["Active"]:
+        return
     print('function playrec called')
     playback = True
-    userSettings = load(open(path.join(appdata_local + "/userSettings.json")))
     macroEvents = load(open(path.join(appdata_local + "/temprecord.json"), "r"))
     for repeat in range(userSettings["Playback"]["Repeat"]["Times"]):
         for events in range(len(macroEvents["events"])):
