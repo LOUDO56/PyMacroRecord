@@ -1,20 +1,33 @@
-import tkinter as tk
+from tkinter import *
 
-def validate_input(action, value_if_allowed):
-    if action == "1":  # Insert
-        try:
-            float(value_if_allowed)
-            return True
-        except ValueError:
-            return False
-    return True
+root = Tk()
+root.geometry("300x300")
 
-root = tk.Tk()
-root.title("Entrée Nombres Seulement")
+changing = False
 
-validate_cmd = root.register(validate_input)
+def hotkeyChange ():
+    global changing
+    changing = True
+    changeBtn.configure(text = "press a key", state = DISABLED)
 
-entry = tk.Entry(root, validate="key", validatecommand=(validate_cmd, "%d", "%P"))
-entry.pack(padx=20, pady=20)
+changeBtn = Button(root, text = "change Hotkey", command = hotkeyChange)
+changeBtn.pack()
 
+lbl = Label(root, text = "No Hotkey")
+lbl.pack()
+
+hotkey = None
+
+
+def changeHotkey(event):
+    global hotkey
+    global changing
+    if changing:
+        hotkey = event.keysym
+        lbl.configure(text = str(hotkey))
+        changeBtn.configure(state = NORMAL, text = "change Hotkey")
+        changing = False
+    elif event.keysym == hotkey:
+        print("Hotkey was pressed")
+root.bind_all("<Key>", changeHotkey)
 root.mainloop()

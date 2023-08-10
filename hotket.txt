@@ -1,0 +1,4 @@
+pour hotkey
+
+input, si la touche est spécial on continue la détection sinon on arrete
+pour vérifier les input du clavier, il faut que je loop une liste et si dans la liste toutes les touches préssés y sont, on déclenche l'event
