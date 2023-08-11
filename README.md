@@ -70,3 +70,11 @@ But, if you are still unsure about that, you can follow these steps to avoid the
 
 - And finally type: `python software.py`
 - And boom! The software is now operate to use
+
+# License
+
+This program is under [Creative Commons 4.0 BY-NC-SA](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+
+# Special Thanks
+
+Special thanks to Fooinys, who playtested my program!
