@@ -29,8 +29,14 @@ And to stop the playback, press the `escape` key (By default)
 \
 Here's some video to show you the proccess:
 
-https://github.com/LOUDO56/PyMacroRecord/assets/117168736/bccd0da1-8102-4418-9458-acda114af2d4
-https://github.com/LOUDO56/PyMacroRecord/assets/117168736/6159b161-fbe8-4d02-99a5-d9f3cb8580f3
+
+https://github.com/LOUDO56/PyMacroRecord/assets/117168736/72a9fc1c-973f-4e42-a275-a1a6d095d85b
+
+
+https://github.com/LOUDO56/PyMacroRecord/assets/117168736/f95af149-ea49-4bec-aadb-11227b31a101
+
+
+
 
 # My computer detect this program as a Virus
 
