@@ -13,6 +13,7 @@ PyMacroRecorder works with a GUI made using tkinter, making it easier for users 
 - Load.
 - Universal Files (work with .json).
 - After-playback options, e.g., Standby or shutdown computer.
+- Can choose from recording mouse movement, click and keyboard input
 - Mouse Movement, click, and keyboard recording.
 - Smooth recording of the mouse.
 
