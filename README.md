@@ -29,10 +29,15 @@ And to stop the playback, press the `escape` key (By default).
 Here are some videos to show you the process:
 
 
-https://github.com/LOUDO56/PyMacroRecord/assets/117168736/72a9fc1c-973f-4e42-a275-a1a6d095d85b
 
 
-https://github.com/LOUDO56/PyMacroRecord/assets/117168736/f95af149-ea49-4bec-aadb-11227b31a101
+https://github.com/LOUDO56/PyMacroRecord/assets/117168736/3150d831-9d2e-4481-b72f-45dd5835ae26
+
+
+
+https://github.com/LOUDO56/PyMacroRecord/assets/117168736/624e49b4-439e-413c-a054-a9586564a39e
+
+
 
 
 
