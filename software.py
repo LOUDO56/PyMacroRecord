@@ -15,16 +15,24 @@ import pystray
 from PIL import Image
 import os
 
-special_keys = {"Key.esc": Key.esc, "Key.shift": Key.shift, "Key.tab": Key.tab, "Key.caps_lock": Key.caps_lock,
-                "Key.ctrl": Key.ctrl, "Key.ctrl_l": Key.ctrl_l, "Key.alt": Key.alt, "Key.cmd": Key.cmd,
-                "Key.cmd_r": Key.cmd_r, "Key.alt_r": Key.alt_r, "Key.ctrl_r": Key.ctrl_r, "Key.shift_r": Key.shift_r,
-                "Key.enter": Key.enter, "Key.backspace": Key.backspace, "Key.f19": Key.f19, "Key.f18": Key.f18,
-                "Key.f17": Key.f17, "Key.f16": Key.f16, "Key.f15": Key.f15, "Key.f14": Key.f14, "Key.f13": Key.f13,
-                "Key.media_volume_up": Key.media_volume_up, "Key.media_volume_down": Key.media_volume_down,
-                "Key.media_volume_mute": Key.media_volume_mute, "Key.media_play_pause": Key.media_play_pause,
-                "Key.f6": Key.f6, "Key.f5": Key.f5, "Key.right": Key.right, "Key.down": Key.down, "Key.left": Key.left,
-                "Key.up": Key.up, "Key.page_up": Key.page_up, "Key.page_down": Key.page_down, "Key.home": Key.home,
-                "Key.end": Key.end, "Key.delete": Key.delete, "Key.space": Key.space}
+
+
+special_keys = {
+    "Key.esc": Key.esc, "Key.shift": Key.shift, "Key.tab": Key.tab, "Key.caps_lock": Key.caps_lock,
+    "Key.ctrl": Key.ctrl, "Key.ctrl_l": Key.ctrl_l, "Key.ctrl_r": Key.ctrl_r, "Key.alt": Key.alt,
+    "Key.alt_l": Key.alt_l, "Key.alt_r": Key.alt_r, "Key.cmd": Key.cmd, "Key.cmd_l": Key.cmd_l,
+    "Key.cmd_r": Key.cmd_r, "Key.enter": Key.enter, "Key.backspace": Key.backspace, "Key.f19": Key.f19,
+    "Key.f18": Key.f18, "Key.f17": Key.f17, "Key.f16": Key.f16, "Key.f15": Key.f15, "Key.f14": Key.f14,
+    "Key.f13": Key.f13, "Key.media_volume_up": Key.media_volume_up, "Key.media_volume_down": Key.media_volume_down,
+    "Key.media_volume_mute": Key.media_volume_mute, "Key.media_play_pause": Key.media_play_pause,
+    "Key.f6": Key.f6, "Key.f5": Key.f5, "Key.f4": Key.f4, "Key.f3": Key.f3, "Key.f2": Key.f2, "Key.f1": Key.f1,
+    "Key.insert": Key.insert, "Key.right": Key.right, "Key.down": Key.down, "Key.left": Key.left,
+    "Key.up": Key.up, "Key.page_up": Key.page_up, "Key.page_down": Key.page_down, "Key.home": Key.home,
+    "Key.end": Key.end, "Key.delete": Key.delete, "Key.space": Key.space,
+    "Key.alt_gr": Key.alt_gr, "Key.menu": Key.menu, "Key.num_lock": Key.num_lock,
+    "Key.pause": Key.pause, "Key.print_screen": Key.print_screen, "Key.scroll_lock": Key.scroll_lock,
+    "Key.shift_l": Key.shift_l, "Key.shift_r": Key.shift_r,
+}
 
 playbackStatement = False  # Know if playback is active
 recordStatement = False  # Know if record is active
@@ -32,9 +40,12 @@ recordSet = False  # Know if user set recorded so he can save it
 fileAlreadySaved = False  # Know if user already save is macro once so not neet to save as
 closeWindow = False # Know if user is about to close the window
 changeKey = False # Know to change hotkey
+cantRec = False # Prevents recording from settings speed and repeat setup
+hotkeyVisible = []
+hotkeysDetection = []
 keyboardControl = keyboard.Controller()  # Keyboard controller to detect keypress
 
-appdata_local = getenv('LOCALAPPDATA') + "/MacroRecorder"
+appdata_local = getenv('LOCALAPPDATA') + "/MacroPyRecorder"
 appdata_local = appdata_local.replace('\\', "/")
 if path.exists(path.join(appdata_local + "/temprecord.json")):
     remove(path.join(appdata_local + "/temprecord.json"))
@@ -59,11 +70,18 @@ if path.isdir(appdata_local) == False:
         },
 
         "Hotkeys": {
-            "Active": False,
-            "Record_Start": "o",
-            "Record_Stop": str(keyboard.Key.esc),
-            "Playback_Start": "p",
-            "Playback_Stop": str(keyboard.Key.esc),
+            "Record_Start": [
+                "o"
+            ],
+            "Record_Stop": [
+                "Key.esc"
+            ],
+            "Playback_Start": [
+                "p"
+            ],
+            "Playback_Stop": [
+                "Key.esc"
+            ],
         },
 
         "Minimization": {
@@ -75,7 +93,9 @@ if path.isdir(appdata_local) == False:
 
         "After_Playback": {
             "Mode": "Idle" #Quit, Lock Computer, Lof off computer, Turn off computer, Standby, Hibernate
-        }
+        },
+
+        "Cant_rec": False
 
     }
 
@@ -88,6 +108,7 @@ userSettings = load(open(path.join(appdata_local+"/userSettings.json")))
 
 def changeSettings(category, option=None, option2=None, newValue=None):
     """Change settings of user"""
+    global userSettings
     if newValue is None:
         if option is None:
             if userSettings[category]:
@@ -109,64 +130,81 @@ def changeSettings(category, option=None, option2=None, newValue=None):
             userSettings[category][option] = newValue
     userSettings_json = dumps(userSettings, indent=4)
     open(path.join(appdata_local + "/userSettings.json"), "w").write(userSettings_json)
+    userSettings = load(open(path.join(appdata_local+"/userSettings.json")))
 
 
 def on_press(key):
     """
     Detect key release to change buttons in the gui
     """
-    global changeKey, recordStatement, playbackStatement, recordBtn, playBtn, recordSet
+    global changeKey, recordStatement, playbackStatement, recordBtn, playBtn, recordSet, userSettings, specialKeyPressed, hotkeysDetection, entryToChange, hotkeyVisible
     if changeKey == True:
-        try:
-            keyPressed = key.char
-        except AttributeError:
+        if "Key." in str(key):
             keyPressed = str(key)
-            keyboardControl.release(key)
+        else:
+            keyPressed = str(keyboardListener.canonical(key)).replace("'", "")
         if keyPressed not in hotkey:
             hotkey.append(keyPressed)
+            keyPressed = keyPressed.replace("Key.", "").replace("_l", "").replace("_r", "").replace("_gr", "")
+            hotkeyVisible.append(keyPressed.upper())
+        entryToChange.configure(text=hotkeyVisible)
         if "ctrl" not in keyPressed and "alt" not in keyPressed and "shift" not in keyPressed:
             changeSettings("Hotkeys", typeOfHotKey, None, hotkey)
-            changeSettings("Hotkeys", "Active")
             changeKey = False
-    if changeKey == False:
-        print(changeKey)
-        try:
-            if key.char == 'o':
-                if (recordStatement == False and playbackStatement == False):
-                    startRecordingAndChangeImg(False)
-            if key.char == 'p':
-                if (recordStatement == False and playbackStatement == False and recordSet == True):
-                    replay(False)
-        except AttributeError:
-            if key == keyboard.Key.esc:
-                if (recordStatement == True and playbackStatement == False):
-                    stopRecordingAndChangeImg(False)
-                if (recordStatement == False and playbackStatement == True):
-                    playbackStatement = False
-                    sleep(0.1)
-                    recordBtn.configure(state=NORMAL)
-                    playBtn.configure(image=playImg)
-                    file_menu.entryconfig('New', state=NORMAL)
-                    file_menu.entryconfig('Load', state=NORMAL)
-                    file_menu.entryconfig('Save', state=NORMAL)
-                    file_menu.entryconfig('Save as', state=NORMAL)
-                    userSettings = load(open(path.join(appdata_local + "/userSettings.json")))
-                    print(userSettings["After_Playback"]["Mode"])
-                    if userSettings["After_Playback"]["Mode"] != "Idle":
-                        cleanup()
-                        window.quit()
-                        if userSettings["After_Playback"]["Mode"] == "Standy":
-                            os.system("rundll32.exe powrprof.dll,SetSuspendState 0,1,0")
-                        if userSettings["After_Playback"]["Mode"] == "Log off Computer":
-                            os.system("shutdown /l")
-                        if userSettings["After_Playback"]["Mode"] == "Turn off Computer":
-                            os.system("shutdown /s")
-                        if userSettings["After_Playback"]["Mode"] == "Hibernate (If activated)":
-                            os.system("shutdown -h")
-                    if userSettings["Minimization"]["When_Playing"]:
-                        window.deiconify()
+            hotkeyVisible = []
+    if changeKey == False and cantRec == False:
+        if "Key." in str(key):
+            keyPressed = str(key)
+        else:
+            keyPressed = str(keyboardListener.canonical(key)).replace("'", "")
+        if keyPressed not in hotkeysDetection:
+            hotkeysDetection.append(keyPressed)
+        if hotkeysDetection == userSettings["Hotkeys"]["Record_Start"]:
+            if (recordStatement == False and playbackStatement == False):
+                hotkeysDetection = []
+                specialKeyPressed = False
+                startRecordingAndChangeImg(False)
+        if hotkeysDetection == userSettings["Hotkeys"]["Playback_Start"]:
+            if (recordStatement == False and playbackStatement == False and recordSet == True):
+                hotkeysDetection = []
+                specialKeyPressed = False
+                replay(False)
+        if hotkeysDetection == userSettings["Hotkeys"]["Record_Stop"]:
+            if (recordStatement == True and playbackStatement == False):
+                hotkeysDetection = []
+                specialKeyPressed = False
+                stopRecordingAndChangeImg(False)
+        if hotkeysDetection == userSettings["Hotkeys"]["Playback_Stop"]:
+            if (recordStatement == False and playbackStatement == True):
+                hotkeysDetection = []
+                specialKeyPressed = False
+                playbackStatement = False
+                sleep(0.1)
+                recordBtn.configure(state=NORMAL)
+                playBtn.configure(image=playImg, command=replay)
+                file_menu.entryconfig('New', state=NORMAL)
+                file_menu.entryconfig('Load', state=NORMAL)
+                file_menu.entryconfig('Save', state=NORMAL)
+                file_menu.entryconfig('Save as', state=NORMAL)
+                userSettings = load(open(path.join(appdata_local + "/userSettings.json")))
+                if userSettings["After_Playback"]["Mode"] != "Idle":
+                    cleanup()
+                    window.quit()
+                    if userSettings["After_Playback"]["Mode"] == "Standy":
+                        os.system("rundll32.exe powrprof.dll,SetSuspendState 0,1,0")
+                    if userSettings["After_Playback"]["Mode"] == "Log off Computer":
+                        os.system("shutdown /l")
+                    if userSettings["After_Playback"]["Mode"] == "Turn off Computer":
+                        os.system("shutdown /s")
+                    if userSettings["After_Playback"]["Mode"] == "Hibernate (If activated)":
+                        os.system("shutdown -h")
+                if userSettings["Minimization"]["When_Playing"]:
+                    window.deiconify()
 
-
+def on_release(key):
+    global hotkeysDetection
+    if len(hotkeysDetection) != 0:
+        hotkeysDetection.pop()
 
     
 def startRecordingAndChangeImg(pressKey=True):
@@ -175,19 +213,23 @@ def startRecordingAndChangeImg(pressKey=True):
     instead of his keyboard, it changes the button image
     """
     global stopBtn, recordStatement, playbackStatement
+    userSettings = load(open(path.join(appdata_local + "/userSettings.json")))
     playBtn.configure(state=DISABLED)
     if playbackStatement == False:
         recordStatement = True
         file_menu.entryconfig('Load', state=DISABLED)
         if pressKey:
-            keyboardControl.press('o')
-            keyboardControl.release('o')
+            for keys in userSettings["Hotkeys"]["Record_Start"]:
+                keyToPress = keys if 'Key.' not in keys else special_keys[keys]
+                keyboardControl.press(keyToPress)
+            for keys in userSettings["Hotkeys"]["Record_Start"]:
+                keyToPress = keys if 'Key.' not in keys else special_keys[keys]
+                keyboardControl.release(keyToPress)
         recordBtn.configure(image=stopImg, command=stopRecordingAndChangeImg)
         file_menu.entryconfig('Save', state=DISABLED)
         file_menu.entryconfig('Save as', state=DISABLED)
         file_menu.entryconfig('New', state=DISABLED)
         file_menu.entryconfig('Load', state=DISABLED)
-        userSettings = load(open(path.join(appdata_local + "/userSettings.json")))
         if userSettings["Minimization"]["When_Recording"]:
            window.withdraw()
 
@@ -198,18 +240,22 @@ def stopRecordingAndChangeImg(pressKey=True):
     instead of his keyboard, it changes the button image
     """
     global recordBtn, recordStatement, recordSet
+    userSettings = load(open(path.join(appdata_local + "/userSettings.json")))
     recordStatement = False
     recordSet = True
     if pressKey:
-        keyboardControl.press(keyboard.Key.esc)
-        keyboardControl.release(keyboard.Key.esc)
+        for keys in userSettings["Hotkeys"]["Record_Stop"]:
+            keyToPress = keys if 'Key.' not in keys else special_keys[keys]
+            keyboardControl.press(keyToPress)
+        for keys in userSettings["Hotkeys"]["Record_Stop"]:
+            keyToPress = keys if 'Key.' not in keys else special_keys[keys]
+            keyboardControl.release(keyToPress)
     recordBtn.configure(image=recordImg, command=startRecordingAndChangeImg)
     playBtn.configure(state=NORMAL)
     file_menu.entryconfig('Save', state=NORMAL, command=saveMacro)
     file_menu.entryconfig('Save as', state=NORMAL, command=saveMacroAs)
     file_menu.entryconfig('New', state=NORMAL, command=newMacro)
     file_menu.entryconfig('Load', state=NORMAL)
-    userSettings = load(open(path.join(appdata_local + "/userSettings.json")))
     if userSettings["Minimization"]["When_Recording"]:
         window.deiconify()
 
@@ -220,20 +266,30 @@ def replay(pressKey=True):
     """
     global playbackStatement, recordBtn, recordSet
     userSettings = load(open(path.join(appdata_local + "/userSettings.json")))
-    playBtn.configure(image=stopImg)
-    print('playback')
+    playBtn.configure(image=stopImg, command=stopReplay)
     playbackStatement = True
     file_menu.entryconfig('Save', state=DISABLED)
     file_menu.entryconfig('Save as', state=DISABLED)
     file_menu.entryconfig('New', state=DISABLED)
     file_menu.entryconfig('Load', state=DISABLED)
     if pressKey:
-        keyboardControl.press('p')
-        keyboardControl.release('p')
+        for keys in userSettings["Hotkeys"]["Playback_Start"]:
+            keyToPress = keys if 'Key.' not in keys else special_keys[keys]
+            keyboardControl.press(keyToPress)
+        for keys in userSettings["Hotkeys"]["Playback_Start"]:
+            keyToPress = keys if 'Key.' not in keys else special_keys[keys]
+            keyboardControl.release(keyToPress)
     recordBtn.configure(state=DISABLED)
     if userSettings["Minimization"]["When_Playing"]:
         window.withdraw()
 
+def stopReplay():
+    for keys in userSettings["Hotkeys"]["Playback_Stop"]:
+        keyToPress = keys if 'Key.' not in keys else special_keys[keys]
+        keyboardControl.press(keyToPress)
+    for keys in userSettings["Hotkeys"]["Playback_Stop"]:
+        keyToPress = keys if 'Key.' not in keys else special_keys[keys]
+        keyboardControl.release(keyToPress)
 
 def saveMacroAs(e=None):
     """
@@ -265,7 +321,6 @@ def saveMacro(e=None):
             macroEvents = load(macroContent)
             json_macroEvents = dumps(macroEvents, indent=4)
             macroSaved.write(json_macroEvents)
-            print('saved')
         else:
             saveMacroAs()
         if closeWindow:
@@ -296,7 +351,6 @@ def loadMacro(e=None):
             file_menu.entryconfig('Save as', state=NORMAL, command=saveMacroAs)
             file_menu.entryconfig('New', state=NORMAL, command=newMacro)
             macroFile.close()
-            print("loaded")
             fileAlreadySaved = True
 
 
@@ -353,7 +407,9 @@ def validate_input(action, value_if_allowed):
 
 
 def changeSpeed():
-    global speedWin, horizontal_line, speedTestVal
+    global speedWin, horizontal_line, speedTestVal, cantRec
+    cantRec = True
+    changeSettings("Cant_rec")
     speedWin = Toplevel(window)
     w = 300
     h = 150
@@ -371,6 +427,9 @@ def changeSpeed():
     Button(buttonArea, text="Confirm", command=lambda: setNewSpeedNumber(setNewSpeedInput.get())).pack(side=LEFT, padx=10)
     Button(buttonArea, text="Cancel", command=speedWin.destroy).pack(side=LEFT, padx=10)
     buttonArea.pack(side=BOTTOM, pady=10)
+    window.wait_window(speedWin)
+    cantRec = False
+    changeSettings("Cant_rec")
 
 def setNewSpeedNumber(val):
     try:
@@ -384,7 +443,10 @@ def setNewSpeedNumber(val):
 
 
 def repeatGuiSettings():
+    global cantRec
+    cantRec = True
     repeatGui = Toplevel(window)
+    changeSettings("Cant_rec")
     w = 300
     h = 150
     repeatGui.geometry('%dx%d+%d+%d' % (w, h, x, y))
@@ -401,10 +463,16 @@ def repeatGuiSettings():
     Button(buttonArea, text="Confirm", command=lambda: [changeSettings("Playback", "Repeat", "Times", int(repeatTimes.get())), repeatGui.destroy()]).pack(side=LEFT,padx=10)
     Button(buttonArea, text="Cancel", command=repeatGui.destroy).pack(side=LEFT, padx=10)
     buttonArea.pack(side=BOTTOM, pady=10)
+    window.wait_window(repeatGui)
+    cantRec = False
+    changeSettings("Cant_rec")
 
 
 def afterPlaybackGui():
+    global cantRec
+    cantRec = True
     playBackGui = Toplevel(window)
+    changeSettings("Cant_rec")
     w = 250
     h = 150
     playBackGui.geometry('%dx%d+%d+%d' % (w, h, x, y))
@@ -431,10 +499,15 @@ def afterPlaybackGui():
     Button(buttonArea, text="Confirm", command=lambda: [changeSettings("After_Playback", "Mode", None, AfterPlaybackOption.get()), playBackGui.destroy()]).pack(side=LEFT, padx=10)
     Button(buttonArea, text="Cancel", command=playBackGui.destroy).pack(side=LEFT, padx=10)
     buttonArea.pack(side=BOTTOM, pady=10)
+    window.wait_window(playBackGui)
+    cantRec = False
+    changeSettings("Cant_rec")
 
 
 def hotkeySettingsGui():
-    global typeOfHotKey
+    global typeOfHotKey, startKey, stopKey, playbackStartKey, playbackStopKey, cantRec
+    cantRec = True
+    changeSettings("Cant_rec")
     hotkeyGui = Toplevel(window)
     w = 300
     h = 200
@@ -443,39 +516,65 @@ def hotkeySettingsGui():
     hotkeyGui.grab_set()
     hotkeyGui.resizable(False, False)
     hotkeyGui.attributes("-toolwindow", 1)
-    hotkeyColumn = Frame(hotkeyGui)
-    hotkeyLine = Frame(hotkeyColumn)
+    hotkeyLine = Frame(hotkeyGui)
+    hotkeyStart = userSettings["Hotkeys"]["Record_Start"]
+    hotkeyStop = userSettings["Hotkeys"]["Record_Stop"]
+    hotkeyPlaybackStart = userSettings["Hotkeys"]["Playback_Start"]
+    hotkeyPlaybackStop = userSettings["Hotkeys"]["Playback_Stop"]
+    hotkeyVisible = [hotkeyStart, hotkeyStop, hotkeyPlaybackStart, hotkeyPlaybackStop]
+    cleanedHotkeys = []
+    for key in hotkeyVisible:
+        if isinstance(key, list):
+            cleanedSublist = [
+                subkey.replace("Key.", "").replace("_l", "").replace("_r", "").replace("_gr", "").upper() if isinstance(
+                    subkey, str) else subkey for subkey in key]
+            cleanedHotkeys.append(cleanedSublist)
+        else:
+            cleanedKey = key.replace("Key.", "").replace("_l", "").replace("_r", "").replace("_gr", "").upper()
+            cleanedHotkeys.append(cleanedKey)
+    hotkeyVisible = cleanedHotkeys
+    Button(hotkeyLine, text="Start Record", command=lambda: enableHotKeyDetection("Record_Start", startKey)).grid(row=0, column=0, padx=10)
+    startKey = Label(hotkeyLine, text=hotkeyVisible[0], font=('Segoe UI', 12))
+    startKey.grid(row=0, column=1, pady=5)
 
-    Button(hotkeyLine, text="Start Record", command=lambda: enableHotKeyDetection("Record_Start")).grid(row=0, column=0)
-    startKey = Entry(hotkeyLine)
-    startKey.grid(row=0, column=1)
+    Button(hotkeyLine, text="Stop Record", command=lambda: enableHotKeyDetection("Record_Stop", stopKey)).grid(row=1, column=0, padx=10)
+    stopKey = Label(hotkeyLine, text=hotkeyVisible[1], font=('Segoe UI', 12))
+    stopKey.grid(row=1, column=1, pady=5)
 
-    Button(hotkeyLine, text="Stop Record", command=lambda: enableHotKeyDetection("Record_Stop")).grid(row=1, column=0)
-    stopKey = Entry(hotkeyLine)
-    stopKey.grid(row=1, column=1)
+    Button(hotkeyLine, text="Playback Start", command=lambda: enableHotKeyDetection("Playback_Start", playbackStartKey)).grid(row=2, column=0, padx=10)
+    playbackStartKey = Label(hotkeyLine, text=hotkeyVisible[2], font=('Segoe UI', 12))
+    playbackStartKey.grid(row=2, column=1, pady=5)
 
-    Button(hotkeyLine, text="Playback Start", command=lambda: enableHotKeyDetection("Playback_Start")).grid(row=2, column=0)
-    playbackStart = Entry(hotkeyLine)
-    playbackStart.grid(row=2, column=1)
+    Button(hotkeyLine, text="Playback Stop", command=lambda: enableHotKeyDetection("Playback_Stop", playbackStopKey)).grid(row=3, column=0, padx=10)
+    playbackStopKey = Label(hotkeyLine, text=hotkeyVisible[3], font=('Segoe UI', 12))
+    playbackStopKey.grid(row=3, column=1, pady=5)
 
-    Button(hotkeyLine, text="Playback Stop", command=lambda: enableHotKeyDetection("Playback_Stop")).grid(row=3, column=0)
-    playbackStop = Entry(hotkeyLine)
-    playbackStop.grid(row=3, column=1)
-
-    hotkeyColumn.pack()
     hotkeyLine.pack()
 
+    buttonArea = Frame(hotkeyGui)
+    Button(buttonArea, text="Close", command=hotkeyGui.destroy).pack(side=LEFT, padx=10)
+    buttonArea.pack(side=BOTTOM, pady=10)
+    window.wait_window(hotkeyGui)
+    cantRec = False
+    changeSettings("Cant_rec")
 
-def enableHotKeyDetection(mode):
-    global changeKey, typeOfHotKey, hotkey
-    changeSettings("Hotkeys", "Active")
+
+
+def enableHotKeyDetection(mode, entry):
+    global changeKey, typeOfHotKey, hotkey, entryToChange
     changeKey = True
     typeOfHotKey = mode
     hotkey = []
+    entry.configure(text="Please key")
+    entryToChange = entry
 
 
 
-
+def destroyWindow(win):
+    global cantRec
+    win.destroy()
+    changeSettings("Cant_rec")
+    cantRec = False
 
 def systemTray():
     global icon
@@ -498,12 +597,12 @@ def cleanup():
 
 register(cleanup)
 
-macro_process = Popen(['python',
+macro_process = Popen(['pythonw',
                        'macro.py'])  # it serves to run macro.py in the background because thread make the recording slower for some reasons
 
 # Window Setup
 window = Tk()
-window.title("MacroRecorder")
+window.title("MacroPyRecorder")
 w = 350
 h = 200
 ws = window.winfo_screenwidth()
@@ -527,8 +626,6 @@ file_menu.add_command(label="Load", command=loadMacro, accelerator="Ctrl+L")
 file_menu.add_separator()
 file_menu.add_command(label="Save", state=DISABLED, accelerator="Ctrl+S")
 file_menu.add_command(label="Save as", state=DISABLED, accelerator="Ctrl+Shift+S")
-file_menu.add_separator()
-file_menu.add_command(label="Exit", command=window.quit)
 
 # Options Section
 options_menu = Menu(my_menu, tearoff=0)
@@ -589,7 +686,7 @@ window.bind('<Control-s>', saveMacro)
 window.bind('<Control-l>', loadMacro)
 window.bind('<Control-n>', newMacro)
 
-keyboardListener = keyboard.Listener(on_press=on_press)
+keyboardListener = keyboard.Listener(on_press=on_press, on_release=on_release)
 keyboardListener.start()
 
 validate_cmd = window.register(validate_input)
@@ -597,5 +694,8 @@ validate_cmd = window.register(validate_input)
 window.protocol("WM_DELETE_WINDOW", stopProgram)
 
 threading.Thread(target=systemTray).start()
+
+if userSettings["Cant_rec"]:
+    changeSettings("Cant_rec")
 
 window.mainloop()

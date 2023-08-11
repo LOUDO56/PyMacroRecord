@@ -8,26 +8,34 @@ from json import load, dumps
 from os import getenv, path
 from time import sleep, time
 
-appdata_local = getenv('LOCALAPPDATA') + "/MacroRecorder"
+appdata_local = getenv('LOCALAPPDATA') + "/MacroPyRecorder"
 appdata_local = appdata_local.replace('\\', "/")
-
+specialKeyPressed = False
 macroEvents = {
     "events": []}  # The core of this script, it serves to store all data events, so it can be replayable or saved on a file
 userSettings = load(open(path.join(appdata_local + "/userSettings.json")))
 
+hotkeysDetection = []
 
 mouseControl = mouse.Controller()
 keyboardControl = keyboard.Controller()
-special_keys = {"Key.esc": Key.esc, "Key.shift": Key.shift, "Key.tab": Key.tab, "Key.caps_lock": Key.caps_lock,
-                "Key.ctrl": Key.ctrl, "Key.ctrl_l": Key.ctrl_l, "Key.alt": Key.alt, "Key.cmd": Key.cmd,
-                "Key.cmd_r": Key.cmd_r, "Key.alt_r": Key.alt_r, "Key.ctrl_r": Key.ctrl_r, "Key.shift_r": Key.shift_r,
-                "Key.enter": Key.enter, "Key.backspace": Key.backspace, "Key.f19": Key.f19, "Key.f18": Key.f18,
-                "Key.f17": Key.f17, "Key.f16": Key.f16, "Key.f15": Key.f15, "Key.f14": Key.f14, "Key.f13": Key.f13,
-                "Key.media_volume_up": Key.media_volume_up, "Key.media_volume_down": Key.media_volume_down,
-                "Key.media_volume_mute": Key.media_volume_mute, "Key.media_play_pause": Key.media_play_pause,
-                "Key.f6": Key.f6, "Key.f5": Key.f5, "Key.right": Key.right, "Key.down": Key.down, "Key.left": Key.left,
-                "Key.up": Key.up, "Key.page_up": Key.page_up, "Key.page_down": Key.page_down, "Key.home": Key.home,
-                "Key.end": Key.end, "Key.delete": Key.delete, "Key.space": Key.space}
+special_keys = {
+    "Key.esc": Key.esc, "Key.shift": Key.shift, "Key.tab": Key.tab, "Key.caps_lock": Key.caps_lock,
+    "Key.ctrl": Key.ctrl, "Key.ctrl_l": Key.ctrl_l, "Key.ctrl_r": Key.ctrl_r, "Key.alt": Key.alt,
+    "Key.alt_l": Key.alt_l, "Key.alt_r": Key.alt_r, "Key.cmd": Key.cmd, "Key.cmd_l": Key.cmd_l,
+    "Key.cmd_r": Key.cmd_r, "Key.enter": Key.enter, "Key.backspace": Key.backspace, "Key.f19": Key.f19,
+    "Key.f18": Key.f18, "Key.f17": Key.f17, "Key.f16": Key.f16, "Key.f15": Key.f15, "Key.f14": Key.f14,
+    "Key.f13": Key.f13, "Key.media_volume_up": Key.media_volume_up, "Key.media_volume_down": Key.media_volume_down,
+    "Key.media_volume_mute": Key.media_volume_mute, "Key.media_play_pause": Key.media_play_pause,
+    "Key.f6": Key.f6, "Key.f5": Key.f5, "Key.f4": Key.f4, "Key.f3": Key.f3, "Key.f2": Key.f2, "Key.f1": Key.f1,
+    "Key.insert": Key.insert, "Key.right": Key.right, "Key.down": Key.down, "Key.left": Key.left,
+    "Key.up": Key.up, "Key.page_up": Key.page_up, "Key.page_down": Key.page_down, "Key.home": Key.home,
+    "Key.end": Key.end, "Key.delete": Key.delete, "Key.space": Key.space,
+    "Key.alt_gr": Key.alt_gr, "Key.menu": Key.menu, "Key.num_lock": Key.num_lock,
+    "Key.pause": Key.pause, "Key.print_screen": Key.print_screen, "Key.scroll_lock": Key.scroll_lock,
+    "Key.shift_l": Key.shift_l, "Key.shift_r": Key.shift_r,
+}
+
 # Special keys are for on press and on release event so when the playback is on, it can press special keys without errors
 
 record = False  # Know if record is active
@@ -62,35 +70,36 @@ def on_scroll(x, y, dx, dy):
 
 
 def on_press(key):
-    global start_time, playback, keyboard_listener
+    global start_time, playback, keyboard_listener, hotkeysDetection
+    userSettings = load(open(path.join(appdata_local + "/userSettings.json")))
+    if userSettings["Cant_rec"]:
+        return
+    if "Key." in str(key):
+        keyPressed = str(key)
+    else:
+        keyPressed = str(keyboard_listener.canonical(key)).replace("'", "")
+    if keyPressed not in hotkeysDetection:
+        hotkeysDetection.append(keyPressed)
     if record == False and playback == False:
-        try:
-            if key.char == 'o':
-                startRecord()
-        except AttributeError:
-            pass
+        if hotkeysDetection == userSettings["Hotkeys"]["Record_Start"]:
+            startRecord()
+
         # Play Back
         if record == False and playback == False and path.exists(path.join(appdata_local + "/temprecord.json")):
-            try:
-                if key.char == 'p':
-                    threading.Thread(target=playRec).start()
-            except AttributeError:
-                pass
+            if hotkeysDetection == userSettings["Hotkeys"]["Playback_Start"]:
+                hotkeysDetection = []
+                threading.Thread(target=playRec).start()
+
     if record == False and playback == True:
-        try:
-            if key == Key.esc:
-                playback = False
-        except AttributeError:
-            pass
+        if hotkeysDetection == userSettings["Hotkeys"]["Playback_Stop"]:
+            hotkeysDetection = []
+            playback = False
 
     if record == True and playback == False:
         # Stop Record
-        print()
-        try:
-            if key == Key.esc:
-                stopRecord()
-        except AttributeError:
-            pass
+        if hotkeysDetection == userSettings["Hotkeys"]["Record_Stop"]:
+            hotkeysDetection = []
+            stopRecord()
         if userSettings["Recordings"]["Keyboard"]:
             try:
                 macroEvents["events"].append(
@@ -100,10 +109,10 @@ def on_press(key):
                     {'type': 'keyboardEvent', 'key': str(key), 'timestamp': time() - start_time, 'pressed': True})
             start_time = time()
 
-
-
 def on_release(key):
     global start_time
+    if len(hotkeysDetection) != 0:
+        hotkeysDetection.pop()
     if record == True and playback == False:
         if userSettings["Recordings"]["Keyboard"]:
             try:
@@ -119,11 +128,8 @@ def startRecord():
     """
         Start record
     """
-    global start_time, mouse_listener, keyboard_listener, macroEvents, record, recordLenght
+    global start_time, mouse_listener, keyboard_listener, macroEvents, record, recordLenght, userSettings
     userSettings = load(open(path.join(appdata_local + "/userSettings.json")))
-    print(userSettings["Hotkeys"]["Active"])
-    if userSettings["Hotkeys"]["Active"] == True:
-        return
     record = True
     macroEvents = {'events': []}
     start_time = time()
@@ -134,7 +140,6 @@ def startRecord():
     else:
         mouse_listener = mouse.Listener(on_click=on_click, on_scroll=on_scroll)
     mouse_listener.start()
-    print('record started')
 
 
 def stopRecord():
@@ -147,10 +152,8 @@ def stopRecord():
     macroEvents["events"].remove(macroEvents["events"][-1])
     macroEvents["events"].remove(macroEvents["events"][-1])
     macroEvents["events"].remove(macroEvents["events"][0])
-    print(macroEvents)
     json_macroEvents = dumps(macroEvents, indent=4)
     open(path.join(appdata_local + "/temprecord.json"), "w").write(json_macroEvents)
-    print('record stopped')
 
 
 def playRec():
@@ -164,16 +167,13 @@ def playRec():
     """
     global playback, keyboard_listener
     userSettings = load(open(path.join(appdata_local + "/userSettings.json")))
-    if userSettings["Hotkeys"]["Active"]:
-        return
-    print('function playrec called')
     playback = True
     macroEvents = load(open(path.join(appdata_local + "/temprecord.json"), "r"))
     for repeat in range(userSettings["Playback"]["Repeat"]["Times"]):
         for events in range(len(macroEvents["events"])):
             if playback == False:
                 return
-            sleep(macroEvents["events"][events]["timestamp"] * userSettings["Playback"]["Speed"])
+            sleep(macroEvents["events"][events]["timestamp"] * (1 / userSettings["Playback"]["Speed"]))
             if macroEvents["events"][events]["type"] == "cursorMove":
                 mouseControl.position = (macroEvents["events"][events]["x"], macroEvents["events"][events]["y"])
             elif macroEvents["events"][events]["type"] == "leftClickEvent":
@@ -203,8 +203,12 @@ def playRec():
                     keyboardControl.press(keyToPress)
                 else:
                     keyboardControl.release(keyToPress)
-    keyboardControl.press(Key.esc)
-    keyboardControl.release(Key.esc)
+    for keys in userSettings["Hotkeys"]["Playback_Stop"]:
+        keyToPress = keys if 'Key.' not in keys else special_keys[keys]
+        keyboardControl.press(keyToPress)
+    for keys in userSettings["Hotkeys"]["Playback_Stop"]:
+        keyToPress = keys if 'Key.' not in keys else special_keys[keys]
+        keyboardControl.release(keyToPress)
     playback = False
 
 
