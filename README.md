@@ -76,6 +76,7 @@ But, if you are still unsure about that, you can follow these steps to avoid the
 # License
 
 This program is under [Creative Commons 4.0 BY-NC-SA](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+Simply: you can modify, share the program **BUT** you must credit me and share with the same license
 
 # Special Thanks
 
