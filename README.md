@@ -56,7 +56,8 @@ But if you're still unsure, you can follow these steps to avoid the setup.exe:
 
 - Download the source code like this:
 
-![Image](https://github.com/LOUDO56/PyMacroRecord/assets/117168736/575097b0-3eef-4461-ae16-0e16513a14d4)
+![image](https://github.com/LOUDO56/PyMacroRecord/assets/117168736/ed511c68-da60-4cb9-b3be-25c0010e5b42)
+
 
 - Extract it wherever you want.
 - Open the command prompt by typing "cmd" in your Windows search.
@@ -69,7 +70,7 @@ But if you're still unsure, you can follow these steps to avoid the setup.exe:
   ```
 - After that, type cmd here, then press enter:
 
-![image](https://github.com/LOUDO56/PyMacroRecord/assets/117168736/89776a49-0cc4-4be0-ab54-62b6687d2b3b)
+![image](https://github.com/LOUDO56/PyMacroRecord/assets/117168736/59bfd20b-0b86-4efc-86cd-dd4dec856c17)
 
 - Finally, type: python software.py
 - And boom! The software is now ready to use.
