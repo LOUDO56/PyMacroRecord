@@ -61,7 +61,7 @@ But if you're still unsure, you can follow these steps to avoid the setup.exe:
 
 - Extract it wherever you want.
 - Open the command prompt by typing "cmd" in your Windows search.
-- Type the following commands separately:
+- Type the following commands **separately**:
   ```bash
   pip install pynput
   pip install requests
@@ -72,7 +72,7 @@ But if you're still unsure, you can follow these steps to avoid the setup.exe:
 
 ![image](https://github.com/LOUDO56/PyMacroRecord/assets/117168736/59bfd20b-0b86-4efc-86cd-dd4dec856c17)
 
-- Finally, type: python software.py
+- Finally, type: `python software.py`
 - And boom! The software is now ready to use.
 
 # License
