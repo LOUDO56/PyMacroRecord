@@ -1,2 +1,3 @@
 # PyMacroRecord
-Free and Open Source macro recorder.
+
+<a href="assets/logo.ico">
