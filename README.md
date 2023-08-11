@@ -19,6 +19,10 @@ PyMacroRecorder works with a GUI made using tkinter, making it easier for users 
 - Smooth recording of the mouse.
 
 # How does this work?
+
+⚠️ **IMPORTANT** YOU NEED PYTHON TO RUN THIS SOFTWARE ⚠️
+\
+\
 To start recording, you simply have to press the red button or the `o` key (By default).\
 From there, you can move your mouse, click, and type on your keyboard, and everything will be recorded. (You can choose what will be recorded.)
 \
