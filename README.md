@@ -1,2 +1,2 @@
-# macro-recorder
+# PyMacroRecord
 Free and Open Source macro recorder.
