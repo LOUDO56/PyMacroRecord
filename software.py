@@ -1,4 +1,4 @@
-import threading
+from threading import Thread
 from json import load, dumps
 from tkinter import *
 from tkinter.ttk import *
@@ -14,7 +14,17 @@ from time import sleep
 import pystray
 from PIL import Image
 import os
+from requests import get as getVer
 
+version = "1.0.0"
+
+# ------------------------------------------------------------------------------ #
+#
+#
+#                               SETUP PART
+#
+#
+# ------------------------------------------------------------------------------ #
 
 
 special_keys = {
@@ -33,22 +43,29 @@ special_keys = {
     "Key.pause": Key.pause, "Key.print_screen": Key.print_screen, "Key.scroll_lock": Key.scroll_lock,
     "Key.shift_l": Key.shift_l, "Key.shift_r": Key.shift_r,
 }
+# Special keys are for on press and on release event so when the playback is on, it can press special keys without errors
+
+# Variable Setup
 
 playbackStatement = False  # Know if playback is active
 recordStatement = False  # Know if record is active
 recordSet = False  # Know if user set recorded so he can save it
 fileAlreadySaved = False  # Know if user already save is macro once so not neet to save as
-closeWindow = False # Know if user is about to close the window
-changeKey = False # Know to change hotkey
-cantRec = False # Prevents recording from settings speed and repeat setup
-hotkeyVisible = []
-hotkeysDetection = []
+closeWindow = False  # Know if user is about to close the window
+changeKey = False  # Know to change hotkey
+cantRec = False  # Prevents recording from settings speed and repeat setup
+hotkeyVisible = []  # For Gui visual
+hotkeysDetection = []  # Detect Hotkeys
 keyboardControl = keyboard.Controller()  # Keyboard controller to detect keypress
 
-appdata_local = getenv('LOCALAPPDATA') + "/MacroPyRecorder"
+appdata_local = getenv('LOCALAPPDATA') + "/PyMacroRecord"
 appdata_local = appdata_local.replace('\\', "/")
+
+# Prevents from playing last record not saved or savec when re-launching the software
 if path.exists(path.join(appdata_local + "/temprecord.json")):
     remove(path.join(appdata_local + "/temprecord.json"))
+
+# Setup of UserSettings if not exists
 if path.isdir(appdata_local) == False:
     mkdir(appdata_local)  # Temp record to interact with macro.py
     userSettings = {
@@ -92,7 +109,7 @@ if path.isdir(appdata_local) == False:
         "Run_On_StartUp": False,
 
         "After_Playback": {
-            "Mode": "Idle" #Quit, Lock Computer, Lof off computer, Turn off computer, Standby, Hibernate
+            "Mode": "Idle"  # Quit, Lock Computer, Lof off computer, Turn off computer, Standby, Hibernate
         },
 
         "Cant_rec": False
@@ -102,35 +119,16 @@ if path.isdir(appdata_local) == False:
     userSettings_json = dumps(userSettings, indent=4)
     open(path.join(appdata_local + "/userSettings.json"), "w").write(userSettings_json)
 
+userSettings = load(open(path.join(appdata_local + "/userSettings.json")))
 
-userSettings = load(open(path.join(appdata_local+"/userSettings.json")))
 
-
-def changeSettings(category, option=None, option2=None, newValue=None):
-    """Change settings of user"""
-    global userSettings
-    if newValue is None:
-        if option is None:
-            if userSettings[category]:
-                userSettings[category] = False
-            else:
-                userSettings[category] = True
-        else:
-            if userSettings[category][option]:
-                userSettings[category][option] = False
-            else:
-                userSettings[category][option] = True
-
-    if option is not None and newValue is not None:
-        if option == None:
-            userSettings[category] = newValue
-        elif option2 != None:
-            userSettings[category][option][option2] = newValue
-        else:
-            userSettings[category][option] = newValue
-    userSettings_json = dumps(userSettings, indent=4)
-    open(path.join(appdata_local + "/userSettings.json"), "w").write(userSettings_json)
-    userSettings = load(open(path.join(appdata_local+"/userSettings.json")))
+# ------------------------------------------------------------------------------ #
+#
+#
+#                            KEYBOARD INPUT DETECTION
+#
+#
+# ------------------------------------------------------------------------------ #
 
 
 def on_press(key):
@@ -191,7 +189,7 @@ def on_press(key):
                     cleanup()
                     window.quit()
                     if userSettings["After_Playback"]["Mode"] == "Standy":
-                        os.system("rundll32.exe powrprof.dll,SetSuspendState 0,1,0")
+                        os.system("rundll32.exe powrprof.dll, SetSuspendState Sleep")
                     if userSettings["After_Playback"]["Mode"] == "Log off Computer":
                         os.system("shutdown /l")
                     if userSettings["After_Playback"]["Mode"] == "Turn off Computer":
@@ -201,12 +199,22 @@ def on_press(key):
                 if userSettings["Minimization"]["When_Playing"]:
                     window.deiconify()
 
+
 def on_release(key):
     global hotkeysDetection
     if len(hotkeysDetection) != 0:
         hotkeysDetection.pop()
 
-    
+
+# ------------------------------------------------------------------------------ #
+#
+#
+#                               RECORD MANAGEMENTS
+#
+#
+# ------------------------------------------------------------------------------ #
+
+
 def startRecordingAndChangeImg(pressKey=True):
     """
     When this function is called, it presses for the user his keybind to start the recording if he pressed the button
@@ -231,7 +239,7 @@ def startRecordingAndChangeImg(pressKey=True):
         file_menu.entryconfig('New', state=DISABLED)
         file_menu.entryconfig('Load', state=DISABLED)
         if userSettings["Minimization"]["When_Recording"]:
-           window.withdraw()
+            window.withdraw()
 
 
 def stopRecordingAndChangeImg(pressKey=True):
@@ -283,6 +291,7 @@ def replay(pressKey=True):
     if userSettings["Minimization"]["When_Playing"]:
         window.withdraw()
 
+
 def stopReplay():
     for keys in userSettings["Hotkeys"]["Playback_Stop"]:
         keyToPress = keys if 'Key.' not in keys else special_keys[keys]
@@ -290,6 +299,15 @@ def stopReplay():
     for keys in userSettings["Hotkeys"]["Playback_Stop"]:
         keyToPress = keys if 'Key.' not in keys else special_keys[keys]
         keyboardControl.release(keyToPress)
+
+
+# ------------------------------------------------------------------------------ #
+#
+#
+#                             RECORD FILE MANAGEMENTS
+#
+#
+# ------------------------------------------------------------------------------ #
 
 def saveMacroAs(e=None):
     """
@@ -374,13 +392,54 @@ def newMacro(e=None):
         recordSet = False
         fileAlreadySaved = False
 
+
+# ------------------------------------------------------------------------------ #
+#
+#
+#                            USER SETTINGS MANAGEMENTS
+#
+#
+# ------------------------------------------------------------------------------ #
+
+
+def changeSettings(category, option=None, option2=None, newValue=None):
+    """Change settings of user"""
+    global userSettings
+    if newValue is None:
+        if option is None:
+            if userSettings[category]:
+                userSettings[category] = False
+            else:
+                userSettings[category] = True
+        else:
+            if userSettings[category][option]:
+                userSettings[category][option] = False
+            else:
+                userSettings[category][option] = True
+
+    if option is not None and newValue is not None:
+        if option == None:
+            userSettings[category] = newValue
+        elif option2 != None:
+            userSettings[category][option][option2] = newValue
+        else:
+            userSettings[category][option] = newValue
+    userSettings_json = dumps(userSettings, indent=4)
+    open(path.join(appdata_local + "/userSettings.json"), "w").write(userSettings_json)
+    userSettings = load(open(path.join(appdata_local + "/userSettings.json")))
+
+
 def warningPopUpSave():
+    """Just popup a window to say 'Do you want to save your record?'
+    So the user don't lost his last record accidentally"""
     return messagebox.askyesnocancel("Info", "Do you want to save your record?")
+
 
 def stopProgram():
     global closeWindow, macro_process
     """
         When the users want to stop the software, the macro.py in the background is terminated
+        And it checks if the users did a record but did not save it
     """
     if recordSet == True and fileAlreadySaved == False:
         closeWindow = True
@@ -396,7 +455,9 @@ def stopProgram():
         window.destroy()
         icon.stop()
 
+
 def validate_input(action, value_if_allowed):
+    """Prevents from adding letters on an Entry label"""
     if action == "1":  # Insert
         try:
             float(value_if_allowed)
@@ -407,6 +468,7 @@ def validate_input(action, value_if_allowed):
 
 
 def changeSpeed():
+    """Gui to change the speeds record"""
     global speedWin, horizontal_line, speedTestVal, cantRec
     cantRec = True
     changeSettings("Cant_rec")
@@ -418,20 +480,23 @@ def changeSpeed():
     speedWin.grab_set()
     speedWin.resizable(False, False)
     speedWin.attributes("-toolwindow", 1)
-    Label(speedWin, text="Enter Speed Number between 0.1 and 10", font = ('Segoe UI', 10)).pack(side=TOP, pady=10)
+    Label(speedWin, text="Enter Speed Number between 0.1 and 10", font=('Segoe UI', 10)).pack(side=TOP, pady=10)
     userSettings = load(open(path.join(appdata_local + "/userSettings.json")))
     setNewSpeedInput = Entry(speedWin, width=10)
     setNewSpeedInput.insert(0, str(userSettings["Playback"]["Speed"]))
     setNewSpeedInput.pack(pady=20)
     buttonArea = Frame(speedWin)
-    Button(buttonArea, text="Confirm", command=lambda: setNewSpeedNumber(setNewSpeedInput.get())).pack(side=LEFT, padx=10)
+    Button(buttonArea, text="Confirm", command=lambda: setNewSpeedNumber(setNewSpeedInput.get())).pack(side=LEFT,
+                                                                                                       padx=10)
     Button(buttonArea, text="Cancel", command=speedWin.destroy).pack(side=LEFT, padx=10)
     buttonArea.pack(side=BOTTOM, pady=10)
     window.wait_window(speedWin)
     cantRec = False
     changeSettings("Cant_rec")
 
+
 def setNewSpeedNumber(val):
+    """Function to set the new Speed numbers and to check if the value is good"""
     try:
         if float(val) <= 0 or float(val) > 10:
             messagebox.showerror("Wrong Speed Number", "Your speed value must be between 0.1 and 10!")
@@ -443,6 +508,7 @@ def setNewSpeedNumber(val):
 
 
 def repeatGuiSettings():
+    """Gui to set amount of repeat"""
     global cantRec
     cantRec = True
     repeatGui = Toplevel(window)
@@ -456,11 +522,14 @@ def repeatGuiSettings():
     repeatGui.attributes("-toolwindow", 1)
     Label(repeatGui, text="Enter Repeat Number ", font=('Segoe UI', 10)).pack(side=TOP, pady=10)
     userSettings = load(open(path.join(appdata_local + "/userSettings.json")))
-    repeatTimes = Spinbox(repeatGui, from_=1, to=100000000, width=7, validate="key", validatecommand=(validate_cmd, "%d", "%P"))
+    repeatTimes = Spinbox(repeatGui, from_=1, to=100000000, width=7, validate="key",
+                          validatecommand=(validate_cmd, "%d", "%P"))
     repeatTimes.insert(0, userSettings["Playback"]["Repeat"]["Times"])
     repeatTimes.pack(pady=20)
     buttonArea = Frame(repeatGui)
-    Button(buttonArea, text="Confirm", command=lambda: [changeSettings("Playback", "Repeat", "Times", int(repeatTimes.get())), repeatGui.destroy()]).pack(side=LEFT,padx=10)
+    Button(buttonArea, text="Confirm",
+           command=lambda: [changeSettings("Playback", "Repeat", "Times", int(repeatTimes.get())),
+                            repeatGui.destroy()]).pack(side=LEFT, padx=10)
     Button(buttonArea, text="Cancel", command=repeatGui.destroy).pack(side=LEFT, padx=10)
     buttonArea.pack(side=BOTTOM, pady=10)
     window.wait_window(repeatGui)
@@ -469,6 +538,7 @@ def repeatGuiSettings():
 
 
 def afterPlaybackGui():
+    """Gui to set mode after playback, like shutting down computer, stuff like that"""
     global cantRec
     cantRec = True
     playBackGui = Toplevel(window)
@@ -493,10 +563,14 @@ def afterPlaybackGui():
     menuOptions = LabelFrame(playBackGui, text="On playback complete")
     AfterPlaybackOption = StringVar()
     userSettings = load(open(path.join(appdata_local + "/userSettings.json")))
-    OptionMenu(menuOptions, AfterPlaybackOption, userSettings["After_Playback"]["Mode"], *options).pack(fill="both", padx=10, pady=10)
+    OptionMenu(menuOptions, AfterPlaybackOption, userSettings["After_Playback"]["Mode"], *options).pack(fill="both",
+                                                                                                        padx=10,
+                                                                                                        pady=10)
     menuOptions.pack(fill="both", padx=5, pady=10)
     buttonArea = Frame(playBackGui)
-    Button(buttonArea, text="Confirm", command=lambda: [changeSettings("After_Playback", "Mode", None, AfterPlaybackOption.get()), playBackGui.destroy()]).pack(side=LEFT, padx=10)
+    Button(buttonArea, text="Confirm",
+           command=lambda: [changeSettings("After_Playback", "Mode", None, AfterPlaybackOption.get()),
+                            playBackGui.destroy()]).pack(side=LEFT, padx=10)
     Button(buttonArea, text="Cancel", command=playBackGui.destroy).pack(side=LEFT, padx=10)
     buttonArea.pack(side=BOTTOM, pady=10)
     window.wait_window(playBackGui)
@@ -505,6 +579,7 @@ def afterPlaybackGui():
 
 
 def hotkeySettingsGui():
+    """Gui to set up new Hotkeys"""
     global typeOfHotKey, startKey, stopKey, playbackStartKey, playbackStopKey, cantRec
     cantRec = True
     changeSettings("Cant_rec")
@@ -533,19 +608,25 @@ def hotkeySettingsGui():
             cleanedKey = key.replace("Key.", "").replace("_l", "").replace("_r", "").replace("_gr", "").upper()
             cleanedHotkeys.append(cleanedKey)
     hotkeyVisible = cleanedHotkeys
-    Button(hotkeyLine, text="Start Record", command=lambda: enableHotKeyDetection("Record_Start", startKey)).grid(row=0, column=0, padx=10)
+    Button(hotkeyLine, text="Start Record", command=lambda: enableHotKeyDetection("Record_Start", startKey)).grid(row=0,
+                                                                                                                  column=0,
+                                                                                                                  padx=10)
     startKey = Label(hotkeyLine, text=hotkeyVisible[0], font=('Segoe UI', 12))
     startKey.grid(row=0, column=1, pady=5)
 
-    Button(hotkeyLine, text="Stop Record", command=lambda: enableHotKeyDetection("Record_Stop", stopKey)).grid(row=1, column=0, padx=10)
+    Button(hotkeyLine, text="Stop Record", command=lambda: enableHotKeyDetection("Record_Stop", stopKey)).grid(row=1,
+                                                                                                               column=0,
+                                                                                                               padx=10)
     stopKey = Label(hotkeyLine, text=hotkeyVisible[1], font=('Segoe UI', 12))
     stopKey.grid(row=1, column=1, pady=5)
 
-    Button(hotkeyLine, text="Playback Start", command=lambda: enableHotKeyDetection("Playback_Start", playbackStartKey)).grid(row=2, column=0, padx=10)
+    Button(hotkeyLine, text="Playback Start",
+           command=lambda: enableHotKeyDetection("Playback_Start", playbackStartKey)).grid(row=2, column=0, padx=10)
     playbackStartKey = Label(hotkeyLine, text=hotkeyVisible[2], font=('Segoe UI', 12))
     playbackStartKey.grid(row=2, column=1, pady=5)
 
-    Button(hotkeyLine, text="Playback Stop", command=lambda: enableHotKeyDetection("Playback_Stop", playbackStopKey)).grid(row=3, column=0, padx=10)
+    Button(hotkeyLine, text="Playback Stop",
+           command=lambda: enableHotKeyDetection("Playback_Stop", playbackStopKey)).grid(row=3, column=0, padx=10)
     playbackStopKey = Label(hotkeyLine, text=hotkeyVisible[3], font=('Segoe UI', 12))
     playbackStopKey.grid(row=3, column=1, pady=5)
 
@@ -559,8 +640,8 @@ def hotkeySettingsGui():
     changeSettings("Cant_rec")
 
 
-
 def enableHotKeyDetection(mode, entry):
+    """Just enable Hotkeys detection to change them"""
     global changeKey, typeOfHotKey, hotkey, entryToChange
     changeKey = True
     typeOfHotKey = mode
@@ -569,20 +650,69 @@ def enableHotKeyDetection(mode, entry):
     entryToChange = entry
 
 
+# ------------------------------------------------------------------------------ #
+#
+#
+#                             GUI (VISUAL) MANAGEMENTS
+#
+#
+# ------------------------------------------------------------------------------ #
 
-def destroyWindow(win):
+
+def aboutMeGui():
     global cantRec
-    win.destroy()
+    cantRec = True
     changeSettings("Cant_rec")
+    aboutGui = Toplevel(window)
+    w = 300
+    h = 200
+    aboutGui.geometry('%dx%d+%d+%d' % (w, h, x, y))
+    aboutGui.title("About")
+    aboutGui.grab_set()
+    aboutGui.resizable(False, False)
+    aboutGui.attributes("-toolwindow", 1)
+    Label(aboutGui, text="Publisher: LOUDO").pack(side=TOP, pady=3)
+    Label(aboutGui, text=f"Version: {version}").pack(side=TOP, pady=3)
+    Label(aboutGui, text="Under License: Attribution-NonCommercial").pack(side=TOP, pady=3)
+    Label(aboutGui, text="ShareAlike 4.0 International").pack(side=TOP, pady=3)
+    Label(aboutGui, text="And... I like cats and dogs, wbu?").pack(side=TOP, pady=15)
+    buttonArea = Frame(aboutGui)
+    Button(buttonArea, text="Close", command=aboutGui.destroy).pack(side=LEFT, padx=10)
+    buttonArea.pack(side=BOTTOM, pady=10)
+    window.wait_window(aboutGui)
     cantRec = False
+    changeSettings("Cant_rec")
+
+def newVerAvailable(ver):
+    global cantRec
+    cantRec = True
+    changeSettings("Cant_rec")
+    newVerGui = Toplevel(window)
+    w = 300
+    h = 130
+    newVerGui.geometry('%dx%d+%d+%d' % (w, h, x, y))
+    newVerGui.title("New Version Available!")
+    newVerGui.grab_set()
+    newVerGui.resizable(False, False)
+    newVerGui.attributes("-toolwindow", 1)
+    Label(newVerGui, text=f"New Version {ver} available!").pack(side=TOP)
+    Label(newVerGui, text="Click the button to open releases page on GitHub").pack(side=TOP)
+    buttonArea = Frame(newVerGui)
+    Button(buttonArea, text="Click here to view", command=lambda: OpenUrl("https://github.com/LOUDO56/macro-recorder/releases")).pack(side=LEFT, pady=10)
+    Button(buttonArea, text="Close", command=newVerGui.destroy).pack(side=LEFT, padx=10)
+    buttonArea.pack(side=BOTTOM, pady=10)
+    window.wait_window(newVerGui)
+    cantRec = False
+    changeSettings("Cant_rec")
 
 def systemTray():
+    """Just to show little icon on system tray"""
     global icon
     image = Image.open("assets/logo.ico")
     menu = (
-        pystray.MenuItem('Show', action=window.deiconify,default=True),
+        pystray.MenuItem('Show', action=window.deiconify, default=True),
     )
-    icon = pystray.Icon("name", image, "MacroPyRecorder", menu)
+    icon = pystray.Icon("name", image, "PyMacroRecord", menu)
     icon.run()
 
 
@@ -602,13 +732,13 @@ macro_process = Popen(['pythonw',
 
 # Window Setup
 window = Tk()
-window.title("MacroPyRecorder")
+window.title("PyMacroRecord")
 w = 350
 h = 200
 ws = window.winfo_screenwidth()
 hs = window.winfo_screenheight()
-x = (ws/2) - (w/2)
-y = (hs/2) - (h/2)
+x = (ws / 2) - (w / 2)
+y = (hs / 2) - (h / 2)
 window.geometry('%dx%d+%d+%d' % (w, h, x, y))
 
 window.iconbitmap("assets/logo.ico")
@@ -643,9 +773,12 @@ mouseClick = BooleanVar(value=userSettings["Recordings"]["Mouse_Click"])
 keyboardInput = BooleanVar(value=userSettings["Recordings"]["Mouse_Move"])
 recordings_sub = Menu(options_menu, tearoff=0)
 options_menu.add_cascade(label="Recordings", menu=recordings_sub)
-recordings_sub.add_checkbutton(label="Mouse movement", variable=mouseMove, command=lambda: changeSettings("Recordings", "Mouse_Move"))
-recordings_sub.add_checkbutton(label="Mouse click", variable=mouseClick, command=lambda: changeSettings("Recordings", "Mouse_Click"))
-recordings_sub.add_checkbutton(label="Keyboard", variable=keyboardInput, command=lambda: changeSettings("Recordings", "Keyboard"))
+recordings_sub.add_checkbutton(label="Mouse movement", variable=mouseMove,
+                               command=lambda: changeSettings("Recordings", "Mouse_Move"))
+recordings_sub.add_checkbutton(label="Mouse click", variable=mouseClick,
+                               command=lambda: changeSettings("Recordings", "Mouse_Click"))
+recordings_sub.add_checkbutton(label="Keyboard", variable=keyboardInput,
+                               command=lambda: changeSettings("Recordings", "Keyboard"))
 
 # Options Sub
 options_sub = Menu(options_menu, tearoff=0)
@@ -656,17 +789,21 @@ minimization_sub = Menu(options_sub, tearoff=0)
 options_sub.add_cascade(label="Minimization", menu=minimization_sub)
 minimization_playing = BooleanVar(value=userSettings["Minimization"]["When_Playing"])
 minimization_record = BooleanVar(value=userSettings["Minimization"]["When_Recording"])
-minimization_sub.add_checkbutton(label="Minimized when playing", variable=minimization_playing, command=lambda: changeSettings("Minimization", "When_Playing"))
-minimization_sub.add_checkbutton(label="Minimized when recording", variable=minimization_record, command=lambda: changeSettings("Minimization", "When_Recording"))
+minimization_sub.add_checkbutton(label="Minimized when playing", variable=minimization_playing,
+                                 command=lambda: changeSettings("Minimization", "When_Playing"))
+minimization_sub.add_checkbutton(label="Minimized when recording", variable=minimization_record,
+                                 command=lambda: changeSettings("Minimization", "When_Recording"))
 
 runStartUp = BooleanVar().set(userSettings["Run_On_StartUp"])
 # options_sub.add_checkbutton(label="Run on startup", variable=runStartUp, command=lambda: changeSettings("Run_On_StartUp"))
 options_sub.add_command(label="After playback...", command=afterPlaybackGui)
 
+# Help section
 help_section = Menu(my_menu, tearoff=0)
 my_menu.add_cascade(label="Help", menu=help_section)
-help_section.add_command(label="Github Page", command=lambda: OpenUrl("https://github.com/LOUDO56/macro-recorder/tree/main#readme"))
-help_section.add_command(label="About")
+help_section.add_command(label="Github Page",
+                         command=lambda: OpenUrl("https://github.com/LOUDO56/macro-recorder/tree/main#readme"))
+help_section.add_command(label="About", command=aboutMeGui)
 
 # Play Button
 playImg = PhotoImage(file=r"assets/button/play.png")
@@ -693,9 +830,14 @@ validate_cmd = window.register(validate_input)
 
 window.protocol("WM_DELETE_WINDOW", stopProgram)
 
-threading.Thread(target=systemTray).start()
+Thread(target=systemTray).start()
 
 if userSettings["Cant_rec"]:
-    changeSettings("Cant_rec")
+    changeSettings("Cant_rec") # Prevents from conflicts
+
+# Check updates
+newVersion = getVer("https://pastebin.com/raw/8YAjs4Pc").text
+if newVersion != version:
+    newVerAvailable(newVersion)
 
 window.mainloop()

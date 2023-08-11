@@ -1,18 +1,15 @@
-import threading
-
+from threading import Thread
 from pynput import mouse, keyboard
 from pynput.mouse import Button
 from pynput.keyboard import Key
-from keyboard import is_pressed
 from json import load, dumps
 from os import getenv, path
 from time import sleep, time
 
-appdata_local = getenv('LOCALAPPDATA') + "/MacroPyRecorder"
+appdata_local = getenv('LOCALAPPDATA') + "/PyMacroRecord" # Path where I store data
 appdata_local = appdata_local.replace('\\', "/")
 specialKeyPressed = False
-macroEvents = {
-    "events": []}  # The core of this script, it serves to store all data events, so it can be replayable or saved on a file
+macroEvents = {"events": []}  # The core of this script, it serves to store all data events, so it can be replayable or saved on a file
 userSettings = load(open(path.join(appdata_local + "/userSettings.json")))
 
 hotkeysDetection = []
@@ -88,7 +85,7 @@ def on_press(key):
         if record == False and playback == False and path.exists(path.join(appdata_local + "/temprecord.json")):
             if hotkeysDetection == userSettings["Hotkeys"]["Playback_Start"]:
                 hotkeysDetection = []
-                threading.Thread(target=playRec).start()
+                Thread(target=playRec).start() # Thread to prevent hotkey not working
 
     if record == False and playback == True:
         if hotkeysDetection == userSettings["Hotkeys"]["Playback_Stop"]:
@@ -197,12 +194,13 @@ def playRec():
             elif macroEvents["events"][events]["type"] == "scrollEvent":
                 mouseControl.scroll(macroEvents["events"][events]["dx"], macroEvents["events"][events]["dy"])
             elif macroEvents["events"][events]["type"] == "keyboardEvent":
-                keyToPress = macroEvents["events"][events]["key"] if 'Key.' not in macroEvents["events"][events]["key"] else \
-                special_keys[macroEvents["events"][events]["key"]]
-                if macroEvents["events"][events]["pressed"] == True:
-                    keyboardControl.press(keyToPress)
-                else:
-                    keyboardControl.release(keyToPress)
+                if macroEvents["events"][events]["key"] != None:
+                    keyToPress = macroEvents["events"][events]["key"] if 'Key.' not in macroEvents["events"][events]["key"] else \
+                    special_keys[macroEvents["events"][events]["key"]]
+                    if macroEvents["events"][events]["pressed"] == True:
+                        keyboardControl.press(keyToPress)
+                    else:
+                        keyboardControl.release(keyToPress)
     for keys in userSettings["Hotkeys"]["Playback_Stop"]:
         keyToPress = keys if 'Key.' not in keys else special_keys[keys]
         keyboardControl.press(keyToPress)
