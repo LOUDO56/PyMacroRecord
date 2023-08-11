@@ -37,6 +37,8 @@ https://github.com/LOUDO56/PyMacroRecord/assets/117168736/f95af149-ea49-4bec-aad
 
 
 
+# For bugs report or update request
+If you encounter a bug or you want to request an update, simply create an issue [here](https://github.com/LOUDO56/PyMacroRecord/issues)
 
 # My computer detect this program as a Virus
 
