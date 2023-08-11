@@ -77,6 +77,7 @@ def on_press(key):
         keyPressed = str(keyboard_listener.canonical(key)).replace("'", "")
     if keyPressed not in hotkeysDetection:
         hotkeysDetection.append(keyPressed)
+    print(hotkeysDetection)
     if record == False and playback == False:
         if hotkeysDetection == userSettings["Hotkeys"]["Record_Start"]:
             startRecord()
@@ -162,9 +163,10 @@ def playRec():
         To detect the stop of playback, I don't use the detection on the While loop because it won't work,
         and if I put the for loop in a thread, the playback is incredibly slow.
     """
-    global playback, keyboard_listener
+    global playback, keyboard_listener, hotkeysDetection
     userSettings = load(open(path.join(appdata_local + "/userSettings.json")))
     playback = True
+    print('playback started')
     macroEvents = load(open(path.join(appdata_local + "/temprecord.json"), "r"))
     for repeat in range(userSettings["Playback"]["Repeat"]["Times"]):
         for events in range(len(macroEvents["events"])):
@@ -201,6 +203,8 @@ def playRec():
                         keyboardControl.press(keyToPress)
                     else:
                         keyboardControl.release(keyToPress)
+    print("playback stopped")
+    hotkeysDetection = []
     for keys in userSettings["Hotkeys"]["Playback_Stop"]:
         keyToPress = keys if 'Key.' not in keys else special_keys[keys]
         keyboardControl.press(keyToPress)
