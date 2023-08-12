@@ -1,4 +1,4 @@
-# PyMacroRecorder
+# PyMacroRecord
 PyMacroRecorder is a completely free Macro Recorder, coded with Python.
 
 # Overview
