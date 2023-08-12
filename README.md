@@ -84,7 +84,6 @@ But if you're still unsure, you can follow these steps to avoid the setup.exe:
 # License
 
 This program is under [Creative Commons 4.0 BY-NC-SA](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-In short, you can modify and share the program, **BUT** you must credit me and share it with the same license.
 
 # Special Thanks
 
