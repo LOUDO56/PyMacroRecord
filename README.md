@@ -1,5 +1,5 @@
 # PyMacroRecord
-PyMacroRecorder is a completely free Macro Recorder, coded with Python.
+PyMacroRecord is a completely free Macro Recorder, coded with Python.
 
 # Overview
 PyMacroRecord works with a GUI made using tkinter, making it easier for users to interact with it.
