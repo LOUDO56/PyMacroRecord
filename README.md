@@ -72,7 +72,7 @@ But if you're still unsure, you can follow these steps to avoid the setup.exe:
 
 - Type the command:
   ```bash
- pip3 install -r requirements.txt
+  pip3 install -r requirements.txt
   ```
   - If you want these package to be on virtual environment follow these step [here](https://stackoverflow.com/a/41799834)
 - Finally, type: `python software.py`
