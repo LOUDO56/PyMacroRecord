@@ -54,8 +54,8 @@ If you encounter a bug or want to request an update, simply create an issue [her
 
 # My computer detects this program as a Virus
 
-This is normal; my program is completely unknown to Windows, so at first, it may be considered a virus. However, this is a false positive, so don't worry.\
-You can still check the code; this is an open-source program.
+This is normal, my program is completely unknown to Windows, so at first, it may be considered as a virus. However, this is a false positive, so don't worry.\
+You can still check the code, this is an open-source program.
 \
 \
 But if you're still unsure, you can follow these steps to avoid the setup.exe:
@@ -67,12 +67,9 @@ But if you're still unsure, you can follow these steps to avoid the setup.exe:
 
 - Extract it wherever you want.
 - Open the command prompt by typing "cmd" in your Windows search.
-- Type the following commands **separately**:
+- Type the command:
   ```bash
-  pip install pynput
-  pip install requests
-  pip install Pillow
-  pip install pystray
+  python install -r requirements.txt
   ```
 - After that, type cmd here, then press enter:
 
