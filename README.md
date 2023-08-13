@@ -62,7 +62,7 @@ But if you're still unsure, you can follow these steps to avoid the setup.exe:
 
 - Download the source code like this:
 
-- ![image](https://github.com/LOUDO56/PyMacroRecord/assets/117168736/ed511c68-da60-4cb9-b3be-25c0010e5b42)
+![image](https://github.com/LOUDO56/PyMacroRecord/assets/117168736/ed511c68-da60-4cb9-b3be-25c0010e5b42)
 
 
 - Extract it wherever you want.
