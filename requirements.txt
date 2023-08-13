@@ -1,0 +1,7 @@
+pip~=23.1.2
+Pillow~=10.0.0
+setuptools~=68.0.0
+platformdirs~=3.10.0
+pynput~=1.7.6
+keyboard~=0.13.5
+pystray~=0.19.4

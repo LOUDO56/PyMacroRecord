@@ -1,8 +1,4 @@
 data
 .idea
 __pycache__
-venv
-software.spec
-temprecordloc.txt
-plus-tard-repeat-gui.txt
-test.py
+.venv
