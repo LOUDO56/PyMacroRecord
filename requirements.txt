@@ -2,3 +2,4 @@ pynput==1.7.6
 pystray==0.19.4
 Pillow==10.0.0
 requests==2.31.0
+win10toast==0.9
