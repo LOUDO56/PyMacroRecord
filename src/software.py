@@ -435,7 +435,7 @@ def showNotifWithdraw():
     toast.show_toast(
         title="PyMacroRecord minimized",
         msg="PyMacroRecord as been minimized",
-        duration=1,
+        duration=5,
         icon_path="assets/logo.ico"
     )
 
