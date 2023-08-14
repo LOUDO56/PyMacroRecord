@@ -782,7 +782,7 @@ playback_sub.add_command(label="Repeat", command=repeatGuiSettings)
 # Recordings Sub
 mouseMove = BooleanVar(value=userSettings["Recordings"]["Mouse_Move"])
 mouseClick = BooleanVar(value=userSettings["Recordings"]["Mouse_Click"])
-keyboardInput = BooleanVar(value=userSettings["Recordings"]["Mouse_Move"])
+keyboardInput = BooleanVar(value=userSettings["Recordings"]["Keyboard"])
 recordings_sub = Menu(options_menu, tearoff=0)
 options_menu.add_cascade(label="Recordings", menu=recordings_sub)
 recordings_sub.add_checkbutton(label="Mouse movement", variable=mouseMove,
