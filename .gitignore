@@ -3,3 +3,4 @@ data
 __pycache__
 .venv
 updates
+test.py
