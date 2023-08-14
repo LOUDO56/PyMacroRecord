@@ -75,7 +75,7 @@ But if you're still unsure, you can follow these steps to avoid the setup.exe:
   pip3 install -r requirements.txt
   ```
   - If you want these package to be on virtual environment follow these step [here](https://stackoverflow.com/a/41799834)
-- Finally, type: `python software.py`
+- Finally, go to `src` file and type: `python software.py`
 - And boom! The software is now ready to use.
 
 # License

@@ -6,11 +6,13 @@ from json import load, dumps
 from os import getenv, path
 from time import sleep, time
 
+from global_function import *
+
 appdata_local = getenv('LOCALAPPDATA') + "/PyMacroRecord" # Path where I store data
 appdata_local = appdata_local.replace('\\', "/")
-specialKeyPressed = False
+userSettingsPath = appdata_local + "/userSettings.json"
 macroEvents = {"events": []}  # The core of this script, it serves to store all data events, so it can be replayable or saved on a file
-userSettings = load(open(path.join(appdata_local + "/userSettings.json")))
+userSettings = load(open(path.join(userSettingsPath)))
 
 hotkeysDetection = []
 
@@ -38,6 +40,13 @@ special_keys = {
 record = False  # Know if record is active
 playback = False  # Know if playback is active
 
+def win32_event_filter(msg, data):
+    global playback
+    if data.flags & 0x10:
+        if playback == True and record == False:
+            return False
+        else:
+            return True
 
 # All events from mouse and keyboard when record is active
 def on_move(x, y):
@@ -68,17 +77,14 @@ def on_scroll(x, y, dx, dy):
 
 def on_press(key):
     global start_time, playback, keyboard_listener, hotkeysDetection
-    userSettings = load(open(path.join(appdata_local + "/userSettings.json")))
+    userSettings = load(open(path.join(userSettingsPath)))
     if userSettings["Cant_rec"]:
         return
-    if "Key." in str(key):
-        keyPressed = str(key)
-    else:
-        keyPressed = str(keyboard_listener.canonical(key)).replace("'", "")
+    keyPressed = getKeyPressed(keyboard_listener, key)
     if keyPressed not in hotkeysDetection:
         hotkeysDetection.append(keyPressed)
-    print(hotkeysDetection)
     if record == False and playback == False:
+        #Start Record
         if hotkeysDetection == userSettings["Hotkeys"]["Record_Start"]:
             startRecord()
 
@@ -89,6 +95,7 @@ def on_press(key):
                 Thread(target=playRec).start() # Thread to prevent hotkey not working
 
     if record == False and playback == True:
+        # Stop Playback
         if hotkeysDetection == userSettings["Hotkeys"]["Playback_Stop"]:
             hotkeysDetection = []
             playback = False
@@ -99,26 +106,19 @@ def on_press(key):
             hotkeysDetection = []
             stopRecord()
         if userSettings["Recordings"]["Keyboard"]:
-            try:
-                macroEvents["events"].append(
-                    {'type': 'keyboardEvent', 'key': key.char, 'timestamp': time() - start_time, 'pressed': True})
-            except AttributeError:
-                macroEvents["events"].append(
-                    {'type': 'keyboardEvent', 'key': str(key), 'timestamp': time() - start_time, 'pressed': True})
+            macroEvents["events"].append(
+                {'type': 'keyboardEvent', 'key': keyPressed, 'timestamp': time() - start_time, 'pressed': True})
             start_time = time()
 
 def on_release(key):
     global start_time
     if len(hotkeysDetection) != 0:
         hotkeysDetection.pop()
+    keyPressed = getKeyPressed(keyboard_listener, key)
     if record == True and playback == False:
         if userSettings["Recordings"]["Keyboard"]:
-            try:
-                macroEvents["events"].append(
-                    {'type': 'keyboardEvent', 'key': key.char, 'timestamp': time() - start_time, 'pressed': False})
-            except AttributeError:
-                macroEvents["events"].append(
-                    {'type': 'keyboardEvent', 'key': str(key), 'timestamp': time() - start_time, 'pressed': False})
+            macroEvents["events"].append(
+                {'type': 'keyboardEvent', 'key': keyPressed, 'timestamp': time() - start_time, 'pressed': False})
             start_time = time()
 
 
@@ -127,7 +127,7 @@ def startRecord():
         Start record
     """
     global start_time, mouse_listener, keyboard_listener, macroEvents, record, recordLenght, userSettings
-    userSettings = load(open(path.join(appdata_local + "/userSettings.json")))
+    userSettings = load(open(path.join(userSettingsPath)))
     record = True
     macroEvents = {'events': []}
     start_time = time()
@@ -137,6 +137,7 @@ def startRecord():
         mouse_listener = mouse.Listener(on_move=on_move, on_scroll=on_scroll)
     else:
         mouse_listener = mouse.Listener(on_click=on_click, on_scroll=on_scroll)
+    print("record started")
     mouse_listener.start()
 
 
@@ -147,10 +148,10 @@ def stopRecord():
     global macroEvents, record
     record = False
     mouse_listener.stop()
-    macroEvents["events"].remove(macroEvents["events"][-1])
-    macroEvents["events"].remove(macroEvents["events"][-1])
-    macroEvents["events"].remove(macroEvents["events"][0])
+    macroEvents["events"].remove(macroEvents["events"][0]) # Remove hotkey start record of user
+    macroEvents["events"].remove(macroEvents["events"][-1]) # Remove hotkey stop record of user
     json_macroEvents = dumps(macroEvents, indent=4)
+    print("record stoped")
     open(path.join(appdata_local + "/temprecord.json"), "w").write(json_macroEvents)
 
 
@@ -164,56 +165,54 @@ def playRec():
         and if I put the for loop in a thread, the playback is incredibly slow.
     """
     global playback, keyboard_listener, hotkeysDetection
-    userSettings = load(open(path.join(appdata_local + "/userSettings.json")))
+    userSettings = load(open(path.join(userSettingsPath)))
     playback = True
     print('playback started')
     macroEvents = load(open(path.join(appdata_local + "/temprecord.json"), "r"))
+    click_func = {
+        "leftClickEvent": Button.left,
+        "rightClickEvent": Button.right,
+        "middleClickEvent": Button.middle,
+    }
+    changeSettings("NotDetectingKeyPressPlayBack")
     for repeat in range(userSettings["Playback"]["Repeat"]["Times"]):
         for events in range(len(macroEvents["events"])):
             if playback == False:
+                changeSettings("StoppedRecManually")
                 return
             sleep(macroEvents["events"][events]["timestamp"] * (1 / userSettings["Playback"]["Speed"]))
-            if macroEvents["events"][events]["type"] == "cursorMove":
+            event_type = macroEvents["events"][events]["type"]
+
+            if event_type == "cursorMove": # Cursor Move
                 mouseControl.position = (macroEvents["events"][events]["x"], macroEvents["events"][events]["y"])
-            elif macroEvents["events"][events]["type"] == "leftClickEvent":
-                mouseControl.position = (macroEvents["events"][events]["x"], macroEvents["events"][events]["y"])
-                if macroEvents["events"][events]["pressed"] == True:
-                    mouseControl.press(Button.left)
-                else:
-                    mouseControl.release(Button.left)
-            elif macroEvents["events"][events]["type"] == "rightClickEvent":
+
+            elif event_type in click_func: # Mouse Click
                 mouseControl.position = (macroEvents["events"][events]["x"], macroEvents["events"][events]["y"])
                 if macroEvents["events"][events]["pressed"] == True:
-                    mouseControl.press(Button.right)
+                    mouseControl.press(click_func[event_type])
                 else:
-                    mouseControl.release(Button.right)
-            elif macroEvents["events"][events]["type"] == "middleClickEvent":
-                mouseControl.position = (macroEvents["events"][events]["x"], macroEvents["events"][events]["y"])
-                if macroEvents["events"][events]["pressed"] == True:
-                    mouseControl.press(Button.middle)
-                else:
-                    mouseControl.release(Button.middle)
-            elif macroEvents["events"][events]["type"] == "scrollEvent":
+                    mouseControl.release(click_func[event_type])
+
+            elif event_type == "scrollEvent":
                 mouseControl.scroll(macroEvents["events"][events]["dx"], macroEvents["events"][events]["dy"])
-            elif macroEvents["events"][events]["type"] == "keyboardEvent":
+
+            elif event_type == "keyboardEvent": # Keyboard Press,Release
                 if macroEvents["events"][events]["key"] != None:
                     keyToPress = macroEvents["events"][events]["key"] if 'Key.' not in macroEvents["events"][events]["key"] else \
                     special_keys[macroEvents["events"][events]["key"]]
-                    if macroEvents["events"][events]["pressed"] == True:
-                        keyboardControl.press(keyToPress)
-                    else:
-                        keyboardControl.release(keyToPress)
+                    if playback == True:
+                        if macroEvents["events"][events]["pressed"] == True:
+                            keyboardControl.press(keyToPress)
+                        else:
+                            keyboardControl.release(keyToPress)
+
     print("playback stopped")
+    changeSettings("NotDetectingKeyPressPlayBack")
     hotkeysDetection = []
-    for keys in userSettings["Hotkeys"]["Playback_Stop"]:
-        keyToPress = keys if 'Key.' not in keys else special_keys[keys]
-        keyboardControl.press(keyToPress)
-    for keys in userSettings["Hotkeys"]["Playback_Stop"]:
-        keyToPress = keys if 'Key.' not in keys else special_keys[keys]
-        keyboardControl.release(keyToPress)
+    simulateKeyPress(userSettings["Hotkeys"]["Playback_Stop"], special_keys, keyboardControl)
     playback = False
 
 
 
-with keyboard.Listener(on_press=on_press, on_release=on_release) as keyboard_listener:
+with keyboard.Listener(on_press=on_press, on_release=on_release, win32_event_filter=win32_event_filter) as keyboard_listener:
     keyboard_listener.join()
