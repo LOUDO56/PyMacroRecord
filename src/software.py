@@ -104,7 +104,7 @@ if path.isdir(appdata_local) == False:
                 "p"
             ],
             "Playback_Stop": [
-                "Key.esc"
+                "Key.f3"
             ],
         },
 
