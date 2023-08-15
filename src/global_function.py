@@ -1,4 +1,5 @@
-from json import load, dumps
+from time import sleep
+from json import load, dumps, decoder
 from os import path, getenv
 
 appdata_local = getenv('LOCALAPPDATA') + "/PyMacroRecord"
@@ -25,6 +26,7 @@ def simulateKeyPress(keyArray, special_keys, keyboardControl):
         keyboardControl.release(keyToPress)
 
 
+
 def changeSettings(category, option=None, option2=None, newValue=None):
     """Change settings of user"""
     userSettings = load(open(path.join(userSettingsPath)))
@@ -45,4 +47,10 @@ def changeSettings(category, option=None, option2=None, newValue=None):
             userSettings[category][option] = newValue
     userSettings_json = dumps(userSettings, indent=4)
     open(path.join(userSettingsPath), "w").write(userSettings_json)
-    userSettings = load(open(path.join(userSettingsPath)))
+
+def loadRecord():
+    try:
+        return load(open(path.join(userSettingsPath)))
+    except decoder.JSONDecodeError as e:
+        sleep(0.2)
+        return load(open(path.join(userSettingsPath)))

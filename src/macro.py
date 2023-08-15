@@ -2,7 +2,7 @@ from threading import Thread
 from pynput import mouse, keyboard
 from pynput.mouse import Button
 from pynput.keyboard import Key
-from json import load, dumps
+from json import load, dumps, decoder
 from os import getenv, path
 from time import sleep, time
 
@@ -12,7 +12,7 @@ appdata_local = getenv('LOCALAPPDATA') + "/PyMacroRecord" # Path where I store d
 appdata_local = appdata_local.replace('\\', "/")
 userSettingsPath = appdata_local + "/userSettings.json"
 macroEvents = {"events": []}  # The core of this script, it serves to store all data events, so it can be replayable or saved on a file
-userSettings = load(open(path.join(userSettingsPath)))
+userSettings = loadRecord()
 
 hotkeysDetection = []
 
@@ -77,7 +77,10 @@ def on_scroll(x, y, dx, dy):
 
 def on_press(key):
     global start_time, playback, keyboard_listener, hotkeysDetection
-    userSettings = load(open(path.join(userSettingsPath)))
+    try:
+        userSettings = loadRecord()
+    except decoder.JSONDecodeError:
+        pass
     if userSettings["Cant_rec"]:
         return
     keyPressed = getKeyPressed(keyboard_listener, key)
@@ -86,6 +89,7 @@ def on_press(key):
     if record == False and playback == False:
         #Start Record
         if hotkeysDetection == userSettings["Hotkeys"]["Record_Start"]:
+            hotkeysDetection = []
             startRecord()
 
         # Play Back
@@ -127,7 +131,7 @@ def startRecord():
         Start record
     """
     global start_time, mouse_listener, keyboard_listener, macroEvents, record, recordLenght, userSettings
-    userSettings = load(open(path.join(userSettingsPath)))
+    userSettings = loadRecord()
     record = True
     macroEvents = {'events': []}
     start_time = time()
@@ -148,10 +152,13 @@ def stopRecord():
     global macroEvents, record
     record = False
     mouse_listener.stop()
-    macroEvents["events"].remove(macroEvents["events"][0]) # Remove hotkey start record of user
-    macroEvents["events"].remove(macroEvents["events"][-1]) # Remove hotkey stop record of user
+    try:
+        macroEvents["events"].remove(macroEvents["events"][0]) # Remove hotkey start record of user
+        macroEvents["events"].remove(macroEvents["events"][-1]) # Remove hotkey stop record of user
+    except Exception:
+        pass
     json_macroEvents = dumps(macroEvents, indent=4)
-    print("record stoped")
+    print("record stopped")
     open(path.join(appdata_local + "/temprecord.json"), "w").write(json_macroEvents)
 
 
@@ -165,20 +172,21 @@ def playRec():
         and if I put the for loop in a thread, the playback is incredibly slow.
     """
     global playback, keyboard_listener, hotkeysDetection
-    userSettings = load(open(path.join(userSettingsPath)))
+    userSettings = loadRecord()
     playback = True
-    print('playback started')
     macroEvents = load(open(path.join(appdata_local + "/temprecord.json"), "r"))
     click_func = {
         "leftClickEvent": Button.left,
         "rightClickEvent": Button.right,
         "middleClickEvent": Button.middle,
     }
+    print("playback started")
     changeSettings("NotDetectingKeyPressPlayBack")
     for repeat in range(userSettings["Playback"]["Repeat"]["Times"]):
         for events in range(len(macroEvents["events"])):
             if playback == False:
                 changeSettings("StoppedRecManually")
+                print("playback stopped manually")
                 return
             sleep(macroEvents["events"][events]["timestamp"] * (1 / userSettings["Playback"]["Speed"]))
             event_type = macroEvents["events"][events]["type"]
