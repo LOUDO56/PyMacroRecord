@@ -769,6 +769,10 @@ def cleanup():
     icon.stop()
 
 
+def getAsset(name):
+    return os.path.join(os.path.dirname(__file__), 'assets', name)
+
+
 register(cleanup)
 
 macro_process = Popen(['pythonw',
@@ -850,17 +854,17 @@ help_section.add_command(label="Github Page",
 help_section.add_command(label="About", command=aboutMeGui)
 
 # Play Button
-playImg = PhotoImage(file=r"assets/button/play.png")
+playImg = PhotoImage(file=getAsset(f"button{os.sep}play.png"))
 playBtn = Button(window, image=playImg, command=startPlayback, state=DISABLED)
 playBtn.pack(side=LEFT, padx=50)
 
 # Record Button
-recordImg = PhotoImage(file=r"assets/button/record.png")
+recordImg = PhotoImage(file=getAsset(f"button{os.sep}record.png"))
 recordBtn = Button(window, image=recordImg, command=startRecordingAndChangeImg)
 recordBtn.pack(side=RIGHT, padx=50)
 
 # Stop Button
-stopImg = PhotoImage(file=r"assets/button/stop.png")
+stopImg = PhotoImage(file=getAsset(f"button{os.sep}stop.png"))
 
 window.bind('<Control-Shift-S>', saveMacroAs)
 window.bind('<Control-s>', saveMacro)
