@@ -771,7 +771,7 @@ def cleanup():
 
 register(cleanup)
 
-macro_process = Popen(['python',
+macro_process = Popen(['pythonw',
                        'macro.py'])  # it serves to run macro.py in the background because thread make the recording slower for some reasons
 
 # Window Setup
