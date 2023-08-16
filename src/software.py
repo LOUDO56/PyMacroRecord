@@ -717,7 +717,7 @@ def aboutMeGui():
     aboutGui.attributes("-toolwindow", 1)
     Label(aboutGui, text="Publisher: LOUDO").pack(side=TOP, pady=3)
     Label(aboutGui, text=f"Version: {version} ({versionUpToDate})").pack(side=TOP, pady=3)
-    Label(aboutGui, text="Under License: Attribution-NonCommercial").pack(side=TOP, pady=3)
+    Label(aboutGui, text="Under License: General Public License v3.0").pack(side=TOP, pady=3)
     Label(aboutGui, text="ShareAlike 4.0 International").pack(side=TOP, pady=3)
     Label(aboutGui, text="And... i like javascript, wbu?").pack(side=TOP, pady=15)
     buttonArea = Frame(aboutGui)
