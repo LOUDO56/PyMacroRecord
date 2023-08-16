@@ -80,7 +80,7 @@ But if you're still unsure, you can follow these steps to avoid the setup.exe:
 
 # License
 
-This program is under [Creative Commons 4.0 BY-NC-SA](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+This program is under [GNU General Public License v3.0](https://github.com/LOUDO56/PyMacroRecord/blob/main/LICENSE.md)
 
 # Special Thanks
 
