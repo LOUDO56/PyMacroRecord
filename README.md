@@ -31,7 +31,7 @@ From there, you can move your mouse, click, and type on your keyboard, and every
 \
 Then, to stop the recording, you simply click on the black square or press the `escape` key (By default).\
 To play a recording, you just need to click on the green play icon or press the `p` key (By default).
-And to stop the playback, press the `escape` key (By default).
+And to stop the playback, press the `f3` key (By default).
 \
 \
 Here are some videos to show you the process:
