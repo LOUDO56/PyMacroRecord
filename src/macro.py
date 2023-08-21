@@ -41,6 +41,7 @@ record = False  # Know if record is active
 playback = False  # Know if playback is active
 
 def win32_event_filter(msg, data):
+    """Detect if key is pressed by real keyboard or pynput"""
     global playback
     if data.flags & 0x10:
         if playback == True and record == False:
