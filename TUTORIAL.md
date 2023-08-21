@@ -6,16 +6,16 @@ From there, you can move your mouse, click, and type on your keyboard, and every
 
 
 Then, to stop the recording, you simply click on the black square or press the `escape` key (By default).\
-To play a recording, you just need to click on the green play icon or press the `p` key (By   it will open a file explorer window (if you haven't already saved yet). 
+To play a recording, you just need to click on the green play icon or press the `p` key (By default).
 
+# Save, Load and clear a record
+To save a record, you can do `ctrl + s` or by clicking on `File` and `Save` or `Save as` and it will open a file explorer window (if you haven't already saved yet).
 From there you can chose you favorite path to save your record.
 
-
-To load a record, you can do `ctrl + l` or by clicking on `File` and `Load`  and it will open a file explorer window
+To load a record, you can do `ctrl + l` or by clicking on `File` and `Load`  and it will open a file explorer window.\
 From there, choose the record you want to play (json files only)
 
-
-Finally, to start a new record and delete the last one, you can do `ctrl + n` or by clicking on `File` and `New`
+Finally, to start a new record and delete the last one, you can do `ctrl + n` or by clicking on `File` and `New`.
 And you'll have the software as if you were opening it for the first time.
 
 # Options
@@ -48,12 +48,12 @@ Unfortunately, you can't have same hotkeys.
 To change minimization settings, go to `Options` -> `Options` -> `Minimization` and you'll have two options.
 \
 \
-One, `minimized while playing`, PyMacroRecord will be minimized while playing
+One, `minimized while playing`, PyMacroRecord will be minimized while playing.
 \
-Two, `minimized while recording`, PyMacroRecord will be minimized while recording
+Two, `minimized while recording`, PyMacroRecord will be minimized while recording.
 \
 \
-You'll have a popup when PyMacroRecord get minimized so you're not confused when PyMacroRecord disappear
+You'll have a popup when PyMacroRecord get minimized so you're not confused when PyMacroRecord disappear.
 
 ### After Playback Options
 To change the after playback events, go to `Options` -> `Options` -> `After Playback...`
