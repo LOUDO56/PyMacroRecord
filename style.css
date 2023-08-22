@@ -1,0 +1,111 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+}
+
+/*
+/*
+/*              HEADER
+/*
+/*
+*/
+
+
+header{
+    padding: 10px 20px;
+    background-color: #F8F8F8;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.title img{
+    width: 64px;
+}
+
+
+.title-software{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+
+.links{
+    display: flex;
+    gap: 30px;
+    font-size: 20px;
+
+}
+
+.links a{
+    color: black;
+    text-decoration: none;
+}
+
+
+
+/*
+/*
+/*              MAIN
+/*
+/*
+*/
+
+
+.underline{
+    display: inline-block;
+    line-height: 0em;
+    padding-bottom: 0.5em;
+    background-color: #f0e582;
+    border-radius: 10px;
+}
+
+main{
+    margin-top: 10em;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.big-title{
+    font-size: 5em;
+    font-weight: bold;
+}
+
+.presentation{
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.download{
+    padding: 15px 20px;
+    background-color: #6786F2;
+    color: white;
+    border-radius: 100px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.not-windows{
+    margin-top: -20px;
+    font-size: 15px;
+}
