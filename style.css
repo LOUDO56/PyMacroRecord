@@ -1,3 +1,7 @@
+:root{
+    --black-text: rgba(0, 0, 0, 0.788)
+}
+
 *{
     padding: 0;
     margin: 0;
@@ -6,6 +10,7 @@
 
 body{
     font-family: 'Poppins', sans-serif;
+    color: var(--black-text);
 }
 
 /*
@@ -37,7 +42,15 @@ nav{
 }
 
 .title img{
-    width: 64px;
+    width: 40px;
+}
+
+.tired-of{
+    max-width: 40em;
+    text-align: center;
+    font-size: 15px;
+    margin-top: -20px;
+    margin-bottom: 10px;
 }
 
 
@@ -55,10 +68,13 @@ nav{
 }
 
 .links a{
-    color: black;
+    color: var(--black-text);
     text-decoration: none;
 }
 
+.linked{
+    color: #5db3f5
+}
 
 
 /*
@@ -77,7 +93,8 @@ nav{
     border-radius: 10px;
 }
 
-main{
+
+.header-pres{
     margin-top: 10em;
     display: flex;
     align-items: center;
@@ -106,6 +123,125 @@ main{
 }
 
 .not-windows{
-    margin-top: -20px;
+    margin-top: -10px;
     font-size: 15px;
+}
+
+
+.important-point{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 50px;
+    background-color: #273036;
+    padding-bottom: 50px;
+    color: rgba(255, 255, 255, 0.884);
+}
+
+.box-pres{
+    display: flex;
+    align-items: center;
+    gap: 7em;
+    flex-wrap: wrap;
+}
+
+.box-pres.reversed{
+    flex-direction: row-reverse;
+}
+
+
+.box-title{
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+    margin-bottom: 30px;
+    /* color:#98bfec; */
+}
+
+
+.box-desc{
+    font-size: 17px;
+    width: 20em;
+}
+
+.key-word{
+    color:#acd7ff;
+    font-weight: bold;
+}
+
+.box-desc.spaced{
+    margin-bottom: 30px;
+}
+
+
+.no-premium{
+    width: 290px;
+}
+
+
+.github-logo{
+    width: 260px;
+}
+
+
+
+.features-point{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 7em;
+    background-color: #535f68;
+    padding: 40px;
+    color: white;
+}
+
+.features-txt{
+    font-size: 70px;
+    color: #f7cc78;
+    font-weight: bold;
+}
+
+
+
+
+
+/*
+/*
+/*              ABOUT ME
+/*
+/*
+*/
+
+
+
+.about-me{
+    padding: 40px;
+
+}
+
+.about-me-txt{
+    font-size: 70px;
+    color: #629CF4;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+.about-me-desc{
+    font-size: 20px;
+    max-width: 40em;
+    margin: 0 auto;
+}
+
+.about-me-desc:last-child{
+    margin-top: 50px;
+}
+
+
+footer{
+    padding: 20px;
+    background-color: #D9D9D9;
+    text-align: center;
 }
