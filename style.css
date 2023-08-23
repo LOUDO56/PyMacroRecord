@@ -57,13 +57,15 @@ nav{
 .title-software{
     font-size: 20px;
     font-weight: bold;
+    color: var(--black-text);
+    text-decoration: none;
 }
 
 
 .links{
     display: flex;
     gap: 30px;
-    font-size: 20px;
+    font-size: 18px;
 
 }
 
@@ -72,8 +74,62 @@ nav{
     text-decoration: none;
 }
 
+.links a:hover{
+    text-decoration: underline;
+}
+
 .linked{
     color: #5db3f5
+}
+
+.linked:hover{
+    text-decoration: none;
+}
+
+
+.links-mobile{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    margin-top: 40px;
+}
+
+
+
+.hambuger-icon{
+    width: 30px;
+    display: none;
+}
+
+.links-mobile-menu img{
+    float: right;
+    margin-top: 17px;
+    margin-right: 20px;
+}
+
+.links-mobile-menu{
+    display: none;
+    position: fixed;
+    height: 100%;
+    width: 150px;
+    background-color: #d3d3d3;
+    right: -25em;
+    top: 0;
+    transition: 200ms ease;
+    z-index: 99;
+}
+
+
+
+.links-mobile{
+    margin-top: 5em;
+}
+
+.links-mobile a{
+    font-size: 20px;
+    color: var(--black-text);
+    text-decoration: none;
 }
 
 
@@ -83,6 +139,7 @@ nav{
 /*
 /*
 */
+
 
 
 .underline{
@@ -100,6 +157,7 @@ nav{
     align-items: center;
     flex-direction: column;
     gap: 25px;
+    padding: 0 15px;
 }
 
 .big-title{
@@ -110,6 +168,7 @@ nav{
 .presentation{
     font-size: 30px;
     font-weight: 600;
+    text-align: center;
 }
 
 .download{
@@ -120,11 +179,17 @@ nav{
     text-decoration: none;
     font-weight: 600;
     font-size: 20px;
+    transition: 200ms ease;
+}
+
+.download:hover{
+    background-color: #839dfa;
 }
 
 .not-windows{
     margin-top: -10px;
     font-size: 15px;
+    text-align: center;
 }
 
 
@@ -143,7 +208,8 @@ nav{
     display: flex;
     align-items: center;
     gap: 7em;
-    flex-wrap: wrap;
+    margin: 0 10px;
+
 }
 
 .box-pres.reversed{
@@ -157,6 +223,7 @@ nav{
     font-size: 30px;
     margin-bottom: 30px;
     /* color:#98bfec; */
+    text-shadow: 0 5px 5px rgba(0, 0, 0, 0.205);
 }
 
 
@@ -201,6 +268,7 @@ nav{
     font-size: 70px;
     color: #f7cc78;
     font-weight: bold;
+    text-shadow: 0 5px 5px rgba(0, 0, 0, 0.205);
 }
 
 
@@ -230,7 +298,7 @@ nav{
 }
 
 .about-me-desc{
-    font-size: 20px;
+    font-size: 18px;
     max-width: 40em;
     margin: 0 auto;
 }
@@ -240,8 +308,185 @@ nav{
 }
 
 
+/*
+/*
+/*              DOWNLOAD PAGE
+/*
+/*
+*/
+
+.information-download{
+    margin: 7em 15em 0 15em;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.download-title{
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+
+.download-desc{
+    max-width: 70em;
+}
+
+/* I know i can just set margin on the download button but for some reason it's nor working.... */
+
+.download-software > .download-desc{
+    margin-bottom: 30px;
+} 
+
+#installation-not-windows{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.file-explorer{
+    margin-left: 20px;
+}
+
+code{
+    background-color: #e0e0e0;
+    font-size: 14px;
+    padding: 4px 8px;
+    border-radius: 5px;
+}
+
+.pip-command, .more-info{
+    margin-left: 35px;
+}
+
+.ready{
+    margin-top: 30px;
+}
+
+/*
+/*
+/*              OTHER
+/*
+/*
+*/
+
 footer{
+    margin-top: 50px;
     padding: 20px;
     background-color: #D9D9D9;
     text-align: center;
+}
+
+
+@media screen and (max-width: 768px) {
+
+    .box-pres, .box-pres.reversed{
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+    }
+
+    .box-pres img{
+        width: 150px;
+    }
+
+
+    
+}
+
+
+@media screen and (max-width: 668px) {
+
+    .title-software{
+        font-size: 17px;
+    }
+
+    .links-mobile-menu{
+        display: block;
+    }
+    
+    .header-pres{
+        margin-bottom: 30px;
+    }
+
+    .big-title{
+        font-size: 2.5em;
+    }
+
+    .logo-pres{
+        width: 200px;
+    }
+
+    .presentation{
+        font-size: 1.4em;
+    }
+
+    .tired-of{
+        font-size: 14px;
+    }
+    
+    .about-me-txt{
+        font-size: 50px;
+    }
+
+    .about-me-desc{
+        font-size: 15px;
+    }
+
+    .features-txt{
+        font-size: 50px;
+    }
+
+    .download-title{
+        font-size: 23px;
+    }
+
+    .download-desc{
+        font-size: 14px;
+    }
+
+    #installation-not-windows{
+        font-size: 14px;
+    }
+
+    .file-explorer{
+        width: 275px;
+    }
+
+    .download.download-page{
+        font-size: 17px;
+    }
+
+    footer{
+        font-size: 14px;
+
+    }
+}
+
+
+
+@media screen and (max-width: 532px) {
+
+    .hambuger-icon{
+        display: block;
+    }
+
+    .links{
+        display: none;
+    }
+    
+}
+
+
+
+@media screen and (max-width: 1056px) {
+
+    .information-download{
+        margin-left: 20px;
+        margin-right: 20px;
+        
+    }
+
+    
 }

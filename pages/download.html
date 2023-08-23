@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PyMacroRecord | Download</title>
+        <link rel="stylesheet" href="../style.css">
+        <script src="../script.js" defer></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <header>
+            <nav>
+                <div class="title">
+                    <img src="../assets/logo.png" alt="pymacrorecord logo">
+                    <a href="../index" class="title-software">PyMacroRecord</a>
+                </div>
+                <div class="links">
+                    <a href="../index">Home</a>
+                    <a href="download">Download</a>
+                    <a href="https://github.com/LOUDO56/PyMacroRecord">Github</a>
+                    <a href="https://github.com/LOUDO56/PyMacroRecord/blob/main/TUTORIAL.md">Help</a>
+                </div>
+                <img src="../assets/hamburger-icon.svg" alt="hambuger menu icon" class="hambuger-icon">
+            </nav>
+        </header>
+
+        <div class="links-mobile-menu">
+            <img src="../assets/close.svg" alt="close icon" class="close-icon">
+            <div class="links-mobile">
+                <a href="../index">Home</a>
+                <a href="pages/download">Download</a>
+                <a href="https://github.com/LOUDO56/PyMacroRecord">Github</a>
+                <a href="pages/help">Help</a>
+            </div>
+        </div>
+
+        <main>
+            <div class="information-download">
+                <div class="download-software">
+                    <p class="download-title">Download PyMacroRecord</p>
+                    <p class="download-desc">Before downloading, make sure you have Python installed! If you haven’t, download it <a href="https://www.python.org/downloads/" target="_blank" class="linked">here</a>!</p>
+                    <a href="https://github.com/LOUDO56/PyMacroRecord/releases/download/1.0.3/PyMacroRecord_1.0.3_Setup.exe" class="download download-page">Download for Windows</a>
+                </div>
+
+                <div class="problem">
+                    <p class="download-title">Problems you might encounter by opening the setup</p>
+                    <p class="download-desc">
+                        You may encounter the Windows SmartScreen. This is normal, my program is unknown from Windows.
+                        Just click on “More Info” and “Run Anyway”
+                    </p>
+                </div>
+
+                <div id="installation-not-windows">
+                    <p class="download-title">Installation for Linux and MacOS </p>
+                    <p class="download-desc">
+                        <p>1. Download the source code <a href="https://github.com/LOUDO56/PyMacroRecord/archive/refs/tags/1.0.3.zip" class="linked">here</a>.</p>
+                        <p>2. Extract it wherever you want</p>
+                        <p>3. Go into the file and type cmd here then press enter:</p>
+                        <div>
+                            <img src="../assets/file_explorer.png" alt="file explorer tuto" class="file-explorer">
+                        </div>
+                        <p>4. Type the command:</p>
+                        <div><code class="pip-command">pip install -r requirements.txt</code></div>
+                        <p class="more-info">-> if you want these package to be on virtual environment follow these step <a href="https://stackoverflow.com/a/41799834" target="_blank" class="linked">here</a>.</p>
+                        <p>5. Finally, type <code>cd src</code> and type the command: <code>python software.py</code></p>
+                        <p class="ready">And boom! The software is now ready to use.</p>
+                    </p>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p class="credits">Created by LOUDO. Copyright © LOUDO 2023.</p>
+        </footer>
+    </body>
+</html>
