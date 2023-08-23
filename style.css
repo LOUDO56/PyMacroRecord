@@ -51,6 +51,7 @@ nav{
     font-size: 15px;
     margin-top: -20px;
     margin-bottom: 10px;
+    font-weight: normal;
 }
 
 
@@ -190,6 +191,7 @@ nav{
     margin-top: -10px;
     font-size: 15px;
     text-align: center;
+    font-weight: normal;
 }
 
 
@@ -207,7 +209,7 @@ nav{
 .box-pres{
     display: flex;
     align-items: center;
-    gap: 7em;
+    gap: 6em;
     margin: 0 10px;
 
 }
@@ -387,8 +389,16 @@ footer{
         gap: 30px;
     }
 
+    .features-point{
+        gap: 70px;
+    }
+
     .box-pres img{
         width: 150px;
+    }
+
+    .preview-software{
+        width: 300px !important;
     }
 
 
