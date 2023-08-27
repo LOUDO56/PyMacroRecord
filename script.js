@@ -14,10 +14,13 @@ close_menu_icon.addEventListener('click', () => {
 // To get the right version of the software without updating everytime the website
 if(window.location.href.includes('download')){
     const downdloadLink = document.querySelector('.download')
+    const sourceLink = document.querySelector('.source-code')
     fetch('https://api.allorigins.win/get?url=https://pastebin.com/raw/8YAjs4Pc')
         .then(resp => resp.json())
         .then(ver => {
             const versionToDl = 'https://github.com/LOUDO56/PyMacroRecord/releases/download/'+ver.contents+'/PyMacroRecord_'+ver.contents+'_Setup.exe'
+            const sourcetoDl = 'https://github.com/LOUDO56/PyMacroRecord/archive/refs/tags/'+ver.contents+'.zip'
             downdloadLink.href = versionToDl;
+            sourceLink.href = sourcetoDl;
         })
 }
