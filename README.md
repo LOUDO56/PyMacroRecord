@@ -52,14 +52,7 @@ https://github.com/LOUDO56/PyMacroRecord/assets/117168736/624e49b4-439e-413c-a05
 # For bug reports or update requests
 If you encounter a bug or want to request an update, simply create an issue [here](https://github.com/LOUDO56/PyMacroRecord/issues)
 
-# My computer detects this program as a Virus
-
-This is normal, my program is completely unknown to Windows, so at first, it may be considered as a virus. However, this is a false positive, so don't worry.\
-You can still check the code, this is an open-source program.
-\
-\
-But if you're still unsure, you can follow these steps to avoid the setup.exe:
-
+# Installation
 - Download the source code like this:
 
 ![image](https://github.com/LOUDO56/PyMacroRecord/assets/117168736/ed511c68-da60-4cb9-b3be-25c0010e5b42)
@@ -72,7 +65,7 @@ But if you're still unsure, you can follow these steps to avoid the setup.exe:
 
 - Type the command:
   ```bash
-  pip3 install -r requirements.txt
+  pip install -r requirements.txt
   ```
   - If you want these package to be on virtual environment follow these step [here](https://stackoverflow.com/a/41799834)
 - Finally, do `cd src` and type: `python software.py`
