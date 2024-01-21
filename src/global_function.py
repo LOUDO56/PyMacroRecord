@@ -1,20 +1,23 @@
 from time import sleep
 from json import load, dumps, decoder
 from os import path, getenv
+from os import name as OsUser
+import sys
 
-appdata_local = getenv('LOCALAPPDATA') + "/PyMacroRecord"
-appdata_local = appdata_local.replace('\\', "/")
-userSettingsPath = appdata_local + "/userSettings.json"
+if(OsUser == "nt"):
+    appdata_local = path.join(getenv("LOCALAPPDATA"), "PyMacroRecord")
+else:
+    appdata_local = path.join(path.expanduser("~"), "PyMacroRecord")
+userSettingsPath = path.join(appdata_local, "userSettings.json")
 
-def getKeyPressed(keyboardListener, key):
-    """Return right key. canonical() prevents from weird characters to show up with ctrl active. Like ctrl + d,
-    pynput will not print Key.ctrl and d, it will print Key.ctrl and a weird character"""
-    if "Key." in str(key):
-        keyPressed = str(key)
-    else:
-        keyPressed = str(keyboardListener.canonical(key)).replace("'", "")
-    return keyPressed
-
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = path.abspath(".")
+    return path.join(base_path, relative_path)
 
 def simulateKeyPress(keyArray, special_keys, keyboardControl):
     """Simulate keypress"""
@@ -24,6 +27,15 @@ def simulateKeyPress(keyArray, special_keys, keyboardControl):
     for keys in keyArray:
         keyToPress = keys if 'Key.' not in keys else special_keys[keys]
         keyboardControl.release(keyToPress)
+
+def getKeyPressed(keyboardListener, key):
+    """Return right key. canonical() prevents from weird characters to show up with ctrl active. Like ctrl + d,
+    pynput will not print Key.ctrl and d, it will print Key.ctrl and a weird character"""
+    if "Key." in str(key):
+        keyPressed = str(key)
+    else:
+        keyPressed = str(keyboardListener.canonical(key)).replace("'", "")
+    return keyPressed
 
 
 

@@ -1,18 +1,19 @@
-from threading import Thread
 from pynput import mouse, keyboard
 from pynput.mouse import Button
 from pynput.keyboard import Key
-from json import load, dumps, decoder
-from os import getenv, path
-from time import sleep, time
+from time import time
+from os import name as OsUser
 
 from global_function import *
 
-appdata_local = getenv('LOCALAPPDATA') + "/PyMacroRecord" # Path where I store data
-appdata_local = appdata_local.replace('\\', "/")
-userSettingsPath = appdata_local + "/userSettings.json"
+if(OsUser == "nt"):
+    appdata_local = path.join(getenv("LOCALAPPDATA"), "PyMacroRecord")
+else:
+    appdata_local = path.join(path.expanduser("~"), "PyMacroRecord")
+userSettingsPath = path.join(appdata_local, "userSettings.json")
 macroEvents = {"events": []}  # The core of this script, it serves to store all data events, so it can be replayable or saved on a file
-userSettings = loadRecord()
+if path.isdir(appdata_local) == True: # Prevent from loading when the file does not exist
+    userSettings = loadRecord()
 
 hotkeysDetection = []
 
@@ -40,14 +41,6 @@ special_keys = {
 record = False  # Know if record is active
 playback = False  # Know if playback is active
 
-def win32_event_filter(msg, data):
-    """Detect if key is pressed by real keyboard or pynput"""
-    global playback
-    if data.flags & 0x10:
-        if playback == True and record == False:
-            return False
-        else:
-            return True
 
 # All events from mouse and keyboard when record is active
 def on_move(x, y):
@@ -85,35 +78,10 @@ def on_press(key):
     if userSettings["Cant_rec"]:
         return
     keyPressed = getKeyPressed(keyboard_listener, key)
-    if keyPressed not in hotkeysDetection:
-        hotkeysDetection.append(keyPressed)
-    if record == False and playback == False:
-        #Start Record
-        if hotkeysDetection == userSettings["Hotkeys"]["Record_Start"]:
-            hotkeysDetection = []
-            startRecord()
-
-        # Play Back
-        if record == False and playback == False and path.exists(path.join(appdata_local + "/temprecord.json")):
-            if hotkeysDetection == userSettings["Hotkeys"]["Playback_Start"]:
-                hotkeysDetection = []
-                Thread(target=playRec).start() # Thread to prevent hotkey not working
-
-    if record == False and playback == True:
-        # Stop Playback
-        if hotkeysDetection == userSettings["Hotkeys"]["Playback_Stop"]:
-            hotkeysDetection = []
-            playback = False
-
-    if record == True and playback == False:
-        # Stop Record
-        if hotkeysDetection == userSettings["Hotkeys"]["Record_Stop"]:
-            hotkeysDetection = []
-            stopRecord()
-        if userSettings["Recordings"]["Keyboard"]:
-            macroEvents["events"].append(
-                {'type': 'keyboardEvent', 'key': keyPressed, 'timestamp': time() - start_time, 'pressed': True})
-            start_time = time()
+    if userSettings["Recordings"]["Keyboard"]:
+        macroEvents["events"].append(
+            {'type': 'keyboardEvent', 'key': keyPressed, 'timestamp': time() - start_time, 'pressed': True})
+        start_time = time()
 
 def on_release(key):
     global start_time
@@ -142,17 +110,19 @@ def startRecord():
         mouse_listener = mouse.Listener(on_move=on_move, on_scroll=on_scroll)
     else:
         mouse_listener = mouse.Listener(on_click=on_click, on_scroll=on_scroll)
-    print("record started")
+    keyboard_listener = keyboard.Listener(on_press=on_press, on_release=on_release)
+    keyboard_listener.start()
     mouse_listener.start()
-
+    print("record started")
 
 def stopRecord():
     """
         Stop record
     """
-    global macroEvents, record
+    global macroEvents, keyboard_listener, record
     record = False
     mouse_listener.stop()
+    keyboard_listener.stop()
     try:
         macroEvents["events"].remove(macroEvents["events"][0]) # Remove hotkey start record of user
         macroEvents["events"].remove(macroEvents["events"][-1]) # Remove hotkey stop record of user
@@ -161,7 +131,6 @@ def stopRecord():
     json_macroEvents = dumps(macroEvents, indent=4)
     print("record stopped")
     open(path.join(appdata_local + "/temprecord.json"), "w").write(json_macroEvents)
-
 
 def playRec():
     """
@@ -172,7 +141,7 @@ def playRec():
         To detect the stop of playback, I don't use the detection on the While loop because it won't work,
         and if I put the for loop in a thread, the playback is incredibly slow.
     """
-    global playback, keyboard_listener, hotkeysDetection
+    global playback, hotkeysDetection
     userSettings = loadRecord()
     playback = True
     macroEvents = load(open(path.join(appdata_local + "/temprecord.json"), "r"))
@@ -183,6 +152,7 @@ def playRec():
     }
     print("playback started")
     changeSettings("NotDetectingKeyPressPlayBack")
+
     for repeat in range(userSettings["Playback"]["Repeat"]["Times"]):
         for events in range(len(macroEvents["events"])):
             if playback == False:
@@ -218,10 +188,9 @@ def playRec():
     print("playback stopped")
     changeSettings("NotDetectingKeyPressPlayBack")
     hotkeysDetection = []
-    simulateKeyPress(userSettings["Hotkeys"]["Playback_Stop"], special_keys, keyboardControl)
+    simulateKeyPress(userSettings["Hotkeys"]["Playback_Stop"], special_keys, keyboardControl) # Play button to appear again
     playback = False
 
-
-
-with keyboard.Listener(on_press=on_press, on_release=on_release, win32_event_filter=win32_event_filter) as keyboard_listener:
-    keyboard_listener.join()
+def stopPlayBackMacro():
+    global playback
+    playback = False

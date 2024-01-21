@@ -1,26 +1,22 @@
-import threading
-import time
+from os import mkdir, remove, sep, system
+from os import name as OsUser
+from sys import platform
 from threading import Thread
-from json import load, dumps
 from tkinter import *
-from tkinter.ttk import *
 from tkinter import filedialog
 from tkinter import messagebox
+from tkinter.ttk import *
+from webbrowser import open as OpenUrl
+from PIL import Image
 from pynput import keyboard
 from pynput.keyboard import Key
-from subprocess import Popen
-from os import path, mkdir, getenv, remove
-from webbrowser import open as OpenUrl
-from atexit import register
-import pystray
-from PIL import Image
-import os
-from sys import platform
+from pystray import Icon
+from pystray import MenuItem
 from requests import get as getVer
-
 from global_function import *
+from macro import startRecord, stopRecord, playRec, stopPlayBackMacro
 
-version = "1.0.3"
+version = "1.0.4"
 
 # ------------------------------------------------------------------------------ #
 #
@@ -30,6 +26,10 @@ version = "1.0.3"
 #
 # ------------------------------------------------------------------------------ #
 
+if OsUser == "nt":
+    windowPopupOption = "-toolwindow"
+else:
+    windowPopupOption = "-topmost"
 
 special_keys = {
     "Key.esc": Key.esc, "Key.shift": Key.shift, "Key.tab": Key.tab, "Key.caps_lock": Key.caps_lock,
@@ -63,17 +63,19 @@ hotkeyVisible = []  # For Gui visual
 hotkeysDetection = []  # Detect Hotkeys
 keyboardControl = keyboard.Controller()  # Keyboard controller to detect keypress
 
-appdata_local = getenv('LOCALAPPDATA') + "/PyMacroRecord"
-appdata_local = appdata_local.replace('\\', "/")
-userSettingsPath = appdata_local + "/userSettings.json"
+if(OsUser == "nt"):
+    appdata_local = path.join(getenv("LOCALAPPDATA"), "PyMacroRecord")
+else:
+    appdata_local = path.join(path.expanduser("~"), "PyMacroRecord")
+userSettingsPath = path.join(appdata_local, "userSettings.json")
 
 # Prevents from playing last record not saved or saved when re-launching the software
-if path.exists(path.join(appdata_local + "/temprecord.json")):
-    remove(path.join(appdata_local + "/temprecord.json"))
+if path.exists(path.join(appdata_local + "temprecord.json")):
+    remove(path.join(appdata_local + "temprecord.json"))
 
 # Setup of UserSettings if not exists
 if path.isdir(appdata_local) == False:
-    mkdir(appdata_local)  # Temp record to interact with macro.py
+    mkdir(appdata_local)
     userSettings = {
         "Playback": {
             "Speed": 1,
@@ -141,7 +143,6 @@ if userSettings["StoppedRecManually"]:
 if userSettings["NotDetectingKeyPressPlayBack"]:
     changeSettings("NotDetectingKeyPressPlayBack")
 
-
 # ------------------------------------------------------------------------------ #
 #
 #
@@ -150,24 +151,13 @@ if userSettings["NotDetectingKeyPressPlayBack"]:
 #
 # ------------------------------------------------------------------------------ #
 
-def win32_event_filter(msg, data):
-    """Detect if key is pressed by real keyboard or pynput"""
-    userSettings = loadRecord()
-    if data.flags & 0x10:
-        if playbackStatement == True and recordStatement == False:
-            if userSettings["NotDetectingKeyPressPlayBack"]:
-                return False
-            else:
-                return True
-        else:
-            return True
 
 
 def on_press(key):
     """
     Detect key release to change buttons in the gui
     """
-    global changeKey, recordStatement, playbackStatement, recordBtn, playBtn, recordSet, userSettings, hotkeysDetection, hotkeyVisible, cantRec, hotkey, changeKey
+    global changeKey, recordStatement, playbackStatement, recordBtn, playBtn, recordSet, userSettings, hotkeysDetection, hotkeyVisible, cantRec, hotkey
     userSettings = loadRecord()
     if changeKey == True:  # To print hotkeys of users in settings
         keyPressed = getKeyPressed(keyboardListener, key)
@@ -178,10 +168,11 @@ def on_press(key):
         entryToChange.configure(text=hotkeyVisible)
         for hotkeyUser in userSettings["Hotkeys"]:
             if userSettings["Hotkeys"][hotkeyUser] == hotkey:
-                messagebox.showerror("Error", "You cannot have the same keyboard shortcut for another category.")
-                entryToChange.configure(text="Please key")
                 hotkey = []
                 hotkeyVisible = []
+                messagebox.showerror("Error", "You cannot have the same keyboard shortcut for another category.")
+                entryToChange.configure(text="Please key")
+                break
             else:
                 if all(keyword not in keyPressed for keyword in ["ctrl", "alt", "shift"]):
                     changeSettings("Hotkeys", typeOfHotKey, None, hotkey)
@@ -226,6 +217,9 @@ def on_release(key):
 
 
 def preventRecord(state):
+    """
+    Prevents from recording when in settings or file explorer to save, load a record.
+    """
     global cantRec
     if state:
         cantRec = True
@@ -240,7 +234,7 @@ def startRecordingAndChangeImg(pressKey=True):
     """
     global stopBtn, recordStatement, playbackStatement, cantRec
     if pressKey:
-        if recordSet == True and fileAlreadySaved == False:
+        if recordSet == True:
             preventRecord(True)
             wantToSave = warningPopUpSave()
             if wantToSave:
@@ -258,8 +252,6 @@ def startRecordingAndChangeImg(pressKey=True):
     if playbackStatement == False:
         recordStatement = True
         file_menu.entryconfig('Load', state=DISABLED)
-        if pressKey:
-            simulateKeyPress(userSettings["Hotkeys"]["Record_Start"], special_keys, keyboardControl)
         recordBtn.configure(image=stopImg, command=stopRecordingAndChangeImg)
         file_menu.entryconfig('Save', state=DISABLED)
         file_menu.entryconfig('Save as', state=DISABLED)
@@ -267,7 +259,8 @@ def startRecordingAndChangeImg(pressKey=True):
         file_menu.entryconfig('Load', state=DISABLED)
         if userSettings["Minimization"]["When_Recording"]:
             window.withdraw()
-            threading.Thread(target=showNotifWithdraw).start()
+            Thread(target=showNotifWithdraw).start()
+        startRecord()
 
 
 def stopRecordingAndChangeImg(pressKey=True):
@@ -279,8 +272,6 @@ def stopRecordingAndChangeImg(pressKey=True):
     userSettings = loadRecord()
     recordStatement = False
     recordSet = True
-    if pressKey:
-        simulateKeyPress(userSettings["Hotkeys"]["Record_Stop"], special_keys, keyboardControl)
     recordBtn.configure(image=recordImg, command=startRecordingAndChangeImg)
     playBtn.configure(state=NORMAL)
     file_menu.entryconfig('Save', state=NORMAL, command=saveMacro)
@@ -289,9 +280,11 @@ def stopRecordingAndChangeImg(pressKey=True):
     file_menu.entryconfig('Load', state=NORMAL)
     if userSettings["Minimization"]["When_Recording"]:
         window.deiconify()
+    stopRecord()
 
 
 def startPlayback(pressKey=True):
+    global playback
     """
         Playback the last recorded macro or the loaded one
     """
@@ -305,17 +298,16 @@ def startPlayback(pressKey=True):
     file_menu.entryconfig('Save as', state=DISABLED)
     file_menu.entryconfig('New', state=DISABLED)
     file_menu.entryconfig('Load', state=DISABLED)
-    if pressKey:
-        simulateKeyPress(userSettings["Hotkeys"]["Playback_Start"], special_keys, keyboardControl)
     recordBtn.configure(state=DISABLED)
     if userSettings["Minimization"]["When_Playing"]:
         window.withdraw()
-        threading.Thread(target=showNotifWithdraw).start()
+        Thread(target=showNotifWithdraw).start()
+    Thread(target=playRec).start()
 
 
 def stopPlayback():
     global playbackStatement, userSettings
-    simulateKeyPress(userSettings["Hotkeys"]["Playback_Stop"], special_keys, keyboardControl)
+    stopPlayBackMacro()
     playbackStatement = False
     recordBtn.configure(state=NORMAL)
     playBtn.configure(image=playImg, command=startPlayback)
@@ -328,16 +320,16 @@ def stopPlayback():
         changeSettings("NotDetectingKeyPressPlayBack")
     if not userSettings["StoppedRecManually"]:
         if userSettings["After_Playback"]["Mode"] != "Idle":
-            cleanup()
-            window.quit()
+            window.destroy()
+            icon.stop()
             if userSettings["After_Playback"]["Mode"] == "Standy":
-                os.system("rundll32.exe powrprof.dll, SetSuspendState Sleep")
-            if userSettings["After_Playback"]["Mode"] == "Log off Computer":
-                os.system("shutdown /l")
-            if userSettings["After_Playback"]["Mode"] == "Turn off Computer":
-                os.system("shutdown /s")
-            if userSettings["After_Playback"]["Mode"] == "Hibernate (If activated)":
-                os.system("shutdown -h")
+                system("rundll32.exe powrprof.dll, SetSuspendState Sleep")
+            elif userSettings["After_Playback"]["Mode"] == "Log off Computer":
+                system("shutdown /l")
+            elif userSettings["After_Playback"]["Mode"] == "Turn off Computer":
+                system("shutdown /s")
+            elif userSettings["After_Playback"]["Mode"] == "Hibernate (If activated)":
+                system("shutdown -h")
     else:
         changeSettings("StoppedRecManually")
     if userSettings["Minimization"]["When_Playing"]:
@@ -398,7 +390,7 @@ def loadMacro(e=None):
     global macroPath, recordSet, fileAlreadySaved, cantRec
     preventRecord(True)
     if recordStatement == False and playbackStatement == False:
-        if recordSet == True:
+        if recordSet == True and fileAlreadySaved == False:
             wantToSave = warningPopUpSave()
             if wantToSave == None:
                 preventRecord(False)
@@ -418,6 +410,7 @@ def loadMacro(e=None):
             file_menu.entryconfig('New', state=NORMAL, command=newMacro)
             macroFile.close()
             fileAlreadySaved = True
+            recordSet = False
     preventRecord(False)
 
 
@@ -454,7 +447,7 @@ def newMacro(e=None):
 
 
 def showNotifWithdraw():
-    if platform == "win32":
+    if OsUser == "nt":
         try:
             from win10toast import ToastNotifier
 
@@ -463,14 +456,14 @@ def showNotifWithdraw():
                 title="PyMacroRecord minimized",
                 msg="PyMacroRecord has been minimized",
                 duration=5,
-                icon_path="assets/logo.ico"
+                icon_path=resource_path(path.join("assets", "logo.ico"))
             )
         except ModuleNotFoundError:
-            print("The win10toast module is not available. Unable to display toast notification on this system.")
-    elif platform == "linux":
-        os.system('notify-send -u normal "PyMacroRecord" "PyMacroRecord has been minimized"')
-    elif platform == "darwin":
-        os.system("""
+            print("The win10toast module is not available in this OS. Unable to display toast notification on this system.")
+    elif platform == "Linux":
+        system("""notify-send -u normal "PyMacroRecord" "PyMacroRecord has been minimized" """)
+    elif platform == "Darwin":
+        system("""
         osascript -e 'display notification "PyMacroRecord" with title "PyMacroRecord has been minimized" 
         """)
     else:
@@ -484,11 +477,10 @@ def warningPopUpSave():
 
 
 def stopProgram():
-    global closeWindow, macro_process, cantRec
     """
-        When the users want to stop the software, the macro.py in the background is terminated
-        And it checks if the users did a record but did not save it
-    """
+         When the users want to stop the software, it checks if the users did a record but did not save it
+     """
+    global closeWindow, cantRec
     if recordSet == True and fileAlreadySaved == False:
         preventRecord(True)
         closeWindow = True
@@ -496,12 +488,10 @@ def stopProgram():
         if wantToSave:
             saveMacro()
         elif wantToSave == False:
-            macro_process.terminate()
             window.destroy()
             icon.stop()
         preventRecord(False)
     else:
-        macro_process.terminate()
         window.destroy()
         icon.stop()
 
@@ -528,7 +518,7 @@ def changeSpeed():
     speedWin.title("Change Speed")
     speedWin.grab_set()
     speedWin.resizable(False, False)
-    speedWin.attributes("-toolwindow", 1)
+    speedWin.attributes(windowPopupOption, 1)
     Label(speedWin, text="Enter Speed Number between 0.1 and 10", font=('Segoe UI', 10)).pack(side=TOP, pady=10)
     userSettings = loadRecord()
     setNewSpeedInput = Entry(speedWin, width=10)
@@ -566,7 +556,7 @@ def repeatGuiSettings():
     repeatGui.title("Change Speed")
     repeatGui.grab_set()
     repeatGui.resizable(False, False)
-    repeatGui.attributes("-toolwindow", 1)
+    repeatGui.attributes(windowPopupOption, 1)
     Label(repeatGui, text="Enter Repeat Number ", font=('Segoe UI', 10)).pack(side=TOP, pady=10)
     userSettings = loadRecord()
     repeatTimes = Spinbox(repeatGui, from_=1, to=100000000, width=7, validate="key",
@@ -594,7 +584,7 @@ def afterPlaybackGui():
     playBackGui.title("After Playback")
     playBackGui.grab_set()
     playBackGui.resizable(False, False)
-    playBackGui.attributes("-toolwindow", 1)
+    playBackGui.attributes(windowPopupOption, 1)
 
     options = [
         'Idle',
@@ -634,7 +624,7 @@ def hotkeySettingsGui():
     hotkeyGui.title("Hotkey settings")
     hotkeyGui.grab_set()
     hotkeyGui.resizable(False, False)
-    hotkeyGui.attributes("-toolwindow", 1)
+    hotkeyGui.attributes(windowPopupOption, 1)
     hotkeyLine = Frame(hotkeyGui)
     hotkeyStart = userSettings["Hotkeys"]["Record_Start"]
     hotkeyStop = userSettings["Hotkeys"]["Record_Stop"]
@@ -713,11 +703,11 @@ def aboutMeGui():
     aboutGui.title("About")
     aboutGui.grab_set()
     aboutGui.resizable(False, False)
-    aboutGui.attributes("-toolwindow", 1)
+    aboutGui.attributes(windowPopupOption, 1)
     Label(aboutGui, text="Publisher: LOUDO").pack(side=TOP, pady=3)
     Label(aboutGui, text=f"Version: {version} ({versionUpToDate})").pack(side=TOP, pady=3)
     Label(aboutGui, text="Under License: General Public License v3.0").pack(side=TOP, pady=3)
-    Label(aboutGui, text="And... i like javascript, wbu?").pack(side=TOP, pady=15)
+    Label(aboutGui, text="And... Web is cool!").pack(side=TOP, pady=15)
     buttonArea = Frame(aboutGui)
     Button(buttonArea, text="Close", command=aboutGui.destroy).pack(side=LEFT, padx=10)
     buttonArea.pack(side=BOTTOM, pady=10)
@@ -735,7 +725,7 @@ def newVerAvailable(ver):
     newVerGui.title("New Version Available!")
     newVerGui.grab_set()
     newVerGui.resizable(False, False)
-    newVerGui.attributes("-toolwindow", 1)
+    newVerGui.attributes(windowPopupOption, 1)
     Label(newVerGui, text=f"New Version {ver} available!").pack(side=TOP)
     Label(newVerGui, text="Click the button to open releases page on GitHub").pack(side=TOP)
     buttonArea = Frame(newVerGui)
@@ -750,31 +740,13 @@ def newVerAvailable(ver):
 def systemTray():
     """Just to show little icon on system tray"""
     global icon
-    image = Image.open("assets/logo.ico")
+    image = Image.open(resource_path(path.join("assets", "logo.ico")))
     menu = (
-        pystray.MenuItem('Show', action=window.deiconify, default=True),
+        MenuItem('Show', action=window.deiconify, default=True),
     )
-    icon = pystray.Icon("name", image, "PyMacroRecord", menu)
+    icon = Icon("name", image, "PyMacroRecord", menu)
     icon.run()
 
-
-def cleanup():
-    """
-        When the users want to stop the software, the macro.py in the background is terminated
-    """
-    if 'macro_process' in globals():
-        macro_process.terminate()
-    icon.stop()
-
-
-def getAsset(name):
-    return os.path.join(os.path.dirname(__file__), 'assets', name)
-
-
-register(cleanup)
-
-macro_process = Popen(['pythonw',
-                       'macro.py'])  # it serves to run macro.py in the background because thread make the recording slower for some reasons
 
 # Window Setup
 window = Tk()
@@ -787,7 +759,8 @@ x = (ws / 2) - (w / 2)
 y = (hs / 2) - (h / 2)
 window.geometry('%dx%d+%d+%d' % (w, h, x, y))
 
-window.iconbitmap("assets/logo.ico")
+if OsUser == "nt":
+    window.iconbitmap(resource_path(path.join("assets", "logo.ico")))
 window.resizable(False, False)
 
 # Menu Setup
@@ -852,24 +825,24 @@ help_section.add_command(label="Github Page",
 help_section.add_command(label="About", command=aboutMeGui)
 
 # Play Button
-playImg = PhotoImage(file=getAsset(f"button{os.sep}play.png"))
+playImg = PhotoImage(file=resource_path(path.join("assets", "button", "play.png")))
 playBtn = Button(window, image=playImg, command=startPlayback, state=DISABLED)
 playBtn.pack(side=LEFT, padx=50)
 
 # Record Button
-recordImg = PhotoImage(file=getAsset(f"button{os.sep}record.png"))
+recordImg = PhotoImage(file=resource_path(path.join("assets", "button", "record.png")))
 recordBtn = Button(window, image=recordImg, command=startRecordingAndChangeImg)
 recordBtn.pack(side=RIGHT, padx=50)
 
 # Stop Button
-stopImg = PhotoImage(file=getAsset(f"button{os.sep}stop.png"))
+stopImg = PhotoImage(file=resource_path(path.join("assets", "button", "stop.png")))
 
 window.bind('<Control-Shift-S>', saveMacroAs)
 window.bind('<Control-s>', saveMacro)
 window.bind('<Control-l>', loadMacro)
 window.bind('<Control-n>', newMacro)
 
-keyboardListener = keyboard.Listener(on_press=on_press, on_release=on_release, win32_event_filter=win32_event_filter)
+keyboardListener = keyboard.Listener(on_press=on_press, on_release=on_release)
 keyboardListener.start()
 
 validate_cmd = window.register(validate_input)
@@ -881,12 +854,19 @@ Thread(target=systemTray).start()
 if userSettings["Cant_rec"]:
     changeSettings("Cant_rec")  # Prevents from conflicts
 
+def getNewVersion():
+    global versionUpToDate
+    try:
+        newVersion = getVer("https://pastebin.com/raw/8YAjs4Pc", timeout=2).text
+        if newVersion != version:
+            versionUpToDate = "Outdated"
+            newVerAvailable(newVersion)
+        else:
+            versionUpToDate = "Up to Date"
+    except:
+        versionUpToDate = "Cannot fetch if new update"
+
 # Check updates
-newVersion = getVer("https://pastebin.com/raw/8YAjs4Pc").text
-if newVersion != version:
-    versionUpToDate = "Outdated"
-    newVerAvailable(newVersion)
-else:
-    versionUpToDate = "Up to Date"
+getNewVersion()
 
 window.mainloop()
