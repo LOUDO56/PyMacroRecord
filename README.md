@@ -60,9 +60,9 @@ If you encounter a bug or want to request an update, simply create an issue [her
   ```bash
   pip install -r requirements.txt
   ```
-  - If you want these package to be on virtual environment follow these step [here](https://stackoverflow.com/a/41799834)
-  - If you are on **Linux**, you need to install Tkinter manually, commands to install are [here](https://www.geeksforgeeks.org/how-to-install-tkinter-on-linux/)
+  - If you are on **Linux**, you might need to install Tkinter manually, commands to install are [here](https://www.geeksforgeeks.org/how-to-install-tkinter-on-linux/)
   - You need to remove the **win10toast** from `requirements.txt` or else you won't be able to install the depedencies
+  - If you want these package to be on virtual environment follow these step [here](https://stackoverflow.com/a/41799834)
 - Finally, do `cd src` and type: `python3 main.py`
 - And boom! The software is now ready to use.
 
