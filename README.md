@@ -21,10 +21,6 @@ PyMacroRecord works with a GUI made using tkinter, making it easier for users to
 - Smooth recording of the mouse.
 
 # How does this work?
-
-⚠️ **IMPORTANT** YOU NEED PYTHON TO RUN THIS SOFTWARE ⚠️
-\
-\
 To start recording, you simply have to press the red button or the `o` key (By default).\
 From there, you can move your mouse, click, and type on your keyboard, and everything will be recorded. (You can choose what will be recorded.)
 \
@@ -52,11 +48,8 @@ https://github.com/LOUDO56/PyMacroRecord/assets/117168736/624e49b4-439e-413c-a05
 # For bug reports or update requests
 If you encounter a bug or want to request an update, simply create an issue [here](https://github.com/LOUDO56/PyMacroRecord/issues)
 
-# Installation
-- Download the source code like this:
-
-![image](https://github.com/LOUDO56/PyMacroRecord/assets/117168736/ed511c68-da60-4cb9-b3be-25c0010e5b42)
-
+# Installation without windows
+- Download the last source code release [here](https://github.com/LOUDO56/PyMacroRecord/releases)
 
 - Extract it wherever you want.
 - Go into the file and type `cmd` here, then press enter:
@@ -68,7 +61,9 @@ If you encounter a bug or want to request an update, simply create an issue [her
   pip install -r requirements.txt
   ```
   - If you want these package to be on virtual environment follow these step [here](https://stackoverflow.com/a/41799834)
-- Finally, do `cd src` and type: `python software.py`
+  - If you are on **Linux**, you need to install Tkinter manually, commands to install are [here](https://www.geeksforgeeks.org/how-to-install-tkinter-on-linux/)
+  - You need to remove the **win10toast** from `requirements.txt` or else you won't be able to install the depedencies
+- Finally, do `cd src` and type: `python3 main.py`
 - And boom! The software is now ready to use.
 
 # License
