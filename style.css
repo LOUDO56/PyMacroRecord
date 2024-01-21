@@ -321,18 +321,27 @@ nav{
     margin: 7em 15em 0 15em;
     display: flex;
     flex-direction: column;
-    gap: 50px;
+    gap: 30px;
 }
 
 .download-title{
     font-size: 40px;
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: 25px;
 }
 
+.download-portable{
+    margin-top: 25px;
+    margin-left: 5px;
+}
 
 .download-desc{
     max-width: 70em;
+}
+
+.warning-support{
+    font-size: 19px;
+    font-weight: bold;
 }
 
 /* I know i can just set margin on the download button but for some reason it's nor working.... */
