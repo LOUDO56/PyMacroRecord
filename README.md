@@ -49,6 +49,7 @@ https://github.com/LOUDO56/PyMacroRecord/assets/117168736/624e49b4-439e-413c-a05
 If you encounter a bug or want to request an update, simply create an issue [here](https://github.com/LOUDO56/PyMacroRecord/issues)
 
 # Installation for Linux and MacOS
+⚠️ Might work for MacOS, I can not test unfortunately ⚠️
 - First, if you didn't already, install [Python](https://www.python.org/downloads/)
 - Download the last source code release [here](https://github.com/LOUDO56/PyMacroRecord/releases)
 
