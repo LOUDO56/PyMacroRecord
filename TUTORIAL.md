@@ -29,6 +29,11 @@ A value less than 1 will make your record slower, and a value greater than 1 wil
 ### Repeat
 To change the amount of repeat, go to `Options` -> `Playback` -> `Repeat` and it to whatever value you want, from 1 to infite.
 
+### Interval
+To enable the interval, go to `Options` -> `Playback` -> `Interval` and you will have three value. Hours, Minutes and Seconds. 
+
+The value 0 in all three fields means you are disabling the interval, putting more than 0 in one field will enable the interval.
+
 ### Selecting what to record
 To change your preferences from what being recorded, go to `Options` -> `Recordings` and you will see 3 options with checkmarks.
 
