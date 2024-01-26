@@ -36,7 +36,11 @@ Here are some videos to show you the process:
 
 
 
-https://github.com/LOUDO56/PyMacroRecord/assets/117168736/3150d831-9d2e-4481-b72f-45dd5835ae26
+
+https://github.com/LOUDO56/PyMacroRecord/assets/117168736/2e0f9e5e-965e-4d88-86ba-c525d7faed3c
+
+
+
 
 
 
