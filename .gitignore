@@ -1,5 +1,9 @@
-data
-.idea
-__pycache__
 .venv
-updates
+.idea
+venv
+upx
+dist
+output
+pmr-software.json
+*.spec
+src/__pycache__

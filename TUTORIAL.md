@@ -10,7 +10,7 @@ To play a recording, you just need to click on the green play icon or press the 
 
 # Save, Load and clear a record
 To save a record, you can do `ctrl + s` or by clicking on `File` and `Save` or `Save as` and it will open a file explorer window (if you haven't already saved yet).
-From there you can chose you favorite path to save your record.
+From there you can choose you favorite path to save your record.
 
 To load a record, you can do `ctrl + l` or by clicking on `File` and `Load`  and it will open a file explorer window.\
 From there, choose the record you want to play (json files only)
@@ -40,12 +40,12 @@ To change, simply click to the one you want to disable.
 
 ### Hotkeys
 
-To change your hotkeys to start, stop, start playback and stop playback, go to `Options` -> `Options` -> `Hotkeys`.
+To change your hotkeys to start, stop, start playback and stop playback, go to `Options` -> `Settings` -> `Hotkeys`.
 A window will popup and you'll have 4 buttons, click on it and you'll be able to change your hotkeys.
 Unfortunately, you can't have same hotkeys.
 
 ### Minimization
-To change minimization settings, go to `Options` -> `Options` -> `Minimization` and you'll have two options.
+To change minimization settings, go to `Options` -> `Settings` -> `Minimization` and you'll have two options.
 \
 \
 One, `minimized while playing`, PyMacroRecord will be minimized while playing.
@@ -56,7 +56,7 @@ Two, `minimized while recording`, PyMacroRecord will be minimized while recordin
 You'll have a popup when PyMacroRecord get minimized so you're not confused when PyMacroRecord disappear.
 
 ### After Playback Options
-To change the after playback events, go to `Options` -> `Options` -> `After Playback...`
+To change the after playback events, go to `Options` -> `Settings` -> `After Playback...`
 \
 You'll have a window with a menu where you can choose from:
 * Idle (Default)
@@ -64,6 +64,7 @@ You'll have a window with a menu where you can choose from:
 * Standby
 * Log off Computer
 * Turn off Computer
+* Restart Computer
 * Hibernate (If activated)
 
 # Others
