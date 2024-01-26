@@ -5,7 +5,9 @@ upx
 dist
 output
 build
+setup builder
 pmr-software.json
 *.spec
 *.txt
+SetupTemplate.iss
 src/__pycache__

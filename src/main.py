@@ -1034,7 +1034,7 @@ def getNewVersion():
     global versionUpToDate
     try:
         newVersion = getVer(
-            "https://gist.githubusercontent.com/LOUDO56/c4a9d886031baa5d680dfd79b450f907/raw/ee2b8b31b6d8e6ba22e15d5f3bfc72b689b9aa45/gistfile1.txt",
+            "https://pastebin.com/raw/8YAjs4Pc",
             timeout=2).text
         if newVersion != version:
             versionUpToDate = "Outdated"
