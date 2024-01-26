@@ -78,5 +78,15 @@ def changeSettings(category, option=None, option2=None, newValue=None):
     open(path.join(userSettingsPath), "w").write(userSettings_json)
 
 
-def loadRecord():
+def loadSettings():
     return load(open(path.join(userSettingsPath), "r"))
+
+def checkIfSettingsCorrupted():
+    file = open(path.join(userSettingsPath), "r")
+    try:
+        load(file)
+        file.close()
+        return False
+    except:
+        file.close()
+        return True

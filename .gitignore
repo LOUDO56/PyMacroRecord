@@ -4,6 +4,8 @@ venv
 upx
 dist
 output
+build
 pmr-software.json
 *.spec
+*.txt
 src/__pycache__

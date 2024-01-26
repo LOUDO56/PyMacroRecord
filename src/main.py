@@ -16,6 +16,7 @@ from pystray import MenuItem
 from requests import get as getVer
 from global_function import *
 from macro import startRecord, stopRecord, playRec, stopPlayBackMacro
+
 try:
     from win10toast import ToastNotifier
 except:
@@ -56,8 +57,6 @@ special_keys = {
     "Key.shift_l": Key.shift_l, "Key.shift_r": Key.shift_r
 }
 
-
-
 # Special keys are for on press and on release event so when the playback is on, it can press special keys without errors
 
 # Variable Setup
@@ -70,12 +69,12 @@ closeWindow = False  # Know if user is about to close the window
 changeKey = False  # Know to change hotkey
 cantRec = False  # Prevents recording from settings speed and repeat setup
 macroPath = None
-firstTime = False # KNow if the user start the file for the first time by checking if folder is creeated
+firstTime = False  # KNow if the user start the file for the first time by checking if folder is creeated
 hotkeyVisible = []  # For Gui visual
 hotkeysDetection = []  # Detect Hotkeys
 keyboardControl = keyboard.Controller()  # Keyboard controller to detect keypress
 
-if(OsUser == "nt"):
+if (OsUser == "nt"):
     appdata_local = path.join(getenv("LOCALAPPDATA"), "PyMacroRecord")
 else:
     appdata_local = path.join(path.expanduser("~"), "PyMacroRecord")
@@ -84,10 +83,8 @@ userSettingsPath = path.join(appdata_local, "userSettings.json")
 # Prevents from playing last record not saved or saved when re-launching the software
 if path.exists(path.join(appdata_local + "temprecord.json")):
     remove(path.join(appdata_local + "temprecord.json"))
-# Setup of UserSettings if not exists
-if path.isdir(appdata_local) == False:
-    mkdir(appdata_local)
-    firstTime = True
+
+def createSettings():
     userSettings = {
         "Playback": {
             "Speed": 1,
@@ -129,25 +126,41 @@ if path.isdir(appdata_local) == False:
         "Run_On_StartUp": False,
 
         "After_Playback": {
-            "Mode": "Idle"  # Quit, Lock Computer, Lof off computer, Turn off computer, Restart Computer, Standby, Hibernate
+            "Mode": "Idle"
+            # Quit, Lock Computer, Lof off computer, Turn off computer, Restart Computer, Standby, Hibernate
         },
 
         "Cant_rec": False,
         "StoppedRecManually": False,
         "NotDetectingKeyPressPlayBack": False
     }
+
     userSettings_json = dumps(userSettings, indent=4)
     settingFile = open(path.join(userSettingsPath), "w")
     settingFile.write(userSettings_json)
     settingFile.close()
 
-userSettings = loadRecord()
+# Setup of UserSettings if not exists
+if path.isdir(appdata_local) == False:
+    firstTime = True
+    mkdir(appdata_local)
+    createSettings()
+
+if not path.isfile(userSettingsPath):
+    createSettings()
+
+if checkIfSettingsCorrupted():
+    os.remove(userSettingsPath)
+    createSettings()
+
+userSettings = loadSettings()
 
 if userSettings["StoppedRecManually"]:
     changeSettings("StoppedRecManually")
 
 if userSettings["NotDetectingKeyPressPlayBack"]:
     changeSettings("NotDetectingKeyPressPlayBack")
+
 
 # ------------------------------------------------------------------------------ #
 #
@@ -159,7 +172,7 @@ if userSettings["NotDetectingKeyPressPlayBack"]:
 
 def win32_event_filter(msg, data):
     """Detect if key is pressed by real keyboard or pynput"""
-    userSettings = loadRecord()
+    userSettings = loadSettings()
     if data.flags == 0x10:
         if playbackStatement == True and recordStatement == False:
             if userSettings["NotDetectingKeyPressPlayBack"]:
@@ -169,12 +182,13 @@ def win32_event_filter(msg, data):
         else:
             return True
 
+
 def on_press(key):
     """
     Detect key release to change buttons in the gui
     """
     global changeKey, recordStatement, playbackStatement, recordBtn, playBtn, recordSet, userSettings, hotkeysDetection, hotkeyVisible, cantRec, hotkey
-    userSettings = loadRecord()
+    userSettings = loadSettings()
     if changeKey == True:  # To print hotkeys of users in settings
         keyPressed = getKeyPressed(keyboardListener, key)
         if keyPressed not in hotkey:
@@ -201,7 +215,7 @@ def on_press(key):
                     changeSettings("Hotkeys", typeOfHotKey, None, hotkey)
                     changeKey = False
                     hotkeyVisible = []
-                    userSettings = loadRecord()
+                    userSettings = loadSettings()
             i += 1
 
     if changeKey == False and cantRec == False:
@@ -261,6 +275,7 @@ def preventRecord(state):
         cantRec = False
     changeSettings("Cant_rec")
 
+
 def startRecordingAndChangeImg(pressKey=True):
     """
     When this function is called, it presses for the user his keybind to start the recording if he pressed the button
@@ -281,7 +296,7 @@ def startRecordingAndChangeImg(pressKey=True):
                 preventRecord(False)
                 return
             preventRecord(False)
-    userSettings = loadRecord()
+    userSettings = loadSettings()
     playBtn.configure(state=DISABLED)
     if playbackStatement == False:
         recordStatement = True
@@ -303,7 +318,7 @@ def stopRecordingAndChangeImg(pressKey=True):
     instead of his keyboard, it changes the button image
     """
     global recordBtn, recordStatement, recordSet
-    userSettings = loadRecord()
+    userSettings = loadSettings()
     recordStatement = False
     recordSet = True
     recordBtn.configure(image=recordImg, command=startRecordingAndChangeImg)
@@ -316,9 +331,11 @@ def stopRecordingAndChangeImg(pressKey=True):
         window.deiconify()
     stopRecord()
 
+
 def playInterval():
     playRec()
     sleep(userSettings["Playback"]["Repeat"]["Interval"])
+
 
 def startPlayback(pressKey=True):
     global playback, recBeingPlayed
@@ -326,7 +343,7 @@ def startPlayback(pressKey=True):
         Playback the last recorded macro or the loaded one
     """
     global playbackStatement, recordBtn, recordSet
-    userSettings = loadRecord()
+    userSettings = loadSettings()
     if userSettings["StoppedRecManually"]:
         changeSettings("StoppedRecManually")
     playBtn.configure(image=stopImg, command=stopPlayback)
@@ -342,10 +359,11 @@ def startPlayback(pressKey=True):
 
     Thread(target=playRec).start()
 
+
 def stopPlayback():
     global playbackStatement, userSettings
     stopPlayBackMacro()
-    userSettings = loadRecord()
+    userSettings = loadSettings()
     playbackStatement = False
     recordBtn.configure(state=NORMAL)
     playBtn.configure(image=playImg, command=startPlayback)
@@ -583,7 +601,7 @@ def changeSpeed():
     speedWin.resizable(False, False)
     speedWin.attributes(windowPopupOption, 1)
     Label(speedWin, text="Enter Speed Number between 0.1 and 10", font=('Segoe UI', 10)).pack(side=TOP, pady=10)
-    userSettings = loadRecord()
+    userSettings = loadSettings()
     setNewSpeedInput = Entry(speedWin, width=10)
     setNewSpeedInput.insert(0, str(userSettings["Playback"]["Speed"]))
     setNewSpeedInput.pack(pady=20)
@@ -621,7 +639,7 @@ def repeatGuiSettings():
     repeatGui.resizable(False, False)
     repeatGui.attributes(windowPopupOption, 1)
     Label(repeatGui, text="Enter Repeat Number ", font=('Segoe UI', 10)).pack(side=TOP, pady=10)
-    userSettings = loadRecord()
+    userSettings = loadSettings()
     repeatTimes = Spinbox(repeatGui, from_=1, to=100000000, width=7, validate="key",
                           validatecommand=(validate_cmd, "%d", "%P"))
     repeatTimes.insert(0, userSettings["Playback"]["Repeat"]["Times"])
@@ -661,7 +679,7 @@ def afterPlaybackGui():
     ]
     menuOptions = LabelFrame(playBackGui, text="On playback complete")
     AfterPlaybackOption = StringVar()
-    userSettings = loadRecord()
+    userSettings = loadSettings()
     OptionMenu(menuOptions, AfterPlaybackOption, userSettings["After_Playback"]["Mode"], *options).pack(fill="both",
                                                                                                         padx=10,
                                                                                                         pady=10)
@@ -675,14 +693,16 @@ def afterPlaybackGui():
     window.wait_window(playBackGui)
     preventRecord(False)
 
+
 def clearHotKey(type, entryToChange):
     changeSettings("Hotkeys", type, None, [])
     entryToChange.configure(text="")
 
+
 def hotkeySettingsGui():
     """Gui to set up new Hotkeys"""
     global typeOfHotKey, startKey, stopKey, playbackStartKey, playbackStopKey, cantRec, changeKey
-    userSettings = loadRecord()
+    userSettings = loadSettings()
     preventRecord(True)
     hotkeyGui = Toplevel(window)
     w = 300
@@ -706,19 +726,23 @@ def hotkeySettingsGui():
                 key = vk_nb[key]
             hotkeyVisible[i][j] = key.upper()
 
-    Button(hotkeyLine, text="Clear", command=lambda: clearHotKey("Record_Start", startKey)).grid(row=0, column=2, padx=10)
+    Button(hotkeyLine, text="Clear", command=lambda: clearHotKey("Record_Start", startKey)).grid(row=0, column=2,
+                                                                                                 padx=10)
     Button(hotkeyLine, text="Clear", command=lambda: clearHotKey("Record_Stop", stopKey)).grid(row=1, column=2, padx=10)
-    Button(hotkeyLine, text="Clear", command=lambda: clearHotKey("Playback_Start", playbackStartKey)).grid(row=2, column=2, padx=10)
+    Button(hotkeyLine, text="Clear", command=lambda: clearHotKey("Playback_Start", playbackStartKey)).grid(row=2,
+                                                                                                           column=2,
+                                                                                                           padx=10)
 
-    Button(hotkeyLine, text="Start Record", command=lambda: enableHotKeyDetection("Record_Start", startKey, 0)).grid(row=0,
-                                                                                                                  column=0,
-                                                                                                                  padx=10)
+    Button(hotkeyLine, text="Start Record", command=lambda: enableHotKeyDetection("Record_Start", startKey, 0)).grid(
+        row=0,
+        column=0,
+        padx=10)
     startKey = Label(hotkeyLine, text=hotkeyVisible[0], font=('Segoe UI', 12))
     startKey.grid(row=0, column=1, pady=5)
 
     Button(hotkeyLine, text="Stop Record", command=lambda: enableHotKeyDetection("Record_Stop", stopKey, 1)).grid(row=1,
-                                                                                                               column=0,
-                                                                                                               padx=10)
+                                                                                                                  column=0,
+                                                                                                                  padx=10)
     stopKey = Label(hotkeyLine, text=hotkeyVisible[1], font=('Segoe UI', 12))
     stopKey.grid(row=1, column=1, pady=5)
 
@@ -741,12 +765,13 @@ def hotkeySettingsGui():
     changeKey = False
     preventRecord(False)
 
+
 def intervalSettingsGui():
     """
         Gui to adjust settings of interval
     """
     global intervalGui
-    userSettings = loadRecord()
+    userSettings = loadSettings()
     preventRecord(True)
     intervalGui = Toplevel(window)
     w = 300
@@ -760,14 +785,14 @@ def intervalSettingsGui():
     hourText = Label(intervalGui, text="Hours", font=('Segoe UI', 9))
     hourText.pack(pady=10)
     hourInput = Spinbox(intervalGui, from_=0, to=24, width=10, validate="key",
-                          validatecommand=(validate_cmd, "%d", "%P"))
+                        validatecommand=(validate_cmd, "%d", "%P"))
     hourInput.insert(0, str(userSettings["Playback"]["Repeat"]["Interval"] // 3600))
     hourInput.pack()
 
     minText = Label(intervalGui, text="Minutes", font=('Segoe UI', 9))
     minText.pack(pady=10)
     minInput = Spinbox(intervalGui, from_=0, to=60, width=10, validate="key",
-                          validatecommand=(validate_cmd, "%d", "%P"))
+                       validatecommand=(validate_cmd, "%d", "%P"))
     minInput.insert(0, str((userSettings["Playback"]["Repeat"]["Interval"] % 3600) // 60))
     minInput.pack()
 
@@ -775,17 +800,18 @@ def intervalSettingsGui():
     secText.pack(pady=10)
 
     secInput = Spinbox(intervalGui, from_=0, to=60, width=10, validate="key",
-                          validatecommand=(validate_cmd, "%d", "%P"))
+                       validatecommand=(validate_cmd, "%d", "%P"))
     secInput.insert(0, str(userSettings["Playback"]["Repeat"]["Interval"] % 60))
     secInput.pack()
 
-
     buttonArea = Frame(intervalGui)
-    Button(buttonArea, text="Confirm", command=lambda: setNewInterval(hourInput.get(), minInput.get(), secInput.get())).pack(side=LEFT,padx=10)
+    Button(buttonArea, text="Confirm",
+           command=lambda: setNewInterval(hourInput.get(), minInput.get(), secInput.get())).pack(side=LEFT, padx=10)
     Button(buttonArea, text="Cancel", command=intervalGui.destroy).pack(side=LEFT, padx=10)
     buttonArea.pack(side=BOTTOM, pady=10)
     window.wait_window(intervalGui)
     preventRecord(False)
+
 
 def setNewInterval(hour, min, sec):
     """Set interval value, 0 to disable"""
@@ -818,7 +844,6 @@ def setNewInterval(hour, min, sec):
     interval = (int(hour) * 3600) + (int(min) * 60) + int(sec)
     changeSettings("Playback", "Repeat", "Interval", interval)
     intervalGui.destroy()
-
 
 
 def enableHotKeyDetection(mode, entry, index):
@@ -1004,10 +1029,13 @@ Thread(target=systemTray).start()
 if userSettings["Cant_rec"]:
     changeSettings("Cant_rec")  # Prevents from conflicts
 
+
 def getNewVersion():
     global versionUpToDate
     try:
-        newVersion = getVer("https://gist.githubusercontent.com/LOUDO56/c4a9d886031baa5d680dfd79b450f907/raw/ee2b8b31b6d8e6ba22e15d5f3bfc72b689b9aa45/gistfile1.txt", timeout=2).text
+        newVersion = getVer(
+            "https://gist.githubusercontent.com/LOUDO56/c4a9d886031baa5d680dfd79b450f907/raw/ee2b8b31b6d8e6ba22e15d5f3bfc72b689b9aa45/gistfile1.txt",
+            timeout=2).text
         if newVersion != version:
             versionUpToDate = "Outdated"
             newVerAvailable(newVersion)
@@ -1015,6 +1043,7 @@ def getNewVersion():
             versionUpToDate = "Up to Date"
     except:
         versionUpToDate = "Cannot fetch if new update"
+
 
 # Check updates
 getNewVersion()
@@ -1040,7 +1069,8 @@ if firstTime:
               font=('Segoe UI', 10)).pack(side=TOP, pady=2)
         Label(warningNotWindowsGui, text="It cannot be fixed on MacOS and Linux", font=('Segoe UI', 10)).pack(side=TOP,
                                                                                                               pady=2)
-        Label(warningNotWindowsGui, text="So, choose safe Hotkeys but not one only letter.", font=('Segoe UI', 10)).pack(
+        Label(warningNotWindowsGui, text="So, choose safe Hotkeys but not one only letter.",
+              font=('Segoe UI', 10)).pack(
             side=TOP, pady=2)
         Label(warningNotWindowsGui, text="Default Hotkeys from windows have been changed to safer ones.",
               font=('Segoe UI', 10)).pack(side=TOP, pady=2)

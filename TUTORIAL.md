@@ -32,7 +32,7 @@ To change the amount of repeat, go to `Options` -> `Playback` -> `Repeat` and it
 ### Selecting what to record
 To change your preferences from what being recorded, go to `Options` -> `Recordings` and you will see 3 options with checkmarks.
 
-* Mouse mouvement
+* Mouse movement
 * Mouse click
 * Keyboard
 

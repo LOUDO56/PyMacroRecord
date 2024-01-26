@@ -14,8 +14,10 @@ else:
 userSettingsPath = path.join(appdata_local, "userSettings.json")
 macroEvents = {
     "events": []}  # The core of this script, it serves to store all data events, so it can be replayable or saved on a file
-if path.isdir(appdata_local) == True:  # Prevent from loading when the file does not exist
-    userSettings = loadRecord()
+try:  # Prevent from loading when the file does not exist
+    userSettings = loadSettings()
+except:
+    pass
 
 hotkeysDetection = []
 
@@ -78,7 +80,7 @@ def on_scroll(x, y, dx, dy):
 def on_press(key):
     global start_time, playback, keyboard_listener, hotkeysDetection
     try:
-        userSettings = loadRecord()
+        userSettings = loadSettings()
     except decoder.JSONDecodeError:
         pass
     if userSettings["Cant_rec"]:
@@ -107,7 +109,7 @@ def startRecord():
         Start record
     """
     global start_time, mouse_listener, keyboard_listener, macroEvents, record, recordLenght, userSettings, mouseBeingListened, keyboardBeingListened
-    userSettings = loadRecord()
+    userSettings = loadSettings()
     record = True
     macroEvents = {'events': []}
     start_time = time()
@@ -153,7 +155,7 @@ def unPressEverything(keyToUnpress):
 def playEvents():
     """Play all the events from temprecord.json"""
     macroEvents = load(open(path.join(appdata_local + "/temprecord.json"), "r"))
-    userSettings = loadRecord()
+    userSettings = loadSettings()
     click_func = {
         "leftClickEvent": Button.left,
         "rightClickEvent": Button.right,
@@ -210,7 +212,7 @@ def playRec():
         I retrieve data from temprecord to prevents conflict, like the user loaded a new record.
     """
     global playback, hotkeysDetection
-    userSettings = loadRecord()
+    userSettings = loadSettings()
     playback = True
     print("playback started")
     changeSettings("NotDetectingKeyPressPlayBack")
