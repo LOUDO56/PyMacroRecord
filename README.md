@@ -10,6 +10,7 @@ PyMacroRecord works with a GUI made using tkinter, making it easier for users to
 - Free. No limitations. No "premium" purchase.
 - You can set an infinite amount of repeats.
 - You can change the speed of your record.
+- You can put interval in your playbacks
 - You can save your record.
 - You can load your record.
 - You can share your record with other people.
