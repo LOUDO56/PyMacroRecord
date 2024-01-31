@@ -11,3 +11,4 @@ pmr-software.json
 *.txt
 SetupTemplate.iss
 src/__pycache__
+src/**/__pycache__
