@@ -1,6 +1,5 @@
 from tkinter import *
 from tkinter.ttk import *
-
 from windows.popup import Popup
 
 

@@ -11,8 +11,10 @@ class UserSettings:
 
         if platform == "win32":
             self.path_setting = path.join(getenv("LOCALAPPDATA"), "PyMacroRecord")
-        else:
-            self.path_setting = path.join(path.expanduser("~"), "PyMacroRecord")
+        elif platform == "Linux" or "linux":
+            self.path_setting = path.join(path.expanduser("~"), ".config", "PyMacroRecord")
+        elif platform == "Darwin" or "darwin":
+            self.path_setting = path.join(path.expanduser("~"), "Library", "Application Support", "PyMacroRecord")
 
         self.user_setting = path.join(self.path_setting, "userSettings.json")
 
