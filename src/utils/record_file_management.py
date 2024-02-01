@@ -6,14 +6,14 @@ from utils.warning_pop_up_save import confirm_save
 
 
 class RecordFileManagement:
+    """Manage save and load record from main app"""
     def __init__(self, main_app, menu_bar):
         self.main_app = main_app
-        self.record_path = path.join(self.main_app.settings.get_path(), "temprecord.json")
         self.menu_bar = menu_bar
         self.current_file = None
 
     def save_macro_as(self, event=None):
-        if not self.main_app.macro_recorded:
+        if not self.main_app.macro_recorded or self.main_app.macro.playback:
             return
         self.main_app.prevent_record = True
         macroSaved = filedialog.asksaveasfile(filetypes=[('PyMacroRecord Files', '*.pmr'), ('Json Files', '*.json')], defaultextension='.pmr')
@@ -24,16 +24,20 @@ class RecordFileManagement:
         self.main_app.prevent_record = False
 
     def save_macro(self, event=None):
-        if not self.main_app.macro_recorded:
+        if not self.main_app.macro_recorded or self.main_app.macro.playback:
             return
         if self.current_file is not None:
-            self.__import_export(self.record_path, self.current_file)
+            with open(self.current_file, "w") as current_file:
+                json_macroEvents = dumps(self.main_app.macro.macro_events, indent=4)
+                current_file.write(json_macroEvents)
         else:
             self.save_macro_as()
 
 
 
     def load_macro(self, event=None):
+        if self.main_app.macro.playback:
+            return
         self.main_app.prevent_record = True
         if not self.main_app.macro_saved and self.main_app.macro_recorded:
             wantToSave = confirm_save()
@@ -43,19 +47,19 @@ class RecordFileManagement:
                 return
         macroFile = filedialog.askopenfile(filetypes=[('PyMacroRecord Files', '*.pmr'), ('Json Files', '*.json')], defaultextension='.pmr')
         if macroFile is not None:
-            self.__import_export(macroFile.name, self.record_path)
             self.main_app.playBtn.configure(state=NORMAL, command=self.main_app.macro.start_playback)
             self.menu_bar.file_menu.entryconfig('Save', state=NORMAL, command=self.save_macro)
             self.menu_bar.file_menu.entryconfig('Save as', state=NORMAL, command=self.save_macro_as)
             self.menu_bar.file_menu.entryconfig('New', state=NORMAL, command=self.new_macro)
             macroFile.close()
-            with open(self.record_path, "r") as macroContent:
+            with open(macroFile.name, "r") as macroContent:
                 self.main_app.macro.import_record(load(macroContent))
             self.main_app.macro_recorded = True
+            self.main_app.macro_saved = True
         self.main_app.prevent_record = False
 
     def new_macro(self, event=None):
-        if not self.main_app.macro_recorded:
+        if not self.main_app.macro_recorded or self.main_app.macro.playback:
             return
         if not self.main_app.macro_saved and self.main_app.macro_recorded:
             wantToSave = confirm_save()
@@ -71,10 +75,3 @@ class RecordFileManagement:
         self.current_file = None
         self.main_app.macro_saved = False
         self.main_app.macro_recorded = False
-
-    def __import_export(self, toRead, toWrite):
-        with open(toRead, "r") as macroContent:
-            loaded_events = load(macroContent)
-        with open(toWrite, "w") as fileToWrite:
-            json_macroEvents = dumps(loaded_events, indent=4)
-            fileToWrite.write(json_macroEvents)

@@ -13,7 +13,7 @@ from utils.version import Version
 from windows.others.new_ver_avalaible import NewVerAvailable
 from hotkeys.hotkeys_manager import HotkeysManager
 from macro import Macro
-from os import path
+from os import path, remove
 from sys import platform, argv
 from pystray import Icon
 from pystray import MenuItem

@@ -20,7 +20,6 @@ class Macro:
         self.keyboardControl = keyboard.Controller()
         self.record = False
         self.playback = False
-        self.playback = False
         self.macro_events = {'events': []}
         self.main_app = main_app
         self.user_settings = self.main_app.settings
@@ -91,12 +90,8 @@ class Macro:
             self.main_menu.file_menu.entryconfig('New', state=NORMAL, command=self.macro_file_management.new_macro)
             self.main_menu.file_menu.entryconfig('Load', state=NORMAL)
 
-            record_file = open(path.join(self.user_settings.get_path(), "temprecord.json"), "w")
-            json_macroEvents = dumps(self.macro_events, indent=4)
-            record_file.write(json_macroEvents)
-            record_file.close()
-
             self.main_app.macro_recorded = True
+            self.main_app.macro_saved = False
 
             if userSettings["Minimization"]["When_Recording"]:
                 self.main_app.deiconify()
