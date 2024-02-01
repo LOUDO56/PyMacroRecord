@@ -7,6 +7,8 @@ from utils.version import Version
 class UserSettings:
     """Class to interact with userSettings.json"""
     def __init__(self):
+        self.first_time = False
+
         if platform == "win32":
             self.path_setting = path.join(getenv("LOCALAPPDATA"), "PyMacroRecord")
         else:
@@ -15,6 +17,7 @@ class UserSettings:
         self.user_setting = path.join(self.path_setting, "userSettings.json")
 
         if not path.isdir(self.path_setting) or not path.isfile(self.user_setting):
+            self.first_time = True
             self.init_settings()
 
         self.check_new_options()

@@ -82,7 +82,7 @@ class MainApp(Window):
 
         self.attributes("-topmost", 0)
 
-        if platform != "win32":
+        if platform != "win32" and self.settings.first_time:
             NotWindows(self)
 
         if self.settings.get_config()["Others"]["Check_update"]:
