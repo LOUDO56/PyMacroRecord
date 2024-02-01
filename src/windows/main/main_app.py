@@ -26,6 +26,7 @@ class MainApp(Window):
 
     def __init__(self):
         super().__init__("PyMacroRecord", 350, 200)
+        self.attributes("-topmost", 1)
         if platform == "win32":
             self.iconbitmap(resource_path(path.join("assets", "logo.ico")))
 
@@ -48,11 +49,14 @@ class MainApp(Window):
 
         # Play Button
         self.playImg = PhotoImage(file=resource_path(path.join("assets", "button", "play.png")))
+
+        # Import record if opened with .pmr extension
         if len(argv) > 1:
             with open(sys.argv[1], 'r') as record:
                 loaded_content = load(record)
             self.macro.import_record(loaded_content)
             self.playBtn = Button(self, image=self.playImg, command=self.macro.start_playback)
+            self.macro_recorded = True
         else:
             self.playBtn = Button(self, image=self.playImg, state=DISABLED)
         self.playBtn.pack(side=LEFT, padx=50)
@@ -65,16 +69,20 @@ class MainApp(Window):
         # Stop Button
         self.stopImg = PhotoImage(file=resource_path(path.join("assets", "button", "stop.png")))
 
-        self.bind('<Control-Shift-S>')
-        self.bind('<Control-s>')
-        self.bind('<Control-l>')
-        self.bind('<Control-n>')
+        record_management = RecordFileManagement(self, self.menu)
+
+        self.bind('<Control-Shift-S>', record_management.save_macro_as)
+        self.bind('<Control-s>', record_management.save_macro)
+        self.bind('<Control-l>', record_management.load_macro)
+        self.bind('<Control-n>', record_management.new_macro)
 
         self.protocol("WM_DELETE_WINDOW", self.quit_software)
         Thread(target=self.systemTray).start()
 
         if platform != "win32":
             NotWindows(self)
+
+        self.attributes("-topmost", 0)
 
         if self.settings.get_config()["Others"]["Check_update"]:
             if self.version.version != self.version.new_version:

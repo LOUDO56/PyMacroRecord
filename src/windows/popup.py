@@ -1,5 +1,5 @@
 from tkinter import *
-
+from sys import platform
 
 class Popup(Toplevel):
     def __init__(self, name, w, h, parent):
@@ -11,6 +11,9 @@ class Popup(Toplevel):
         y = (hs / 2) - (h / 2)
         self.geometry('%dx%d+%d+%d' % (w, h, x, y))
         self.resizable(False, False)
-        self.attributes("-toolwindow", 1)
+        if platform == "win32":
+            self.attributes("-toolwindow", 1)
+        else:
+            self.attributes("-topmost", 1)
         self.grab_set()
 

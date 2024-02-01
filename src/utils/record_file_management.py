@@ -12,7 +12,9 @@ class RecordFileManagement:
         self.menu_bar = menu_bar
         self.current_file = None
 
-    def save_macro_as(self):
+    def save_macro_as(self, event=None):
+        if not self.main_app.macro_recorded:
+            return
         self.main_app.prevent_record = True
         macroSaved = filedialog.asksaveasfile(filetypes=[('PyMacroRecord Files', '*.pmr'), ('Json Files', '*.json')], defaultextension='.pmr')
         if macroSaved is not None:
@@ -21,7 +23,9 @@ class RecordFileManagement:
             self.main_app.macro_saved = True
         self.main_app.prevent_record = False
 
-    def save_macro(self):
+    def save_macro(self, event=None):
+        if not self.main_app.macro_recorded:
+            return
         if self.current_file is not None:
             self.__import_export(self.record_path, self.current_file)
         else:
@@ -29,7 +33,7 @@ class RecordFileManagement:
 
 
 
-    def load_macro(self):
+    def load_macro(self, event=None):
         self.main_app.prevent_record = True
         if not self.main_app.macro_saved and self.main_app.macro_recorded:
             wantToSave = confirm_save()
@@ -47,9 +51,12 @@ class RecordFileManagement:
             macroFile.close()
             with open(self.record_path, "r") as macroContent:
                 self.main_app.macro.import_record(load(macroContent))
+            self.main_app.macro_recorded = True
         self.main_app.prevent_record = False
 
-    def new_macro(self):
+    def new_macro(self, event=None):
+        if not self.main_app.macro_recorded:
+            return
         if not self.main_app.macro_saved and self.main_app.macro_recorded:
             wantToSave = confirm_save()
             if wantToSave:

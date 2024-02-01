@@ -240,7 +240,8 @@ class Macro:
                 elif platform == "darwin" or platform == "Darwin":
                     system("pmset sleepnow")
             if not playback_stopped_manually:
-                self.main_app.quit_software(True)
+                force_close = True
+                self.main_app.quit_software(force_close)
 
     def import_record(self, record):
         self.macro_events = record
