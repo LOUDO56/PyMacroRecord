@@ -9,11 +9,13 @@ Then, to stop the recording, you simply click on the black square or press the `
 To play a recording, you just need to click on the green play icon or press the `p` key (By default).
 
 # Save, Load and clear a record
-To save a record, you can do `ctrl + s` or by clicking on `File` and `Save` or `Save as` and it will open a file explorer window (if you haven't already saved yet).
-From there you can choose you favorite path to save your record.
+To save a record, you can do `ctrl + s` or by clicking on `File` and `Save` or `Save as` and it will open a file explorer (if you haven't already saved yet).
+From there you can choose you favorite path to save your record. You can either save it by `.pmr` extension (recommended) or by `.json` extension.
 
-To load a record, you can do `ctrl + l` or by clicking on `File` and `Load`  and it will open a file explorer window.\
-From there, choose the record you want to play (json files only)
+To load a record, you have two possibilities.
+1. Open the a `.pmr` file
+2. In the software, do `ctrl + l` or click on `File` and `Load` and it will open a file explorer.\
+From there, choose the record you want to play (json and `.pmr` files only)
 
 Finally, to start a new record and delete the last one, you can do `ctrl + n` or by clicking on `File` and `New`.
 And you'll have the software as if you were opening it for the first time.
