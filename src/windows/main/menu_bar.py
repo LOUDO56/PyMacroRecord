@@ -3,6 +3,7 @@ from windows.options.playback import *
 from windows.options.settings import *
 from utils.record_file_management import RecordFileManagement
 from webbrowser import open as OpenUrl
+from sys import argv
 
 class MenuBar(Menu):
     def __init__(self, parent):
@@ -17,11 +18,19 @@ class MenuBar(Menu):
         parent.config(menu=my_menu)
         self.file_menu = Menu(my_menu, tearoff=0)
         my_menu.add_cascade(label="File", menu=self.file_menu)
-        self.file_menu.add_command(label="New", state=DISABLED, accelerator="Ctrl+N")
-        self.file_menu.add_command(label="Load", accelerator="Ctrl+L", command=RecordFileManagement(parent, self).load_macro)
+        record_file_management = RecordFileManagement(parent, self)
+        if len(argv) > 1:
+            self.file_menu.add_command(label="New", accelerator="Ctrl+N", command=record_file_management.new_macro)
+        else:
+            self.file_menu.add_command(label="New", state=DISABLED, accelerator="Ctrl+N")
+        self.file_menu.add_command(label="Load", accelerator="Ctrl+L", command=record_file_management.load_macro)
         self.file_menu.add_separator()
-        self.file_menu.add_command(label="Save", accelerator="Ctrl+S", state=DISABLED)
-        self.file_menu.add_command(label="Save as", accelerator="Ctrl+Shift+S", state=DISABLED)
+        if len(argv) > 1:
+            self.file_menu.add_command(label="Save", accelerator="Ctrl+S", command=record_file_management.save_macro)
+            self.file_menu.add_command(label="Save as", accelerator="Ctrl+Shift+S", command=record_file_management.save_macro_as)
+        else:
+            self.file_menu.add_command(label="Save", accelerator="Ctrl+S", state=DISABLED)
+            self.file_menu.add_command(label="Save as", accelerator="Ctrl+Shift+S", state=DISABLED)
 
         # Options Section
         self.options_menu = Menu(my_menu, tearoff=0)

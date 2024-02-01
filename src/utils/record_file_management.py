@@ -14,7 +14,7 @@ class RecordFileManagement:
 
     def save_macro_as(self):
         self.main_app.prevent_record = True
-        macroSaved = filedialog.asksaveasfile(filetypes=[('Json Files', '*.json')], defaultextension='.json')
+        macroSaved = filedialog.asksaveasfile(filetypes=[('PyMacroRecord Files', '*.pmr'), ('Json Files', '*.json')], defaultextension='.pmr')
         if macroSaved is not None:
             self.current_file = macroSaved.name
             self.save_macro()
@@ -37,7 +37,7 @@ class RecordFileManagement:
                 self.save_macro()
             elif wantToSave == None:
                 return
-        macroFile = filedialog.askopenfile(filetypes=[('Json Files', '*.json')], defaultextension='.json')
+        macroFile = filedialog.askopenfile(filetypes=[('PyMacroRecord Files', '*.pmr'), ('Json Files', '*.json')], defaultextension='.pmr')
         if macroFile is not None:
             self.__import_export(macroFile.name, self.record_path)
             self.main_app.playBtn.configure(state=NORMAL, command=self.main_app.macro.start_playback)

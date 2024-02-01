@@ -1,3 +1,4 @@
+import sys
 from tkinter import *
 from tkinter.ttk import *
 
@@ -13,11 +14,12 @@ from windows.others.new_ver_avalaible import NewVerAvailable
 from hotkeys.hotkeys_manager import HotkeysManager
 from macro import Macro
 from os import path
-from sys import platform
+from sys import platform, argv
 from pystray import Icon
 from pystray import MenuItem
 from PIL import Image
 from threading import Thread
+from json import load
 
 class MainApp(Window):
     """Main windows of the application"""
@@ -46,7 +48,13 @@ class MainApp(Window):
 
         # Play Button
         self.playImg = PhotoImage(file=resource_path(path.join("assets", "button", "play.png")))
-        self.playBtn = Button(self, image=self.playImg, state=DISABLED)
+        if len(argv) > 1:
+            with open(sys.argv[1], 'r') as record:
+                loaded_content = load(record)
+            self.macro.import_record(loaded_content)
+            self.playBtn = Button(self, image=self.playImg, command=self.macro.start_playback)
+        else:
+            self.playBtn = Button(self, image=self.playImg, state=DISABLED)
         self.playBtn.pack(side=LEFT, padx=50)
 
         # Record Button
