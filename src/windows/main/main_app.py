@@ -13,13 +13,14 @@ from utils.version import Version
 from windows.others.new_ver_avalaible import NewVerAvailable
 from hotkeys.hotkeys_manager import HotkeysManager
 from macro import Macro
-from os import path, remove
+from os import path
 from sys import platform, argv
 from pystray import Icon
 from pystray import MenuItem
 from PIL import Image
 from threading import Thread
 from json import load
+
 
 class MainApp(Window):
     """Main windows of the application"""
@@ -79,10 +80,10 @@ class MainApp(Window):
         self.protocol("WM_DELETE_WINDOW", self.quit_software)
         Thread(target=self.systemTray).start()
 
+        self.attributes("-topmost", 0)
+
         if platform != "win32":
             NotWindows(self)
-
-        self.attributes("-topmost", 0)
 
         if self.settings.get_config()["Others"]["Check_update"]:
             if self.version.version != self.version.new_version:
