@@ -1,12 +1,12 @@
 
 # Buttons
 
-To start recording, you simply have to press the red button or the `o` key (By default).\
+To start recording, you simply have to press the red button.\
 From there, you can move your mouse, click, and type on your keyboard, and everything will be recorded. (You can choose what will be recorded.)
 
 
-Then, to stop the recording, you simply click on the black square or press the `escape` key (By default).\
-To play a recording, you just need to click on the green play icon or press the `p` key (By default).
+Then, to stop the recording, you simply click on the black square.\
+To play a recording, you just need to click on the green play icon.
 
 # Save, Load and clear a record
 To save a record, you can do `ctrl + s` or by clicking on `File` and `Save` or `Save as` and it will open a file explorer (if you haven't already saved yet).
@@ -49,7 +49,6 @@ To change, simply click to the one you want to disable.
 
 To change your hotkeys to start, stop, start playback and stop playback, go to `Options` -> `Settings` -> `Hotkeys`.
 A window will popup and you'll have 4 buttons, click on it and you'll be able to change your hotkeys.
-Unfortunately, you can't have same hotkeys.
 
 ### Minimization
 To change minimization settings, go to `Options` -> `Settings` -> `Minimization` and you'll have two options.
