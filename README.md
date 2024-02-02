@@ -24,12 +24,12 @@ PyMacroRecord works with a GUI made using tkinter, making it easier for users to
 - Smooth recording of the mouse.
 
 # How does this work?
-To start recording, you simply have to press the red button or the `o` key (By default).\
+To start recording, you simply have to press the red button\
 From there, you can move your mouse, click, and type on your keyboard, and everything will be recorded. (You can choose what will be recorded.)
 \
 \
-Then, to stop the recording, you simply click on the black square or press the `escape` key (By default).\
-To play a recording, you just need to click on the green play icon or press the `p` key (By default).
+Then, to stop the recording, you simply click on the black square\
+To play a recording, you just need to click on the green play icon
 And to stop the playback, press the `f3` key (By default).
 \
 \
