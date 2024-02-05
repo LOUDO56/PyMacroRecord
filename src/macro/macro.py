@@ -13,6 +13,7 @@ from os import path, system, getlogin
 from sys import platform
 from threading import Thread
 
+
 class Macro:
     """Init a new Macro"""
 
@@ -21,7 +22,7 @@ class Macro:
         self.keyboardControl = keyboard.Controller()
         self.record = False
         self.playback = False
-        self.macro_events = {'events': []}
+        self.macro_events = {"events": []}
         self.main_app = main_app
         self.user_settings = self.main_app.settings
         self.main_menu = self.main_app.menu
@@ -43,34 +44,48 @@ class Macro:
                     self.macro_file_management.save_macro()
                 elif wantToSave is None:
                     return
-        self.macro_events = {'events': []}
+        self.macro_events = {"events": []}
         self.record = True
         self.time = time()
         userSettings = self.user_settings.get_config()
-        if userSettings["Recordings"]["Mouse_Move"] and userSettings["Recordings"]["Mouse_Click"]:
-            self.mouse_listener = mouse.Listener(on_move=self.__on_move, on_click=self.__on_click,
-                                                 on_scroll=self.__on_scroll)
+        if (
+            userSettings["Recordings"]["Mouse_Move"]
+            and userSettings["Recordings"]["Mouse_Click"]
+        ):
+            self.mouse_listener = mouse.Listener(
+                on_move=self.__on_move,
+                on_click=self.__on_click,
+                on_scroll=self.__on_scroll,
+            )
             self.mouse_listener.start()
             self.mouseBeingListened = True
         elif userSettings["Recordings"]["Mouse_Move"]:
-            self.mouse_listener = mouse.Listener(on_move=self.__on_move, on_scroll=self.__on_scroll)
+            self.mouse_listener = mouse.Listener(
+                on_move=self.__on_move, on_scroll=self.__on_scroll
+            )
             self.mouse_listener.start()
             self.mouseBeingListened = True
         elif userSettings["Recordings"]["Mouse_Click"]:
-            self.mouse_listener = mouse.Listener(on_click=self.__on_click, on_scroll=self.__on_scroll)
+            self.mouse_listener = mouse.Listener(
+                on_click=self.__on_click, on_scroll=self.__on_scroll
+            )
             self.mouse_listener.start()
             self.mouseBeingListened = True
         if userSettings["Recordings"]["Keyboard"]:
-            self.keyboard_listener = keyboard.Listener(on_press=self.__on_press, on_release=self.__on_release)
+            self.keyboard_listener = keyboard.Listener(
+                on_press=self.__on_press, on_release=self.__on_release
+            )
             self.keyboard_listener.start()
             self.keyboardBeingListened = True
-        self.main_menu.file_menu.entryconfig('Load', state=DISABLED)
-        self.main_app.recordBtn.configure(image=self.main_app.stopImg, command=self.stop_record)
+        self.main_menu.file_menu.entryconfig("Load", state=DISABLED)
+        self.main_app.recordBtn.configure(
+            image=self.main_app.stopImg, command=self.stop_record
+        )
         self.main_app.playBtn.configure(state=DISABLED)
-        self.main_menu.file_menu.entryconfig('Save', state=DISABLED)
-        self.main_menu.file_menu.entryconfig('Save as', state=DISABLED)
-        self.main_menu.file_menu.entryconfig('New', state=DISABLED)
-        self.main_menu.file_menu.entryconfig('Load', state=DISABLED)
+        self.main_menu.file_menu.entryconfig("Save", state=DISABLED)
+        self.main_menu.file_menu.entryconfig("Save as", state=DISABLED)
+        self.main_menu.file_menu.entryconfig("New", state=DISABLED)
+        self.main_menu.file_menu.entryconfig("Load", state=DISABLED)
         if userSettings["Minimization"]["When_Recording"]:
             self.main_app.withdraw()
             Thread(target=show_notification_minim).start()
@@ -85,13 +100,20 @@ class Macro:
             self.mouse_listener.stop()
         if self.keyboardBeingListened:
             self.keyboard_listener.stop()
-        self.main_app.recordBtn.configure(image=self.main_app.recordImg, command=self.start_record)
+        self.main_app.recordBtn.configure(
+            image=self.main_app.recordImg, command=self.start_record
+        )
         self.main_app.playBtn.configure(state=NORMAL, command=self.start_playback)
-        self.main_menu.file_menu.entryconfig('Save', state=NORMAL, command=self.macro_file_management.save_macro)
-        self.main_menu.file_menu.entryconfig('Save as', state=NORMAL,
-                                             command=self.macro_file_management.save_macro_as)
-        self.main_menu.file_menu.entryconfig('New', state=NORMAL, command=self.macro_file_management.new_macro)
-        self.main_menu.file_menu.entryconfig('Load', state=NORMAL)
+        self.main_menu.file_menu.entryconfig(
+            "Save", state=NORMAL, command=self.macro_file_management.save_macro
+        )
+        self.main_menu.file_menu.entryconfig(
+            "Save as", state=NORMAL, command=self.macro_file_management.save_macro_as
+        )
+        self.main_menu.file_menu.entryconfig(
+            "New", state=NORMAL, command=self.macro_file_management.new_macro
+        )
+        self.main_menu.file_menu.entryconfig("Load", state=NORMAL)
 
         self.main_app.macro_recorded = True
         self.main_app.macro_saved = False
@@ -101,15 +123,16 @@ class Macro:
 
         print("record stopped")
 
-
     def start_playback(self):
         userSettings = self.user_settings.get_config()
         self.playback = True
-        self.main_app.playBtn.configure(image=self.main_app.stopImg, command=lambda: self.stop_playback(True))
-        self.main_menu.file_menu.entryconfig('Save', state=DISABLED)
-        self.main_menu.file_menu.entryconfig('Save as', state=DISABLED)
-        self.main_menu.file_menu.entryconfig('New', state=DISABLED)
-        self.main_menu.file_menu.entryconfig('Load', state=DISABLED)
+        self.main_app.playBtn.configure(
+            image=self.main_app.stopImg, command=lambda: self.stop_playback(True)
+        )
+        self.main_menu.file_menu.entryconfig("Save", state=DISABLED)
+        self.main_menu.file_menu.entryconfig("Save as", state=DISABLED)
+        self.main_menu.file_menu.entryconfig("New", state=DISABLED)
+        self.main_menu.file_menu.entryconfig("Load", state=DISABLED)
         self.main_app.recordBtn.configure(state=DISABLED)
         if userSettings["Minimization"]["When_Playing"]:
             self.main_app.withdraw()
@@ -119,7 +142,6 @@ class Macro:
         else:
             Thread(target=self.__play_interval).start()
         print("playback started")
-
 
     def __play_interval(self):
         userSettings = self.user_settings.get_config()
@@ -143,31 +165,41 @@ class Macro:
             for events in range(len(self.macro_events["events"])):
                 if self.playback == False:
                     return
-                sleep(self.macro_events["events"][events]["timestamp"] * (1 / userSettings["Playback"]["Speed"]))
+                sleep(
+                    self.macro_events["events"][events]["timestamp"]
+                    * (1 / userSettings["Playback"]["Speed"])
+                )
                 event_type = self.macro_events["events"][events]["type"]
 
                 if event_type == "cursorMove":  # Cursor Move
                     self.mouseControl.position = (
-                        self.macro_events["events"][events]["x"], self.macro_events["events"][events]["y"])
+                        self.macro_events["events"][events]["x"],
+                        self.macro_events["events"][events]["y"],
+                    )
 
                 elif event_type in click_func:  # Mouse Click
                     self.mouseControl.position = (
-                        self.macro_events["events"][events]["x"], self.macro_events["events"][events]["y"])
+                        self.macro_events["events"][events]["x"],
+                        self.macro_events["events"][events]["y"],
+                    )
                     if self.macro_events["events"][events]["pressed"] == True:
                         self.mouseControl.press(click_func[event_type])
                     else:
                         self.mouseControl.release(click_func[event_type])
 
                 elif event_type == "scrollEvent":
-                    self.mouseControl.scroll(self.macro_events["events"][events]["dx"],
-                                             self.macro_events["events"][events]["dy"])
+                    self.mouseControl.scroll(
+                        self.macro_events["events"][events]["dx"],
+                        self.macro_events["events"][events]["dy"],
+                    )
 
                 elif event_type == "keyboardEvent":  # Keyboard Press,Release
                     if self.macro_events["events"][events]["key"] != None:
-                        keyToPress = self.macro_events["events"][events]["key"] if 'Key.' not in \
-                                                                                       self.macro_events["events"][events][
-                                                                                       "key"] else \
-                                eval(self.macro_events["events"][events]["key"])
+                        keyToPress = (
+                            self.macro_events["events"][events]["key"]
+                            if "Key." not in self.macro_events["events"][events]["key"]
+                            else eval(self.macro_events["events"][events]["key"])
+                        )
                         if isinstance(keyToPress, str):
                             if ">" in keyToPress:
                                 try:
@@ -176,7 +208,10 @@ class Macro:
                                     keyToPress = None
                         if self.playback == True:
                             if keyToPress != None:
-                                if self.macro_events["events"][events]["pressed"] == True:
+                                if (
+                                    self.macro_events["events"][events]["pressed"]
+                                    == True
+                                ):
                                     self.keyboardControl.press(keyToPress)
                                     if keyToPress not in keyToUnpress:
                                         keyToUnpress.append(keyToPress)
@@ -200,11 +235,13 @@ class Macro:
             print("playback stopped manually")
         userSettings = self.user_settings.get_config()
         self.main_app.recordBtn.configure(state=NORMAL)
-        self.main_app.playBtn.configure(image=self.main_app.playImg, command=self.start_playback)
-        self.main_menu.file_menu.entryconfig('New', state=NORMAL)
-        self.main_menu.file_menu.entryconfig('Load', state=NORMAL)
-        self.main_menu.file_menu.entryconfig('Save', state=NORMAL)
-        self.main_menu.file_menu.entryconfig('Save as', state=NORMAL)
+        self.main_app.playBtn.configure(
+            image=self.main_app.playImg, command=self.start_playback
+        )
+        self.main_menu.file_menu.entryconfig("New", state=NORMAL)
+        self.main_menu.file_menu.entryconfig("Load", state=NORMAL)
+        self.main_menu.file_menu.entryconfig("Save", state=NORMAL)
+        self.main_menu.file_menu.entryconfig("Save as", state=NORMAL)
         if userSettings["Minimization"]["When_Playing"]:
             self.main_app.deiconify()
         if userSettings["After_Playback"]["Mode"] != "Idle":
@@ -245,35 +282,72 @@ class Macro:
         self.macro_events = record
 
     def __on_move(self, x, y):
-        self.macro_events["events"].append({'type': 'cursorMove', 'x': x, 'y': y, 'timestamp': time() - self.time})
+        self.macro_events["events"].append(
+            {"type": "cursorMove", "x": x, "y": y, "timestamp": time() - self.time}
+        )
         self.time = time()
 
     def __on_click(self, x, y, button, pressed):
         if button == Button.left:
             self.macro_events["events"].append(
-                {'type': 'leftClickEvent', 'x': x, 'y': y, 'timestamp': time() - self.time, 'pressed': pressed})
+                {
+                    "type": "leftClickEvent",
+                    "x": x,
+                    "y": y,
+                    "timestamp": time() - self.time,
+                    "pressed": pressed,
+                }
+            )
         elif button == Button.right:
             self.macro_events["events"].append(
-                {'type': 'rightClickEvent', 'x': x, 'y': y, 'timestamp': time() - self.time, 'pressed': pressed})
+                {
+                    "type": "rightClickEvent",
+                    "x": x,
+                    "y": y,
+                    "timestamp": time() - self.time,
+                    "pressed": pressed,
+                }
+            )
         elif button == Button.middle:
             self.macro_events["events"].append(
-                {'type': 'middleClickEvent', 'x': x, 'y': y, 'timestamp': time() - self.time, 'pressed': pressed})
+                {
+                    "type": "middleClickEvent",
+                    "x": x,
+                    "y": y,
+                    "timestamp": time() - self.time,
+                    "pressed": pressed,
+                }
+            )
         self.time = time()
 
     def __on_scroll(self, x, y, dx, dy):
-        self.macro_events["events"].append({'type': 'scrollEvent', 'dx': dx, 'dy': dy, 'timestamp': time() - self.time})
+        self.macro_events["events"].append(
+            {"type": "scrollEvent", "dx": dx, "dy": dy, "timestamp": time() - self.time}
+        )
         self.time = time()
 
     def __on_press(self, key):
         keyPressed = getKeyPressed(self.keyboard_listener, key)
         if self.keyboardBeingListened:
             self.macro_events["events"].append(
-                {'type': 'keyboardEvent', 'key': keyPressed, 'timestamp': time() - self.time, 'pressed': True})
+                {
+                    "type": "keyboardEvent",
+                    "key": keyPressed,
+                    "timestamp": time() - self.time,
+                    "pressed": True,
+                }
+            )
             self.time = time()
 
     def __on_release(self, key):
         keyPressed = getKeyPressed(self.keyboard_listener, key)
         if self.keyboardBeingListened:
             self.macro_events["events"].append(
-                {'type': 'keyboardEvent', 'key': keyPressed, 'timestamp': time() - self.time, 'pressed': False})
+                {
+                    "type": "keyboardEvent",
+                    "key": keyPressed,
+                    "timestamp": time() - self.time,
+                    "pressed": False,
+                }
+            )
             self.time = time()

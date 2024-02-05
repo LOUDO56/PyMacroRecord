@@ -1,10 +1,12 @@
 from os import system, path
 from sys import platform
 from utils.get_file import resource_path
+
 try:
     from win10toast import ToastNotifier
-except:
+except Exception:
     print("Not on windows. win10toast not imported.")
+
 
 def show_notification_minim():
     if platform == "win32":
@@ -21,9 +23,7 @@ def show_notification_minim():
         except:
             pass
 
-    elif platform == "Linux" or platform == "linux":
+    elif "linux" in platform.lower():
         system("""notify-send -u normal "PyMacroRecord" "PyMacroRecord has been minimized" """)
-    elif platform == "Darwin" or platform == "darwin":
+    elif "darwin" in platform.lower():
         system("""display notification "PyMacroRecord has been minimized" with title "PyMacroRecord""")
-    else:
-        pass
