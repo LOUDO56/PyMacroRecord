@@ -5,7 +5,8 @@ from utils.get_key_pressed import getKeyPressed
 from utils.record_file_management import RecordFileManagement
 from utils.warning_pop_up_save import confirm_save
 from utils.show_toast import show_notification_minim
-from utils.keys import *
+from utils.keys import vk_nb
+from pynput.keyboard import Key
 from time import time, sleep
 from json import dumps
 from os import path, system, getlogin
@@ -162,11 +163,11 @@ class Macro:
                 elif event_type == "keyboardEvent":  # Keyboard Press,Release
                     if self.macro_events["events"][events]["key"] != None:
                         keyToPress = self.macro_events["events"][events]["key"] if 'Key.' not in \
-                                                                                   self.macro_events["events"][events][
+                                                                                       self.macro_events["events"][events][
                                                                                        "key"] else \
-                            special_keys[self.macro_events["events"][events]["key"]]
+                                eval(self.macro_events["events"][events]["key"])
                         if isinstance(keyToPress, str):
-                            if "<" and ">" in keyToPress:
+                            if ">" in keyToPress:
                                 try:
                                     keyToPress = vk_nb[keyToPress]
                                 except:
@@ -208,15 +209,15 @@ class Macro:
             if userSettings["After_Playback"]["Mode"] == "Standy":
                 if platform == "win32":
                     system("rundll32.exe powrprof.dll, SetSuspendState 0,1,0")
-                elif platform == "Linux" or "linux":
+                elif "linux" in platform.lower():
                     system("systemctl suspend")
-                elif platform == "darwin" or platform == "Darwin":
+                elif "darwin" in platform.lower():
                     system("pmset sleepnow")
             elif userSettings["After_Playback"]["Mode"] == "Log off Computer":
                 if platform == "win32":
                     system("shutdown /l")
                 else:
-                    system("pkill -KILL -u " + getlogin())
+                    system(f"pkill -KILL -u {getlogin()}")
             elif userSettings["After_Playback"]["Mode"] == "Turn off Computer":
                 if platform == "win32":
                     system("shutdown /s /t 0")
@@ -230,9 +231,9 @@ class Macro:
             elif userSettings["After_Playback"]["Mode"] == "Hibernate (If activated)":
                 if platform == "win32":
                     system("shutdown -h")
-                elif platform == "Linux" or "linux":
+                elif "linux" in platform.lower():
                     system("systemctl hibernate")
-                elif platform == "darwin" or platform == "Darwin":
+                elif "darwin" in platform.lower():
                     system("pmset sleepnow")
             if not playback_stopped_manually:
                 force_close = True
