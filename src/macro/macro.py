@@ -34,70 +34,72 @@ class Macro:
         self.time = None
 
     def start_record(self, by_hotkey=False):
-        if not self.main_app.prevent_record:
-            if not by_hotkey:
-                if not self.main_app.macro_saved and self.main_app.macro_recorded:
-                    wantToSave = confirm_save()
-                    if wantToSave:
-                        self.macro_file_management.save_macro()
-                    elif wantToSave == None:
-                        return
-            self.macro_events = {'events': []}
-            self.record = True
-            self.time = time()
-            userSettings = self.user_settings.get_config()
-            if userSettings["Recordings"]["Mouse_Move"] and userSettings["Recordings"]["Mouse_Click"]:
-                self.mouse_listener = mouse.Listener(on_move=self.__on_move, on_click=self.__on_click,
-                                                     on_scroll=self.__on_scroll)
-                self.mouse_listener.start()
-                self.mouseBeingListened = True
-            elif userSettings["Recordings"]["Mouse_Move"] and not userSettings["Recordings"]["Mouse_Click"]:
-                self.mouse_listener = mouse.Listener(on_move=self.__on_move, on_scroll=self.__on_scroll)
-                self.mouse_listener.start()
-                self.mouseBeingListened = True
-            elif not userSettings["Recordings"]["Mouse_Move"] and userSettings["Recordings"]["Mouse_Click"]:
-                self.mouse_listener = mouse.Listener(on_click=self.__on_click, on_scroll=self.__on_scroll)
-                self.mouse_listener.start()
-                self.mouseBeingListened = True
-            if userSettings["Recordings"]["Keyboard"]:
-                self.keyboard_listener = keyboard.Listener(on_press=self.__on_press, on_release=self.__on_release)
-                self.keyboard_listener.start()
-                self.keyboardBeingListened = True
-            self.main_menu.file_menu.entryconfig('Load', state=DISABLED)
-            self.main_app.recordBtn.configure(image=self.main_app.stopImg, command=self.stop_record)
-            self.main_app.playBtn.configure(state=DISABLED)
-            self.main_menu.file_menu.entryconfig('Save', state=DISABLED)
-            self.main_menu.file_menu.entryconfig('Save as', state=DISABLED)
-            self.main_menu.file_menu.entryconfig('New', state=DISABLED)
-            self.main_menu.file_menu.entryconfig('Load', state=DISABLED)
-            if userSettings["Minimization"]["When_Recording"]:
-                self.main_app.withdraw()
-                Thread(target=show_notification_minim).start()
-            print("record started")
+        if self.main_app.prevent_record:
+            return
+        if not by_hotkey:
+            if not self.main_app.macro_saved and self.main_app.macro_recorded:
+                wantToSave = confirm_save()
+                if wantToSave:
+                    self.macro_file_management.save_macro()
+                elif wantToSave is None:
+                    return
+        self.macro_events = {'events': []}
+        self.record = True
+        self.time = time()
+        userSettings = self.user_settings.get_config()
+        if userSettings["Recordings"]["Mouse_Move"] and userSettings["Recordings"]["Mouse_Click"]:
+            self.mouse_listener = mouse.Listener(on_move=self.__on_move, on_click=self.__on_click,
+                                                 on_scroll=self.__on_scroll)
+            self.mouse_listener.start()
+            self.mouseBeingListened = True
+        elif userSettings["Recordings"]["Mouse_Move"]:
+            self.mouse_listener = mouse.Listener(on_move=self.__on_move, on_scroll=self.__on_scroll)
+            self.mouse_listener.start()
+            self.mouseBeingListened = True
+        elif userSettings["Recordings"]["Mouse_Click"]:
+            self.mouse_listener = mouse.Listener(on_click=self.__on_click, on_scroll=self.__on_scroll)
+            self.mouse_listener.start()
+            self.mouseBeingListened = True
+        if userSettings["Recordings"]["Keyboard"]:
+            self.keyboard_listener = keyboard.Listener(on_press=self.__on_press, on_release=self.__on_release)
+            self.keyboard_listener.start()
+            self.keyboardBeingListened = True
+        self.main_menu.file_menu.entryconfig('Load', state=DISABLED)
+        self.main_app.recordBtn.configure(image=self.main_app.stopImg, command=self.stop_record)
+        self.main_app.playBtn.configure(state=DISABLED)
+        self.main_menu.file_menu.entryconfig('Save', state=DISABLED)
+        self.main_menu.file_menu.entryconfig('Save as', state=DISABLED)
+        self.main_menu.file_menu.entryconfig('New', state=DISABLED)
+        self.main_menu.file_menu.entryconfig('Load', state=DISABLED)
+        if userSettings["Minimization"]["When_Recording"]:
+            self.main_app.withdraw()
+            Thread(target=show_notification_minim).start()
+        print("record started")
 
     def stop_record(self):
-        if self.record:
-            userSettings = self.user_settings.get_config()
-            self.record = False
-            if self.mouseBeingListened:
-                self.mouse_listener.stop()
-            if self.keyboardBeingListened:
-                self.keyboard_listener.stop()
-            self.main_app.recordBtn.configure(image=self.main_app.recordImg, command=self.start_record)
-            self.main_app.playBtn.configure(state=NORMAL, command=self.start_playback)
-            self.main_menu.file_menu.entryconfig('Save', state=NORMAL, command=self.macro_file_management.save_macro)
-            self.main_menu.file_menu.entryconfig('Save as', state=NORMAL,
-                                                 command=self.macro_file_management.save_macro_as)
-            self.main_menu.file_menu.entryconfig('New', state=NORMAL, command=self.macro_file_management.new_macro)
-            self.main_menu.file_menu.entryconfig('Load', state=NORMAL)
+        if not self.record:
+            return
+        userSettings = self.user_settings.get_config()
+        self.record = False
+        if self.mouseBeingListened:
+            self.mouse_listener.stop()
+        if self.keyboardBeingListened:
+            self.keyboard_listener.stop()
+        self.main_app.recordBtn.configure(image=self.main_app.recordImg, command=self.start_record)
+        self.main_app.playBtn.configure(state=NORMAL, command=self.start_playback)
+        self.main_menu.file_menu.entryconfig('Save', state=NORMAL, command=self.macro_file_management.save_macro)
+        self.main_menu.file_menu.entryconfig('Save as', state=NORMAL,
+                                             command=self.macro_file_management.save_macro_as)
+        self.main_menu.file_menu.entryconfig('New', state=NORMAL, command=self.macro_file_management.new_macro)
+        self.main_menu.file_menu.entryconfig('Load', state=NORMAL)
 
-            self.main_app.macro_recorded = True
-            self.main_app.macro_saved = False
+        self.main_app.macro_recorded = True
+        self.main_app.macro_saved = False
 
-            if userSettings["Minimization"]["When_Recording"]:
-                self.main_app.deiconify()
+        if userSettings["Minimization"]["When_Recording"]:
+            self.main_app.deiconify()
 
-            print("record stopped")
+        print("record stopped")
 
 
     def start_playback(self):

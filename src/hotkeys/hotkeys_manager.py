@@ -46,7 +46,7 @@ class HotkeysManager():
         if self.changeKey == True:
             keyPressed = getKeyPressed(self.keyboard_listener, key)
             if keyPressed not in self.hotkeys:
-                if "<" and ">" in keyPressed:
+                if ">" in keyPressed:
                     try:
                         keyPressed = vk_nb[keyPressed]
                     except:
@@ -58,7 +58,7 @@ class HotkeysManager():
 
             if all(keyword not in keyPressed for keyword in ["ctrl", "alt", "shift"]):
                 if self.type_of_hotkey == "Record_Start" and userSettings["Hotkeys"]["Playback_Start"] == self.hotkeys \
-                        or self.type_of_hotkey == "Playback_Start" and userSettings["Hotkeys"][
+                            or self.type_of_hotkey == "Playback_Start" and userSettings["Hotkeys"][
                     "Record_Start"] == self.hotkeys:
                     messagebox.showerror("Error", "You can't have same hotkeys on start record and start playback.")
                     self.entry_to_change.configure(text="Please key")
@@ -72,7 +72,7 @@ class HotkeysManager():
 
         if self.changeKey == False and self.main_app.prevent_record == False:
             keyPressed = getKeyPressed(self.keyboard_listener, key)
-            if "<" and ">" in keyPressed:
+            if ">" in keyPressed:
                 try:
                     keyPressed = vk_nb[keyPressed]
                 except:
