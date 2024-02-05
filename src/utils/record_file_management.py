@@ -7,6 +7,7 @@ from utils.warning_pop_up_save import confirm_save
 
 class RecordFileManagement:
     """Manage save and load record from main app"""
+
     def __init__(self, main_app, menu_bar):
         self.main_app = main_app
         self.menu_bar = menu_bar
@@ -16,7 +17,10 @@ class RecordFileManagement:
         if not self.main_app.macro_recorded or self.main_app.macro.playback:
             return
         self.main_app.prevent_record = True
-        macroSaved = filedialog.asksaveasfile(filetypes=[('PyMacroRecord Files', '*.pmr'), ('Json Files', '*.json')], defaultextension='.pmr')
+        macroSaved = filedialog.asksaveasfile(
+            filetypes=[("PyMacroRecord Files", "*.pmr"), ("Json Files", "*.json")],
+            defaultextension=".pmr",
+        )
         if macroSaved is not None:
             self.current_file = macroSaved.name
             self.save_macro()
@@ -33,8 +37,6 @@ class RecordFileManagement:
         else:
             self.save_macro_as()
 
-
-
     def load_macro(self, event=None):
         if self.main_app.macro.playback:
             return
@@ -43,14 +45,25 @@ class RecordFileManagement:
             wantToSave = confirm_save()
             if wantToSave:
                 self.save_macro()
-            elif wantToSave == None:
+            elif wantToSave is None:
                 return
-        macroFile = filedialog.askopenfile(filetypes=[('PyMacroRecord Files', '*.pmr'), ('Json Files', '*.json')], defaultextension='.pmr')
+        macroFile = filedialog.askopenfile(
+            filetypes=[("PyMacroRecord Files", "*.pmr"), ("Json Files", "*.json")],
+            defaultextension=".pmr",
+        )
         if macroFile is not None:
-            self.main_app.playBtn.configure(state=NORMAL, command=self.main_app.macro.start_playback)
-            self.menu_bar.file_menu.entryconfig('Save', state=NORMAL, command=self.save_macro)
-            self.menu_bar.file_menu.entryconfig('Save as', state=NORMAL, command=self.save_macro_as)
-            self.menu_bar.file_menu.entryconfig('New', state=NORMAL, command=self.new_macro)
+            self.main_app.playBtn.configure(
+                state=NORMAL, command=self.main_app.macro.start_playback
+            )
+            self.menu_bar.file_menu.entryconfig(
+                "Save", state=NORMAL, command=self.save_macro
+            )
+            self.menu_bar.file_menu.entryconfig(
+                "Save as", state=NORMAL, command=self.save_macro_as
+            )
+            self.menu_bar.file_menu.entryconfig(
+                "New", state=NORMAL, command=self.new_macro
+            )
             macroFile.close()
             with open(macroFile.name, "r") as macroContent:
                 self.main_app.macro.import_record(load(macroContent))
@@ -65,12 +78,12 @@ class RecordFileManagement:
             wantToSave = confirm_save()
             if wantToSave:
                 self.save_macro()
-            elif wantToSave == None:
+            elif wantToSave is None:
                 return
         self.main_app.playBtn.configure(state=NORMAL)
-        self.menu_bar.file_menu.entryconfig('Save', state=DISABLED)
-        self.menu_bar.file_menu.entryconfig('Save as', state=DISABLED)
-        self.menu_bar.file_menu.entryconfig('New', state=DISABLED)
+        self.menu_bar.file_menu.entryconfig("Save", state=DISABLED)
+        self.menu_bar.file_menu.entryconfig("Save as", state=DISABLED)
+        self.menu_bar.file_menu.entryconfig("New", state=DISABLED)
         self.main_app.playBtn.configure(state=DISABLED)
         self.current_file = None
         self.main_app.macro_saved = False

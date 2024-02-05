@@ -11,9 +11,9 @@ class UserSettings:
 
         if platform == "win32":
             self.path_setting = path.join(getenv("LOCALAPPDATA"), "PyMacroRecord")
-        elif platform == "Linux" or "linux":
+        elif "linux" in platform.lower():
             self.path_setting = path.join(path.expanduser("~"), ".config", "PyMacroRecord")
-        elif platform == "Darwin" or "darwin":
+        elif "darwin" in platform.lower():
             self.path_setting = path.join(path.expanduser("~"), "Library", "Application Support", "PyMacroRecord")
 
         self.user_setting = path.join(self.path_setting, "userSettings.json")
@@ -75,21 +75,18 @@ class UserSettings:
         }
 
         userSettings_json = dumps(userSettings, indent=4)
-        settingFile = open(self.user_setting, "w")
-        settingFile.write(userSettings_json)
-        settingFile.close()
+        with open(self.user_setting, "w") as settingFile:
+            settingFile.write(userSettings_json)
 
     def get_config(self):
         """Get settings of users"""
-        settingFile = open(self.user_setting, "r")
-        settingFile_json = load(settingFile)
-        settingFile.close()
+        with open(self.user_setting, "r") as settingFile:
+            settingFile_json = load(settingFile)
         return settingFile_json
 
     def update_settings(self, updatedValues):
-        settingFile = open(self.user_setting, "w")
-        settingFile.write(updatedValues)
-        settingFile.close()
+        with open(self.user_setting, "w") as settingFile:
+            settingFile.write(updatedValues)
 
     def get_path(self):
         return self.path_setting
