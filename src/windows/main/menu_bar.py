@@ -1,6 +1,7 @@
 from windows.help.about import *
 from windows.options.playback import *
 from windows.options.settings import *
+from windows.others.timestamp import Timestamp
 from utils.record_file_management import RecordFileManagement
 from webbrowser import open as OpenUrl
 from sys import argv
@@ -80,6 +81,7 @@ class MenuBar(Menu):
         self.options_menu.add_cascade(label="Others", menu=self.others_sub)
         self.Check_update = BooleanVar(value=userSettings["Others"]["Check_update"])
         self.others_sub.add_checkbutton(label="Check update", variable=self.Check_update, command=lambda: settings.change_settings("Others", "Check_update"))
+        self.others_sub.add_command(label="Fixed timestamp", command=lambda: Timestamp(self, parent))
 
         # Help section
         self.help_section = Menu(my_menu, tearoff=0)

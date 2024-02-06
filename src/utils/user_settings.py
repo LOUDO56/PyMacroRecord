@@ -71,7 +71,8 @@ class UserSettings:
             },
 
             "Others": {
-                "Check_update": True
+                "Check_update": True,
+                "Fixed_timestamp": 0
             }
         }
 
@@ -116,6 +117,9 @@ class UserSettings:
         userSettings = self.get_config()
         if "Others" not in userSettings:
             userSettings["Others"] = {"Check_update": True}
+            self.update_settings(dumps(userSettings, indent=4))
+        if "Fixed_timestamp" not in userSettings["Others"]:
+            userSettings["Others"]["Fixed_timestamp"] = 0
             self.update_settings(dumps(userSettings, indent=4))
         if "Delay" not in userSettings["Playback"]["Repeat"]:
             userSettings["Playback"]["Repeat"]["Delay"] = 0

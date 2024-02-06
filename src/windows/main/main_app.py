@@ -58,6 +58,7 @@ class MainApp(Window):
             self.macro.import_record(loaded_content)
             self.playBtn = Button(self, image=self.playImg, command=self.macro.start_playback)
             self.macro_recorded = True
+            self.macro_saved = True
         else:
             self.playBtn = Button(self, image=self.playImg, state=DISABLED)
         self.playBtn.pack(side=LEFT, padx=50)

@@ -184,10 +184,14 @@ class Macro:
                 if self.playback == False:
                     self.unPressEverything(keyToUnpress)
                     return
-                sleep(
-                    self.macro_events["events"][events]["timestamp"]
-                    * (1 / userSettings["Playback"]["Speed"])
-                )
+                if userSettings["Others"]["Fixed_timestamp"] > 0:
+                    timeSleep = userSettings["Others"]["Fixed_timestamp"]
+                else:
+                    timeSleep = (
+                        self.macro_events["events"][events]["timestamp"]
+                        * (1 / userSettings["Playback"]["Speed"])
+                    )
+                sleep(timeSleep)
                 event_type = self.macro_events["events"][events]["type"]
 
                 if event_type == "cursorMove":  # Cursor Move
@@ -246,6 +250,7 @@ class Macro:
         for key in keyToUnpress:
             self.keyboardControl.release(key)
         self.mouseControl.release(Button.left)
+        self.mouseControl.release(Button.middle)
 
     def stop_playback(self, playback_stopped_manually=False):
         self.playback = False
