@@ -78,4 +78,5 @@ This program is under [GNU General Public License v3.0](https://github.com/LOUDO
 
 # Special Thanks
 
-Special thanks to Fooinys, who playtested my program!
+Fooinys, who playtested my program!
+Lenoch, for code enhancement!
