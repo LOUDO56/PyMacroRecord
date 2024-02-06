@@ -10,7 +10,7 @@ class Timestamp(Popup):
         self.settings = main_app.settings
         Label(self, text="Enter Fixed Timestamp ", font=('Segoe UI', 10)).pack(side=TOP, pady=10)
         userSettings = main_app.settings.get_config()
-        fixed_timetamp = Spinbox(self, from_=1, to=100000000, width=7, validate="key",
+        fixed_timetamp = Spinbox(self, from_=0, to=100000000, width=7, validate="key",
                               validatecommand=(main_app.validate_cmd, "%d", "%P"))
         fixed_timetamp.insert(0, userSettings["Others"]["Fixed_timestamp"])
         fixed_timetamp.pack(pady=20)
