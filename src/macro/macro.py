@@ -182,6 +182,7 @@ class Macro:
         for repeat in range(userSettings["Playback"]["Repeat"]["Times"]):
             for events in range(len(self.macro_events["events"])):
                 if self.playback == False:
+                    self.unPressEverything(keyToUnpress)
                     return
                 sleep(
                     self.macro_events["events"][events]["timestamp"]
@@ -245,7 +246,6 @@ class Macro:
         for key in keyToUnpress:
             self.keyboardControl.release(key)
         self.mouseControl.release(Button.left)
-        self.mouseControl.release(Button.right)
 
     def stop_playback(self, playback_stopped_manually=False):
         self.playback = False
