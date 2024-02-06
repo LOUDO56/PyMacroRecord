@@ -137,21 +137,39 @@ class Macro:
         if userSettings["Minimization"]["When_Playing"]:
             self.main_app.withdraw()
             Thread(target=show_notification_minim).start()
-        if userSettings["Playback"]["Repeat"]["Interval"] == 0:
-            Thread(target=self.__play_events).start()
-        else:
+        if userSettings["Playback"]["Repeat"]["Interval"] > 0:
             Thread(target=self.__play_interval).start()
+        elif userSettings["Playback"]["Repeat"]["For"] > 0:
+            Thread(target=self.__play_for).start()
+        elif userSettings["Playback"]["Repeat"]["For"] > 0 and userSettings["Playback"]["Repeat"]["Interval"] > 0:
+            Thread(target=self.__play_interval).start()
+        else:
+            Thread(target=self.__play_events).start()
         print("playback started")
 
     def __play_interval(self):
         userSettings = self.user_settings.get_config()
-        self.__play_events()
+        if userSettings["Playback"]["Repeat"]["For"] > 0:
+            self.__play_for()
+        else:
+            self.__play_events()
         timer = time()
         while self.playback:
             sleep(1)
             if time() - timer >= userSettings["Playback"]["Repeat"]["Interval"]:
-                self.__play_events()
+                if userSettings["Playback"]["Repeat"]["For"] > 0:
+                    self.__play_for()
+                else:
+                    self.__play_events()
                 timer = time()
+
+    def __play_for(self):
+        userSettings = self.user_settings.get_config()
+        debut = time()
+        while self.playback and (time() - debut) < userSettings["Playback"]["Repeat"]["For"]:
+            self.__play_events()
+        if userSettings["Playback"]["Repeat"]["Interval"] == 0:
+            self.stop_playback()
 
     def __play_events(self):
         userSettings = self.user_settings.get_config()
@@ -217,15 +235,17 @@ class Macro:
                                         keyToUnpress.append(keyToPress)
                                 else:
                                     self.keyboardControl.release(keyToPress)
+            if userSettings["Playback"]["Repeat"]["Delay"] > 0:
+                sleep(userSettings["Playback"]["Repeat"]["Delay"])
         self.unPressEverything(keyToUnpress)
-        if userSettings["Playback"]["Repeat"]["Interval"] == 0:
+        if userSettings["Playback"]["Repeat"]["Interval"] == 0 and userSettings["Playback"]["Repeat"]["For"] == 0:
             self.stop_playback()
 
     def unPressEverything(self, keyToUnpress):
         for key in keyToUnpress:
             self.keyboardControl.release(key)
         self.mouseControl.release(Button.left)
-        self.mouseControl.release(Button.middle)
+        self.mouseControl.release(Button.right)
 
     def stop_playback(self, playback_stopped_manually=False):
         self.playback = False

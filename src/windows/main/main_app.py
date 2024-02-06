@@ -86,7 +86,7 @@ class MainApp(Window):
             NotWindows(self)
 
         if self.settings.get_config()["Others"]["Check_update"]:
-            if self.version.version != self.version.new_version:
+            if self.version.new_version != "" and self.version.version != self.version.new_version:
                 NewVerAvailable(self, self.version.new_version)
 
         self.mainloop()

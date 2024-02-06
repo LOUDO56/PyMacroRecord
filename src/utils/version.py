@@ -1,9 +1,8 @@
-from requests import get as getVer
-
+import requests
 
 class Version:
     def __init__(self, userSettings):
-        self.version = "1.1.0"
+        self.version = "1.1.1"
         self.new_version = ""
         if userSettings["Others"]["Check_update"]:
             self.update = self.checkVersion()
@@ -11,8 +10,13 @@ class Version:
             self.update = "Check update disabled"
 
     def checkVersion(self):
-        try:
-            self.new_version = getVer("https://pastebin.com/raw/8YAjs4Pc", timeout=5).text
+        api_url = f'https://api.github.com/repos/LOUDO56/PyMacroRecord/releases/latest'
+
+        response = requests.get(api_url)
+
+        if response.status_code == 200:
+            release_data = response.json()
+            self.new_version = release_data['tag_name'].replace('v', '')
             return "Outdated" if self.new_version != self.version else "Up to Date"
-        except Exception as e:
-            return f"Cannot fetch if new update: {str(e)}"
+        else:
+            return "Cannot fetch if new update"

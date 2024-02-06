@@ -4,12 +4,17 @@ from tkinter import messagebox
 from windows.popup import Popup
 
 
-class Interval(Popup):
-    def __init__(self, parent, main_app):
-        super().__init__("Interval Settings", 300, 240, parent)
+class TimeGui(Popup):
+    def __init__(self, parent, main_app, type):
+        super().__init__(f"{type} Settings", 300, 240, parent)
         main_app.prevent_record = True
         self.settings = main_app.settings
         userSettings = main_app.settings.get_config()
+        self.type = type
+        if self.type == "Interval":
+            value = userSettings["Playback"]["Repeat"]["Interval"]
+        elif self.type == "For":
+            value = userSettings["Playback"]["Repeat"]["For"]
         hourText = Label(self, text="Hours", font=("Segoe UI", 9))
         hourText.pack(pady=10)
         hourInput = Spinbox(
@@ -20,7 +25,7 @@ class Interval(Popup):
             validate="key",
             validatecommand=(main_app.validate_cmd, "%d", "%P"),
         )
-        hourInput.insert(0, str(userSettings["Playback"]["Repeat"]["Interval"] // 3600))
+        hourInput.insert(0, str(value // 3600))
         hourInput.pack()
 
         minText = Label(self, text="Minutes", font=("Segoe UI", 9))
@@ -34,7 +39,7 @@ class Interval(Popup):
             validatecommand=(main_app.validate_cmd, "%d", "%P"),
         )
         minInput.insert(
-            0, str((userSettings["Playback"]["Repeat"]["Interval"] % 3600) // 60)
+            0, str((value % 3600) // 60)
         )
         minInput.pack()
 
@@ -49,7 +54,7 @@ class Interval(Popup):
             validate="key",
             validatecommand=(main_app.validate_cmd, "%d", "%P"),
         )
-        secInput.insert(0, str(userSettings["Playback"]["Repeat"]["Interval"] % 60))
+        secInput.insert(0, str(value % 60))
         secInput.pack()
 
         buttonArea = Frame(self)
@@ -92,7 +97,9 @@ class Interval(Popup):
             else:
                 messagebox.showerror("Error", f"{causes[0]} input is incorrect.")
             return
-
-        interval = hour * 3600 + min * 60 + sec
-        self.settings.change_settings("Playback", "Repeat", "Interval", interval)
+        total_sec = hour * 3600 + min * 60 + sec
+        if self.type == "Interval":
+            self.settings.change_settings("Playback", "Repeat", "Interval", total_sec)
+        elif self.type == "For":
+            self.settings.change_settings("Playback", "Repeat", "For", total_sec)
         self.destroy()

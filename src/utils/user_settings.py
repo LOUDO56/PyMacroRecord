@@ -38,7 +38,8 @@ class UserSettings:
                 "Repeat": {
                     "Times": 1,
                     "For": 0,
-                    "Interval": 0
+                    "Interval": 0,
+                    "Delay": 0
                 }
             },
 
@@ -116,4 +117,6 @@ class UserSettings:
         if "Others" not in userSettings:
             userSettings["Others"] = {"Check_update": True}
             self.update_settings(dumps(userSettings, indent=4))
-
+        if "Delay" not in userSettings["Playback"]["Repeat"]:
+            userSettings["Playback"]["Repeat"]["Delay"] = 0
+            self.update_settings(dumps(userSettings, indent=4))

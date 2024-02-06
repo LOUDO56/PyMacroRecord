@@ -41,7 +41,9 @@ class MenuBar(Menu):
         self.options_menu.add_cascade(label="Playback", menu=playback_sub)
         playback_sub.add_command(label="Speed", command=lambda: Speed(self, parent))
         playback_sub.add_command(label="Repeat", command=lambda: Repeat(self, parent))
-        playback_sub.add_command(label="Interval", command=lambda: Interval(self, parent))
+        playback_sub.add_command(label="Interval", command=lambda: TimeGui(self, parent, "Interval"))
+        playback_sub.add_command(label="For", command=lambda: TimeGui(self, parent, "For"))
+        playback_sub.add_command(label="Delay", command=lambda: Delay(self, parent))
 
         # Recordings Sub
         self.mouseMove = BooleanVar(value=userSettings["Recordings"]["Mouse_Move"])
@@ -77,7 +79,7 @@ class MenuBar(Menu):
         self.others_sub = Menu(self.options_menu, tearoff=0)
         self.options_menu.add_cascade(label="Others", menu=self.others_sub)
         self.Check_update = BooleanVar(value=userSettings["Others"]["Check_update"])
-        self.others_sub.add_checkbutton(label="Check version", variable=self.Check_update, command=lambda: settings.change_settings("Others", "Check_update"))
+        self.others_sub.add_checkbutton(label="Check update", variable=self.Check_update, command=lambda: settings.change_settings("Others", "Check_update"))
 
         # Help section
         self.help_section = Menu(my_menu, tearoff=0)
