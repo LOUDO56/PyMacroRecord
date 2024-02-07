@@ -6,12 +6,11 @@ from utils.record_file_management import RecordFileManagement
 from utils.warning_pop_up_save import confirm_save
 from utils.show_toast import show_notification_minim
 from utils.keys import vk_nb
-from pynput.keyboard import Key
 from time import time, sleep
-from json import dumps
-from os import path, system, getlogin
+from os import getlogin
 from sys import platform
 from threading import Thread
+import subprocess
 
 
 class Macro:
@@ -269,39 +268,38 @@ class Macro:
         self.main_menu.file_menu.entryconfig("Save as", state=NORMAL)
         if userSettings["Minimization"]["When_Playing"]:
             self.main_app.deiconify()
-        if userSettings["After_Playback"]["Mode"] != "Idle":
+        if userSettings["After_Playback"]["Mode"] != "Idle" and not playback_stopped_manually:
             if userSettings["After_Playback"]["Mode"] == "Standy":
                 if platform == "win32":
-                    system("rundll32.exe powrprof.dll, SetSuspendState 0,1,0")
+                    subprocess.call("rundll32.exe powrprof.dll, SetSuspendState 0,1,0", shell=False)
                 elif "linux" in platform.lower():
-                    system("systemctl suspend")
+                    subprocess.call("subprocess.callctl suspend", shell=False)
                 elif "darwin" in platform.lower():
-                    system("pmset sleepnow")
+                    subprocess.call("pmset sleepnow", shell=False)
             elif userSettings["After_Playback"]["Mode"] == "Log off Computer":
                 if platform == "win32":
-                    system("shutdown /l")
+                    subprocess.call("shutdown /l", shell=False)
                 else:
-                    system(f"pkill -KILL -u {getlogin()}")
+                    subprocess.call(f"pkill -KILL -u {getlogin()}", shell=False)
             elif userSettings["After_Playback"]["Mode"] == "Turn off Computer":
                 if platform == "win32":
-                    system("shutdown /s /t 0")
+                    subprocess.call("shutdown /s /t 0", shell=False)
                 else:
-                    system("shutdown -h now")
+                    subprocess.call("shutdown -h now", shell=False)
             elif userSettings["After_Playback"]["Mode"] == "Restart Computer":
                 if platform == "win32":
-                    system("shutdown /r /t 0")
+                    subprocess.call("shutdown /r /t 0", shell=False)
                 else:
-                    system("shutdown -r now")
+                    subprocess.call("shutdown -r now", shell=False)
             elif userSettings["After_Playback"]["Mode"] == "Hibernate (If activated)":
                 if platform == "win32":
-                    system("shutdown -h")
+                    subprocess.call("shutdown -h", shell=False)
                 elif "linux" in platform.lower():
-                    system("systemctl hibernate")
+                    subprocess.call("subprocess.callctl hibernate", shell=False)
                 elif "darwin" in platform.lower():
-                    system("pmset sleepnow")
-            if not playback_stopped_manually:
-                force_close = True
-                self.main_app.quit_software(force_close)
+                    subprocess.call("pmset sleepnow", shell=False)
+            force_close = True
+            self.main_app.quit_software(force_close)
 
     def import_record(self, record):
         self.macro_events = record
