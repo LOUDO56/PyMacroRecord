@@ -36,6 +36,9 @@ To enable them, go to `Options` -> `Playback` -> `Interval` or `For` and you wil
 
 The value 0 in all three fields means you are disabling them, putting more than 0 in one field will enable them.
 
+### Delay
+To add a delay between repeats, go to `Options` -> `Playback` -> `Delay` and you can set the delay in seconds.
+
 
 ### Selecting what to record
 To change your preferences from what being recorded, go to `Options` -> `Recordings` and you will see 3 options with checkmarks.
