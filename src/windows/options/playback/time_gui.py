@@ -76,7 +76,7 @@ class TimeGui(Popup):
             hour = int(hour)
             min = int(min)
             sec = int(sec)
-        except:
+        except ValueError:
             messagebox.showerror("Error", "Only numbers are supported.")
             return
         if hour > 24 or min > 60 or sec > 60:

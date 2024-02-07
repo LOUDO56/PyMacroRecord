@@ -178,7 +178,11 @@ class Macro:
             "middleClickEvent": Button.middle,
         }
         keyToUnpress = []
-        for repeat in range(userSettings["Playback"]["Repeat"]["Times"]):
+        if userSettings["Playback"]["Repeat"]["For"] > 0:
+            repeat_times = 1
+        else:
+            repeat_times = userSettings["Playback"]["Repeat"]["Times"]
+        for repeat in range(repeat_times):
             for events in range(len(self.macro_events["events"])):
                 if self.playback == False:
                     self.unPressEverything(keyToUnpress)
@@ -295,7 +299,7 @@ class Macro:
                 if platform == "win32":
                     subprocess.call("shutdown -h", shell=False)
                 elif "linux" in platform.lower():
-                    subprocess.call("subprocess.callctl hibernate", shell=False)
+                    subprocess.call("systemctl hibernate", shell=False)
                 elif "darwin" in platform.lower():
                     subprocess.call("pmset sleepnow", shell=False)
             force_close = True

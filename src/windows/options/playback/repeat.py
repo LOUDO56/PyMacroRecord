@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter.ttk import *
+from tkinter import messagebox
 from windows.popup import Popup
 
 
@@ -16,10 +17,17 @@ class Repeat(Popup):
         repeatTimes.pack(pady=20)
         buttonArea = Frame(self)
         Button(buttonArea, text="Confirm",
-               command=lambda: [self.settings.change_settings("Playback", "Repeat", "Times", int(repeatTimes.get())),
-                                self.destroy()]).pack(side=LEFT, padx=10)
+               command=lambda: self.setNewRepeat(int(repeatTimes.get()))).pack(side=LEFT, padx=10)
         Button(buttonArea, text="Cancel", command=self.destroy).pack(side=LEFT, padx=10)
         buttonArea.pack(side=BOTTOM, pady=10)
         self.wait_window()
         main_app.prevent_record = False
+
+    def setNewRepeat(self, newValue):
+        if newValue <= 0:
+            messagebox.showerror("Error", "You can't have lower than 1 repeat")
+        else:
+            self.settings.change_settings("Playback", "Repeat", "Times")
+            self.destroy()
+
 
