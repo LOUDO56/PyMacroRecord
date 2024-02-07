@@ -25,7 +25,7 @@ class Repeat(Popup):
 
     def setNewRepeat(self, newValue):
         if newValue <= 0:
-            messagebox.showerror("Error", "You can't have lower than 1 repeat")
+            messagebox.showerror("Error", "You cannot have less than 1 repetition.")
         else:
             self.settings.change_settings("Playback", "Repeat", "Times", newValue)
             self.destroy()
