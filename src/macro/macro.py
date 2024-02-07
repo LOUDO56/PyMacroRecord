@@ -244,7 +244,8 @@ class Macro:
                                 else:
                                     self.keyboardControl.release(keyToPress)
             if userSettings["Playback"]["Repeat"]["Delay"] > 0:
-                sleep(userSettings["Playback"]["Repeat"]["Delay"])
+                if repeat + 1 != repeat_times:
+                    sleep(userSettings["Playback"]["Repeat"]["Delay"])
         self.unPressEverything(keyToUnpress)
         if userSettings["Playback"]["Repeat"]["Interval"] == 0 and userSettings["Playback"]["Repeat"]["For"] == 0:
             self.stop_playback()

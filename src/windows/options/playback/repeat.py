@@ -27,7 +27,7 @@ class Repeat(Popup):
         if newValue <= 0:
             messagebox.showerror("Error", "You can't have lower than 1 repeat")
         else:
-            self.settings.change_settings("Playback", "Repeat", "Times")
+            self.settings.change_settings("Playback", "Repeat", "Times", newValue)
             self.destroy()
 
 
