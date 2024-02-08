@@ -1,6 +1,8 @@
 from tkinter import *
+from tkinter import messagebox
 from pynput import mouse, keyboard
 from pynput.mouse import Button
+from pynput.keyboard import Key
 from utils.get_key_pressed import getKeyPressed
 from utils.record_file_management import RecordFileManagement
 from utils.warning_pop_up_save import confirm_save
@@ -221,28 +223,32 @@ class Macro:
 
                 elif event_type == "keyboardEvent":  # Keyboard Press,Release
                     if self.macro_events["events"][events]["key"] != None:
-                        keyToPress = (
-                            self.macro_events["events"][events]["key"]
-                            if "Key." not in self.macro_events["events"][events]["key"]
-                            else eval(self.macro_events["events"][events]["key"])
-                        )
-                        if isinstance(keyToPress, str):
-                            if ">" in keyToPress:
-                                try:
-                                    keyToPress = vk_nb[keyToPress]
-                                except:
-                                    keyToPress = None
-                        if self.playback == True:
-                            if keyToPress != None:
-                                if (
-                                    self.macro_events["events"][events]["pressed"]
-                                    == True
-                                ):
-                                    self.keyboardControl.press(keyToPress)
-                                    if keyToPress not in keyToUnpress:
-                                        keyToUnpress.append(keyToPress)
-                                else:
-                                    self.keyboardControl.release(keyToPress)
+                        try:
+                            keyToPress = (
+                                self.macro_events["events"][events]["key"]
+                                if "Key." not in self.macro_events["events"][events]["key"]
+                                else eval(self.macro_events["events"][events]["key"])
+                            )
+                            if isinstance(keyToPress, str):
+                                if ">" in keyToPress:
+                                    try:
+                                        keyToPress = vk_nb[keyToPress]
+                                    except:
+                                        keyToPress = None
+                            if self.playback == True:
+                                if keyToPress != None:
+                                    if (
+                                        self.macro_events["events"][events]["pressed"]
+                                        == True
+                                    ):
+                                        self.keyboardControl.press(keyToPress)
+                                        if keyToPress not in keyToUnpress:
+                                            keyToUnpress.append(keyToPress)
+                                    else:
+                                        self.keyboardControl.release(keyToPress)
+                        except NameError as e:
+                            messagebox.showerror("Error", f"Error during playback \"{e}\". Please open an issue on Github.")
+                            self.stop_playback()
             if userSettings["Playback"]["Repeat"]["Delay"] > 0:
                 if repeat + 1 != repeat_times:
                     sleep(userSettings["Playback"]["Repeat"]["Delay"])
