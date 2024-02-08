@@ -2,7 +2,7 @@ import requests
 
 class Version:
     def __init__(self, userSettings):
-        self.version = "1.1.11"
+        self.version = "1.1.10"
         self.new_version = ""
         if userSettings["Others"]["Check_update"]:
             self.update = self.checkVersion()
