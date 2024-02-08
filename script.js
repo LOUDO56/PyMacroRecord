@@ -11,3 +11,21 @@ close_menu_icon.addEventListener('click', () => {
 })
 
 document.querySelector(".current-year").textContent = new Date().getFullYear();
+
+
+// To get the right version of the software without updating everytime the website
+if(window.location.href.includes('download')){
+    const downdloadLink = document.querySelector('.download')
+    const downloadPortable = document.querySelector('.download-portable-link');
+    const sourceLink = document.querySelector('.source-code')
+    fetch('https://api.github.com/repos/LOUDO56/PyMacroRecord/releases/latest')
+        .then(resp => resp.json())
+        .then(ver => {
+            const setupToDl = 'https://github.com/LOUDO56/PyMacroRecord/releases/download/'+ver.tag_name+'/PyMacroRecord_'+ver.tag_name.replace('v', '')+'_Setup.exe'
+            const portableToDl = 'https://github.com/LOUDO56/PyMacroRecord/releases/download/'+ver.tag_name+'/PyMacroRecord_'+ver.tag_name.replace('v', '')+'-portable.exe'
+            const sourcetoDl = 'https://github.com/LOUDO56/PyMacroRecord/archive/refs/tags/'+ver.tag_name+'.zip'
+            downdloadLink.href = setupToDl;
+            downloadPortable.href = portableToDl
+            sourceLink.href = sourcetoDl;
+        })
+}
