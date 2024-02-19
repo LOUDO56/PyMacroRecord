@@ -1,4 +1,5 @@
 import requests
+from requests.exceptions import RequestException
 
 class Version:
     def __init__(self, userSettings):
@@ -21,5 +22,5 @@ class Version:
                 return "Outdated" if self.new_version != self.version else "Up to Date"
             else:
                 return "Cannot fetch if new update"
-        except:
+        except RequestException:
             return "Cannot fetch if new update"
