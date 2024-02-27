@@ -13,6 +13,9 @@ from os import getlogin
 from sys import platform
 from threading import Thread
 import subprocess
+import ctypes
+PROCESS_PER_MONITOR_DPI_AWARE = 2
+ctypes.windll.shcore.SetProcessDpiAwareness(PROCESS_PER_MONITOR_DPI_AWARE)
 
 
 class Macro:
