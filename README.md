@@ -56,7 +56,7 @@ https://github.com/LOUDO56/PyMacroRecord/assets/117168736/624e49b4-439e-413c-a05
 If you encounter a bug or want to request an update, simply create an issue [here](https://github.com/LOUDO56/PyMacroRecord/issues)
 
 # For people who don't have windows or don't want to use exe file
-⚠️ Might work for MacOS, I can not test unfortunately ⚠️
+⚠️ PyMacroRecord does not work on MacOS unfortunately! It's too restrictive and i can't work on MacOS at the moment! ⚠️
 - First, if you didn't already, install [Python](https://www.python.org/downloads/)
 - Download the last source code release [here](https://github.com/LOUDO56/PyMacroRecord/releases)
 
