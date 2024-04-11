@@ -72,7 +72,8 @@ class UserSettings:
 
             "Others": {
                 "Check_update": True,
-                "Fixed_timestamp": 0
+                "Fixed_timestamp": 0,
+                "Remind_new_ver_at": 0,
             }
         }
 
@@ -123,4 +124,7 @@ class UserSettings:
             self.update_settings(dumps(userSettings, indent=4))
         if "Delay" not in userSettings["Playback"]["Repeat"]:
             userSettings["Playback"]["Repeat"]["Delay"] = 0
+            self.update_settings(dumps(userSettings, indent=4))
+        if "Remind_new_ver_at" not in userSettings["Others"]:
+            userSettings["Others"]["Remind_new_ver_at"] = 0
             self.update_settings(dumps(userSettings, indent=4))

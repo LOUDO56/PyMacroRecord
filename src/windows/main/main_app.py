@@ -20,6 +20,7 @@ from pystray import MenuItem
 from PIL import Image
 from threading import Thread
 from json import load
+from time import time
 
 
 class MainApp(Window):
@@ -88,7 +89,8 @@ class MainApp(Window):
 
         if self.settings.get_config()["Others"]["Check_update"]:
             if self.version.new_version != "" and self.version.version != self.version.new_version:
-                NewVerAvailable(self, self.version.new_version)
+                if time() > self.settings.get_config()["Others"]["Remind_new_ver_at"]:
+                    NewVerAvailable(self, self.version.new_version)
 
         self.mainloop()
 
