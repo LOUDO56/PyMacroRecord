@@ -13,8 +13,8 @@ class NewVerAvailable(Popup):
         Label(self, text=f"New Version {version} available!").pack(side=TOP)
         Label(self, text="Do you want to download it now?").pack(side=TOP)
         buttonArea = Frame(self)
-        Button(buttonArea, text="Ignore", command=lambda: self.ignore_new_ver()).pack(side=LEFT, padx=5)
-        Button(buttonArea, text="Remind me later", command=lambda: self.remind_later()).pack(side=LEFT, padx=5)
+        Button(buttonArea, text="Ignore", command=self.ignore_new_ver).pack(side=LEFT, padx=5)
+        Button(buttonArea, text="Remind me later", command=self.remind_later).pack(side=LEFT, padx=5)
         Button(buttonArea, text="Download update",
                command=lambda: OpenUrl(f"https://github.com/LOUDO56/PyMacroRecord/releases/tag/v{version}")).pack(
             side=LEFT, padx=5)

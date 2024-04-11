@@ -1,7 +1,7 @@
 from sys import platform
 from os import path, getenv, mkdir
 from json import dumps, load
-from utils.version import Version
+from tkinter import messagebox
 
 
 class UserSettings:
@@ -90,6 +90,10 @@ class UserSettings:
     def update_settings(self, updatedValues):
         with open(self.user_setting, "w") as settingFile:
             settingFile.write(updatedValues)
+
+    def reset_settings(self):
+        if messagebox.askyesno("Confirm", "Are you sure you want to reset your settings?"):
+            self.init_settings()
 
     def get_path(self):
         return self.path_setting
