@@ -19,4 +19,7 @@ def getKeyPressed(keyboardListener, key):
                 keyPressed = "Key.enter"
             if keyPressed == "\\x1b":
                 keyPressed = None
+        elif platform.lower() == "linux":
+            if keyPressed == "'^'":
+                keyPressed = "^"
     return keyPressed
