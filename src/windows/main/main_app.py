@@ -1,6 +1,5 @@
 import sys
 from tkinter import *
-from tkinter.ttk import *
 
 from utils.not_windows import NotWindows
 from windows.window import Window
@@ -21,6 +20,9 @@ from PIL import Image
 from threading import Thread
 from json import load
 from time import time
+
+if platform.lower() == "win32":
+    from tkinter.ttk import *
 
 
 class MainApp(Window):
@@ -121,5 +123,4 @@ class MainApp(Window):
             elif wantToSave == None:
                 return
         self.icon.stop()
-        self.destroy()
         self.quit()

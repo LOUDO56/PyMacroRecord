@@ -9,13 +9,14 @@ from utils.warning_pop_up_save import confirm_save
 from utils.show_toast import show_notification_minim
 from utils.keys import vk_nb
 from time import time, sleep
-from os import getlogin
+from os import getlogin, system
 from sys import platform
 from threading import Thread
-import subprocess
-import ctypes
-PROCESS_PER_MONITOR_DPI_AWARE = 2
-ctypes.windll.shcore.SetProcessDpiAwareness(PROCESS_PER_MONITOR_DPI_AWARE)
+
+if platform.lower() == "win32":
+    import ctypes
+    PROCESS_PER_MONITOR_DPI_AWARE = 2
+    ctypes.windll.shcore.SetProcessDpiAwareness(PROCESS_PER_MONITOR_DPI_AWARE)
 
 
 class Macro:
@@ -250,9 +251,12 @@ class Macro:
                                             keyToUnpress.append(keyToPress)
                                     else:
                                         self.keyboardControl.release(keyToPress)
-                        except NameError as e:
-                            messagebox.showerror("Error", f"Error during playback \"{e}\". Please open an issue on Github.")
-                            self.stop_playback()
+                        except ValueError as e:
+                            if keyToPress == None:
+                                pass
+                            else:
+                                messagebox.showerror("Error", f"Error during playback \"{e}\". Please open an issue on Github.")
+                                self.stop_playback()
             if userSettings["Playback"]["Repeat"]["Delay"] > 0:
                 if repeat + 1 != repeat_times:
                     sleep(userSettings["Playback"]["Repeat"]["Delay"])
@@ -286,33 +290,33 @@ class Macro:
         if userSettings["After_Playback"]["Mode"] != "Idle" and not playback_stopped_manually:
             if userSettings["After_Playback"]["Mode"] == "Standy":
                 if platform == "win32":
-                    subprocess.call("rundll32.exe powrprof.dll, SetSuspendState 0,1,0", shell=False)
+                    system("rundll32.exe powrprof.dll, SetSuspendState 0,1,0")
                 elif "linux" in platform.lower():
-                    subprocess.call("subprocess.callctl suspend", shell=False)
+                    system("subprocess.callctl suspend")
                 elif "darwin" in platform.lower():
-                    subprocess.call("pmset sleepnow", shell=False)
+                    system("pmset sleepnow")
             elif userSettings["After_Playback"]["Mode"] == "Log off Computer":
                 if platform == "win32":
-                    subprocess.call("shutdown /l", shell=False)
+                    system("shutdown /l")
                 else:
-                    subprocess.call(f"pkill -KILL -u {getlogin()}", shell=False)
+                    system(f"pkill -KILL -u {getlogin()}")
             elif userSettings["After_Playback"]["Mode"] == "Turn off Computer":
                 if platform == "win32":
-                    subprocess.call("shutdown /s /t 0", shell=False)
+                    system("shutdown /s /t 0")
                 else:
-                    subprocess.call("shutdown -h now", shell=False)
+                    system("shutdown -h now")
             elif userSettings["After_Playback"]["Mode"] == "Restart Computer":
                 if platform == "win32":
-                    subprocess.call("shutdown /r /t 0", shell=False)
+                    system("shutdown /r /t 0")
                 else:
-                    subprocess.call("shutdown -r now", shell=False)
+                    system("shutdown -r now")
             elif userSettings["After_Playback"]["Mode"] == "Hibernate (If activated)":
                 if platform == "win32":
-                    subprocess.call("shutdown -h", shell=False)
+                    system("shutdown -h")
                 elif "linux" in platform.lower():
-                    subprocess.call("systemctl hibernate", shell=False)
+                    system("systemctl hibernate")
                 elif "darwin" in platform.lower():
-                    subprocess.call("pmset sleepnow", shell=False)
+                    system("pmset sleepnow")
             force_close = True
             self.main_app.quit_software(force_close)
 

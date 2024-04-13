@@ -4,11 +4,15 @@ from windows.popup import Popup
 from webbrowser import open as OpenUrl
 from utils.user_settings import UserSettings
 from time import time
+from sys import platform
 
 
 class NewVerAvailable(Popup):
     def __init__(self, parent, version):
-        super().__init__("Software Update", 330, 130, parent)
+        width = 330
+        if platform.lower() == "darwin":
+            width += 110
+        super().__init__("Software Update", width, 130, parent)
         parent.prevent_record = True
         Label(self, text=f"New Version {version} available!").pack(side=TOP)
         Label(self, text="Do you want to download it now?").pack(side=TOP)
