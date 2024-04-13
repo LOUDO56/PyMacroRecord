@@ -56,7 +56,6 @@ https://github.com/LOUDO56/PyMacroRecord/assets/117168736/624e49b4-439e-413c-a05
 If you encounter a bug or want to request an update, simply create an issue [here](https://github.com/LOUDO56/PyMacroRecord/issues)
 
 # For people who don't have windows or don't want to use exe file
-⚠️ PyMacroRecord does not work on MacOS unfortunately! It's too restrictive and i can't work on MacOS at the moment! ⚠️
 - First, if you didn't already, install [Python](https://www.python.org/downloads/)
 - Download the last source code release [here](https://github.com/LOUDO56/PyMacroRecord/releases)
 
@@ -64,13 +63,30 @@ If you encounter a bug or want to request an update, simply create an issue [her
 - Open the terminal and type `cd <PATH TO SOFTWARE FOLDER>`
 - Type the command:
   ```bash
-  pip install -r requirements.txt
+  pip3 install -r requirements.txt
   ```
   - If you are on **Linux**, you might need to install Tkinter manually, commands to install are [here](https://www.geeksforgeeks.org/how-to-install-tkinter-on-linux/)
   - You need to remove the **win10toast** from `requirements.txt` or else you won't be able to install the depedencies
+  - Mac Users, you must add python app to accessibility settings in system preferences to allow input monitoring.
   - (Optional) If you want these package to be on virtual environment follow these step [here](https://stackoverflow.com/a/41799834)
 - Finally, do `cd src` and type: `python3 main.py`
 - And boom! The software is now ready to use.
+
+# Build (Windows)
+To build the application, I use PyInstaller.
+
+You need to be on home directory, not on src.
+
+Then, use that command for onefile output (upx is optional).
+```
+pyinstaller --noconfirm --onefile --windowed --icon "src/assets/logo.ico" --name "PyMacroRecord-portable" --contents-directory "." --upx-dir upx --add-data "src/assets;assets/" --add-data "src/hotkeys;hotkeys/" --add-data "src/macro;macro/" --add-data "src/utils;utils/" --add-data "src/windows;windows/"  "src/main.py"
+```
+
+For onedir output, use that command (upx is optional).
+
+```
+pyinstaller --noconfirm --onedir --windowed --icon "src/assets/logo.ico" --name "PyMacroRecord" --contents-directory "." --upx-dir upx --add-data "src/assets;assets/" --add-data "src/hotkeys;hotkeys/" --add-data "src/macro;macro/" --add-data "src/utils;utils/" --add-data "src/windows;windows/"  "src/main.py"
+```
 
 # License
 

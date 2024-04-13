@@ -64,7 +64,7 @@ class HotkeysManager:
                 self.hotkey_visible.append(keyPressed.upper())
             self.hotkey_button.configure(text=self.hotkey_visible)
 
-            if all(keyword not in keyPressed for keyword in ["ctrl", "alt", "shift"]):
+            if all(keyword not in keyPressed for keyword in ["ctrl", "alt", "shift", 'cmd']):
                 if (
                     self.type_of_hotkey == "Record_Start"
                     and userSettings["Hotkeys"]["Playback_Start"] == self.hotkeys
