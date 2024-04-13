@@ -1,7 +1,6 @@
-from os import path
+from os import path, system
 from sys import platform
 from utils.get_file import resource_path
-import subprocess
 
 try:
     from win10toast import ToastNotifier
@@ -25,6 +24,6 @@ def show_notification_minim():
             pass
 
     elif "linux" in platform.lower():
-        subprocess.call("""notify-send -u normal "PyMacroRecord" "PyMacroRecord has been minimized" """, shell=False)
+        system("""notify-send -u normal "PyMacroRecord" "PyMacroRecord has been minimized" """)
     elif "darwin" in platform.lower():
-        subprocess.call("""display notification "PyMacroRecord has been minimized" with title "PyMacroRecord""", shell=False)
+        system("""osascript -e 'display notification "PyMacroRecord has been minimized" with title "PyMacroRecord"'""")

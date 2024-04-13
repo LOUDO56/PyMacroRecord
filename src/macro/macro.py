@@ -79,6 +79,7 @@ class Macro:
             self.keyboard_listener = keyboard.Listener(
                 on_press=self.__on_press, on_release=self.__on_release
             )
+            sleep(0.05)
             self.keyboard_listener.start()
             self.keyboardBeingListened = True
         self.main_menu.file_menu.entryconfig("Load", state=DISABLED)
