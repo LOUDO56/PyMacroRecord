@@ -123,4 +123,6 @@ class MainApp(Window):
             elif wantToSave == None:
                 return
         self.icon.stop()
+        if platform.lower() == "linux":
+            self.destroy()
         self.quit()
