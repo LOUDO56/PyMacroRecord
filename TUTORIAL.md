@@ -81,6 +81,8 @@ You'll have a window with a menu where you can choose from:
 
 To check your version of your current software, go to `Help` -> `About` and you'll have a window that show the publisher, the version if it is outdated or not and the license.
 
+To reset your settings, go to `Options` -> `Others` -> `Reset settings`
+
 To put a fixed timestamp, go to `Options` -> `Others` -> `Fixed timestamp`
 
 
