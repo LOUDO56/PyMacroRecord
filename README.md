@@ -33,20 +33,42 @@ To play a recording, you just need to click on the green play icon
 And to stop the playback, press the `f3` key (By default).
 \
 \
-Here are some videos to show you the process:
 
+# Showcase
 
-
-
-
-https://github.com/LOUDO56/PyMacroRecord/assets/117168736/2e0f9e5e-965e-4d88-86ba-c525d7faed3c
+## Windows
 
 
 
 
 
 
-https://github.com/LOUDO56/PyMacroRecord/assets/117168736/624e49b4-439e-413c-a054-a9586564a39e
+https://github.com/LOUDO56/PyMacroRecord/assets/117168736/ac77b7b6-02d0-4c12-a71a-65119c4acc59
+
+
+## macOS
+
+
+
+
+
+
+https://github.com/LOUDO56/PyMacroRecord/assets/117168736/a4c57156-514c-46bf-9bb1-5e030df00726
+
+
+
+
+
+## Linux
+
+
+
+
+
+
+https://github.com/LOUDO56/PyMacroRecord/assets/117168736/25ab7c60-9f48-425f-bd5f-68c8b76e4c9c
+
+
 
 
 
