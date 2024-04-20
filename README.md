@@ -1,7 +1,14 @@
 # PyMacroRecord
-PyMacroRecord is a completely free Macro Recorder, coded with Python.
+<div align="center">
+  <a href="https://github.com/LOUDO56/PyMacroRecord/releases"><img src="https://github.com/LOUDO56/PyMacroRecord/assets/117168736/ff16ba4d-7979-4719-bb8f-78587cb5032f" alt="pmr logo"></a>
+  <p>
+    Free. Easy <br>
+    Coded with Python, PyMacroRecord is one of the best free macro recorder you will find. <br>
+    No <b>ads</b>, no <b>premium</b>, everything <b>FREE</b>
+  </p>
+  <a href="https://github.com/LOUDO56/PyMacroRecord/releases"><img alt="PyMacroRecord count download" src="https://img.shields.io/github/downloads/LOUDO56/PyMacroRecord/total?label=Downloads"/></a>
+</div>
 
-<a href="https://github.com/LOUDO56/PyMacroRecord/releases"><img alt="PyMacroRecord count download" src="https://img.shields.io/github/downloads/LOUDO56/PyMacroRecord/total?label=GitHub%20Downloads"/></a>
 
 # Overview
 PyMacroRecord works with a GUI made using tkinter, making it easier for users to interact with it.
