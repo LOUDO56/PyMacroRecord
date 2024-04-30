@@ -35,11 +35,10 @@ To start recording, you simply have to press the red button\
 From there, you can move your mouse, click, and type on your keyboard, and everything will be recorded. (You can choose what will be recorded.)
 \
 \
-Then, to stop the recording, you simply click on the black square\
+Then, to stop the recording, you simply click on the black square.\
 To play a recording, you just need to click on the green play icon
 And to stop the playback, press the `f3` key (By default).
-\
-\
+
 
 # Showcase
 
@@ -95,7 +94,7 @@ If you encounter a bug or want to request an update, simply create an issue [her
   pip3 install -r requirements.txt
   ```
   - If you are on **Linux**, you might need to install Tkinter manually, commands to install are [here](https://www.geeksforgeeks.org/how-to-install-tkinter-on-linux/)
-  - You need to remove the **win10toast** from `requirements.txt` or else you won't be able to install the depedencies
+  - You need to remove the **win10toast** from `requirements.txt` if you are not on windows or else you won't be able to install the depedencies
   - Mac Users, you must add python app to accessibility settings in system preferences to allow input monitoring.
   - (Optional) If you want these package to be on virtual environment follow these step [here](https://stackoverflow.com/a/41799834)
 - Finally, do `cd src` and type: `python3 main.py`
