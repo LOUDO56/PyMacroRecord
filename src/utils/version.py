@@ -3,7 +3,7 @@ from requests.exceptions import RequestException
 
 class Version:
     def __init__(self, userSettings):
-        self.version = "1.1.2"
+        self.version = "1.1.3"
         self.new_version = ""
         if userSettings["Others"]["Check_update"]:
             self.update = self.checkVersion()

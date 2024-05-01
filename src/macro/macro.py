@@ -2,7 +2,6 @@ from tkinter import *
 from tkinter import messagebox
 from pynput import mouse, keyboard
 from pynput.mouse import Button
-from pynput.keyboard import Key
 from utils.get_key_pressed import getKeyPressed
 from utils.record_file_management import RecordFileManagement
 from utils.warning_pop_up_save import confirm_save
@@ -13,10 +12,6 @@ from os import getlogin, system
 from sys import platform
 from threading import Thread
 
-if platform.lower() == "win32":
-    import ctypes
-    PROCESS_PER_MONITOR_DPI_AWARE = 2
-    ctypes.windll.shcore.SetProcessDpiAwareness(PROCESS_PER_MONITOR_DPI_AWARE)
 
 
 class Macro:
