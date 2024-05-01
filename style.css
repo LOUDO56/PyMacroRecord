@@ -528,11 +528,6 @@ footer{
         font-size: 14px;
 
     }
-}
-
-
-
-@media screen and (max-width: 532px) {
 
     .hambuger-icon{
         display: block;
