@@ -67,6 +67,7 @@ nav{
     display: flex;
     gap: 30px;
     font-size: 18px;
+    align-items: center;
 
 }
 
@@ -103,7 +104,7 @@ nav{
     display: none;
 }
 
-.links-mobile-menu img{
+.close-icon{
     float: right;
     margin-top: 17px;
     margin-right: 20px;
@@ -114,7 +115,7 @@ nav{
     position: fixed;
     height: 100%;
     width: 150px;
-    background-color: #d3d3d3;
+    background-color: #ebebeb;
     right: -25em;
     top: 0;
     transition: 200ms ease;
@@ -131,6 +132,25 @@ nav{
     font-size: 20px;
     color: var(--black-text);
     text-decoration: none;
+}
+
+.donate{
+    background-color: #6786F2;
+    padding: 10px 15px;
+    border-radius: 10px;
+    color: white !important;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: 200ms ease;
+
+}
+
+.donate:hover{
+    text-decoration: none !important;
+    background-color: #839dfa;
+
 }
 
 
@@ -186,6 +206,7 @@ nav{
 .download:hover{
     background-color: #839dfa;
 }
+
 
 .not-windows{
     margin-top: -10px;
@@ -307,6 +328,28 @@ nav{
 
 .about-me-desc:last-child{
     margin-top: 50px;
+}
+
+.support{
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.support-txt{
+    font-size: 70px;
+    color: #e83f88;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+.support-desc{
+    font-size: 18px;
+    max-width: 40em;
+    margin: 0 auto;
 }
 
 
