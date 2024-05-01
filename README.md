@@ -1,7 +1,14 @@
 # PyMacroRecord
-PyMacroRecord is a completely free Macro Recorder, coded with Python.
+<div align="center">
+  <a href="https://github.com/LOUDO56/PyMacroRecord/releases"><img src="https://github.com/LOUDO56/PyMacroRecord/assets/117168736/ff16ba4d-7979-4719-bb8f-78587cb5032f" alt="pmr logo"></a>
+  <p>
+    Free. Easy <br>
+    Coded with Python, PyMacroRecord is one of the best free macro recorder you will find. <br>
+    No <b>ads</b>, no <b>premium</b>, everything <b>FREE</b>
+  </p>
+  <a href="https://github.com/LOUDO56/PyMacroRecord/releases"><img alt="PyMacroRecord count download" src="https://img.shields.io/github/downloads/LOUDO56/PyMacroRecord/total?label=Downloads"/></a>
+</div>
 
-<a href="https://github.com/LOUDO56/PyMacroRecord/releases"><img alt="PyMacroRecord count download" src="https://img.shields.io/github/downloads/LOUDO56/PyMacroRecord/total?label=GitHub%20Downloads"/></a>
 
 # Overview
 PyMacroRecord works with a GUI made using tkinter, making it easier for users to interact with it.
@@ -28,25 +35,46 @@ To start recording, you simply have to press the red button\
 From there, you can move your mouse, click, and type on your keyboard, and everything will be recorded. (You can choose what will be recorded.)
 \
 \
-Then, to stop the recording, you simply click on the black square\
+Then, to stop the recording, you simply click on the black square.\
 To play a recording, you just need to click on the green play icon
 And to stop the playback, press the `f3` key (By default).
-\
-\
-Here are some videos to show you the process:
 
 
+# Showcase
 
-
-
-https://github.com/LOUDO56/PyMacroRecord/assets/117168736/2e0f9e5e-965e-4d88-86ba-c525d7faed3c
+## Windows
 
 
 
 
 
 
-https://github.com/LOUDO56/PyMacroRecord/assets/117168736/624e49b4-439e-413c-a054-a9586564a39e
+https://github.com/LOUDO56/PyMacroRecord/assets/117168736/ac77b7b6-02d0-4c12-a71a-65119c4acc59
+
+
+## macOS
+
+
+
+
+
+
+https://github.com/LOUDO56/PyMacroRecord/assets/117168736/a4c57156-514c-46bf-9bb1-5e030df00726
+
+
+
+
+
+## Linux
+
+
+
+
+
+
+https://github.com/LOUDO56/PyMacroRecord/assets/117168736/25ab7c60-9f48-425f-bd5f-68c8b76e4c9c
+
+
 
 
 
@@ -66,7 +94,7 @@ If you encounter a bug or want to request an update, simply create an issue [her
   pip3 install -r requirements.txt
   ```
   - If you are on **Linux**, you might need to install Tkinter manually, commands to install are [here](https://www.geeksforgeeks.org/how-to-install-tkinter-on-linux/)
-  - You need to remove the **win10toast** from `requirements.txt` or else you won't be able to install the depedencies
+  - You need to remove the **win10toast** from `requirements.txt` if you are not on windows or else you won't be able to install the depedencies
   - Mac Users, you must add python app to accessibility settings in system preferences to allow input monitoring.
   - (Optional) If you want these package to be on virtual environment follow these step [here](https://stackoverflow.com/a/41799834)
 - Finally, do `cd src` and type: `python3 main.py`
