@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 from pynput import mouse, keyboard
+from pynput.keyboard import Key
 from pynput.mouse import Button
 from utils.get_key_pressed import getKeyPressed
 from utils.record_file_management import RecordFileManagement
