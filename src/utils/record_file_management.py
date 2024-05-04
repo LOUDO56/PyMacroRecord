@@ -46,6 +46,7 @@ class RecordFileManagement:
             if wantToSave:
                 self.save_macro()
             elif wantToSave is None:
+                self.main_app.prevent_record = False
                 return
         macroFile = filedialog.askopenfile(
             filetypes=[("PyMacroRecord Files", "*.pmr"), ("Json Files", "*.json")],
