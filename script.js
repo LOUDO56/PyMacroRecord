@@ -29,3 +29,20 @@ if(window.location.href.includes('download')){
             sourceLink.href = sourcetoDl;
         })
 }
+
+fetch("/donors.txt")
+    .then(res => res.text())
+    .then(data => {
+        let lastDonators = "";
+        maxDonators = 5
+        data = data.split(";")
+        if(data.length < 5){
+            maxDonators = data.length
+        }
+        for(let i = 0; i < maxDonators; i++){
+            if(i == maxDonators - 1 && i != 0) lastDonators += " and" + data[i]
+            else lastDonators += data[i]
+        }
+        document.querySelector(".last-donators").textContent = lastDonators;
+        document.querySelector(".nb-top-donators").textContent = maxDonators;
+    });
