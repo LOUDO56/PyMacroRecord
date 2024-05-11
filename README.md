@@ -120,6 +120,9 @@ pyinstaller --noconfirm --onedir --windowed --icon "src/assets/logo.ico" --name 
 Developing a software is not an easy task. If you really like this project, please consider making a small donation, it really helps and means a lot! <3
 \
 \
+By making a donation, your name will appear in the "Donors" section of the PyMacroRecord software and among the last 5 donors on the [PyMacroRecord](https://www.pymacrorecord.com) website as a thank you!
+\
+\
 <a href='https://ko-fi.com/loudo' target='_blank'><img height='35' style='border:0px;height:46px;' src='https://az743702.vo.msecnd.net/cdn/kofi3.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' />
 
 # License
