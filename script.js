@@ -44,5 +44,6 @@ fetch("/donors.txt")
             else lastDonators += data[i]
         }
         document.querySelector(".last-donators").textContent = lastDonators;
-        document.querySelector(".nb-top-donators").textContent = maxDonators;
+        if(maxDonators == 1) document.querySelector(".nb-top-donators").textContent = "last donator: ";
+        else document.querySelector(".nb-top-donators").textContent = maxDonators += " last donators: ";
     });
