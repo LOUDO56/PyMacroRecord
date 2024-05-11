@@ -40,8 +40,11 @@ fetch("/donors.txt")
             maxDonators = data.length
         }
         for(let i = 0; i < maxDonators; i++){
-            if(i == maxDonators - 1 && i != 0) lastDonators += " and" + data[i]
-            else lastDonators += data[i]
+            if(i == maxDonators - 1 && i != 0) lastDonators += " and " + data[data.length - 1 - i]
+            else lastDonators += data[data.length - 1  - i]
+            if(i < maxDonators - 1 && maxDonators != 1 && i < maxDonators - 2){
+                lastDonators += ","
+            }
         }
         document.querySelector(".last-donators").textContent = lastDonators;
         if(maxDonators == 1) document.querySelector(".nb-top-donators").textContent = "last donator: ";
