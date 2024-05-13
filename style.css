@@ -453,6 +453,22 @@ footer{
         width: 300px !important;
     }
 
+    .header-pres{
+        margin-top: 7em;
+    }
+
+    .links-mobile-menu{
+        display: block;
+    }
+
+    .hambuger-icon{
+        display: block;
+    }
+
+    .links{
+        display: none;
+    }
+
 
     
 }
@@ -462,10 +478,6 @@ footer{
 
     .title-software{
         font-size: 17px;
-    }
-
-    .links-mobile-menu{
-        display: block;
     }
     
     .header-pres{
@@ -488,11 +500,11 @@ footer{
         font-size: 14px;
     }
     
-    .about-me-txt{
+    .about-me-txt, .support-txt{
         font-size: 50px;
     }
 
-    .about-me-desc{
+    .about-me-desc, .support-desc{
         font-size: 15px;
     }
 
@@ -529,13 +541,6 @@ footer{
 
     }
 
-    .hambuger-icon{
-        display: block;
-    }
-
-    .links{
-        display: none;
-    }
     
 }
 
