@@ -100,6 +100,7 @@ class Macro:
         self.record = False
         if self.mouseBeingListened:
             self.mouse_listener.stop()
+            self.mouseBeingListened = False
         if self.keyboardBeingListened:
             self.keyboardBeingListened = False 
         self.main_app.recordBtn.configure(
