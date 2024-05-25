@@ -82,7 +82,8 @@ class MainApp(Window):
         self.bind('<Control-n>', record_management.new_macro)
 
         self.protocol("WM_DELETE_WINDOW", self.quit_software)
-        Thread(target=self.systemTray).start()
+        if platform.lower() != "darwin":
+            Thread(target=self.systemTray).start()
 
         self.attributes("-topmost", 0)
 
@@ -122,7 +123,8 @@ class MainApp(Window):
                 RecordFileManagement(self, self.menu).save_macro()
             elif wantToSave == None:
                 return
-        self.icon.stop()
+        if platform.lower() != "darwin":
+            self.icon.stop()
         if platform.lower() == "linux":
             self.destroy()
         self.quit()

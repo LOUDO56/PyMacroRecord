@@ -35,6 +35,11 @@ class Macro:
         self.mouse_listener = None
         self.time = None
 
+        self.keyboard_listener = keyboard.Listener(
+                on_press=self.__on_press, on_release=self.__on_release
+            )
+        self.keyboard_listener.start()
+
     def start_record(self, by_hotkey=False):
         if self.main_app.prevent_record:
             return
@@ -73,11 +78,6 @@ class Macro:
             self.mouse_listener.start()
             self.mouseBeingListened = True
         if userSettings["Recordings"]["Keyboard"]:
-            self.keyboard_listener = keyboard.Listener(
-                on_press=self.__on_press, on_release=self.__on_release
-            )
-            sleep(0.05)
-            self.keyboard_listener.start()
             self.keyboardBeingListened = True
         self.main_menu.file_menu.entryconfig("Load", state=DISABLED)
         self.main_app.recordBtn.configure(
@@ -101,7 +101,7 @@ class Macro:
         if self.mouseBeingListened:
             self.mouse_listener.stop()
         if self.keyboardBeingListened:
-            self.keyboard_listener.stop()
+            self.keyboardBeingListened = False 
         self.main_app.recordBtn.configure(
             image=self.main_app.recordImg, command=self.start_record
         )
