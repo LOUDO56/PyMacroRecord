@@ -58,8 +58,10 @@ https://github.com/LOUDO56/PyMacroRecord/assets/117168736/ac77b7b6-02d0-4c12-a71
 
 
 
+https://github.com/LOUDO56/PyMacroRecord/assets/117168736/2e8d8a85-c96b-4906-b8d9-b91de2c3d35b
 
-https://github.com/LOUDO56/PyMacroRecord/assets/117168736/a4c57156-514c-46bf-9bb1-5e030df00726
+
+
 
 
 
@@ -95,7 +97,7 @@ If you encounter a bug or want to request an update, simply create an issue [her
   ```
   - If you are on **Linux**, you might need to install Tkinter manually, commands to install are [here](https://www.geeksforgeeks.org/how-to-install-tkinter-on-linux/)
   - You need to remove the **win10toast** from `requirements.txt` if you are not on windows or else you won't be able to install the depedencies
-  - Mac Users, you must add python app to accessibility settings in system preferences to allow input monitoring.
+  - Mac Users, you must add terminal to accessibility and input monitoring settings in system preferences to allow mouse and keyboard inputs.
   - (Optional) If you want these package to be on virtual environment follow these step [here](https://stackoverflow.com/a/41799834)
 - Finally, do `cd src` and type: `python3 main.py`
 - And boom! The software is now ready to use.
