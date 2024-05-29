@@ -89,9 +89,9 @@ class TimeGui(Popup):
                     causeFinal += causes[i]
                     if i < len(causes) - 1:
                         causeFinal += ", "
-                messagebox.showerror("Error", f"{causeFinal} {main_app.text_content["options_menu"]["playback_menu"]["for_interval_settings"]["error_new_value_multiple"]}")
+                messagebox.showerror("Error", f'{causeFinal} {main_app.text_content["options_menu"]["playback_menu"]["for_interval_settings"]["error_new_value_multiple"]}')
             else:
-                messagebox.showerror("Error", f"{causes[0]} {main_app.text_content["options_menu"]["playback_menu"]["for_interval_settings"]["error_new_value_single"]}")
+                messagebox.showerror("Error", f'{causes[0]} {main_app.text_content["options_menu"]["playback_menu"]["for_interval_settings"]["error_new_value_single"]}')
             return
         total_sec = hour * 3600 + min * 60 + sec
         if self.type == "Interval":
