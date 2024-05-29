@@ -8,7 +8,23 @@
     "global": {
       "confirm_button": "Confirmer",
       "cancel_button": "Annuler",
-      "close_button": "Fermer"
+      "close_button": "Fermer",
+      "error": "Erreur",
+      "previous_text": "Précédent",
+      "next_text": "Suivant",
+      "confirm_save": "Voulez-vous sauvegarder votre enregistrement?",
+      "confirm": "Confirmer",
+      "information": "Information",
+      "restart_software_text": "Vous devez redémarrer le logiciel pour que cela prenne effet."
+    },
+    "new_version": {
+      "title": "Mise à jour du logiciel",
+      "sub_text_1": "Nouvelle version",
+      "sub_text_2": "disponible !",
+      "sub_text_3": "Vouluez-vous la télécharger maintenant ?",
+      "ignore_button": "Ignorer",
+      "remind_later_button": "Rappeler plus tard",
+      "download_button": "Télécharger"
     },
     "file_menu": {
       "file_text": "Fichier",
@@ -20,16 +36,18 @@
     "options_menu": {
       "options_text": "Options",
       "playback_menu": {
-        "playback_text": "Relecture",
+        "playback_text": "Lecture",
         "speed_text": "Vitesse",
         "speed_settings": {
           "title": "Réglagle de la vitesse",
-          "sub_text": "Entrez un nombre entre 0.1 et 10"
+          "sub_text": "Entrez un nombre entre 0.1 et 10",
+          "error_new_value": "La valeur de votre vitesse doit être entre 0,1 et 10 !"
         },
         "repeat_text": "Répéter",
         "repeat_settings": {
           "title": "Réglagle de répétition",
-          "sub_text": "Enter repeat number"
+          "sub_text": "Entrez un nombre",
+          "error_new_value": "Vous devez au moins avoir une répétition."
         },
         "for_text": "Pendant",
         "for_settings": {
@@ -42,50 +60,58 @@
         "for_interval_settings": {
           "hours_text": "Heures",
           "minutes_text": "Minutes",
-          "seconds_text": "Secondes"
+          "seconds_text": "Secondes",
+          "error_new_value_multiple": "sont incorrect",
+          "error_new_value_single": "est incorrect"
         },
         "delay_text": "Délai",
         "delay_settings": {
           "title": "Réglage du délai",
-          "sub_text": "Entrez un délai entre chaque répétition"
+          "sub_text": "Entrez un délai entre chaque répétition",
+          "error_new_value": "Vous ne pouvez pas allez en dessous de 0 délai."
         }
       },
       "recordings_menu": {
         "recordings_text": "Enregistrer",
-        "recordings_menu": {
-          "mouse_movement_text": "Mouvement de souris",
-          "mouse_click_text": "Clique de la souris",
-          "keyboard_text": "Clavier"
-        }
+        "mouse_movement_text": "Mouvement de souris",
+        "mouse_click_text": "Clique de la souris",
+        "keyboard_text": "Clavier"
       },
       "settings_menu": {
         "settings_text": "Paramètres",
-          "hotkeys_text": "Raccourci clavier",
-          "hotkeys_settings": {
-            "start_record_text": "Commencer le rec",
-            "stop_record_text": "Stopper le rec",
-            "start_playback_text": "Jouer la lecture",
-            "stop_playback_text": "Stop la lecture",
-            "clear_text": "Effacer",
-            "please_key_text": "Clé svp"
-          },
-          "minimization_text": "Minimisation",
-          "minimization_menu": {
-            "minimization_when_playing_text": "Minimisation pendant la lecture",
-            "minimization_when_recording_text": "Minimisation pendant l'enregistrement"
-          },
-          "after_playback_text": "Après lecture",
-          "after_playback_settings": {
-            "title": "Réglage après lecture",
-            "sub_text": "Quand la lecture est terminée",
-            "idle_text": "Ne rien faire",
-            "quit_software_text": "Quitter le logiciel",
-            "standby_text": "Mode veille",
-            "log_off_computer_text": "Déconnecter le compte",
-            "turn_off_computer_text": "Éteindre le pc",
-            "restart_computer_text": "Redémarrer le pc",
-            "hibernate_text": "Hibernation (si activé)"
-          }
+        "lang_text": "Language",
+        "lang_settings": {
+          "title": "Réglage du language",
+          "sub_text": "Choisissez votre langue"
+        },
+        "hotkeys_text": "Raccourci clavier",
+        "hotkeys_settings": {
+          "title": "Réglage raccourci clavier",
+          "start_record_text": "Commencer le rec",
+          "stop_record_text": "Stopper le rec",
+          "start_playback_text": "Jouer la lecture",
+          "stop_playback_text": "Stop la lecture",
+          "clear_text": "Effacer",
+          "please_key_text": "Touche svp"
+        },
+        "minimization_text": "Minimisation",
+        "minimization_menu": {
+          "minimization_when_playing_text": "Minimisation pendant la lecture",
+          "minimization_when_recording_text": "Minimisation pendant l'enregistrement"
+        },
+        "after_playback_text": "Après lecture",
+        "after_playback_settings": {
+          "when_playback_complete_text": "Quand la lecture est terminée",
+          "title": "Réglage après lecture",
+          "sub_text": "Quand la lecture est terminée",
+          "Idle": "Ne rien faire",
+          "Quit software": "Quitter le logiciel",
+          "Standby": "Mode veille",
+          "Log off computer": "Déconnecter le compte",
+          "Turn off computer": "Éteindre le pc",
+          "Restart computer": "Redémarrer le pc",
+          "Hibernate (if enabled)": "Hibernation (si activé)"
+        }
       },
       "others_menu": {
         "others_text": "Autres",
@@ -105,8 +131,9 @@
       "about_text": "À propos",
       "about_settings": {
         "title": "À propos",
-        "publisher_text": "Auteur: LOUDO",
-        "version_text": "Version:",
+        "publisher_text": "Auteur",
+        "version_text": "Version",
+        "license_text": "Sous la license",
         "version_check_update_text": {
           "up_to_date": "À jour",
           "outdated": "Obsolète",
@@ -119,12 +146,8 @@
       "others_text": "Autres",
       "donors_text": "Donateurs",
       "donors_settings": {
-        "title": "Donateurs"
-      },
-      "lang_text": "Language",
-      "lang_settings": {
-        "title": "Réglage du language",
-        "sub_text": "Choisissez votre langue"
+        "title": "Donateurs",
+        "sub_text": "Tous les donateurs "
       }
     }
   }

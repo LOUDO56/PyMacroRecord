@@ -1,3 +1,4 @@
+import json
 import sys
 from tkinter import *
 
@@ -34,12 +35,19 @@ class MainApp(Window):
         if platform == "win32":
             self.iconbitmap(resource_path(path.join("assets", "logo.ico")))
 
+        self.settings = UserSettings(self)
+
+        self.lang = self.settings.get_config()["Language"]
+        with open(resource_path(path.join('langs',  self.lang+'.json')), encoding='utf-8') as f:
+            self.text_content = json.load(f)
+
+        self.text_content = self.text_content["content"]
+
         # For save message purpose
         self.macro_saved = False
         self.macro_recorded = False
         self.prevent_record = False
 
-        self.settings = UserSettings()
         self.version = Version(self.settings.get_config())
 
         self.menu = MenuBar(self)  # Menu Bar
@@ -118,7 +126,7 @@ class MainApp(Window):
 
     def quit_software(self, force=False):
         if not self.macro_saved and self.macro_recorded and not force:
-            wantToSave = confirm_save()
+            wantToSave = confirm_save(self)
             if wantToSave:
                 RecordFileManagement(self, self.menu).save_macro()
             elif wantToSave == None:

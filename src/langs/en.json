@@ -8,7 +8,23 @@
     "global": {
       "confirm_button": "Confirm",
       "cancel_button": "Cancel",
-      "close_button": "Close"
+      "close_button": "Close",
+      "error": "Error",
+      "previous_text": "Previous",
+      "next_text": "Next",
+      "confirm_save": "Do you want to save your record?",
+      "confirm": "Confirm",
+      "information": "Information",
+      "restart_software_text": "You need to restart the software for it to take effect."
+    },
+    "new_version": {
+      "title": "Software update",
+      "sub_text_1": "New version",
+      "sub_text_2": "avalaible!",
+      "sub_text_3": "Do you want to download it now?",
+      "ignore_button": "Ignore",
+      "remind_later_button": "Remind me later",
+      "download_button": "Download update"
     },
     "file_menu": {
       "file_text": "File",
@@ -24,12 +40,14 @@
         "speed_text": "Speed",
         "speed_settings": {
           "title": "Speed settings",
-          "sub_text": "Enter speed number between 0.1 and 10"
+          "sub_text": "Enter speed number between 0.1 and 10",
+          "error_new_value": "Your speed value must be between 0.1 and 10!"
         },
         "repeat_text": "Repeat",
         "repeat_settings": {
           "title": "Repeat settings",
-          "sub_text": "Enter repeat number"
+          "sub_text": "Enter repeat number",
+          "error_new_value": "You cannot have less than 1 repetition."
         },
         "for_text": "For",
         "for_settings": {
@@ -42,50 +60,58 @@
         "for_interval_settings": {
           "hours_text": "Hours",
           "minutes_text": "Minutes",
-          "seconds_text": "Seconds"
+          "seconds_text": "Seconds",
+          "error_new_value_multiple": "input are incorrect",
+          "error_new_value_single": "input is incorrect"
         },
         "delay_text": "Delay",
         "delay_settings": {
           "title": "Delay settings",
-          "sub_text": "Enter delay between repeat"
+          "sub_text": "Enter delay between repeat",
+          "error_new_value": "You cannot have less than 0 delay."
         }
       },
       "recordings_menu": {
         "recordings_text": "Recordings",
-        "recordings_menu": {
-          "mouse_movement_text": "Mouse Movement",
-          "mouse_click_text": "Mouse click",
-          "keyboard_text": "Keyboard"
-        }
+        "mouse_movement_text": "Mouse Movement",
+        "mouse_click_text": "Mouse click",
+        "keyboard_text": "Keyboard"
       },
       "settings_menu": {
         "settings_text": "Settings",
-          "hotkeys_text": "Hotkeys",
-          "hotkeys_settings": {
-            "start_record_text": "Start record",
-            "stop_record_text": "Stop record",
-            "start_playback_text": "Start playback",
-            "stop_playback_text": "Stop playback",
-            "clear_text": "Clear",
-            "please_key_text": "Please key"
-          },
-          "minimization_text": "Minimization",
-          "minimization_menu": {
-            "minimization_when_playing_text": "Minimization when playing",
-            "minimization_when_recording_text": "Minimization when recording"
-          },
-          "after_playback_text": "After playback",
-          "after_playback_settings": {
-            "title": "After playback settings",
-            "sub_text": "On playback complete",
-            "idle_text": "Idle",
-            "quit_software_text": "Quit software",
-            "standby_text": "Standby",
-            "log_off_computer_text": "Log off computer",
-            "turn_off_computer_text": "Turn off computer",
-            "restart_computer_text": "Restart computer",
-            "hibernate_text": "Hibernate (if enabled)"
-          }
+        "lang_text": "Language",
+        "lang_settings": {
+          "title": "Language settings",
+          "sub_text": "Choose your language"
+        },
+        "hotkeys_text": "Hotkeys",
+        "hotkeys_settings": {
+          "title": "Hotkeys settings",
+          "start_record_text": "Start record",
+          "stop_record_text": "Stop record",
+          "start_playback_text": "Start playback",
+          "stop_playback_text": "Stop playback",
+          "clear_text": "Clear",
+          "please_key_text": "Please key"
+        },
+        "minimization_text": "Minimization",
+        "minimization_menu": {
+          "minimization_when_playing_text": "Minimization when playing",
+          "minimization_when_recording_text": "Minimization when recording"
+        },
+        "after_playback_text": "After playback",
+        "after_playback_settings": {
+          "when_playback_complete_text": "After playback complete",
+          "title": "After playback settings",
+          "sub_text": "On playback complete",
+          "Idle": "Idle",
+          "Quit software": "Quit software",
+          "Standby": "Standby",
+          "Log off computer": "Log off computer",
+          "Turn off computer": "Turn off computer",
+          "Restart computer": "Restart computer",
+          "Hibernate (if enabled)": "Hibernate (if enabled)"
+        }
       },
       "others_menu": {
         "others_text": "Others",
@@ -105,8 +131,9 @@
       "about_text": "About",
       "about_settings": {
         "title": "About",
-        "publisher_text": "Publisher: LOUDO",
-        "version_text": "Version:",
+        "publisher_text": "Publisher",
+        "version_text": "Version",
+        "license_text": "Under license",
         "version_check_update_text": {
           "up_to_date": "Up to date",
           "outdated": "Outdated",
@@ -119,12 +146,8 @@
       "others_text": "Others",
       "donors_text": "Donors",
       "donors_settings": {
-        "title": "Donors"
-      },
-      "lang_text": "Language",
-      "lang_settings": {
-        "title": "Language settings",
-        "sub_text": "Choose your language"
+        "title": "Donors",
+        "sub_text": "All donors"
       }
     }
   }

@@ -45,7 +45,7 @@ class Macro:
             return
         if not by_hotkey:
             if not self.main_app.macro_saved and self.main_app.macro_recorded:
-                wantToSave = confirm_save()
+                wantToSave = confirm_save(self.main_app)
                 if wantToSave:
                     self.macro_file_management.save_macro()
                 elif wantToSave is None:
@@ -79,15 +79,15 @@ class Macro:
             self.mouseBeingListened = True
         if userSettings["Recordings"]["Keyboard"]:
             self.keyboardBeingListened = True
-        self.main_menu.file_menu.entryconfig("Load", state=DISABLED)
+        self.main_menu.file_menu.entryconfig(self.main_app.text_content["file_menu"]["load_text"], state=DISABLED)
         self.main_app.recordBtn.configure(
             image=self.main_app.stopImg, command=self.stop_record
         )
         self.main_app.playBtn.configure(state=DISABLED)
-        self.main_menu.file_menu.entryconfig("Save", state=DISABLED)
-        self.main_menu.file_menu.entryconfig("Save as", state=DISABLED)
-        self.main_menu.file_menu.entryconfig("New", state=DISABLED)
-        self.main_menu.file_menu.entryconfig("Load", state=DISABLED)
+        self.main_menu.file_menu.entryconfig(self.main_app.text_content["file_menu"]["save_text"], state=DISABLED)
+        self.main_menu.file_menu.entryconfig(self.main_app.text_content["file_menu"]["save_as_text"], state=DISABLED)
+        self.main_menu.file_menu.entryconfig(self.main_app.text_content["file_menu"]["new_text"], state=DISABLED)
+        self.main_menu.file_menu.entryconfig(self.main_app.text_content["file_menu"]["load_text"], state=DISABLED)
         if userSettings["Minimization"]["When_Recording"]:
             self.main_app.withdraw()
             Thread(target=show_notification_minim).start()
@@ -108,15 +108,15 @@ class Macro:
         )
         self.main_app.playBtn.configure(state=NORMAL, command=self.start_playback)
         self.main_menu.file_menu.entryconfig(
-            "Save", state=NORMAL, command=self.macro_file_management.save_macro
+            self.main_app.text_content["file_menu"]["save_text"], state=NORMAL, command=self.macro_file_management.save_macro
         )
         self.main_menu.file_menu.entryconfig(
-            "Save as", state=NORMAL, command=self.macro_file_management.save_macro_as
+            self.main_app.text_content["file_menu"]["save_as_text"], state=NORMAL, command=self.macro_file_management.save_macro_as
         )
         self.main_menu.file_menu.entryconfig(
-            "New", state=NORMAL, command=self.macro_file_management.new_macro
+            self.main_app.text_content["file_menu"]["new_text"], state=NORMAL, command=self.macro_file_management.new_macro
         )
-        self.main_menu.file_menu.entryconfig("Load", state=NORMAL)
+        self.main_menu.file_menu.entryconfig(self.main_app.text_content["file_menu"]["load_text"], state=NORMAL)
 
         self.main_app.macro_recorded = True
         self.main_app.macro_saved = False
@@ -132,10 +132,10 @@ class Macro:
         self.main_app.playBtn.configure(
             image=self.main_app.stopImg, command=lambda: self.stop_playback(True)
         )
-        self.main_menu.file_menu.entryconfig("Save", state=DISABLED)
-        self.main_menu.file_menu.entryconfig("Save as", state=DISABLED)
-        self.main_menu.file_menu.entryconfig("New", state=DISABLED)
-        self.main_menu.file_menu.entryconfig("Load", state=DISABLED)
+        self.main_menu.file_menu.entryconfig(self.main_app.text_content["file_menu"]["save_text"], state=DISABLED)
+        self.main_menu.file_menu.entryconfig(self.main_app.text_content["file_menu"]["save_as_text"], state=DISABLED)
+        self.main_menu.file_menu.entryconfig(self.main_app.text_content["file_menu"]["new_text"], state=DISABLED)
+        self.main_menu.file_menu.entryconfig(self.main_app.text_content["file_menu"]["load_text"], state=DISABLED)
         self.main_app.recordBtn.configure(state=DISABLED)
         if userSettings["Minimization"]["When_Playing"]:
             self.main_app.withdraw()
@@ -278,10 +278,10 @@ class Macro:
         self.main_app.playBtn.configure(
             image=self.main_app.playImg, command=self.start_playback
         )
-        self.main_menu.file_menu.entryconfig("New", state=NORMAL)
-        self.main_menu.file_menu.entryconfig("Load", state=NORMAL)
-        self.main_menu.file_menu.entryconfig("Save", state=NORMAL)
-        self.main_menu.file_menu.entryconfig("Save as", state=NORMAL)
+        self.main_menu.file_menu.entryconfig(self.main_app.text_content["file_menu"]["save_text"], state=NORMAL)
+        self.main_menu.file_menu.entryconfig(self.main_app.text_content["file_menu"]["save_as_text"], state=NORMAL)
+        self.main_menu.file_menu.entryconfig(self.main_app.text_content["file_menu"]["new_text"], state=NORMAL)
+        self.main_menu.file_menu.entryconfig(self.main_app.text_content["file_menu"]["load_text"], state=NORMAL)
         if userSettings["Minimization"]["When_Playing"]:
             self.main_app.deiconify()
         if userSettings["After_Playback"]["Mode"] != "Idle" and not playback_stopped_manually:

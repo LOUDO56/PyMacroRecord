@@ -6,8 +6,9 @@ from tkinter import messagebox
 
 class UserSettings:
     """Class to interact with userSettings.json"""
-    def __init__(self):
+    def __init__(self, main_app):
         self.first_time = False
+        self.main_app = main_app
 
         if platform == "win32":
             self.path_setting = path.join(getenv("LOCALAPPDATA"), "PyMacroRecord")
@@ -70,6 +71,8 @@ class UserSettings:
                 # Quit, Lock Computer, Lof off computer, Turn off computer, Restart Computer, Standby, Hibernate
             },
 
+            "Language": "en",
+
             "Others": {
                 "Check_update": True,
                 "Fixed_timestamp": 0,
@@ -92,7 +95,7 @@ class UserSettings:
             settingFile.write(updatedValues)
 
     def reset_settings(self):
-        if messagebox.askyesno("Confirm", "Are you sure you want to reset your settings?"):
+        if messagebox.askyesno(self.main_app.text_content["global"]["confirm"], self.main_app.text_content["options_menu"]["others_menu"]["reset_settings_confirmation"]):
             self.init_settings()
 
     def get_path(self):
@@ -116,19 +119,20 @@ class UserSettings:
                 userSettings[category][option][option2] = newValue
             else:
                 userSettings[category][option] = newValue
+        elif option is None and option2 is None:
+            userSettings[category] = newValue
         self.update_settings(dumps(userSettings, indent=4))
 
     def check_new_options(self):
         userSettings = self.get_config()
         if "Others" not in userSettings:
             userSettings["Others"] = {"Check_update": True}
-            self.update_settings(dumps(userSettings, indent=4))
         if "Fixed_timestamp" not in userSettings["Others"]:
             userSettings["Others"]["Fixed_timestamp"] = 0
-            self.update_settings(dumps(userSettings, indent=4))
         if "Delay" not in userSettings["Playback"]["Repeat"]:
             userSettings["Playback"]["Repeat"]["Delay"] = 0
-            self.update_settings(dumps(userSettings, indent=4))
         if "Remind_new_ver_at" not in userSettings["Others"]:
             userSettings["Others"]["Remind_new_ver_at"] = 0
-            self.update_settings(dumps(userSettings, indent=4))
+        if "Language" not in userSettings:
+            userSettings["Language"] = "en"
+        self.update_settings(dumps(userSettings, indent=4))

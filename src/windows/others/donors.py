@@ -9,11 +9,11 @@ from sys import platform
 
 
 class Donors(Popup):
-    def __init__(self, parent):
+    def __init__(self, parent, main_app):
         width = 330
         if platform.lower() == "darwin":
             width += 110
-        super().__init__("Donors", width, 300, parent)
+        super().__init__(main_app.text_content["others_menu"]["donors_settings"]["title"], width, 300, parent)
         parent.prevent_record = True
         self.element_per_page = 6
 
@@ -24,16 +24,16 @@ class Donors(Popup):
         except RequestException:
             pass
 
-        Label(self, text=f"All donors! <3", font=('Arial', 12, 'bold')).pack(side=TOP, pady=10)
+        Label(self, text=main_app.text_content["others_menu"]["donors_settings"]["sub_text"] + "! <3", font=('Arial', 12, 'bold')).pack(side=TOP, pady=10)
         self.donorsArea = Frame(self)
         self.navigationArea = Frame(self)
         self.pageArea = Frame(self)
-        Button(self, text="Close", command=self.destroy).pack(side=BOTTOM, pady=5)
-        self.display_donors(0, 1)
+        Button(self, text=main_app.text_content["global"]["close_button"], command=self.destroy).pack(side=BOTTOM, pady=5)
+        self.display_donors(0, 1, main_app)
         self.wait_window()
         parent.prevent_record = False
 
-    def display_donors(self, current_index, page):
+    def display_donors(self, current_index, page, main_app):
         donors = self.donors_list[current_index:current_index+self.element_per_page]
         for widget in self.navigationArea.winfo_children():
             widget.destroy()
@@ -48,11 +48,11 @@ class Donors(Popup):
             maxPage += 1
         self.donorsArea.pack(side=TOP)
         if page > 1:
-            Button(self.navigationArea, text="Previous",
+            Button(self.navigationArea, text=main_app.text_content["global"]["previous_text"],
                    command=lambda: self.display_donors(current_index - self.element_per_page, page - 1)).pack(
                 side=LEFT, padx=5, pady=5)
         if current_index + self.element_per_page < len(self.donors_list) - 1:
-            Button(self.navigationArea, text="Next",
+            Button(self.navigationArea, text=main_app.text_content["global"]["next_text"],
                    command=lambda: self.display_donors(current_index + self.element_per_page, page + 1)).pack(
                 side=LEFT, padx=5, pady=5)
         self.navigationArea.pack(side=BOTTOM)

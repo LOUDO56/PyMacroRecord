@@ -42,7 +42,7 @@ class RecordFileManagement:
             return
         self.main_app.prevent_record = True
         if not self.main_app.macro_saved and self.main_app.macro_recorded:
-            wantToSave = confirm_save()
+            wantToSave = confirm_save(self.main_app)
             if wantToSave:
                 self.save_macro()
             elif wantToSave is None:
@@ -76,7 +76,7 @@ class RecordFileManagement:
         if not self.main_app.macro_recorded or self.main_app.macro.playback:
             return
         if not self.main_app.macro_saved and self.main_app.macro_recorded:
-            wantToSave = confirm_save()
+            wantToSave = confirm_save(self.main_app)
             if wantToSave:
                 self.save_macro()
             elif wantToSave is None:

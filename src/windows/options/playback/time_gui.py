@@ -6,7 +6,7 @@ from windows.popup import Popup
 
 class TimeGui(Popup):
     def __init__(self, parent, main_app, type):
-        super().__init__(f"{type} Settings", 300, 240, parent)
+        super().__init__(main_app.text_content["options_menu"]["playback_menu"][f"{type.lower()}_settings"]["title"], 300, 240, parent)
         main_app.prevent_record = True
         self.settings = main_app.settings
         userSettings = main_app.settings.get_config()
@@ -15,7 +15,7 @@ class TimeGui(Popup):
             value = userSettings["Playback"]["Repeat"]["Interval"]
         elif self.type == "For":
             value = userSettings["Playback"]["Repeat"]["For"]
-        hourText = Label(self, text="Hours", font=("Segoe UI", 9))
+        hourText = Label(self, text=main_app.text_content["options_menu"]["playback_menu"]["for_interval_settings"]["hours_text"], font=("Segoe UI", 9))
         hourText.pack(pady=10)
         hourInput = Spinbox(
             self,
@@ -28,7 +28,7 @@ class TimeGui(Popup):
         hourInput.insert(0, str(value // 3600))
         hourInput.pack()
 
-        minText = Label(self, text="Minutes", font=("Segoe UI", 9))
+        minText = Label(self, text=main_app.text_content["options_menu"]["playback_menu"]["for_interval_settings"]["minutes_text"], font=("Segoe UI", 9))
         minText.pack(pady=10)
         minInput = Spinbox(
             self,
@@ -43,7 +43,7 @@ class TimeGui(Popup):
         )
         minInput.pack()
 
-        secText = Label(self, text="Seconds", font=("Segoe UI", 9))
+        secText = Label(self, text=main_app.text_content["options_menu"]["playback_menu"]["for_interval_settings"]["seconds_text"], font=("Segoe UI", 9))
         secText.pack(pady=10)
 
         secInput = Spinbox(
@@ -60,42 +60,38 @@ class TimeGui(Popup):
         buttonArea = Frame(self)
         Button(
             buttonArea,
-            text="Confirm",
+            text=main_app.text_content["global"]["confirm_button"],
             command=lambda: self.setNewInterval(
-                hourInput.get(), minInput.get(), secInput.get()
+                hourInput.get(), minInput.get(), secInput.get(), main_app
             ),
         ).pack(side=LEFT, padx=10)
-        Button(buttonArea, text="Cancel", command=self.destroy).pack(side=LEFT, padx=10)
+        Button(buttonArea, text=main_app.text_content["global"]["cancel_button"], command=self.destroy).pack(side=LEFT, padx=10)
         buttonArea.pack(side=BOTTOM, pady=10)
         self.wait_window()
         main_app.prevent_record = False
 
-    def setNewInterval(self, hour, min, sec):
+    def setNewInterval(self, hour, min, sec, main_app):
         """Set interval value, 0 to disable"""
-        try:
-            hour = int(hour)
-            min = int(min)
-            sec = int(sec)
-        except ValueError:
-            messagebox.showerror("Error", "Only numbers are supported.")
-            return
+        hour = int(hour)
+        min = int(min)
+        sec = int(sec)
         if hour > 24 or min > 60 or sec > 60:
             causes = []
             if hour > 24:
-                causes.append("Hour")
+                causes.append(main_app.text_content["options_menu"]["playback_menu"]["for_interval_settings"]["hours_text"])
             if min > 24:
-                causes.append("Minutes")
+                causes.append(main_app.text_content["options_menu"]["playback_menu"]["for_interval_settings"]["minutes_text"])
             if sec > 60:
-                causes.append("Seconds")
+                causes.append(main_app.text_content["options_menu"]["playback_menu"]["for_interval_settings"]["seconds_text"])
             if len(causes) > 1:
                 causeFinal = ""
                 for i in range(len(causes)):
                     causeFinal += causes[i]
                     if i < len(causes) - 1:
                         causeFinal += ", "
-                messagebox.showerror("Error", f"{causeFinal} input are incorrect.")
+                messagebox.showerror("Error", f"{causeFinal} {main_app.text_content["options_menu"]["playback_menu"]["for_interval_settings"]["error_new_value_multiple"]}")
             else:
-                messagebox.showerror("Error", f"{causes[0]} input is incorrect.")
+                messagebox.showerror("Error", f"{causes[0]} {main_app.text_content["options_menu"]["playback_menu"]["for_interval_settings"]["error_new_value_single"]}")
             return
         total_sec = hour * 3600 + min * 60 + sec
         if self.type == "Interval":
