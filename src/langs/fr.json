@@ -90,7 +90,7 @@
           "start_record_text": "Commencer le rec",
           "stop_record_text": "Stopper le rec",
           "start_playback_text": "Jouer la lecture",
-          "stop_playback_text": "Stop la lecture",
+          "stop_playback_text": "Stopper la lecture",
           "clear_text": "Effacer",
           "please_key_text": "Touche svp",
           "error_hotkeys": "Vous ne pouvez pas avoir les mêmes touches de raccourci au démarrage de l'enregistrement et au démarrage de la lecture."
@@ -116,9 +116,9 @@
       },
       "others_menu": {
         "others_text": "Autres",
-        "check_update_text": "Vérifier les mises à jours",
-        "reset_settings_text": "Reinitialiser les paramètres",
-        "reset_settings_confirmation": "Êtes-vous sûr de vouloir reinitialiser vos paramètres?",
+        "check_update_text": "Vérifier les mises à jour",
+        "reset_settings_text": "Réinitialiser les paramètres",
+        "reset_settings_confirmation": "Êtes-vous sûr de vouloir réinitialiser vos paramètres?",
         "fixed_timestamp_text": "Timestamp fix",
         "fixed_timestamp_settings": {
           "title": "Réglagle timestamp fix",
