@@ -15,7 +15,7 @@ class SelectLanguage(Popup):
         self.options = {}
         short_to_long_lang = {}
         for lang in os.listdir(resource_path('langs')):
-            file_lang = os.path.join('langs', lang)
+            file_lang = os.path.join(resource_path('langs'), lang)
             with open(file_lang, encoding='UTF-8') as f:
                 content = json.load(f)
                 self.options[content["information"]["lang_long"]] = content["information"]["lang_short"]
