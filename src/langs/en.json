@@ -92,7 +92,8 @@
           "start_playback_text": "Start playback",
           "stop_playback_text": "Stop playback",
           "clear_text": "Clear",
-          "please_key_text": "Please key"
+          "please_key_text": "Please key",
+          "error_hotkeys": "You can't have same hotkeys on start record and start playback"
         },
         "minimization_text": "Minimization",
         "minimization_menu": {

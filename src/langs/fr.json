@@ -92,7 +92,8 @@
           "start_playback_text": "Jouer la lecture",
           "stop_playback_text": "Stop la lecture",
           "clear_text": "Effacer",
-          "please_key_text": "Touche svp"
+          "please_key_text": "Touche svp",
+          "error_hotkeys": "Vous ne pouvez pas avoir les mêmes touches de raccourci au démarrage de l'enregistrement et au démarrage de la lecture."
         },
         "minimization_text": "Minimisation",
         "minimization_menu": {

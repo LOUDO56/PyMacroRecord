@@ -48,7 +48,7 @@ class MainApp(Window):
         self.macro_recorded = False
         self.prevent_record = False
 
-        self.version = Version(self.settings.get_config())
+        self.version = Version(self.settings.get_config(), self)
 
         self.menu = MenuBar(self)  # Menu Bar
         self.macro = Macro(self)

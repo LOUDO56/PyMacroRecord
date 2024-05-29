@@ -30,7 +30,7 @@ class HotkeysManager:
         self.index_to_change = index
         self.changeKey = True
         self.entry_to_change = entry_to_change
-        self.entry_to_change.configure(text="Please key")
+        self.entry_to_change.configure(text=self.main_app.text_content["options_menu"]["settings_menu"]["hotkeys_settings"]["please_key_text"])
 
     def clearHotKey(self, type, entry_to_change):
         self.settings.change_settings("Hotkeys", type, None, [])
@@ -72,10 +72,10 @@ class HotkeysManager:
                     and userSettings["Hotkeys"]["Record_Start"] == self.hotkeys
                 ):
                     messagebox.showerror(
-                        "Error",
-                        "You can't have same hotkeys on start record and start playback.",
+                        self.main_app.text_content["global"]["error"],
+                        self.main_app.text_content["options_menu"]["settings_menu"]["hotkeys_settings"]["error_hotkeys"],
                     )
-                    self.entry_to_change.configure(text="Please key")
+                    self.entry_to_change.configure(text=self.main_app.text_content["options_menu"]["settings_menu"]["hotkeys_settings"]["please_key_text"])
                     self.hotkeys = []
                     self.hotkey_visible = []
                     return
