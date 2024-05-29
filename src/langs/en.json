@@ -96,6 +96,7 @@
           "error_hotkeys": "You can't have same hotkeys on start record and start playback"
         },
         "minimization_text": "Minimization",
+        "minimization_toast": "PyMacroRecord has been minimized.",
         "minimization_menu": {
           "minimization_when_playing_text": "Minimization when playing",
           "minimization_when_recording_text": "Minimization when recording"

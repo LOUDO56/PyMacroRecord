@@ -96,6 +96,7 @@
           "error_hotkeys": "Vous ne pouvez pas avoir les mêmes touches de raccourci au démarrage de l'enregistrement et au démarrage de la lecture."
         },
         "minimization_text": "Minimisation",
+        "minimization_toast": "PyMacroRecord a été réduit.",
         "minimization_menu": {
           "minimization_when_playing_text": "Minimisation pendant la lecture",
           "minimization_when_recording_text": "Minimisation pendant l'enregistrement"

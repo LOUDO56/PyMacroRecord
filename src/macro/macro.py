@@ -90,7 +90,7 @@ class Macro:
         self.main_menu.file_menu.entryconfig(self.main_app.text_content["file_menu"]["load_text"], state=DISABLED)
         if userSettings["Minimization"]["When_Recording"]:
             self.main_app.withdraw()
-            Thread(target=show_notification_minim).start()
+            Thread(target=lambda: show_notification_minim(self.main_app)).start()
         print("record started")
 
     def stop_record(self):
@@ -139,7 +139,7 @@ class Macro:
         self.main_app.recordBtn.configure(state=DISABLED)
         if userSettings["Minimization"]["When_Playing"]:
             self.main_app.withdraw()
-            Thread(target=show_notification_minim).start()
+            Thread(target=lambda: show_notification_minim(self.main_app)).start()
         if userSettings["Playback"]["Repeat"]["Interval"] > 0:
             Thread(target=self.__play_interval).start()
         elif userSettings["Playback"]["Repeat"]["For"] > 0:
