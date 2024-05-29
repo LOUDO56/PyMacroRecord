@@ -15,7 +15,7 @@ class NewVerAvailable(Popup):
         super().__init__(main_app.text_content["new_version"]["title"], width, 130, main_app)
         self.main_app = main_app
         self.main_app.prevent_record = True
-        Label(self, text=f"{main_app.text_content["new_version"]["sub_text_1"]} {version} {main_app.text_content["new_version"]["sub_text_2"]}").pack(side=TOP)
+        Label(self, text=f'{main_app.text_content["new_version"]["sub_text_1"]} {version} {main_app.text_content["new_version"]["sub_text_2"]}').pack(side=TOP)
         Label(self, text=main_app.text_content["new_version"]["sub_text_3"]).pack(side=TOP)
         buttonArea = Frame(self)
         Button(buttonArea, text=main_app.text_content["new_version"]["ignore_button"], command=self.ignore_new_ver).pack(side=LEFT, padx=5)
