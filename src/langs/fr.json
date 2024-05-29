@@ -1,0 +1,133 @@
+{
+  "information": {
+    "author": "LOUDO",
+    "lang_short": "fr",
+    "lang_long": "Français"
+  },
+  "content": {
+    "global": {
+      "confirm_button": "Confirmer",
+      "cancel_button": "Annuler",
+      "close_button": "Fermer"
+    },
+    "file_menu": {
+      "file_text": "Fichier",
+      "new_text": "Nouveau",
+      "load_text": "Charger",
+      "save_text": "Sauvegarder",
+      "save_as_text": "Sauvegarder sous"
+    },
+    "options_menu": {
+      "options_text": "Options",
+      "playback_menu": {
+        "playback_text": "Relecture",
+        "speed_text": "Vitesse",
+        "speed_settings": {
+          "title": "Réglagle de la vitesse",
+          "sub_text": "Entrez un nombre entre 0.1 et 10"
+        },
+        "repeat_text": "Répéter",
+        "repeat_settings": {
+          "title": "Réglagle de répétition",
+          "sub_text": "Enter repeat number"
+        },
+        "for_text": "Pendant",
+        "for_settings": {
+          "title": "Réglage du pendant"
+        },
+        "interval_text": "Intervalle",
+        "interval_settings": {
+          "title": "Réglage de l'intervalle"
+        },
+        "for_interval_settings": {
+          "hours_text": "Heures",
+          "minutes_text": "Minutes",
+          "seconds_text": "Secondes"
+        },
+        "delay_text": "Délai",
+        "delay_settings": {
+          "title": "Réglage du délai",
+          "sub_text": "Entrez un délai entre chaque répétition"
+        }
+      },
+      "recordings_menu": {
+        "recordings_text": "Enregistrer",
+        "recordings_menu": {
+          "mouse_movement_text": "Mouvement de souris",
+          "mouse_click_text": "Clique de la souris",
+          "keyboard_text": "Clavier"
+        }
+      },
+      "settings_menu": {
+        "settings_text": "Paramètres",
+          "hotkeys_text": "Raccourci clavier",
+          "hotkeys_settings": {
+            "start_record_text": "Commencer le rec",
+            "stop_record_text": "Stopper le rec",
+            "start_playback_text": "Jouer la lecture",
+            "stop_playback_text": "Stop la lecture",
+            "clear_text": "Effacer",
+            "please_key_text": "Clé svp"
+          },
+          "minimization_text": "Minimisation",
+          "minimization_menu": {
+            "minimization_when_playing_text": "Minimisation pendant la lecture",
+            "minimization_when_recording_text": "Minimisation pendant l'enregistrement"
+          },
+          "after_playback_text": "Après lecture",
+          "after_playback_settings": {
+            "title": "Réglage après lecture",
+            "sub_text": "Quand la lecture est terminée",
+            "idle_text": "Ne rien faire",
+            "quit_software_text": "Quitter le logiciel",
+            "standby_text": "Mode veille",
+            "log_off_computer_text": "Déconnecter le compte",
+            "turn_off_computer_text": "Éteindre le pc",
+            "restart_computer_text": "Redémarrer le pc",
+            "hibernate_text": "Hibernation (si activé)"
+          }
+      },
+      "others_menu": {
+        "others_text": "Autres",
+        "check_update_text": "Vérifier les mises à jours",
+        "reset_settings_text": "Reinitialiser les paramètres",
+        "reset_settings_confirmation": "Êtes-vous sûr de vouloir reinitialiser vos paramètres?",
+        "fixed_timestamp_text": "Timestamp fix",
+        "fixed_timestamp_settings": {
+          "title": "Réglagle timestamp fix",
+          "sub_text": "Entrez un nombre pour le timestamp fix"
+        }
+      }
+    },
+    "help_menu": {
+      "help_text": "Aide",
+      "tutorial_text": "Tutoriel",
+      "about_text": "À propos",
+      "about_settings": {
+        "title": "À propos",
+        "publisher_text": "Auteur: LOUDO",
+        "version_text": "Version:",
+        "version_check_update_text": {
+          "up_to_date": "À jour",
+          "outdated": "Obsolète",
+          "disabled": "Vérification désactivé",
+          "failed": "Erreur durant la vérif"
+        }
+      }
+    },
+    "others_menu": {
+      "others_text": "Autres",
+      "donors_text": "Donateurs",
+      "donors_settings": {
+        "title": "Donateurs"
+      },
+      "lang_text": "Language",
+      "lang_settings": {
+        "title": "Réglage du language",
+        "sub_text": "Choisissez votre langue"
+      }
+    }
+  }
+}
+
+
