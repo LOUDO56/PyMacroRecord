@@ -1,0 +1,133 @@
+{
+  "information": {
+    "author": "LOUDO",
+    "lang_short": "en",
+    "lang_long": "English"
+  },
+  "content": {
+    "global": {
+      "confirm_button": "Confirm",
+      "cancel_button": "Cancel",
+      "close_button": "Close"
+    },
+    "file_menu": {
+      "file_text": "File",
+      "new_text": "New",
+      "load_text": "Load",
+      "save_text": "Save",
+      "save_as_text": "Save as"
+    },
+    "options_menu": {
+      "options_text": "Options",
+      "playback_menu": {
+        "playback_text": "Playback",
+        "speed_text": "Speed",
+        "speed_settings": {
+          "title": "Speed settings",
+          "sub_text": "Enter speed number between 0.1 and 10"
+        },
+        "repeat_text": "Repeat",
+        "repeat_settings": {
+          "title": "Repeat settings",
+          "sub_text": "Enter repeat number"
+        },
+        "for_text": "For",
+        "for_settings": {
+          "title": "For settings"
+        },
+        "interval_text": "Interval",
+        "interval_settings": {
+          "title": "Interval settings"
+        },
+        "for_interval_settings": {
+          "hours_text": "Hours",
+          "minutes_text": "Minutes",
+          "seconds_text": "Seconds"
+        },
+        "delay_text": "Delay",
+        "delay_settings": {
+          "title": "Delay settings",
+          "sub_text": "Enter delay between repeat"
+        }
+      },
+      "recordings_menu": {
+        "recordings_text": "Recordings",
+        "recordings_menu": {
+          "mouse_movement_text": "Mouse Movement",
+          "mouse_click_text": "Mouse click",
+          "keyboard_text": "Keyboard"
+        }
+      },
+      "settings_menu": {
+        "settings_text": "Settings",
+          "hotkeys_text": "Hotkeys",
+          "hotkeys_settings": {
+            "start_record_text": "Start record",
+            "stop_record_text": "Stop record",
+            "start_playback_text": "Start playback",
+            "stop_playback_text": "Stop playback",
+            "clear_text": "Clear",
+            "please_key_text": "Please key"
+          },
+          "minimization_text": "Minimization",
+          "minimization_menu": {
+            "minimization_when_playing_text": "Minimization when playing",
+            "minimization_when_recording_text": "Minimization when recording"
+          },
+          "after_playback_text": "After playback",
+          "after_playback_settings": {
+            "title": "After playback settings",
+            "sub_text": "On playback complete",
+            "idle_text": "Idle",
+            "quit_software_text": "Quit software",
+            "standby_text": "Standby",
+            "log_off_computer_text": "Log off computer",
+            "turn_off_computer_text": "Turn off computer",
+            "restart_computer_text": "Restart computer",
+            "hibernate_text": "Hibernate (if enabled)"
+          }
+      },
+      "others_menu": {
+        "others_text": "Others",
+        "check_update_text": "Check update",
+        "reset_settings_text": "Reset settings",
+        "reset_settings_confirmation": "Are you sure you want to reset your settings?",
+        "fixed_timestamp_text": "Fixed timestamp",
+        "fixed_timestamp_settings": {
+          "title": "Fixed timestamp settings",
+          "sub_text": "Enter fixed timestamp"
+        }
+      }
+    },
+    "help_menu": {
+      "help_text": "Help",
+      "tutorial_text": "Tutorial",
+      "about_text": "About",
+      "about_settings": {
+        "title": "About",
+        "publisher_text": "Publisher: LOUDO",
+        "version_text": "Version:",
+        "version_check_update_text": {
+          "up_to_date": "Up to date",
+          "outdated": "Outdated",
+          "disabled": "Check update disabled",
+          "failed": "Cannot fetch if new update"
+        }
+      }
+    },
+    "others_menu": {
+      "others_text": "Others",
+      "donors_text": "Donors",
+      "donors_settings": {
+        "title": "Donors"
+      },
+      "lang_text": "Language",
+      "lang_settings": {
+        "title": "Language settings",
+        "sub_text": "Choose your language"
+      }
+    }
+  }
+}
+
+
