@@ -307,7 +307,7 @@ class Macro:
                     system("shutdown /r /t 0")
                 else:
                     system("shutdown -r now")
-            elif userSettings["After_Playback"]["Mode"].lower() == "hibernate (if activated)":
+            elif userSettings["After_Playback"]["Mode"].lower() == "hibernate (if enabled)":
                 if platform == "win32":
                     system("shutdown -h")
                 elif "linux" in platform.lower():
