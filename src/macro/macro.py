@@ -285,29 +285,29 @@ class Macro:
         if userSettings["Minimization"]["When_Playing"]:
             self.main_app.deiconify()
         if userSettings["After_Playback"]["Mode"] != "Idle" and not playback_stopped_manually:
-            if userSettings["After_Playback"]["Mode"] == "Standy":
+            if userSettings["After_Playback"]["Mode"].lower() == "standy":
                 if platform == "win32":
                     system("rundll32.exe powrprof.dll, SetSuspendState 0,1,0")
                 elif "linux" in platform.lower():
                     system("subprocess.callctl suspend")
                 elif "darwin" in platform.lower():
                     system("pmset sleepnow")
-            elif userSettings["After_Playback"]["Mode"] == "Log off Computer":
+            elif userSettings["After_Playback"]["Mode"].lower() == "log off Computer":
                 if platform == "win32":
                     system("shutdown /l")
                 else:
                     system(f"pkill -KILL -u {getlogin()}")
-            elif userSettings["After_Playback"]["Mode"] == "Turn off Computer":
+            elif userSettings["After_Playback"]["Mode"].lower() == "turn off Computer":
                 if platform == "win32":
                     system("shutdown /s /t 0")
                 else:
                     system("shutdown -h now")
-            elif userSettings["After_Playback"]["Mode"] == "Restart Computer":
+            elif userSettings["After_Playback"]["Mode"].lower() == "restart Computer":
                 if platform == "win32":
                     system("shutdown /r /t 0")
                 else:
                     system("shutdown -r now")
-            elif userSettings["After_Playback"]["Mode"] == "Hibernate (If activated)":
+            elif userSettings["After_Playback"]["Mode"].lower() == "hibernate (If activated)":
                 if platform == "win32":
                     system("shutdown -h")
                 elif "linux" in platform.lower():

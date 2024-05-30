@@ -106,13 +106,13 @@
           "when_playback_complete_text": "After playback complete",
           "title": "After playback settings",
           "sub_text": "On playback complete",
-          "Idle": "Idle",
-          "Quit software": "Quit software",
-          "Standby": "Standby",
-          "Log off computer": "Log off computer",
-          "Turn off computer": "Turn off computer",
-          "Restart computer": "Restart computer",
-          "Hibernate (if enabled)": "Hibernate (if enabled)"
+          "idle": "Idle",
+          "quit software": "Quit software",
+          "standby": "Standby",
+          "log off computer": "Log off computer",
+          "turn off computer": "Turn off computer",
+          "restart computer": "Restart computer",
+          "hibernate (if enabled)": "Hibernate (if enabled)"
         }
       },
       "others_menu": {

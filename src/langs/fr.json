@@ -106,13 +106,13 @@
           "when_playback_complete_text": "Quand la lecture est terminée",
           "title": "Réglage après lecture",
           "sub_text": "Quand la lecture est terminée",
-          "Idle": "Ne rien faire",
-          "Quit software": "Quitter le logiciel",
-          "Standby": "Mode veille",
-          "Log off computer": "Déconnecter le compte",
-          "Turn off computer": "Éteindre le pc",
-          "Restart computer": "Redémarrer le pc",
-          "Hibernate (if enabled)": "Hibernation (si activé)"
+          "idle": "Ne rien faire",
+          "quit software": "Quitter le logiciel",
+          "standby": "Mode veille",
+          "log off computer": "Déconnecter le compte",
+          "turn off computer": "Éteindre le pc",
+          "restart computer": "Redémarrer le pc",
+          "hibernate (if enabled)": "Hibernation (si activé)"
         }
       },
       "others_menu": {
