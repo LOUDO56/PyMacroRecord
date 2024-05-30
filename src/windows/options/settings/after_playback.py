@@ -30,7 +30,7 @@ class AfterPlayBack(Popup):
         menuOptions.pack(fill="both", padx=5, pady=10)
         buttonArea = Frame(self)
         Button(buttonArea, text=main_app.text_content["global"]["confirm_button"],
-               command=lambda: [self.settings.change_settings("After_Playback", "Mode", None, options[AfterPlaybackOption.get().lower()]),
+               command=lambda: [self.settings.change_settings("After_Playback", "Mode", None, options[AfterPlaybackOption.get()].lower()),
                                 self.destroy()]).pack(side=LEFT, padx=10)
         Button(buttonArea, text=main_app.text_content["global"]["cancel_button"], command=self.destroy).pack(side=LEFT, padx=10)
         buttonArea.pack(side=BOTTOM, pady=10)
