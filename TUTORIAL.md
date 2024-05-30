@@ -54,6 +54,11 @@ To change, simply click to the one you want to disable.
 To change your hotkeys to start, stop, start playback and stop playback, go to `Options` -> `Settings` -> `Hotkeys`.
 A window will popup and you'll have 4 buttons, click on it and you'll be able to change your hotkeys.
 
+### Language
+
+To change the language, go to `Options` -> `Settings` -> `Language`.
+Then select the available language and then restart the software to take effect.
+
 ### Minimization
 To change minimization settings, go to `Options` -> `Settings` -> `Minimization` and you'll have two options.
 \
