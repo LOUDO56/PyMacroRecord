@@ -1,0 +1,158 @@
+{
+  "information": {
+    "author": "DennyClarkson",
+    "lang_short": "zh-CN",
+    "lang_long": "Chinese-Simplified"
+  },
+  "content": {
+    "global": {
+      "confirm_button": "确认",
+      "cancel_button": "取消",
+      "close_button": "关闭",
+      "error": "错误",
+      "previous_text": "上一步",
+      "next_text": "下一步",
+      "confirm_save": "是否保存此记录？",
+      "confirm": "确认",
+      "information": "信息",
+      "restart_software_text": "重启软件以应用更改。"
+    },
+    "new_version": {
+      "title": "软件更新",
+      "sub_text_1": "新版本",
+      "sub_text_2": "可用！",
+      "sub_text_3": "现在下载吗？",
+      "ignore_button": "忽略",
+      "remind_later_button": "稍后提薪",
+      "download_button": "下载更新"
+    },
+    "file_menu": {
+      "file_text": "文件",
+      "new_text": "新建",
+      "load_text": "加载",
+      "save_text": "保存",
+      "save_as_text": "另存为"
+    },
+    "options_menu": {
+      "options_text": "选项",
+      "playback_menu": {
+        "playback_text": "回放",
+        "speed_text": "速度",
+        "speed_settings": {
+          "title": "速度设置",
+          "sub_text": "设定速度（0.1到10）",
+          "error_new_value": "速度值必须为0.1到10之间的数值！"
+        },
+        "repeat_text": "重复",
+        "repeat_settings": {
+          "title": "重复设置",
+          "sub_text": "设定重复回放次数",
+          "error_new_value": "回放次数必须大于等于1！"
+        },
+        "for_text": "持续时间",
+        "for_settings": {
+          "title": "持续时间设置"
+        },
+        "interval_text": "间隔",
+        "interval_settings": {
+          "title": "间隔设置"
+        },
+        "for_interval_settings": {
+          "hours_text": "小时",
+          "minutes_text": "分钟",
+          "seconds_text": "秒",
+          "error_new_value_multiple": "输入错误",
+          "error_new_value_single": "输入错误"
+        },
+        "delay_text": "延迟",
+        "delay_settings": {
+          "title": "延迟设置",
+          "sub_text": "输入每次重复回放之间的延迟",
+          "error_new_value": "延迟必须大于0！"
+        }
+      },
+      "recordings_menu": {
+        "recordings_text": "记录",
+        "mouse_movement_text": "鼠标移动",
+        "mouse_click_text": "鼠标点击",
+        "keyboard_text": "键盘输入"
+      },
+      "settings_menu": {
+        "settings_text": "设置",
+        "lang_text": "语言",
+        "lang_settings": {
+          "title": "语言设置",
+          "sub_text": "选择语言"
+        },
+        "hotkeys_text": "快捷键",
+        "hotkeys_settings": {
+          "title": "快捷键设置",
+          "start_record_text": "开始录制",
+          "stop_record_text": "停止录制",
+          "start_playback_text": "开始回放",
+          "stop_playback_text": "停止回放",
+          "clear_text": "清除",
+          "please_key_text": "请按键",
+          "error_hotkeys": "开始与停止录制不能为同一按键"
+        },
+        "minimization_text": "最小化",
+        "minimization_toast": "PyMacroRecord 已最小化",
+        "minimization_menu": {
+          "minimization_when_playing_text": "重放时最小化",
+          "minimization_when_recording_text": "录制时最小化"
+        },
+        "after_playback_text": "重放后动作",
+        "after_playback_settings": {
+          "when_playback_complete_text": "重放完成后",
+          "title": "重放后动作设置",
+          "sub_text": "重放完成后",
+          "idle": "什么也不做",
+          "quit software": "退出软件",
+          "standby": "待机",
+          "log off computer": "注销",
+          "turn off computer": "关机",
+          "restart computer": "重启",
+          "hibernate (if enabled)": "休眠 (需启用)"
+        }
+      },
+      "others_menu": {
+        "others_text": "其它",
+        "check_update_text": "检查更新",
+        "reset_settings_text": "重置设置",
+        "reset_settings_confirmation": "你确定要重置所有设置吗？",
+        "fixed_timestamp_text": "固定时间戳",
+        "fixed_timestamp_settings": {
+          "title": "固定时间戳设置",
+          "sub_text": "输入固定时间戳"
+        }
+      }
+    },
+    "help_menu": {
+      "help_text": "帮助",
+      "tutorial_text": "教程",
+      "about_text": "关于",
+      "about_settings": {
+        "title": "关于",
+        "publisher_text": "发布者",
+        "version_text": "版本",
+        "license_text": "证书",
+        "version_check_update_text": {
+          "up_to_date": "（已是最新）",
+          "outdated": "过时版本",
+          "disabled": "自动更新已关闭",
+          "failed": "无法获取更新信息"
+        }
+      }
+    },
+    "others_menu": {
+      "others_text": "其它",
+      "donors_text": "贡献者",
+      "donors_settings": {
+        "title": "贡献者",
+        "sub_text": "所有贡献者"
+      }
+    }
+  }
+}
+
+
