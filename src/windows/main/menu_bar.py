@@ -1,5 +1,3 @@
-from tkinter.constants import DISABLED
-
 from windows.help.about import *
 from windows.others.donors import *
 from windows.options.playback import *
@@ -65,6 +63,8 @@ class MenuBar(Menu):
 
         # Settings Sub
         self.options_sub = Menu(self.options_menu, tearoff=0)
+        self.compactJson = BooleanVar(value=userSettings["Saving"]["Compact_json"])
+        self.options_sub.add_checkbutton(label=self.text_config["options_menu"]["json_compact"], command=lambda: settings.change_settings("Saving", "Compact_json"), variable=self.compactJson)
         self.options_menu.add_cascade(label=self.text_config["options_menu"]["settings_menu"]["settings_text"], menu=self.options_sub)
         self.options_sub.add_command(label=self.text_config["options_menu"]["settings_menu"]["hotkeys_text"], command=lambda: Hotkeys(self, parent))
         self.options_sub.add_command(label=self.text_config["options_menu"]["settings_menu"]["lang_text"], command=lambda: SelectLanguage(self, parent))

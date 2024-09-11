@@ -2,6 +2,8 @@ from tkinter import *
 from tkinter import filedialog
 from os import path
 from json import load, dumps
+
+from utils import UserSettings
 from utils.warning_pop_up_save import confirm_save
 
 
@@ -12,7 +14,6 @@ class RecordFileManagement:
         self.main_app = main_app
         self.menu_bar = menu_bar
         self.config_text = self.menu_bar.text_config
-        self.current_file = None
 
     def save_macro_as(self, event=None):
         if not self.main_app.macro_recorded or self.main_app.macro.playback:
@@ -23,7 +24,7 @@ class RecordFileManagement:
             defaultextension=".pmr",
         )
         if macroSaved is not None:
-            self.current_file = macroSaved.name
+            self.main_app.current_file = macroSaved.name
             self.save_macro()
             self.main_app.macro_saved = True
         self.main_app.prevent_record = False
@@ -31,9 +32,13 @@ class RecordFileManagement:
     def save_macro(self, event=None):
         if not self.main_app.macro_recorded or self.main_app.macro.playback:
             return
-        if self.current_file is not None:
-            with open(self.current_file, "w") as current_file:
-                json_macroEvents = dumps(self.main_app.macro.macro_events, separators=(',', ':'))
+        if self.main_app.current_file is not None:
+            with open(self.main_app.current_file, "w") as current_file:
+                compactJson = UserSettings(self.main_app).get_config()["Saving"]["Compact_json"]
+                if compactJson:
+                    json_macroEvents = dumps(self.main_app.macro.macro_events, separators=(',', ':'))
+                else:
+                    json_macroEvents = dumps(self.main_app.macro.macro_events, indent=4)
                 current_file.write(json_macroEvents)
         else:
             self.save_macro_as()
@@ -71,6 +76,7 @@ class RecordFileManagement:
                 self.main_app.macro.import_record(load(macroContent))
             self.main_app.macro_recorded = True
             self.main_app.macro_saved = True
+            self.main_app.current_file = macroFile.name
         self.main_app.prevent_record = False
 
     def new_macro(self, event=None):
@@ -87,6 +93,6 @@ class RecordFileManagement:
         self.menu_bar.file_menu.entryconfig(self.config_text["file_menu"]["save_as_text"], state=DISABLED)
         self.menu_bar.file_menu.entryconfig(self.config_text["file_menu"]["new_text"], state=DISABLED)
         self.main_app.playBtn.configure(state=DISABLED)
-        self.current_file = None
+        self.main_app.current_file = None
         self.main_app.macro_saved = False
         self.main_app.macro_recorded = False

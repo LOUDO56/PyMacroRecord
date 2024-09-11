@@ -77,6 +77,7 @@
         "mouse_click_text": "鼠标点击",
         "keyboard_text": "键盘输入"
       },
+      "json_compact": "紧凑型宏数据",
       "settings_menu": {
         "settings_text": "设置",
         "lang_text": "语言",

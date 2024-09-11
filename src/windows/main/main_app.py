@@ -46,6 +46,7 @@ class MainApp(Window):
         # For save message purpose
         self.macro_saved = False
         self.macro_recorded = False
+        self.current_file = None
         self.prevent_record = False
 
         self.version = Version(self.settings.get_config(), self)

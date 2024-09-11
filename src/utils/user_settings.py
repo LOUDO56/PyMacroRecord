@@ -50,6 +50,10 @@ class UserSettings:
                 "Keyboard": True,
             },
 
+            "Saving": {
+                "Compact_json": True
+            },
+
             "Hotkeys": {
                 "Record_Start": [],
                 "Record_Stop": [],
@@ -135,4 +139,6 @@ class UserSettings:
             userSettings["Others"]["Remind_new_ver_at"] = 0
         if "Language" not in userSettings:
             userSettings["Language"] = "en"
+        if "Saving" not in userSettings:
+            userSettings["Saving"]["Compact_json"] = True
         self.update_settings(dumps(userSettings, indent=4))

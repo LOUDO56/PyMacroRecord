@@ -77,6 +77,7 @@
         "mouse_click_text": "Clique de la souris",
         "keyboard_text": "Clavier"
       },
+      "json_compact": "Données macro compactes",
       "settings_menu": {
         "settings_text": "Paramètres",
         "lang_text": "Language",
