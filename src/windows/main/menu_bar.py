@@ -93,8 +93,9 @@ class MenuBar(Menu):
         self.help_section = Menu(my_menu, tearoff=0)
         my_menu.add_cascade(label=self.text_config["help_menu"]["help_text"], menu=self.help_section)
         self.help_section.add_command(label=self.text_config["help_menu"]["tutorial_text"], command=lambda: OpenUrl("https://github.com/LOUDO56/PyMacroRecord/blob/main/TUTORIAL.md"))
+        self.help_section.add_command(label=self.text_config["help_menu"]["website_text"],
+                                      command=lambda: OpenUrl("https://www.pymacrorecord.com"))
         self.help_section.add_command(label=self.text_config["help_menu"]["about_text"], command=lambda: About(self, parent, parent.version.version, parent.version.update))
-        self.help_section.add_command(label=self.text_config["help_menu"]["website"], command=lambda: OpenUrl("https://www.pymacrorecord.com"))
 
         # Other section
         self.other_section = Menu(my_menu, tearoff=0)
