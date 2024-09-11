@@ -132,6 +132,7 @@
             "help_text": "Aiuto",
             "tutorial_text": "Tutorial",
             "about_text": "Informazioni",
+            "website_text": "Sito web",
             "about_settings": {
                 "title": "Informazioni",
                 "publisher_text": "Editore",

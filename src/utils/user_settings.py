@@ -140,5 +140,5 @@ class UserSettings:
         if "Language" not in userSettings:
             userSettings["Language"] = "en"
         if "Saving" not in userSettings:
-            userSettings["Saving"]["Compact_json"] = True
+            userSettings["Saving"] = {"Compact_json": True}
         self.update_settings(dumps(userSettings, indent=4))
