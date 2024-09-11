@@ -33,7 +33,7 @@ class RecordFileManagement:
             return
         if self.current_file is not None:
             with open(self.current_file, "w") as current_file:
-                json_macroEvents = dumps(self.main_app.macro.macro_events, indent=4)
+                json_macroEvents = dumps(self.main_app.macro.macro_events, separators=(',', ':'))
                 current_file.write(json_macroEvents)
         else:
             self.save_macro_as()
