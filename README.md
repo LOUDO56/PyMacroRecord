@@ -134,4 +134,6 @@ This program is under [GNU General Public License v3.0](https://github.com/LOUDO
 # Special Thanks
 
 - Fooinys, who playtested my program!
-- Lenoch, for code enhancement!
+- @Lenochxd, for code enhancement!
+- @takiem for the Italian translation.
+- @DennyClarkson for the Chinese-Simplified translation.
