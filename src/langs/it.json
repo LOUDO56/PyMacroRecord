@@ -1,0 +1,156 @@
+{
+    "information": {
+        "author": "takiem",
+        "lang_short": "it",
+        "lang_long": "Italiano"
+    },
+    "content": {
+        "global": {
+            "confirm_button": "Conferma",
+            "cancel_button": "Annulla",
+            "close_button": "Chiudi",
+            "error": "Errore",
+            "previous_text": "Precedente",
+            "next_text": "Successivo",
+            "confirm_save": "Vuoi salvare la tua registrazione?",
+            "confirm": "Conferma",
+            "information": "Informazione",
+            "restart_software_text": "È necessario riavviare il software per applicare le modifiche."
+        },
+        "new_version": {
+            "title": "Aggiornamento del software",
+            "sub_text_1": "Nuova versione",
+            "sub_text_2": "disponibile!",
+            "sub_text_3": "Vuoi scaricarlo ora?",
+            "ignore_button": "Ignora",
+            "remind_later_button": "Ricordamelo più tardi",
+            "download_button": "Scarica l'aggiornamento"
+        },
+        "file_menu": {
+            "file_text": "File",
+            "new_text": "Nuovo",
+            "load_text": "Carica",
+            "save_text": "Salva",
+            "save_as_text": "Salva come"
+        },
+        "options_menu": {
+            "options_text": "Opzioni",
+            "playback_menu": {
+                "playback_text": "Riproduzione",
+                "speed_text": "Velocità",
+                "speed_settings": {
+                    "title": "Impostazioni della velocità",
+                    "sub_text": "Inserisci un numero di velocità tra 0,1 e 10",
+                    "error_new_value": "Il valore della velocità deve essere compreso tra 0,1 e 10!"
+                },
+                "repeat_text": "Ripeti",
+                "repeat_settings": {
+                    "title": "Impostazioni della ripetizione",
+                    "sub_text": "Inserisci il numero di ripetizioni",
+                    "error_new_value": "Non puoi avere meno di una ripetizione."
+                },
+                "for_text": "Per",
+                "for_settings": {
+                    "title": "Impostazioni per"
+                },
+                "interval_text": "Intervallo",
+                "interval_settings": {
+                    "title": "Impostazioni dell'intervallo"
+                },
+                "for_interval_settings": {
+                    "hours_text": "Ore",
+                    "minutes_text": "Minuti",
+                    "seconds_text": "Secondi",
+                    "error_new_value_multiple": "L'input non è corretto",
+                    "error_new_value_single": "L'input non è corretto"
+                },
+                "delay_text": "Ritardo",
+                "delay_settings": {
+                    "title": "Impostazioni del ritardo",
+                    "sub_text": "Inserisci il ritardo tra le ripetizioni",
+                    "error_new_value": "Il ritardo non può essere inferiore a 0."
+                }
+            },
+            "recordings_menu": {
+                "recordings_text": "Registrazioni",
+                "mouse_movement_text": "Movimento del mouse",
+                "mouse_click_text": "Clic del mouse",
+                "keyboard_text": "Tastiera"
+            },
+            "settings_menu": {
+                "settings_text": "Impostazioni",
+                "lang_text": "Lingua",
+                "lang_settings": {
+                    "title": "Impostazioni della lingua",
+                    "sub_text": "Scegli la tua lingua"
+                },
+                "hotkeys_text": "Tasti di scelta rapida",
+                "hotkeys_settings": {
+                    "title": "Impostazioni dei tasti di scelta rapida",
+                    "start_record_text": "Inizia registrazione",
+                    "stop_record_text": "Ferma registrazione",
+                    "start_playback_text": "Avvia riproduzione",
+                    "stop_playback_text": "Ferma riproduzione",
+                    "clear_text": "Pulisci",
+                    "please_key_text": "Premi un tasto",
+                    "error_hotkeys": "Non puoi assegnare gli stessi tasti di scelta rapida per avviare la registrazione e la riproduzione"
+                },
+                "minimization_text": "Minimizzazione",
+                "minimization_toast": "PyMacroRecord è stato ridotto a icona.",
+                "minimization_menu": {
+                    "minimization_when_playing_text": "Minimizzazione durante la riproduzione",
+                    "minimization_when_recording_text": "Minimizzazione durante la registrazione"
+                },
+                "after_playback_text": "Dopo la riproduzione",
+                "after_playback_settings": {
+                    "when_playback_complete_text": "Dopo il completamento della riproduzione",
+                    "title": "Impostazioni dopo la riproduzione",
+                    "sub_text": "Al termine della riproduzione",
+                    "idle": "Inattivo",
+                    "quit software": "Esci dal software",
+                    "standby": "Standby",
+                    "log off computer": "Disconnetti computer",
+                    "turn off computer": "Spegni computer",
+                    "restart computer": "Riavvia computer",
+                    "hibernate (if enabled)": "Ibernazione (se abilitata)"
+                }
+            },
+            "others_menu": {
+                "others_text": "Altri",
+                "check_update_text": "Verifica aggiornamenti",
+                "reset_settings_text": "Reimposta impostazioni",
+                "reset_settings_confirmation": "Sei sicuro di voler reimpostare le impostazioni?",
+                "fixed_timestamp_text": "Timestamp fisso",
+                "fixed_timestamp_settings": {
+                    "title": "Impostazioni del timestamp fisso",
+                    "sub_text": "Inserisci timestamp fisso"
+                }
+            }
+        },
+        "help_menu": {
+            "help_text": "Aiuto",
+            "tutorial_text": "Tutorial",
+            "about_text": "Informazioni",
+            "about_settings": {
+                "title": "Informazioni",
+                "publisher_text": "Editore",
+                "version_text": "Versione",
+                "license_text": "Sotto licenza",
+                "version_check_update_text": {
+                    "up_to_date": "Aggiornato",
+                    "outdated": "Obsoleto",
+                    "disabled": "Verifica aggiornamenti disabilitata",
+                    "failed": "Impossibile verificare nuovi aggiornamenti"
+                }
+            }
+        },
+        "others_menu": {
+            "others_text": "Altri",
+            "donors_text": "Donatori",
+            "donors_settings": {
+                "title": "Donatori",
+                "sub_text": "Tutti i donatori"
+            }
+        }
+    }
+}
