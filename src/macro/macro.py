@@ -198,6 +198,8 @@ class Macro:
                         self.macro_events["events"][events]["timestamp"]
                         * (1 / userSettings["Playback"]["Speed"])
                     )
+                if timeSleep < 0:
+                    timeSleep = abs(timeSleep)
                 sleep(timeSleep)
                 event_type = self.macro_events["events"][events]["type"]
 

@@ -11,6 +11,7 @@ class RecordFileManagement:
     def __init__(self, main_app, menu_bar):
         self.main_app = main_app
         self.menu_bar = menu_bar
+        self.config_text = self.menu_bar.text_config
         self.current_file = None
 
     def save_macro_as(self, event=None):
@@ -57,13 +58,13 @@ class RecordFileManagement:
                 state=NORMAL, command=self.main_app.macro.start_playback
             )
             self.menu_bar.file_menu.entryconfig(
-                "Save", state=NORMAL, command=self.save_macro
+                self.config_text["file_menu"]["save_text"], state=NORMAL, command=self.save_macro
             )
             self.menu_bar.file_menu.entryconfig(
-                "Save as", state=NORMAL, command=self.save_macro_as
+                self.config_text["file_menu"]["save_as_text"], state=NORMAL, command=self.save_macro_as
             )
             self.menu_bar.file_menu.entryconfig(
-                "New", state=NORMAL, command=self.new_macro
+                self.config_text["file_menu"]["new_text"], state=NORMAL, command=self.new_macro
             )
             macroFile.close()
             with open(macroFile.name, "r") as macroContent:
@@ -82,9 +83,9 @@ class RecordFileManagement:
             elif wantToSave is None:
                 return
         self.main_app.playBtn.configure(state=NORMAL)
-        self.menu_bar.file_menu.entryconfig("Save", state=DISABLED)
-        self.menu_bar.file_menu.entryconfig("Save as", state=DISABLED)
-        self.menu_bar.file_menu.entryconfig("New", state=DISABLED)
+        self.menu_bar.file_menu.entryconfig(self.config_text["file_menu"]["save_text"], state=DISABLED)
+        self.menu_bar.file_menu.entryconfig(self.config_text["file_menu"]["save_as_text"], state=DISABLED)
+        self.menu_bar.file_menu.entryconfig(self.config_text["file_menu"]["new_text"], state=DISABLED)
         self.main_app.playBtn.configure(state=DISABLED)
         self.current_file = None
         self.main_app.macro_saved = False

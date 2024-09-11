@@ -15,13 +15,16 @@ class Popup(Toplevel):
             import ctypes
             user32 = ctypes.windll.user32
             screensize = user32.GetSystemMetrics(0)
-            if screensize > 2450:
+            user32 = ctypes.windll.user32
+            dpi = user32.GetDpiForSystem()
+            scaling_percentage = (dpi / 96) * 100
+            if screensize > 2450 or scaling_percentage >= 125:
                 extra_width = 110
                 extra_height = 50
-            if screensize > 3000:
+            if screensize > 3000 or scaling_percentage >= 125:
                 extra_width = 200
                 extra_height = 100
-            if screensize > 3500:
+            if screensize > 3500 or scaling_percentage >= 125:
                 extra_width = 200
                 extra_height = 150
         self.geometry('%dx%d+%d+%d' % (w + extra_width, h + extra_height, x, y))
