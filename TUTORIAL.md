@@ -49,6 +49,10 @@ To change your preferences from what being recorded, go to `Options` -> `Recordi
 
 To change, simply click to the one you want to disable.
 
+### Compact macro file data
+Macro are wrote with JSON, and to make the file smaller, I compact everything. But, if do like writing your own lines, you can disable this option so you have a beautiful and readable file (but more bigger in size).
+To enable/disable go to `Options` -> `Settings` -> `Compact macro data`.
+
 ### Hotkeys
 
 To change your hotkeys to start, stop, start playback and stop playback, go to `Options` -> `Settings` -> `Hotkeys`.
@@ -85,6 +89,8 @@ You'll have a window with a menu where you can choose from:
 # Others
 
 To check your version of your current software, go to `Help` -> `About` and you'll have a window that show the publisher, the version if it is outdated or not and the license.
+
+To quickly download the last version of PyMacroRecord, you can open the website by going to `Help` -> `Website` 
 
 To reset your settings, go to `Options` -> `Others` -> `Reset settings`
 
