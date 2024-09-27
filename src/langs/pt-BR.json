@@ -1,0 +1,159 @@
+{
+    "information": {
+      "author": "takiem",
+      "lang_short": "pt-BR",
+      "lang_long": "Brazilian-Portuguese"
+    },
+    "content": {
+      "global": {
+        "confirm_button": "Confirmar",
+        "cancel_button": "Cancelar",
+        "close_button": "Fechar",
+        "error": "Erro",
+        "previous_text": "Anterior",
+        "next_text": "Próximo",
+        "confirm_save": "Deseja salvar sua gravação?",
+        "confirm": "Confirmar",
+        "information": "Informação",
+        "restart_software_text": "Você precisa reiniciar o software para que as alterações tenham efeito."
+      },
+      "new_version": {
+        "title": "Atualização de Software",
+        "sub_text_1": "Nova versão",
+        "sub_text_2": "disponível!",
+        "sub_text_3": "Deseja baixar agora?",
+        "ignore_button": "Ignorar",
+        "remind_later_button": "Lembrar mais tarde",
+        "download_button": "Baixar atualização"
+      },
+      "file_menu": {
+        "file_text": "Arquivo",
+        "new_text": "Novo",
+        "load_text": "Carregar",
+        "save_text": "Salvar",
+        "save_as_text": "Salvar como"
+      },
+      "options_menu": {
+        "options_text": "Opções",
+        "playback_menu": {
+          "playback_text": "Reprodução",
+          "speed_text": "Velocidade",
+          "speed_settings": {
+            "title": "Configurações de Velocidade",
+            "sub_text": "Digite um valor de velocidade entre 0.1 e 10",
+            "error_new_value": "O valor de velocidade deve estar entre 0.1 e 10!"
+          },
+          "repeat_text": "Repetir",
+          "repeat_settings": {
+            "title": "Configurações de Repetição",
+            "sub_text": "Digite o número de repetições",
+            "error_new_value": "O número de repetições não pode ser inferior a 1."
+          },
+          "for_text": "Por",
+          "for_settings": {
+            "title": "Configurações de tempo"
+          },
+          "interval_text": "Intervalo",
+          "interval_settings": {
+            "title": "Configurações de Intervalo"
+          },
+          "for_interval_settings": {
+            "hours_text": "Horas",
+            "minutes_text": "Minutos",
+            "seconds_text": "Segundos",
+            "error_new_value_multiple": "entradas estão incorretas",
+            "error_new_value_single": "entrada está incorreta"
+          },
+          "delay_text": "Atraso",
+          "delay_settings": {
+            "title": "Configurações de Atraso",
+            "sub_text": "Digite o atraso entre as repetições",
+            "error_new_value": "O atraso não pode ser inferior a 0."
+          }
+        },
+        "recordings_menu": {
+          "recordings_text": "Gravações",
+          "mouse_movement_text": "Movimento do Mouse",
+          "mouse_click_text": "Clique do Mouse",
+          "keyboard_text": "Teclado"
+        },
+        "json_compact": "Compactar dados do macro",
+        "settings_menu": {
+          "settings_text": "Configurações",
+          "lang_text": "Idioma",
+          "lang_settings": {
+            "title": "Configurações de Idioma",
+            "sub_text": "Escolha seu idioma"
+          },
+          "hotkeys_text": "Teclas de Atalho",
+          "hotkeys_settings": {
+            "title": "Configurações de Teclas de Atalho",
+            "start_record_text": "Iniciar gravação",
+            "stop_record_text": "Parar gravação",
+            "start_playback_text": "Iniciar reprodução",
+            "stop_playback_text": "Parar reprodução",
+            "clear_text": "Limpar",
+            "please_key_text": "Por favor, pressione uma tecla",
+            "error_hotkeys": "As teclas de atalho para iniciar a gravação e a reprodução não podem ser as mesmas"
+          },
+          "minimization_text": "Minimizar",
+          "minimization_toast": "PyMacroRecord foi minimizado.",
+          "minimization_menu": {
+            "minimization_when_playing_text": "Minimizar ao reproduzir",
+            "minimization_when_recording_text": "Minimizar ao gravar"
+          },
+          "after_playback_text": "Após a reprodução",
+          "after_playback_settings": {
+            "when_playback_complete_text": "Quando a reprodução for concluída",
+            "title": "Configurações pós-reprodução",
+            "sub_text": "Ao concluir a reprodução",
+            "idle": "Ocioso",
+            "quit software": "Fechar software",
+            "standby": "Suspender",
+            "log off computer": "Encerrar sessão",
+            "turn off computer": "Desligar o computador",
+            "restart computer": "Reiniciar o computador",
+            "hibernate (if enabled)": "Hibernar (se habilitado)"
+          }
+        },
+        "others_menu": {
+          "others_text": "Outros",
+          "check_update_text": "Verificar atualização",
+          "reset_settings_text": "Redefinir configurações",
+          "reset_settings_confirmation": "Tem certeza de que deseja redefinir suas configurações?",
+          "fixed_timestamp_text": "Timestamp fixo",
+          "fixed_timestamp_settings": {
+            "title": "Configurações de Timestamp Fixo",
+            "sub_text": "Digite o timestamp fixo"
+          }
+        }
+      },
+      "help_menu": {
+        "help_text": "Ajuda",
+        "tutorial_text": "Tutorial",
+        "about_text": "Sobre",
+        "website_text": "Website",
+        "about_settings": {
+          "title": "Sobre",
+          "publisher_text": "Editor",
+          "version_text": "Versão",
+          "license_text": "Sob licença",
+          "version_check_update_text": {
+            "up_to_date": "Atualizado",
+            "outdated": "Desatualizado",
+            "disabled": "Verificação de atualização desativada",
+            "failed": "Não foi possível verificar se há uma nova atualização"
+          }
+        }
+      },
+      "others_menu": {
+        "others_text": "Outros",
+        "donors_text": "Doadores",
+        "donors_settings": {
+          "title": "Doadores",
+          "sub_text": "Todos os doadores"
+        }
+      }
+    }
+  }
+  
