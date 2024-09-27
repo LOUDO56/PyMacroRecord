@@ -40,7 +40,8 @@ class UserSettings:
                     "Times": 1,
                     "For": 0,
                     "Interval": 0,
-                    "Delay": 0
+                    "Delay": 0,
+                    "Fixed Hour": 0
                 }
             },
 
@@ -141,4 +142,6 @@ class UserSettings:
             userSettings["Language"] = "en"
         if "Saving" not in userSettings:
             userSettings["Saving"] = {"Compact_json": True}
+        if "Fixed Hour" not in userSettings["Playback"]["Repeat"]:
+            userSettings["Playback"]["Repeat"]["Fixed Hour"] = 0
         self.update_settings(dumps(userSettings, indent=4))

@@ -12,6 +12,7 @@ from time import time, sleep
 from os import getlogin, system
 from sys import platform
 from threading import Thread
+from datetime import datetime
 
 
 
@@ -166,6 +167,7 @@ class Macro:
                     self.__play_events()
                 timer = time()
 
+
     def __play_for(self):
         userSettings = self.user_settings.get_config()
         debut = time()
@@ -186,6 +188,13 @@ class Macro:
             repeat_times = 1
         else:
             repeat_times = userSettings["Playback"]["Repeat"]["Times"]
+        if userSettings["Playback"]["Repeat"]["Fixed Hour"] > 0:
+            now = datetime.now()
+            seconds_since_midnight = (now - now.replace(hour=0, minute=0, second=0, microsecond=0)).total_seconds()
+            secondsToWait = userSettings["Playback"]["Repeat"]["Fixed Hour"] - seconds_since_midnight
+            if secondsToWait < 0:
+                secondsToWait = abs(userSettings["Playback"]["Repeat"]["Times"] - seconds_since_midnight)
+            sleep(secondsToWait)
         for repeat in range(repeat_times):
             for events in range(len(self.macro_events["events"])):
                 if self.playback == False:

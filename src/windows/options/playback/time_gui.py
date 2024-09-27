@@ -6,19 +6,26 @@ from windows.popup import Popup
 
 class TimeGui(Popup):
     def __init__(self, parent, main_app, type):
-        super().__init__(main_app.text_content["options_menu"]["playback_menu"][f"{type.lower()}_settings"]["title"], 300, 240, parent)
+        super().__init__(main_app.text_content["options_menu"]["playback_menu"][f"{type.lower()}_settings"]["title"], 300, 310, parent)
         main_app.prevent_record = True
         self.settings = main_app.settings
+        self.time_string = "AM"
+        self.time_format = "12 hours"
         userSettings = main_app.settings.get_config()
         self.type = type
         if self.type == "Interval":
             value = userSettings["Playback"]["Repeat"]["Interval"]
         elif self.type == "For":
             value = userSettings["Playback"]["Repeat"]["For"]
-        hourText = Label(self, text=main_app.text_content["options_menu"]["playback_menu"]["for_interval_settings"]["hours_text"], font=("Segoe UI", 9))
+        elif self.type == "Fixed_hour":
+            value = userSettings["Playback"]["Repeat"]["Fixed Hour"]
+        hourFrame = Frame(self)
+        self.buttonTimeFormat = Button(hourFrame, text=self.time_format, command=self.changeTimeFormat)
+        self.buttonTimeFormat.pack(pady=5)
+        hourText = Label(hourFrame, text=main_app.text_content["options_menu"]["playback_menu"]["for_interval_settings"]["hours_text"], font=("Segoe UI", 9))
         hourText.pack(pady=10)
         hourInput = Spinbox(
-            self,
+            hourFrame,
             from_=0,
             to=24,
             width=10,
@@ -27,6 +34,11 @@ class TimeGui(Popup):
         )
         hourInput.insert(0, str(value // 3600))
         hourInput.pack()
+
+        self.buttonAmPm = Button(hourFrame, text=self.time_string, command=self.changeAmPm)
+        self.buttonAmPm.pack(pady=5)
+
+        hourFrame.pack()
 
         minText = Label(self, text=main_app.text_content["options_menu"]["playback_menu"]["for_interval_settings"]["minutes_text"], font=("Segoe UI", 9))
         minText.pack(pady=10)
@@ -61,7 +73,7 @@ class TimeGui(Popup):
         Button(
             buttonArea,
             text=main_app.text_content["global"]["confirm_button"],
-            command=lambda: self.setNewInterval(
+            command=lambda: self.setNewFixedHour(
                 hourInput.get(), minInput.get(), secInput.get(), main_app
             ),
         ).pack(side=LEFT, padx=10)
@@ -70,14 +82,34 @@ class TimeGui(Popup):
         self.wait_window()
         main_app.prevent_record = False
 
-    def setNewInterval(self, hour, min, sec, main_app):
+    def changeAmPm(self):
+        if self.time_string == "AM":
+            self.time_string = "PM"
+            self.buttonAmPm.configure(text="PM")
+        else:
+            self.time_string = "AM"
+            self.buttonAmPm.configure(text="AM")
+
+    def changeTimeFormat(self):
+        if self.time_format == "12 hours":
+            self.time_format = "24 hours"
+            self.buttonTimeFormat.configure(text="24 hours")
+            self.buttonAmPm.pack_forget()
+
+        else:
+            self.time_format = "12 hours"
+            self.buttonTimeFormat.configure(text="12 hours")
+            self.buttonAmPm.pack(pady=5)
+
+    def setNewFixedHour(self, hour, min, sec, main_app):
         """Set interval value, 0 to disable"""
         hour = int(hour)
         min = int(min)
         sec = int(sec)
-        if hour > 24 or min > 60 or sec > 60:
+        hourCondition = (hour > 24 and self.time_format == "24 hours" or hour > 12 and self.time_format == "12 hours")
+        if hourCondition or min > 60 or sec > 60:
             causes = []
-            if hour > 24:
+            if hourCondition:
                 causes.append(main_app.text_content["options_menu"]["playback_menu"]["for_interval_settings"]["hours_text"])
             if min > 24:
                 causes.append(main_app.text_content["options_menu"]["playback_menu"]["for_interval_settings"]["minutes_text"])
@@ -98,4 +130,6 @@ class TimeGui(Popup):
             self.settings.change_settings("Playback", "Repeat", "Interval", total_sec)
         elif self.type == "For":
             self.settings.change_settings("Playback", "Repeat", "For", total_sec)
+        elif self.type == "Fixed_hour":
+            self.settings.change_settings("Playback", "Repeat", "Fixed Hour", total_sec)
         self.destroy()

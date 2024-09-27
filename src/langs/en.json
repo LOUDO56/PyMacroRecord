@@ -64,6 +64,10 @@
           "error_new_value_multiple": "input are incorrect",
           "error_new_value_single": "input is incorrect"
         },
+        "fixed_hour_text": "Fixed Hour",
+        "fixed_hour_settings": {
+          "title": "Fixed hour settings"
+        },
         "delay_text": "Delay",
         "delay_settings": {
           "title": "Delay settings",
