@@ -64,6 +64,10 @@
                     "error_new_value_multiple": "L'input non è corretto",
                     "error_new_value_single": "L'input non è corretto"
                 },
+                "scheduled_text": "In programma",
+                "scheduled_settings": {
+                  "title": "Impostazioni programmate"
+                },
                 "delay_text": "Ritardo",
                 "delay_settings": {
                     "title": "Impostazioni del ritardo",

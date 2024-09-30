@@ -64,6 +64,10 @@
           "error_new_value_multiple": "sont incorrect",
           "error_new_value_single": "est incorrect"
         },
+        "scheduled_text": "Programmé",
+        "scheduled_settings": {
+          "title": "Régale du programmé"
+        },
         "delay_text": "Délai",
         "delay_settings": {
           "title": "Réglage du délai",

@@ -46,7 +46,7 @@ class MenuBar(Menu):
         playback_sub.add_command(label=self.text_config["options_menu"]["playback_menu"]["repeat_text"], command=lambda: Repeat(self, parent))
         playback_sub.add_command(label=self.text_config["options_menu"]["playback_menu"]["interval_text"], command=lambda: TimeGui(self, parent, "Interval"))
         playback_sub.add_command(label=self.text_config["options_menu"]["playback_menu"]["for_text"], command=lambda: TimeGui(self, parent, "For"))
-        playback_sub.add_command(label=self.text_config["options_menu"]["playback_menu"]["fixed_hour_text"], command=lambda: TimeGui(self, parent, "Fixed_hour"))
+        playback_sub.add_command(label=self.text_config["options_menu"]["playback_menu"]["scheduled_text"], command=lambda: TimeGui(self, parent, "Scheduled"))
         playback_sub.add_command(label=self.text_config["options_menu"]["playback_menu"]["delay_text"], command=lambda: Delay(self, parent))
 
         # Recordings Sub

@@ -64,6 +64,10 @@
             "error_new_value_multiple": "entradas estão incorretas",
             "error_new_value_single": "entrada está incorreta"
           },
+          "scheduled_text": "Programado",
+          "scheduled_settings": {
+            "title": "Configurações programadas"
+          },
           "delay_text": "Atraso",
           "delay_settings": {
             "title": "Configurações de Atraso",

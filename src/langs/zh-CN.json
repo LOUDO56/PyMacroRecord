@@ -64,6 +64,10 @@
           "error_new_value_multiple": "输入错误",
           "error_new_value_single": "输入错误"
         },
+        "scheduled_text": "计划",
+        "scheduled_settings": {
+          "title": "计划设置"
+        },
         "delay_text": "延迟",
         "delay_settings": {
           "title": "延迟设置",
