@@ -133,7 +133,7 @@ This program is under [GNU General Public License v3.0](https://github.com/LOUDO
 
 # Special Thanks
 
-- Fooinys, who playtested my program!
-- <a href="https://github.com/Lenochxd">Lenoch</a>, for code enhancement!
-- <a href="https://github.com/takiem">Takiem</a> for the Italian translation.
+- Fooinys, who playtested my program.
+- <a href="https://github.com/Lenochxd">Lenoch</a>, for code enhancement.
+- <a href="https://github.com/takiem">Takiem</a> for the Italian and Brazilian-Portuguese translation.
 - <a href="https://github.com/DennyClarkson">DennyClarkson</a> for the Chinese-Simplified translation.
