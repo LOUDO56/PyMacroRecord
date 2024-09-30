@@ -192,10 +192,8 @@ class Macro:
             now = datetime.now()
             seconds_since_midnight = (now - now.replace(hour=0, minute=0, second=0, microsecond=0)).total_seconds()
             secondsToWait = userSettings["Playback"]["Repeat"]["Scheduled"] - seconds_since_midnight
-            print(secondsToWait)
             if secondsToWait < 0:
                 secondsToWait = 86400 + secondsToWait # 86400 + -secondsToWait. Meaning it will happen tomorrow
-            print(secondsToWait)
             sleep(secondsToWait)
         for repeat in range(repeat_times):
             for events in range(len(self.macro_events["events"])):
