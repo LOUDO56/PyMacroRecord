@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import Label as oldLabel
 from tkinter.ttk import *
 
 from requests import RequestException
@@ -6,7 +7,7 @@ from requests import RequestException
 from windows.popup import Popup
 import requests
 from sys import platform
-
+from webbrowser import open_new
 
 class Donors(Popup):
     def __init__(self, parent, main_app):
@@ -24,7 +25,10 @@ class Donors(Popup):
         except RequestException:
             pass
 
-        Label(self, text=main_app.text_content["others_menu"]["donors_settings"]["sub_text"] + "! <3", font=('Arial', 12, 'bold')).pack(side=TOP, pady=10)
+        Label(self, text=main_app.text_content["others_menu"]["donors_settings"]["sub_text"] + "! <3", font=('Arial', 12, 'bold')).pack(side=TOP, pady=5)
+        support_work = oldLabel(self, text="Want to be a donor? Click here!", font=('Arial', 10, 'bold'), fg="blue", cursor="hand2")
+        support_work.pack(side=TOP, pady=3)
+        support_work.bind("<Button-1>", lambda e: open_new("http://www.ko-fi.com/loudo"))
         self.donorsArea = Frame(self)
         self.navigationArea = Frame(self)
         self.pageArea = Frame(self)
@@ -49,11 +53,11 @@ class Donors(Popup):
         self.donorsArea.pack(side=TOP)
         if page > 1:
             Button(self.navigationArea, text=main_app.text_content["global"]["previous_text"],
-                   command=lambda: self.display_donors(current_index - self.element_per_page, page - 1)).pack(
+                   command=lambda: self.display_donors(current_index - self.element_per_page, page - 1, main_app)).pack(
                 side=LEFT, padx=5, pady=5)
-        if current_index + self.element_per_page < len(self.donors_list) - 1:
+        if current_index + self.element_per_page < len(self.donors_list):
             Button(self.navigationArea, text=main_app.text_content["global"]["next_text"],
-                   command=lambda: self.display_donors(current_index + self.element_per_page, page + 1)).pack(
+                   command=lambda: self.display_donors(current_index + self.element_per_page, page + 1, main_app)).pack(
                 side=LEFT, padx=5, pady=5)
         self.navigationArea.pack(side=BOTTOM)
         Label(self.pageArea, text=f'Page {page} / {maxPage}').pack(side=TOP, pady=2)

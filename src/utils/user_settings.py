@@ -77,8 +77,8 @@ class UserSettings:
             },
 
             "Language": "en",
-            "Time_string": "12 hours",
-            "Time_format": "PM",
+            "Time_string": "PM",
+            "Time_format": "12 hours",
 
             "Others": {
                 "Check_update": True,
