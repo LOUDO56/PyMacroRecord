@@ -11,6 +11,12 @@ close_menu_icon.addEventListener('click', () => {
 })
 
 document.querySelector(".current-year").textContent = new Date().getFullYear();
+const dateNow = new Date();
+if(dateNow.getMonth() > 3){
+    document.querySelector(".span").textContent = dateNow.getFullYear() - 2005;
+} else {
+    document.querySelector(".span").textContent = (dateNow.getFullYear() - 2005) - 1;
+}
 
 
 // To get the right version of the software without updating everytime the website
