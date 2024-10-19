@@ -36,6 +36,11 @@ To enable them, go to `Options` -> `Playback` -> `Interval` or `For` and you wil
 
 The value 0 in all three fields means you are disabling them, putting more than 0 in one field will enable them.
 
+### Schedule
+To schedule your macro, go to `Options` -> `Playback` -> `Scheduled` and you will have three value. Hours, Minutes and Seconds. 
+
+The value 0 in all three fields means you are disabling them, putting more than 0 in one field will enable them.
+
 ### Delay
 To add a delay between repeats, go to `Options` -> `Playback` -> `Delay` and you can set the delay in seconds.
 
