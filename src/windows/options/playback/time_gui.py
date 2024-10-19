@@ -37,7 +37,7 @@ class TimeGui(Popup):
             validatecommand=(main_app.validate_cmd, "%d", "%P"),
         )
         hourValue = str(value // 3600)
-        if self.type == "Scheduled" and self.time_format == "12 hours"  and self.time_string == "PM":
+        if self.type == "Scheduled" and self.time_format == "12 hours"  and self.time_string == "PM" and int(hourValue) >= 12:
             hourInput.insert(0, int(hourValue) - 12)
         else:
             hourInput.insert(0, hourValue)
