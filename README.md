@@ -15,15 +15,15 @@ PyMacroRecord works with a GUI made using tkinter, making it easier for users to
 ![image](https://github.com/LOUDO56/PyMacroRecord/assets/117168736/2a1b2d0e-d950-40ad-84e2-971464058664)
 
 # Features
-- Very Easy to use
+- Very easy to use
 - Free. No limitations. No "premium" purchase.
-- You can set an infinite amount of repeats.
-- You can change the speed of your record.
-- You can put interval in your playbacks
-- You can save your record.
-- You can load your record.
-- You can share your record with other people.
-- Universal Files (work with .json).
+- Infinite repeat
+- Change speed
+- Interval
+- For
+- Schedule
+- Save, Load, Sharing
+- Universal Files (work with json).
 - After-playback options, e.g., Standby or shutdown computer.
 - Can choose from recording mouse movement, click and keyboard input
 - Custom Hotkey for starting a record and stop it, start playback and stop it
