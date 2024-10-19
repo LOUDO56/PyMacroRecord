@@ -22,13 +22,14 @@ class Donors(Popup):
         try:
             response = requests.get(donors_link)
             self.donors_list = response.text.split(';')
+            self.donors_list.reverse()
         except RequestException:
             pass
 
         Label(self, text=main_app.text_content["others_menu"]["donors_settings"]["sub_text"] + "! <3", font=('Arial', 12, 'bold')).pack(side=TOP, pady=5)
         support_work = oldLabel(self, text="Want to be a donor? Click here!", font=('Arial', 10, 'bold'), fg="blue", cursor="hand2")
         support_work.pack(side=TOP, pady=3)
-        support_work.bind("<Button-1>", lambda e: open_new("http://www.ko-fi.com/loudo"))
+        support_work.bind("<Button-1>", lambda e: open_new("https://www.ko-fi.com/loudo"))
         self.donorsArea = Frame(self)
         self.navigationArea = Frame(self)
         self.pageArea = Frame(self)
