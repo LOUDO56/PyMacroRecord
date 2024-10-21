@@ -1,0 +1,164 @@
+{
+  "information": {
+    "author": "Serdar",
+    "lang_short": "tr",
+    "lang_long": "Turkish"
+  },
+  "content": {
+    "global": {
+      "confirm_button": "Onayla",
+      "cancel_button": "İptal",
+      "close_button": "Kapat",
+      "error": "Hata",
+      "previous_text": "Önceki",
+      "next_text": "Sonraki",
+      "confirm_save": "Kaydetmek istiyor musunuz?",
+      "confirm": "Onayla",
+      "information": "Bilgi",
+      "restart_software_text": "Etkili olması için yazılımı yeniden başlatmanız gerekir."
+    },
+    "new_version": {
+      "title": "Yazılım güncellemesi",
+      "sub_text_1": "Yeni sürüm",
+      "sub_text_2": "mevcut!",
+      "sub_text_3": "Şimdi indirmek istiyor musunuz?",
+      "ignore_button": "Yoksay",
+      "remind_later_button": "Sonra hatırlat",
+      "download_button": "Güncellemeyi indir"
+    },
+    "file_menu": {
+      "file_text": "Dosya",
+      "new_text": "Yeni",
+      "load_text": "Yükle",
+      "save_text": "Kaydet",
+      "save_as_text": "Farklı kaydet"
+    },
+    "options_menu": {
+      "options_text": "Seçenekler",
+      "playback_menu": {
+        "playback_text": "Oynat",
+        "speed_text": "Hız",
+        "speed_settings": {
+          "title": "Hız ayarları",
+          "sub_text": "Hız değerini 0,1 ile 10 arasında girin",
+          "error_new_value": "Hız değeriniz 0,1 ile 10 arasında olmalıdır!"
+        },
+        "repeat_text": "Tekrarla",
+        "repeat_settings": {
+          "title": "Tekrar ayarları",
+          "sub_text": "Tekrar sayısını girin",
+          "error_new_value": "Tekrar en az 1 olmalı."
+        },
+        "for_text": "Süre",
+        "for_settings": {
+          "title": "Süre ayarları"
+        },
+        "interval_text": "Aralık",
+        "interval_settings": {
+          "title": "Aralık ayarları"
+        },
+        "for_interval_settings": {
+          "hours_text": "Saat",
+          "minutes_text": "Dakika",
+          "seconds_text": "Saniye",
+          "error_new_value_multiple": "girişler hatalı",
+          "error_new_value_single": "giriş yanlış"
+        },
+        "scheduled_text": "Zamanlama",
+        "scheduled_settings": {
+          "title": "Zamanlama ayarları"
+        },
+        "delay_text": "Gecikme",
+        "delay_settings": {
+          "title": "Gecikme ayarları",
+          "sub_text": "Tekrarlama arasındaki gecikmeyi girin.",
+          "error_new_value": "Gecikme süresi en az 0 olabilir"
+        }
+      },
+      "recordings_menu": {
+        "recordings_text": "Kayıtlar",
+        "mouse_movement_text": "Fare hareketi",
+        "mouse_click_text": "Fare tıklaması",
+        "keyboard_text": "Klavye"
+      },
+      "json_compact": "Kompakt makro verileri",
+      "settings_menu": {
+        "settings_text": "Ayarlar",
+        "lang_text": "Dil",
+        "lang_settings": {
+          "title": "Dil ayarları",
+          "sub_text": "Dil seç"
+        },
+        "hotkeys_text": "Kısayollar",
+        "hotkeys_settings": {
+          "title": "Kısayol ayarları",
+          "start_record_text": "Kayıt başlat",
+          "stop_record_text": "Kayıt durdur",
+          "start_playback_text": "Oynatmayı başlat",
+          "stop_playback_text": "Oynatmayı durdur",
+          "clear_text": "Temizle",
+          "please_key_text": "Tuş gir",
+          "error_hotkeys": "Kaydı başlatırken ve oynatmayı başlatırken aynı kısayol tuşlarına sahip olamazsınız"
+        },
+        "minimization_text": "Küçült",
+        "minimization_toast": "PyMacroRecord simge durumuna küçültüldü.",
+        "minimization_menu": {
+          "minimization_when_playing_text": "Oynatırken küçült",
+          "minimization_when_recording_text": "Kayıtta küçült"
+        },
+        "after_playback_text": "Oynatma sonrası",
+        "after_playback_settings": {
+          "when_playback_complete_text": "Oynatma tamamlandıktan sonra",
+          "title": "Oynatma sonrası ayarlar",
+          "sub_text": "Oynatma tamamlandığında",
+          "idle": "Boşta kal",
+          "quit software": "Yazılımdan çık",
+          "standby": "Beklemede kal",
+          "log off computer": "Oturumu kapat",
+          "turn off computer": "Bilgisayarı kapat",
+          "restart computer": "Yeniden başlat",
+          "hibernate (if enabled)": "Hazırda beklet"
+        }
+      },
+      "others_menu": {
+        "others_text": "Diğerleri",
+        "check_update_text": "Güncellemeyi denetle",
+        "reset_settings_text": "Ayarları sıfırla",
+        "reset_settings_confirmation": "Ayarlarınızı sıfırlamak istediğinizden emin misiniz?",
+        "fixed_timestamp_text": "Zaman damgasını düzelt",
+        "fixed_timestamp_settings": {
+          "title": "Zaman damgası düzeltme ayarları",
+          "sub_text": "Düzeltmiş zaman damgasını gir"
+        }
+      }
+    },
+    "help_menu": {
+      "help_text": "Yardım",
+      "tutorial_text": "Öğretici",
+      "about_text": "Hakkında",
+      "website_text": "Sayfa",
+      "about_settings": {
+        "title": "Hakkında",
+        "publisher_text": "Yayıncı",
+        "version_text": "Sürüm",
+        "license_text": "Lisans altında",
+        "version_check_update_text": {
+          "up_to_date": "Güncel",
+          "outdated": "Eski",
+          "disabled": "Güncellemeleri kapat",
+          "failed": "Yeni güncelleme varsa getirilemiyor"
+        }
+      }
+    },
+    "others_menu": {
+      "others_text": "Diğer",
+      "donors_text": "Bağışçılar",
+      "donors_settings": {
+        "title": "Bağışçılar",
+        "sub_text": "Tüm bağışçılar"
+      }
+    }
+  }
+}
+
+
