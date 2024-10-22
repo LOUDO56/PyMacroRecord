@@ -11,11 +11,14 @@ close_menu_icon.addEventListener('click', () => {
 })
 
 document.querySelector(".current-year").textContent = new Date().getFullYear();
-const dateNow = new Date();
-if(dateNow.getMonth() > 3){
-    document.querySelector(".age").textContent = dateNow.getFullYear() - 2005;
-} else {
-    document.querySelector(".age").textContent = (dateNow.getFullYear() - 2005) - 1;
+const ageDoc = document.querySelector(".age");
+if(ageDoc !== null){
+    const dateNow = new Date();
+    if(dateNow.getMonth() > 3){
+        document.querySelector(".age").textContent = dateNow.getFullYear() - 2005;
+    } else {
+        document.querySelector(".age").textContent = (dateNow.getFullYear() - 2005) - 1;
+    }
 }
 
 
