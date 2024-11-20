@@ -2,4 +2,4 @@ Pillow==10.3.0
 pynput==1.7.7
 pystray==0.19.5
 Requests==2.32.0
-win10toast==0.9
+win10toast==0.9; sys_platform == 'win32'
