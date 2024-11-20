@@ -49,18 +49,18 @@
           "sub_text": "Anzahl der Wiederholungen",
           "error_new_value": "Ein Minium von einer Wiederholung ist nötig."
         },
-        "for_text": "Für",
+        "for_text": "Dauer",
         "for_settings": {
-          "title": "Einstellungen für"
+          "title": "Dauer Einstellungen"
         },
         "interval_text": "Intervall",
         "interval_settings": {
           "title": "Intervall Einstellung"
         },
         "for_interval_settings": {
-          "hours_text": "Stunde",
-          "minutes_text": "Minute",
-          "seconds_text": "Sekunde",
+          "hours_text": "Stunden",
+          "minutes_text": "Minuten",
+          "seconds_text": "Sekunden",
           "error_new_value_multiple": "Eingaben sind korrekt",
           "error_new_value_single": "Eingabe ist korrekt"
         },
@@ -81,7 +81,7 @@
         "mouse_click_text": "Maus Klick",
         "keyboard_text": "Tastatur"
       },
-      "json_compact": "Makrodaten reduzieren",
+      "json_compact": "Makrodaten optimieren",
       "settings_menu": {
         "settings_text": "Einstellungen",
         "lang_text": "Sprache",
@@ -103,8 +103,8 @@
         "minimization_text": "Minimieren",
         "minimization_toast": "PyMacroRecord wurde minimiert.",
         "minimization_menu": {
-          "minimization_when_playing_text": "Beim wiedergeben minimieren",
-          "minimization_when_recording_text": "Beim aufnehmen minimieren"
+          "minimization_when_playing_text": "Beim wiedergeben",
+          "minimization_when_recording_text": "Beim aufnehmen"
         },
         "after_playback_text": "Nach Wiedergabe",
         "after_playback_settings": {
@@ -151,7 +151,7 @@
       }
     },
     "others_menu": {
-      "others_text": "Anderes",
+      "others_text": "Weiteres",
       "donors_text": "Spender",
       "donors_settings": {
         "title": "Spender",
