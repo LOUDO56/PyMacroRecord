@@ -130,7 +130,7 @@ class MainApp(Window):
             wantToSave = confirm_save(self)
             if wantToSave:
                 RecordFileManagement(self, self.menu).save_macro()
-            elif wantToSave == None:
+            elif wantToSave is None:
                 return
         if platform.lower() != "darwin":
             self.icon.stop()

@@ -39,14 +39,14 @@ class HotkeysManager:
     def __win32_event_filter(self, msg, data):
         """Detect if key is pressed by real keyboard or pynput"""
         if data.flags == 0x10:
-            if self.macro.playback == True and self.macro.record == False:
+            if self.macro.playback and not self.macro.record:
                 return False
             else:
                 return True
 
     def __on_press(self, key):
         userSettings = self.settings.get_config()
-        if self.changeKey == True:
+        if self.changeKey:
             keyPressed = getKeyPressed(self.keyboard_listener, key)
             if keyPressed not in self.hotkeys:
                 if ">" in keyPressed:
@@ -86,7 +86,7 @@ class HotkeysManager:
                 self.hotkeys = []
                 self.hotkey_visible = []
 
-        if self.changeKey == False and self.main_app.prevent_record == False:
+        if not self.changeKey and not self.main_app.prevent_record:
             keyPressed = getKeyPressed(self.keyboard_listener, key)
             if ">" in keyPressed:
                 try:
@@ -101,30 +101,30 @@ class HotkeysManager:
             by_hotkey = True
             if (
                 self.hotkey_detection == userSettings["Hotkeys"]["Record_Start"]
-                and self.macro.record == False
-                and self.macro.playback == False
+                and not self.macro.record
+                and not self.macro.playback
             ):
                 self.macro.start_record(by_hotkey)
 
             elif (
                 self.hotkey_detection == userSettings["Hotkeys"]["Record_Stop"]
-                and self.macro.record == True
-                and self.macro.playback == False
+                and self.macro.record
+                and not self.macro.playback
             ):
                 self.macro.stop_record()
 
             elif (
                 self.hotkey_detection == userSettings["Hotkeys"]["Playback_Start"]
-                and self.macro.record == False
-                and self.macro.playback == False
-                and self.main_app.macro_recorded == True
+                and not self.macro.record
+                and not self.macro.playback
+                and self.main_app.macro_recorded
             ):
                 self.macro.start_playback()
 
             elif (
                 self.hotkey_detection == userSettings["Hotkeys"]["Playback_Stop"]
-                and self.macro.record == False
-                and self.macro.playback == True
+                and not self.macro.record
+                and self.macro.playback
             ):
                 self.macro.stop_playback(by_hotkey)
 
