@@ -96,7 +96,6 @@ If you encounter a bug or want to request an update, simply create an issue [her
   pip3 install -r requirements.txt
   ```
   - If you are on **Linux**, you might need to install Tkinter manually, commands to install are [here](https://www.geeksforgeeks.org/how-to-install-tkinter-on-linux/)
-  - You need to remove the **win10toast** from `requirements.txt` if you are not on windows or else you won't be able to install the depedencies
   - Mac Users, you must add terminal to accessibility and input monitoring settings in system preferences to allow mouse and keyboard inputs.
   - (Optional) If you want these package to be on virtual environment follow these step [here](https://stackoverflow.com/a/41799834)
 - Finally, do `cd src` and type: `python3 main.py`
