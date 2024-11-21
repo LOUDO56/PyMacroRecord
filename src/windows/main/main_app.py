@@ -13,7 +13,6 @@ from utils.version import Version
 from windows.others.new_ver_avalaible import NewVerAvailable
 from hotkeys.hotkeys_manager import HotkeysManager
 from macro import Macro
-from os import path
 from sys import platform, argv
 from pystray import Icon
 from pystray import MenuItem
@@ -33,12 +32,12 @@ class MainApp(Window):
         super().__init__("PyMacroRecord", 350, 200)
         self.attributes("-topmost", 1)
         if platform == "win32":
-            self.iconbitmap(resource_path(path.join("assets", "logo.ico")))
+            self.iconbitmap(resource_path(["assets", "logo.ico"]))
 
         self.settings = UserSettings(self)
 
         self.lang = self.settings.get_config()["Language"]
-        with open(resource_path(path.join('langs',  self.lang+'.json')), encoding='utf-8') as f:
+        with open(resource_path(['langs',  f'{self.lang}.json']), encoding='utf-8') as f:
             self.text_content = json.load(f)
 
         self.text_content = self.text_content["content"]
@@ -61,7 +60,7 @@ class MainApp(Window):
         # Main Buttons (Start record, stop record, start playback, stop playback)
 
         # Play Button
-        self.playImg = PhotoImage(file=resource_path(path.join("assets", "button", "play.png")))
+        self.playImg = PhotoImage(file=resource_path(["assets", "button", "play.png"]))
 
         # Import record if opened with .pmr extension
         if len(argv) > 1:
@@ -76,12 +75,12 @@ class MainApp(Window):
         self.playBtn.pack(side=LEFT, padx=50)
 
         # Record Button
-        self.recordImg = PhotoImage(file=resource_path(path.join("assets", "button", "record.png")))
+        self.recordImg = PhotoImage(file=resource_path(["assets", "button", "record.png"]))
         self.recordBtn = Button(self, image=self.recordImg, command=self.macro.start_record)
         self.recordBtn.pack(side=RIGHT, padx=50)
 
         # Stop Button
-        self.stopImg = PhotoImage(file=resource_path(path.join("assets", "button", "stop.png")))
+        self.stopImg = PhotoImage(file=resource_path(["assets", "button", "stop.png"]))
 
         record_management = RecordFileManagement(self, self.menu)
 
@@ -108,7 +107,7 @@ class MainApp(Window):
 
     def systemTray(self):
         """Just to show little icon on system tray"""
-        image = Image.open(resource_path(path.join("assets", "logo.ico")))
+        image = Image.open(resource_path(["assets", "logo.ico"]))
         menu = (
             MenuItem('Show', action=self.deiconify, default=True),
         )

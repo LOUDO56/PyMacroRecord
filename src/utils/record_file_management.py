@@ -1,6 +1,5 @@
 from tkinter import *
 from tkinter import filedialog
-from os import path
 from json import load, dumps
 
 from utils import UserSettings

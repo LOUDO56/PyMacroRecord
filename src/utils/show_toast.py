@@ -1,4 +1,4 @@
-from os import path, system
+from os import system
 from sys import platform
 from utils.get_file import resource_path
 
@@ -18,7 +18,7 @@ def show_notification_minim(main_app):
                 title="PyMacroRecord",
                 msg=main_app.text_content["options_menu"]["settings_menu"]["minimization_toast"],
                 duration=3,
-                icon_path=resource_path(path.join("assets", "logo.ico"))
+                icon_path=resource_path(["assets", "logo.ico"])
             )
         except:
             pass
