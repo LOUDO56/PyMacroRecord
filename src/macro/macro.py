@@ -197,7 +197,7 @@ class Macro:
             sleep(secondsToWait)
         for repeat in range(repeat_times):
             for events in range(len(self.macro_events["events"])):
-                if self.playback == False:
+                if not self.playback:
                     self.unPressEverything(keyToUnpress)
                     return
                 if userSettings["Others"]["Fixed_timestamp"] > 0:
@@ -223,7 +223,7 @@ class Macro:
                         self.macro_events["events"][events]["x"],
                         self.macro_events["events"][events]["y"],
                     )
-                    if self.macro_events["events"][events]["pressed"] == True:
+                    if self.macro_events["events"][events]["pressed"]:
                         self.mouseControl.press(click_func[event_type])
                     else:
                         self.mouseControl.release(click_func[event_type])
@@ -235,7 +235,7 @@ class Macro:
                     )
 
                 elif event_type == "keyboardEvent":  # Keyboard Press,Release
-                    if self.macro_events["events"][events]["key"] != None:
+                    if self.macro_events["events"][events]["key"] is not None:
                         try:
                             keyToPress = (
                                 self.macro_events["events"][events]["key"]
@@ -248,19 +248,16 @@ class Macro:
                                         keyToPress = vk_nb[keyToPress]
                                     except:
                                         keyToPress = None
-                            if self.playback == True:
-                                if keyToPress != None:
-                                    if (
-                                        self.macro_events["events"][events]["pressed"]
-                                        == True
-                                    ):
+                            if self.playback:
+                                if keyToPress is not None:
+                                    if self.macro_events["events"][events]["pressed"]:
                                         self.keyboardControl.press(keyToPress)
                                         if keyToPress not in keyToUnpress:
                                             keyToUnpress.append(keyToPress)
                                     else:
                                         self.keyboardControl.release(keyToPress)
                         except ValueError as e:
-                            if keyToPress == None:
+                            if keyToPress is None:
                                 pass
                             else:
                                 messagebox.showerror("Error", f"Error during playback \"{e}\". Please open an issue on Github.")
