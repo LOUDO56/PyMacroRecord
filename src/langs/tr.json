@@ -156,7 +156,13 @@
       "donors_settings": {
         "title": "Bağışçılar",
         "sub_text": "Tüm bağışçılar"
+      },
+      "translators_text": "Çevirmenler",
+      "translators_settings": {
+          "title": "Çevirmenler",
+          "sub_text": "Tüm çevirmenler"
       }
+
     }
   }
 }

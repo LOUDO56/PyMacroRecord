@@ -1,5 +1,6 @@
 from windows.help.about import *
 from windows.others.donors import *
+from windows.others.translators import *
 from windows.options.playback import *
 from windows.options.settings import *
 from windows.others.timestamp import Timestamp
@@ -102,3 +103,4 @@ class MenuBar(Menu):
         self.other_section = Menu(my_menu, tearoff=0)
         my_menu.add_cascade(label=self.text_config["others_menu"]["others_text"], menu=self.other_section)
         self.other_section.add_command(label=self.text_config["others_menu"]["donors_text"], command=lambda: Donors(self, parent))
+        self.other_section.add_command(label=self.text_config["others_menu"]["translators_text"], command=lambda: Translators(self, parent))

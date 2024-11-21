@@ -156,7 +156,13 @@
       "donors_settings": {
         "title": "贡献者",
         "sub_text": "所有贡献者"
+      },
+      "translators_text": "翻译者",
+      "translators_settings": {
+          "title": "翻译者",
+          "sub_text": "所有翻译者"
       }
+
     }
   }
 }

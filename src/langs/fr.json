@@ -156,6 +156,11 @@
       "donors_settings": {
         "title": "Donateurs",
         "sub_text": "Tous les donateurs "
+      },
+      "translators_text": "Traducteurs",
+      "translators_settings": {
+        "title": "Traducteurs",
+        "sub_text": "Tous les traducteurs"
       }
     }
   }
