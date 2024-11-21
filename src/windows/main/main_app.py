@@ -35,6 +35,9 @@ class MainApp(Window):
         if platform == "win32":
             self.iconbitmap(resource_path(path.join("assets", "logo.ico")))
 
+        elif platform.lower() == 'linux':
+            self.tk.call('wm', 'iconphoto', self._w, PhotoImage(file=resource_path(path.join("assets", "logo.png"))))
+
         self.settings = UserSettings(self)
 
         self.lang = self.settings.get_config()["Language"]
