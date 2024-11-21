@@ -1,0 +1,162 @@
+{
+  "information": {
+    "author": "SQLWaldorf",
+    "lang_short": "nl",
+    "lang_long": "Nederlands"
+  },
+  "content": {
+    "global": {
+      "confirm_button": "Bevestig",
+      "cancel_button": "Annuleer",
+      "close_button": "Sluiten",
+      "error": "Fout",
+      "previous_text": "Vorige",
+      "next_text": "Volgende",
+      "confirm_save": "Wil je bewaren?",
+      "confirm": "Bevestig",
+      "information": "Informatie",
+      "restart_software_text": "Je dient de software te herstarten om dit toe te passen."
+    },
+    "new_version": {
+      "title": "Software update",
+      "sub_text_1": "Nieuwe versie",
+      "sub_text_2": "beschikbaar!",
+      "sub_text_3": "Wil je het nu downloaden?",
+      "ignore_button": "Negeer",
+      "remind_later_button": "Herinner me later",
+      "download_button": "Download update"
+    },
+    "file_menu": {
+      "file_text": "Bestand",
+      "new_text": "Nieuw",
+      "load_text": "Laad",
+      "save_text": "Bewaar",
+      "save_as_text": "Bewaar als"
+    },
+    "options_menu": {
+      "options_text": "Opties",
+      "playback_menu": {
+        "playback_text": "Afspelen",
+        "speed_text": "Snelheid",
+        "speed_settings": {
+          "title": "Snelheidsinstellingen",
+          "sub_text": "Geef snelheid tussen 0.1 and 10 in",
+          "error_new_value": "De snelheid moet tussen 0.1 en 10 zijn!"
+        },
+        "repeat_text": "Herhaal",
+        "repeat_settings": {
+          "title": "Herhalings instellingen",
+          "sub_text": "Hoe vaak herhalen?",
+          "error_new_value": "Je kan niet minder dan 1 keer herhalen."
+        },
+        "for_text": "Voor",
+        "for_settings": {
+          "title": "Voor instellingen"
+        },
+        "interval_text": "Interval",
+        "interval_settings": {
+          "title": "Interval instellingen"
+        },
+        "for_interval_settings": {
+          "hours_text": "Uren",
+          "minutes_text": "Minuten",
+          "seconds_text": "Seconden",
+          "error_new_value_multiple": "invoer is foutief",
+          "error_new_value_single": "invoer is foutief"
+        },
+        "scheduled_text": "Planning",
+        "scheduled_settings": {
+          "title": "Plannings instellingen"
+        },
+        "delay_text": "Uitstel",
+        "delay_settings": {
+          "title": "Uitstel instellingen",
+          "sub_text": "Geef uitstel tussen herhalingen op",
+          "error_new_value": "Je kan niet minder dan 0 uitstel hebben."
+        }
+      },
+      "recordings_menu": {
+        "recordings_text": "Opnames",
+        "mouse_movement_text": "Muis beweging",
+        "mouse_click_text": "Muis klik",
+        "keyboard_text": "Toetsenbord"
+      },
+      "json_compact": "Comprimeer macro data",
+      "settings_menu": {
+        "settings_text": "Instellingen",
+        "lang_text": "Taal",
+        "lang_settings": {
+          "title": "Taal instellingen",
+          "sub_text": "Kies je taal"
+        },
+        "hotkeys_text": "Hotkeys",
+        "hotkeys_settings": {
+          "title": "Hotkey instellingen",
+          "start_record_text": "Start opname",
+          "stop_record_text": "Stop opname",
+          "start_playback_text": "Start afspelen",
+          "stop_playback_text": "Stop afspelen",
+          "clear_text": "Wis",
+          "please_key_text": "Toets aub",
+          "error_hotkeys": "Je kan niet dezelfde hotkeys gebruiken voor start opname en start afspelen"
+        },
+        "minimization_text": "Minimalizeren",
+        "minimization_toast": "PyMacroRecord is geminimalizeerd.",
+        "minimization_menu": {
+          "minimization_when_playing_text": "Minimalizeren tijdens afspelen",
+          "minimization_when_recording_text": "Minimalizeren tijdens opnemen"
+        },
+        "after_playback_text": "Na het afspelen",
+        "after_playback_settings": {
+          "when_playback_complete_text": "Na beëindigen afspelen",
+          "title": "Instellingen na afspelen",
+          "sub_text": "Bij het beëindigen van het afspelen",
+          "idle": "Doe niets",
+          "quit software": "Sluit software af",
+          "standby": "Standby",
+          "log off computer": "Uitloggen computer",
+          "turn off computer": "Afsluiten computer",
+          "restart computer": "Herstart computer",
+          "hibernate (if enabled)": "Hibernate (indien mogelijk)"
+        }
+      },
+      "others_menu": {
+        "others_text": "Andere opties",
+        "check_update_text": "Check update",
+        "reset_settings_text": "Reset instellingen",
+        "reset_settings_confirmation": "Ben je zeker dat je je instellingen wilt resetten?",
+        "fixed_timestamp_text": "Vast tijdstip",
+        "fixed_timestamp_settings": {
+          "title": "Instellingen vast tijdstip",
+          "sub_text": "Geef vast tijdstip op"
+        }
+      }
+    },
+    "help_menu": {
+      "help_text": "Help",
+      "tutorial_text": "Tutorial",
+      "about_text": "Over",
+      "website_text": "Website",
+      "about_settings": {
+        "title": "Over",
+        "publisher_text": "Uitgever",
+        "version_text": "Versie",
+        "license_text": "Onder licentie",
+        "version_check_update_text": {
+          "up_to_date": "Up to date",
+          "outdated": "Verouders",
+          "disabled": "Check update uitgeschakeld",
+          "failed": "Kan nieuwe update niet ophalen"
+        }
+      }
+    },
+    "others_menu": {
+      "others_text": "Andere",
+      "donors_text": "Donors",
+      "donors_settings": {
+        "title": "Donors",
+        "sub_text": "Alle donors"
+      }
+    }
+  }
+}
