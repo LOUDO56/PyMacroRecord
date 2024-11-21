@@ -137,3 +137,5 @@ This program is under [GNU General Public License v3.0](https://github.com/LOUDO
 - <a href="https://github.com/takiem">Takiem</a> for the Italian and Brazilian-Portuguese translation.
 - <a href="https://github.com/DennyClarkson">DennyClarkson</a> for the Chinese-Simplified translation.
 - <a href="https://github.com/SerdarSaglam">SerdarSaglam</a> for the Turkish translation.
+- <a href="https://github.com/superstes">superstes</a> for the German translation.
+- <a href="https://github.com/SqlWaldorf">SqlWaldorf</a> for the Dutch translation.
