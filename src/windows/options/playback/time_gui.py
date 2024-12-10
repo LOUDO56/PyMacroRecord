@@ -140,7 +140,7 @@ class TimeGui(Popup):
             else:
                 messagebox.showerror("Error", f'{causes[0]} {main_app.text_content["options_menu"]["playback_menu"]["for_interval_settings"]["error_new_value_single"]}')
             return
-        if self.time_string == "PM" and self.time_format == "12 hours":
+        if self.type != "Interval" and self.time_string == "PM" and self.time_format == "12 hours":
             hour += 12
         total_sec = hour * 3600 + min * 60 + sec
         if self.type == "Interval":
