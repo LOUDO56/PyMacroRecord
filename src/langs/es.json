@@ -1,0 +1,169 @@
+{
+  "information": {
+    "author": "jorge-sepulveda",
+    "lang_short": "es",
+    "lang_long": "Español"
+  },
+  "content": {
+    "global": {
+      "confirm_button": "Confirmar",
+      "cancel_button": "Cancelar",
+      "close_button": "Cerrar",
+      "error": "Error",
+      "previous_text": "Texto Anterior",
+      "next_text": "Siguente Texto",
+      "confirm_save": "¿Quieres guardar tu registro?",
+      "confirm": "Confirmar",
+      "information": "Información",
+      "restart_software_text": "Debe reiniciar el software para que los cambios tomen efecto."
+    },
+    "new_version": {
+      "title": "Actualización de Software",
+      "sub_text_1": "Versión nueva",
+      "sub_text_2": "avalaible!",
+      "sub_text_3": "Do you want to download it now?",
+      "ignore_button": "Ignore",
+      "remind_later_button": "Remind me later",
+      "download_button": "Download update"
+    },
+    "file_menu": {
+      "file_text": "File",
+      "new_text": "New",
+      "load_text": "Load",
+      "save_text": "Save",
+      "save_as_text": "Save as"
+    },
+    "options_menu": {
+      "options_text": "Options",
+      "playback_menu": {
+        "playback_text": "Playback",
+        "speed_text": "Speed",
+        "speed_settings": {
+          "title": "Speed settings",
+          "sub_text": "Enter speed number between 0.1 and 10",
+          "error_new_value": "Your speed value must be between 0.1 and 10!"
+        },
+        "repeat_text": "Repeat",
+        "repeat_settings": {
+          "title": "Repeat settings",
+          "sub_text": "Enter repeat number",
+          "error_new_value": "You cannot have less than 1 repetition."
+        },
+        "for_text": "For",
+        "for_settings": {
+          "title": "For settings"
+        },
+        "interval_text": "Interval",
+        "interval_settings": {
+          "title": "Interval settings"
+        },
+        "for_interval_settings": {
+          "hours_text": "Hours",
+          "minutes_text": "Minutes",
+          "seconds_text": "Seconds",
+          "error_new_value_multiple": "input are incorrect",
+          "error_new_value_single": "input is incorrect"
+        },
+        "scheduled_text": "Scheduled",
+        "scheduled_settings": {
+          "title": "Scheduled settings"
+        },
+        "delay_text": "Delay",
+        "delay_settings": {
+          "title": "Delay settings",
+          "sub_text": "Enter delay between repeat",
+          "error_new_value": "You cannot have less than 0 delay."
+        }
+      },
+      "recordings_menu": {
+        "recordings_text": "Recordings",
+        "mouse_movement_text": "Mouse Movement",
+        "mouse_click_text": "Mouse click",
+        "keyboard_text": "Keyboard"
+      },
+      "json_compact": "Compact macro data",
+      "settings_menu": {
+        "settings_text": "Settings",
+        "lang_text": "Language",
+        "lang_settings": {
+          "title": "Language settings",
+          "sub_text": "Choose your language"
+        },
+        "hotkeys_text": "Hotkeys",
+        "hotkeys_settings": {
+          "title": "Hotkeys settings",
+          "start_record_text": "Start record",
+          "stop_record_text": "Stop record",
+          "start_playback_text": "Start playback",
+          "stop_playback_text": "Stop playback",
+          "clear_text": "Clear",
+          "please_key_text": "Please key",
+          "error_hotkeys": "You can't have same hotkeys on start record and start playback"
+        },
+        "minimization_text": "Minimization",
+        "minimization_toast": "PyMacroRecord has been minimized.",
+        "minimization_menu": {
+          "minimization_when_playing_text": "Minimization when playing",
+          "minimization_when_recording_text": "Minimization when recording"
+        },
+        "after_playback_text": "After playback",
+        "after_playback_settings": {
+          "when_playback_complete_text": "After playback complete",
+          "title": "After playback settings",
+          "sub_text": "On playback complete",
+          "idle": "Idle",
+          "quit software": "Quit software",
+          "standby": "Standby",
+          "log off computer": "Log off computer",
+          "turn off computer": "Turn off computer",
+          "restart computer": "Restart computer",
+          "hibernate (if enabled)": "Hibernate (if enabled)"
+        }
+      },
+      "others_menu": {
+        "others_text": "Others",
+        "check_update_text": "Check update",
+        "reset_settings_text": "Reset settings",
+        "reset_settings_confirmation": "Are you sure you want to reset your settings?",
+        "fixed_timestamp_text": "Fixed timestamp",
+        "fixed_timestamp_settings": {
+          "title": "Fixed timestamp settings",
+          "sub_text": "Enter fixed timestamp"
+        }
+      }
+    },
+    "help_menu": {
+      "help_text": "Help",
+      "tutorial_text": "Tutorial",
+      "about_text": "About",
+      "website_text": "Website",
+      "about_settings": {
+        "title": "About",
+        "publisher_text": "Publisher",
+        "version_text": "Version",
+        "license_text": "Under license",
+        "version_check_update_text": {
+          "up_to_date": "Up to date",
+          "outdated": "Outdated",
+          "disabled": "Check update disabled",
+          "failed": "Cannot fetch if new update"
+        }
+      }
+    },
+    "others_menu": {
+      "others_text": "Others",
+      "donors_text": "Donors",
+      "donors_settings": {
+        "title": "Donors",
+        "sub_text": "All donors"
+      },
+      "translators_text": "Translators",
+      "translators_settings": {
+        "title": "Translators",
+        "sub_text": "All translators"
+      }
+    }
+  }
+}
+
+
