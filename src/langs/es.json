@@ -12,7 +12,7 @@
       "error": "Error",
       "previous_text": "Texto Anterior",
       "next_text": "Siguente Texto",
-      "confirm_save": "¿Quieres guardar tu registro?",
+      "confirm_save": "¿Quieres ahorrar tu registro?",
       "confirm": "Confirmar",
       "information": "Información",
       "restart_software_text": "Debe reiniciar el software para que los cambios tomen efecto."
@@ -20,147 +20,147 @@
     "new_version": {
       "title": "Actualización de Software",
       "sub_text_1": "Versión nueva",
-      "sub_text_2": "avalaible!",
-      "sub_text_3": "Do you want to download it now?",
-      "ignore_button": "Ignore",
-      "remind_later_button": "Remind me later",
-      "download_button": "Download update"
+      "sub_text_2": "¡disponible!",
+      "sub_text_3": "¿Quieres descargarlo ahora?",
+      "ignore_button": "Ignorar",
+      "remind_later_button": "Recuérdamelo más tarde",
+      "download_button": "Descargar actualización"
     },
     "file_menu": {
-      "file_text": "File",
-      "new_text": "New",
-      "load_text": "Load",
-      "save_text": "Save",
-      "save_as_text": "Save as"
+      "file_text": "Archivo",
+      "new_text": "Nueva",
+      "load_text": "Cargar",
+      "save_text": "Ahorrar",
+      "save_as_text": "Ahorrar como"
     },
     "options_menu": {
-      "options_text": "Options",
+      "options_text": "Opciones",
       "playback_menu": {
-        "playback_text": "Playback",
-        "speed_text": "Speed",
+        "playback_text": "Reproducción",
+        "speed_text": "Velocidad",
         "speed_settings": {
-          "title": "Speed settings",
-          "sub_text": "Enter speed number between 0.1 and 10",
-          "error_new_value": "Your speed value must be between 0.1 and 10!"
+          "title": "Ajustes de velocidad",
+          "sub_text": "Introduzca el número de velocidad entre 0.1 y 10",
+          "error_new_value": "¡Su valor de velocidad debe estar entre 0.1 y 10!"
         },
-        "repeat_text": "Repeat",
+        "repeat_text": "Repetir",
         "repeat_settings": {
-          "title": "Repeat settings",
-          "sub_text": "Enter repeat number",
-          "error_new_value": "You cannot have less than 1 repetition."
+          "title": "Ajusted de repetición",
+          "sub_text": "Ingrese el número de repetición",
+          "error_new_value": "No puedes tener menos de 1 repetición."
         },
-        "for_text": "For",
+        "for_text": "Para",
         "for_settings": {
-          "title": "For settings"
+          "title": "Ajustes de Para"
         },
-        "interval_text": "Interval",
+        "interval_text": "Intervalo",
         "interval_settings": {
-          "title": "Interval settings"
+          "title": "Ajustes de intervalo"
         },
         "for_interval_settings": {
-          "hours_text": "Hours",
-          "minutes_text": "Minutes",
-          "seconds_text": "Seconds",
-          "error_new_value_multiple": "input are incorrect",
-          "error_new_value_single": "input is incorrect"
+          "hours_text": "Horas",
+          "minutes_text": "Minutos",
+          "seconds_text": "Segundo",
+          "error_new_value_multiple": "las entradas son incorrectas",
+          "error_new_value_single": "Entrada incorrecta"
         },
-        "scheduled_text": "Scheduled",
+        "scheduled_text": "Programada",
         "scheduled_settings": {
-          "title": "Scheduled settings"
+          "title": "Ajustes de programación"
         },
-        "delay_text": "Delay",
+        "delay_text": "Retrazo",
         "delay_settings": {
-          "title": "Delay settings",
-          "sub_text": "Enter delay between repeat",
-          "error_new_value": "You cannot have less than 0 delay."
+          "title": "Ajustes de retrazo",
+          "sub_text": "Introduzca el retraso entre repetición",
+          "error_new_value": "No puede tener menos de 0 retrasos"
         }
       },
       "recordings_menu": {
-        "recordings_text": "Recordings",
-        "mouse_movement_text": "Mouse Movement",
-        "mouse_click_text": "Mouse click",
-        "keyboard_text": "Keyboard"
+        "recordings_text": "Grabaciones",
+        "mouse_movement_text": "Movimiento del ratón",
+        "mouse_click_text": "Clic del ratón",
+        "keyboard_text": "Teclado"
       },
-      "json_compact": "Compact macro data",
+      "json_compact": "Datos macro compactos",
       "settings_menu": {
-        "settings_text": "Settings",
-        "lang_text": "Language",
+        "settings_text": "Ajustes",
+        "lang_text": "Idioma",
         "lang_settings": {
-          "title": "Language settings",
-          "sub_text": "Choose your language"
+          "title": "Ajusted de idioma",
+          "sub_text": "Elige tu idioma"
         },
-        "hotkeys_text": "Hotkeys",
+        "hotkeys_text": "Teclas de acceso rápido",
         "hotkeys_settings": {
-          "title": "Hotkeys settings",
-          "start_record_text": "Start record",
-          "stop_record_text": "Stop record",
-          "start_playback_text": "Start playback",
-          "stop_playback_text": "Stop playback",
-          "clear_text": "Clear",
-          "please_key_text": "Please key",
-          "error_hotkeys": "You can't have same hotkeys on start record and start playback"
+          "title": "Ajustes de teclas de acceso rápido",
+          "start_record_text": "Iniciar grabación",
+          "stop_record_text": "Detener grabación",
+          "start_playback_text": "Iniciar reproducción",
+          "stop_playback_text": "Detener reproducción",
+          "clear_text": "Aclarar",
+          "please_key_text": "Tecla de por favor",
+          "error_hotkeys": "No puedes tener las mismas teclas de acceso rápido al iniciar la grabación y al iniciar la reproducción."
         },
-        "minimization_text": "Minimization",
-        "minimization_toast": "PyMacroRecord has been minimized.",
+        "minimization_text": "Minimización",
+        "minimization_toast": "PyMacroRecord ha sido minimizado",
         "minimization_menu": {
-          "minimization_when_playing_text": "Minimization when playing",
-          "minimization_when_recording_text": "Minimization when recording"
+          "minimization_when_playing_text": "Minimización al reproducir",
+          "minimization_when_recording_text": "Minimización al grabar"
         },
-        "after_playback_text": "After playback",
+        "after_playback_text": "Después de la reproducción",
         "after_playback_settings": {
-          "when_playback_complete_text": "After playback complete",
-          "title": "After playback settings",
-          "sub_text": "On playback complete",
-          "idle": "Idle",
-          "quit software": "Quit software",
-          "standby": "Standby",
-          "log off computer": "Log off computer",
-          "turn off computer": "Turn off computer",
-          "restart computer": "Restart computer",
-          "hibernate (if enabled)": "Hibernate (if enabled)"
+          "when_playback_complete_text": "Después de la reproducción completada",
+          "title": "Ajustes después de la reproducción",
+          "sub_text": "Sobre reproducción completada",
+          "idle": "Inactivo",
+          "quit software": "Salir del software",
+          "standby": "Apoyar",
+          "log off computer": "Cerrar sesión en la computadora",
+          "turn off computer": "Apagar la computadora",
+          "restart computer": "Reiniciar la computadora",
+          "hibernate (if enabled)": "Hibernar (si está habilitada)"
         }
       },
       "others_menu": {
-        "others_text": "Others",
-        "check_update_text": "Check update",
-        "reset_settings_text": "Reset settings",
-        "reset_settings_confirmation": "Are you sure you want to reset your settings?",
-        "fixed_timestamp_text": "Fixed timestamp",
+        "others_text": "Otros",
+        "check_update_text": "Comprobar actualización",
+        "reset_settings_text": "Restablecer configuración",
+        "reset_settings_confirmation": "¿Estás seguro/a de que quieres restablecer tu configuración?",
+        "fixed_timestamp_text": "Marca de tiempo fija",
         "fixed_timestamp_settings": {
-          "title": "Fixed timestamp settings",
-          "sub_text": "Enter fixed timestamp"
+          "title": "Ajusted de marca de tiempo fija",
+          "sub_text": "Ingrese la marca de tiempo fija"
         }
       }
     },
     "help_menu": {
-      "help_text": "Help",
+      "help_text": "Ayuda",
       "tutorial_text": "Tutorial",
-      "about_text": "About",
-      "website_text": "Website",
+      "about_text": "Acerca de",
+      "website_text": "Sitio de web",
       "about_settings": {
-        "title": "About",
-        "publisher_text": "Publisher",
+        "title": "Acerca de",
+        "publisher_text": "Publicador",
         "version_text": "Version",
-        "license_text": "Under license",
+        "license_text": "Licensia",
         "version_check_update_text": {
-          "up_to_date": "Up to date",
-          "outdated": "Outdated",
-          "disabled": "Check update disabled",
-          "failed": "Cannot fetch if new update"
+          "up_to_date": "Actualizado",
+          "outdated": "Anticuado",
+          "disabled": "Comprobar actualización desactivada",
+          "failed": "No se puede recuperar si hay una nueva actualización"
         }
       }
     },
     "others_menu": {
-      "others_text": "Others",
-      "donors_text": "Donors",
+      "others_text": "Otros",
+      "donors_text": "Donantes",
       "donors_settings": {
-        "title": "Donors",
-        "sub_text": "All donors"
+        "title": "Donantes",
+        "sub_text": "Todos los donantes"
       },
-      "translators_text": "Translators",
+      "translators_text": "Traductores",
       "translators_settings": {
-        "title": "Translators",
-        "sub_text": "All translators"
+        "title": "Traductores",
+        "sub_text": "Todos los traductores"
       }
     }
   }
