@@ -139,3 +139,4 @@ This program is under [GNU General Public License v3.0](https://github.com/LOUDO
 - <a href="https://github.com/SerdarSaglam">SerdarSaglam</a> for the Turkish translation.
 - <a href="https://github.com/superstes">superstes</a> for the German translation.
 - <a href="https://github.com/SqlWaldorf">SqlWaldorf</a> for the Dutch translation.
+- <a href="https://github.com/jorge-sepulveda">jorge-sepulveda</a> for the Spanish translation.
