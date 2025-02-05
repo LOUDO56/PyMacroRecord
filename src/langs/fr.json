@@ -144,7 +144,7 @@
         "license_text": "Sous la license",
         "version_check_update_text": {
           "up_to_date": "À jour",
-          "outdated": "Obsolète",
+          "outdated": "Obselète",
           "disabled": "Vérification désactivé",
           "failed": "Erreur durant la vérif"
         }
