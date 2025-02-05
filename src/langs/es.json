@@ -1,0 +1,169 @@
+{
+  "information": {
+    "author": "jorge-sepulveda",
+    "lang_short": "es",
+    "lang_long": "Español"
+  },
+  "content": {
+    "global": {
+      "confirm_button": "Confirmar",
+      "cancel_button": "Cancelar",
+      "close_button": "Cerrar",
+      "error": "Error",
+      "previous_text": "Texto Anterior",
+      "next_text": "Siguente Texto",
+      "confirm_save": "¿Quieres ahorrar tu registro?",
+      "confirm": "Confirmar",
+      "information": "Información",
+      "restart_software_text": "Debe reiniciar el software para que los cambios tomen efecto."
+    },
+    "new_version": {
+      "title": "Actualización de Software",
+      "sub_text_1": "Versión nueva",
+      "sub_text_2": "¡disponible!",
+      "sub_text_3": "¿Quieres descargarlo ahora?",
+      "ignore_button": "Ignorar",
+      "remind_later_button": "Recuérdamelo más tarde",
+      "download_button": "Descargar actualización"
+    },
+    "file_menu": {
+      "file_text": "Archivo",
+      "new_text": "Nueva",
+      "load_text": "Cargar",
+      "save_text": "Ahorrar",
+      "save_as_text": "Ahorrar como"
+    },
+    "options_menu": {
+      "options_text": "Opciones",
+      "playback_menu": {
+        "playback_text": "Reproducción",
+        "speed_text": "Velocidad",
+        "speed_settings": {
+          "title": "Ajustes de velocidad",
+          "sub_text": "Introduzca el número de velocidad entre 0.1 y 10",
+          "error_new_value": "¡Su valor de velocidad debe estar entre 0.1 y 10!"
+        },
+        "repeat_text": "Repetir",
+        "repeat_settings": {
+          "title": "Ajusted de repetición",
+          "sub_text": "Ingrese el número de repetición",
+          "error_new_value": "No puedes tener menos de 1 repetición."
+        },
+        "for_text": "Para",
+        "for_settings": {
+          "title": "Ajustes de Para"
+        },
+        "interval_text": "Intervalo",
+        "interval_settings": {
+          "title": "Ajustes de intervalo"
+        },
+        "for_interval_settings": {
+          "hours_text": "Horas",
+          "minutes_text": "Minutos",
+          "seconds_text": "Segundo",
+          "error_new_value_multiple": "las entradas son incorrectas",
+          "error_new_value_single": "Entrada incorrecta"
+        },
+        "scheduled_text": "Programada",
+        "scheduled_settings": {
+          "title": "Ajustes de programación"
+        },
+        "delay_text": "Retrazo",
+        "delay_settings": {
+          "title": "Ajustes de retrazo",
+          "sub_text": "Introduzca el retraso entre repetición",
+          "error_new_value": "No puede tener menos de 0 retrasos"
+        }
+      },
+      "recordings_menu": {
+        "recordings_text": "Grabaciones",
+        "mouse_movement_text": "Movimiento del ratón",
+        "mouse_click_text": "Clic del ratón",
+        "keyboard_text": "Teclado"
+      },
+      "json_compact": "Datos macro compactos",
+      "settings_menu": {
+        "settings_text": "Ajustes",
+        "lang_text": "Idioma",
+        "lang_settings": {
+          "title": "Ajusted de idioma",
+          "sub_text": "Elige tu idioma"
+        },
+        "hotkeys_text": "Teclas de acceso rápido",
+        "hotkeys_settings": {
+          "title": "Ajustes de teclas de acceso rápido",
+          "start_record_text": "Iniciar grabación",
+          "stop_record_text": "Detener grabación",
+          "start_playback_text": "Iniciar reproducción",
+          "stop_playback_text": "Detener reproducción",
+          "clear_text": "Aclarar",
+          "please_key_text": "Tecla de por favor",
+          "error_hotkeys": "No puedes tener las mismas teclas de acceso rápido al iniciar la grabación y al iniciar la reproducción."
+        },
+        "minimization_text": "Minimización",
+        "minimization_toast": "PyMacroRecord ha sido minimizado",
+        "minimization_menu": {
+          "minimization_when_playing_text": "Minimización al reproducir",
+          "minimization_when_recording_text": "Minimización al grabar"
+        },
+        "after_playback_text": "Después de la reproducción",
+        "after_playback_settings": {
+          "when_playback_complete_text": "Después de la reproducción completada",
+          "title": "Ajustes después de la reproducción",
+          "sub_text": "Sobre reproducción completada",
+          "idle": "Inactivo",
+          "quit software": "Salir del software",
+          "standby": "Apoyar",
+          "log off computer": "Cerrar sesión en la computadora",
+          "turn off computer": "Apagar la computadora",
+          "restart computer": "Reiniciar la computadora",
+          "hibernate (if enabled)": "Hibernar (si está habilitada)"
+        }
+      },
+      "others_menu": {
+        "others_text": "Otros",
+        "check_update_text": "Comprobar actualización",
+        "reset_settings_text": "Restablecer configuración",
+        "reset_settings_confirmation": "¿Estás seguro/a de que quieres restablecer tu configuración?",
+        "fixed_timestamp_text": "Marca de tiempo fija",
+        "fixed_timestamp_settings": {
+          "title": "Ajusted de marca de tiempo fija",
+          "sub_text": "Ingrese la marca de tiempo fija"
+        }
+      }
+    },
+    "help_menu": {
+      "help_text": "Ayuda",
+      "tutorial_text": "Tutorial",
+      "about_text": "Acerca de",
+      "website_text": "Sitio de web",
+      "about_settings": {
+        "title": "Acerca de",
+        "publisher_text": "Publicador",
+        "version_text": "Version",
+        "license_text": "Licensia",
+        "version_check_update_text": {
+          "up_to_date": "Actualizado",
+          "outdated": "Anticuado",
+          "disabled": "Comprobar actualización desactivada",
+          "failed": "No se puede recuperar si hay una nueva actualización"
+        }
+      }
+    },
+    "others_menu": {
+      "others_text": "Otros",
+      "donors_text": "Donantes",
+      "donors_settings": {
+        "title": "Donantes",
+        "sub_text": "Todos los donantes"
+      },
+      "translators_text": "Traductores",
+      "translators_settings": {
+        "title": "Traductores",
+        "sub_text": "Todos los traductores"
+      }
+    }
+  }
+}
+
+
