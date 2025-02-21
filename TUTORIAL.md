@@ -44,6 +44,15 @@ The value 0 in all three fields means you are disabling them, putting more than 
 ### Delay
 To add a delay between repeats, go to `Options` -> `Playback` -> `Delay` and you can set the delay in seconds.
 
+### Understanding Playback options
+The settings "For", "Interval", and "Repeat" in the user settings control how the macro playback is repeated. Here's a detailed explanation of each:
+* For: This setting specifies the total duration (in seconds) for which the macro should be repeated. For example, if you set "For" to 3600, the macro will be repeated for one hour.
+* Interval: This setting specifies the interval (in seconds) between each repetition of the macro. For example, if you set "Interval" to 600, the macro will be repeated every 10 minutes.
+* Repeat: This setting specifies the number of times the macro should be repeated. For example, if you set "Repeat" to 5, the macro will be repeated 5 times.
+
+To schedule the playback to run every 24 hours, you can set the "Interval" to 86400 seconds (24 hours) and "Repeat" to a high number or leave it as 0 if you want it to run indefinitely. The "For" setting can be set to 0 if you don't want to limit the total duration.
+
+
 
 ### Selecting what to record
 To change your preferences from what being recorded, go to `Options` -> `Recordings` and you will see 3 options with checkmarks.
