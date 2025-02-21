@@ -50,7 +50,7 @@ The settings "For", "Interval", and "Repeat" in the user settings control how th
 * Interval: This setting specifies the interval (in seconds) between each repetition of the macro. For example, if you set "Interval" to 600, the macro will be repeated every 10 minutes.
 * Repeat: This setting specifies the number of times the macro should be repeated. For example, if you set "Repeat" to 5, the macro will be repeated 5 times.
 
-To schedule the playback to run every 24 hours, you can set the "Interval" to 86400 seconds (24 hours) and "Repeat" to a high number or leave it as 0 if you want it to run indefinitely. The "For" setting can be set to 0 if you don't want to limit the total duration.
+To schedule the playback to run every 24 hours, you can set the "Interval" to 86400 seconds (24 hours) and "Repeat" to a high number. The "For" setting can be set to 0 if you don't want to limit the total duration.
 
 
 
