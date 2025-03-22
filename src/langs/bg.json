@@ -1,0 +1,167 @@
+{
+  "information": {
+    "author": "expp121",
+    "lang_short": "bg",
+    "lang_long": "Bulgarian"
+  },
+  "content": {
+    "global": {
+      "confirm_button": "Потвърди",
+      "cancel_button": "Отказ",
+      "close_button": "Затвори",
+      "error": "Грешка",
+      "previous_text": "Предишен",
+      "next_text": "Следващ",
+      "confirm_save": "Желаете ли да запазите записа си?",
+      "confirm": "Потвърди",
+      "information": "Информация",
+      "restart_software_text": "Трябва да рестартирате софтуера, за да влязат в сила промените."
+    },
+    "new_version": {
+      "title": "Актуализация на софтуера",
+      "sub_text_1": "Нова версия",
+      "sub_text_2": "налична!",
+      "sub_text_3": "Желаете ли да я изтеглите сега?",
+      "ignore_button": "Игнорирай",
+      "remind_later_button": "Напомни ми по-късно",
+      "download_button": "Изтегли актуализация"
+    },
+    "file_menu": {
+      "file_text": "Файл",
+      "new_text": "Нов",
+      "load_text": "Отвори",
+      "save_text": "Запази",
+      "save_as_text": "Запази като"
+    },
+    "options_menu": {
+      "options_text": "Опции",
+    "playback_menu": {
+      "playback_text": "Възпроизвеждане",
+      "speed_text": "Скорост",
+      "speed_settings": {
+        "title": "Настройки на скоростта",
+        "sub_text": "Въведете число за скорост между 0.1 и 10",
+        "error_new_value": "Стойността на скоростта трябва да бъде между 0.1 и 10!"
+      },
+      "repeat_text": "Повтаряне",
+      "repeat_settings": {
+        "title": "Настройки за повтаряне",
+        "sub_text": "Въведете броя на повторенията",
+        "error_new_value": "Не можете да имате по-малко от 1 повторение."
+      },
+      "for_text": "За",
+      "for_settings": {
+        "title": "Настройки за За"
+      },
+      "interval_text": "Интервал",
+      "interval_settings": {
+        "title": "Настройки на интервала"
+      },
+      "for_interval_settings": {
+        "hours_text": "Часове",
+        "minutes_text": "Минути",
+        "seconds_text": "Секунди",
+        "error_new_value_multiple": "Въведените стойности са грешни",
+        "error_new_value_single": "Въведената стойност е грешна"
+      },
+      "scheduled_text": "Планирани",
+      "scheduled_settings": {
+        "title": "Настройки за планирани"
+      },
+      "delay_text": "Закъснение",
+      "delay_settings": {
+        "title": "Настройки за закъснение",
+        "sub_text": "Въведете закъснение между повторенията",
+        "error_new_value": "Не можете да имате закъснение по-малко от 0."
+      }
+    },
+    "recordings_menu": {
+      "recordings_text": "Записи",
+      "mouse_movement_text": "Движение на мишката",
+      "mouse_click_text": "Щракване с мишка",
+      "keyboard_text": "Клавиатура"
+    },
+    "json_compact": "Компактирани макро данни",
+    "settings_menu": {
+      "settings_text": "Настройки",
+      "lang_text": "Език",
+      "lang_settings": {
+        "title": "Настройки на езика",
+        "sub_text": "Изберете вашия език"
+      },
+      "hotkeys_text": "Бързи клавиши",
+      "hotkeys_settings": {
+        "title": "Настройки за бързи клавиши",
+        "start_record_text": "Започни запис",
+        "stop_record_text": "Спри запис",
+        "start_playback_text": "Започни възпроизвеждане",
+        "stop_playback_text": "Спри възпроизвеждане",
+        "clear_text": "Изчисти",
+        "please_key_text": "Моля, натиснете клавиш",
+        "error_hotkeys": "Не можете да имате същите бързи клавиши за започване на запис и започване на възпроизвеждане"
+      },
+      "minimization_text": "Минимизиране",
+      "minimization_toast": "PyMacroRecord беше минимизиран.",
+      "minimization_menu": {
+        "minimization_when_playing_text": "Минимизиране повреме на възпроизвеждане",
+        "minimization_when_recording_text": "Минимизиране повреме на запис"
+      },
+      "after_playback_text": "След възпроизвеждане",
+      "after_playback_settings": {
+        "when_playback_complete_text": "След завършване на възпроизвеждането",
+        "title": "Настройки след възпроизвеждане",
+        "sub_text": "При завършване на възпроизвеждането",
+        "idle": "Неактивно",
+        "quit_software": "Изключване на софтуера",
+        "standby": "Изчакване",
+        "log_off_computer": "Излизане от компютъра",
+        "turn_off_computer": "Изключване на компютъра",
+        "restart_computer": "Рестартиране на компютъра",
+        "hibernate_(if_enabled)": "Хибернация (ако е възможно)"
+      }
+    },
+      "others_menu": {
+        "others_text": "Други",
+        "check_update_text": "Проверка за актуализации",
+        "reset_settings_text": "Нулиране на настройките",
+        "reset_settings_confirmation": "Сигурни ли сте, че искате да нулирате настройките си?",
+        "fixed_timestamp_text": "Фиксиран времеви печат",
+        "fixed_timestamp_settings": {
+          "title": "Настройки за фиксиран времеви печат",
+          "sub_text": "Въведете фиксиран времеви печат"
+        }
+      }
+    },
+    "help_menu": {
+      "help_text": "Помощ",
+      "tutorial_text": "Ръководство",
+      "about_text": "Относно",
+      "website_text": "Уебсайт",
+      "about_settings": {
+        "title": "Относно",
+        "publisher_text": "Издател",
+        "version_text": "Версия",
+        "license_text": "Под лиценз",
+        "version_check_update_text": {
+          "up_to_date": "Актуално",
+          "outdated": "Неактуално",
+          "disabled": "Проверката за актуализация е деактивирана",
+          "failed": "Не може да се провери за нова актуализация"
+        }
+      }
+    },
+    "others_menu": {
+      "others_text": "Други",
+      "donors_text": "Дарители",
+      "donors_settings": {
+        "title": "Дарители",
+        "sub_text": "Всички дарители"
+      },
+      "translators_text": "Преводачи",
+      "translators_settings": {
+        "title": "Преводачи",
+        "sub_text": "Всички преводачи"
+      }
+    }
+  }
+}
