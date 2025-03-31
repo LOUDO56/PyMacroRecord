@@ -46,6 +46,7 @@
         "repeat_text": "Herhaal",
         "repeat_settings": {
           "title": "Herhalings instellingen",
+          "infinite_repeat": "Infinite repeat?",
           "sub_text": "Hoe vaak herhalen?",
           "error_new_value": "Je kan niet minder dan 1 keer herhalen."
         },

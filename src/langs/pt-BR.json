@@ -46,6 +46,7 @@
           "repeat_text": "Repetir",
           "repeat_settings": {
             "title": "Configurações de Repetição",
+            "infinite_repeat": "Repetir infinitamente?",
             "sub_text": "Digite o número de repetições",
             "error_new_value": "O número de repetições não pode ser inferior a 1."
           },

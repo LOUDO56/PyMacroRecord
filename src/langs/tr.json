@@ -46,6 +46,7 @@
         "repeat_text": "Tekrarla",
         "repeat_settings": {
           "title": "Tekrar ayarları",
+          "infinite_repeat": "Infinite repeat?",
           "sub_text": "Tekrar sayısını girin",
           "error_new_value": "Tekrar en az 1 olmalı."
         },

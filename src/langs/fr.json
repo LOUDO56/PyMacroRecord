@@ -46,6 +46,7 @@
         "repeat_text": "Répéter",
         "repeat_settings": {
           "title": "Réglagle de répétition",
+          "infinite_repeat": "Infinite repeat?",
           "sub_text": "Entrez un nombre",
           "error_new_value": "Vous devez au moins avoir une répétition."
         },
