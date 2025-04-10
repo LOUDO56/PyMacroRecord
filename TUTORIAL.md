@@ -29,7 +29,7 @@ A value less than 1 will make your record slower, and a value greater than 1 wil
 
 
 ### Repeat
-To change the amount of repeat, go to `Options` -> `Playback` -> `Repeat` and it to whatever value you want, from 1 to infite.
+To change the amount of repeat, go to `Options` -> `Playback` -> `Repeat` and it to whatever value you want, from 1 to infite that you can enable by checking `Infinite repeat?`.
 
 ### Interval and For loop
 To enable them, go to `Options` -> `Playback` -> `Interval` or `For` and you will have three value. Hours, Minutes and Seconds. 
