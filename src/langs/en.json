@@ -46,6 +46,7 @@
         "repeat_text": "Repeat",
         "repeat_settings": {
           "title": "Repeat settings",
+          "infinite_repeat": "Infinite repeat?",
           "sub_text": "Enter repeat number",
           "error_new_value": "You cannot have less than 1 repetition."
         },

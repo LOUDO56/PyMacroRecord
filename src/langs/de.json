@@ -46,6 +46,7 @@
         "repeat_text": "Wiederholen",
         "repeat_settings": {
           "title": "Wiederholen",
+          "infinite_repeat": "Infinite repeat?",
           "sub_text": "Anzahl der Wiederholungen",
           "error_new_value": "Ein Minium von einer Wiederholung ist nötig."
         },

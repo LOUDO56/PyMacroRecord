@@ -46,6 +46,7 @@
         "repeat_text": "重复",
         "repeat_settings": {
           "title": "重复设置",
+          "infinite_repeat": "Infinite repeat?",
           "sub_text": "设定重复回放次数",
           "error_new_value": "回放次数必须大于等于1！"
         },

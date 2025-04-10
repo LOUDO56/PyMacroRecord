@@ -41,7 +41,8 @@ class UserSettings:
                     "For": 0,
                     "Interval": 0,
                     "Delay": 0,
-                    "Scheduled": 0
+                    "Scheduled": 0,
+                    "Infinite": False,
                 }
             },
 
@@ -150,4 +151,6 @@ class UserSettings:
             userSettings["Time_string"] = "12 hours"
         if "Time_format" not in userSettings:
             userSettings["Time_format"] = "PM"
+        if "Infinite" not in userSettings["Playback"]["Repeat"]:
+            userSettings["Playback"]["Repeat"]["Infinite"] = False
         self.update_settings(dumps(userSettings, indent=4))

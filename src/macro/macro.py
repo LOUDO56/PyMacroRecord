@@ -184,28 +184,38 @@ class Macro:
             "middleClickEvent": Button.middle,
         }
         keyToUnpress = []
+
+        is_infinite = userSettings["Playback"]["Repeat"].get("Infinite", False)
+
         if userSettings["Playback"]["Repeat"]["For"] > 0:
             repeat_times = 1
+        elif is_infinite:
+            repeat_times = float('inf')
         else:
             repeat_times = userSettings["Playback"]["Repeat"]["Times"]
+
         if userSettings["Playback"]["Repeat"]["Scheduled"] > 0:
             now = datetime.now()
             seconds_since_midnight = (now - now.replace(hour=0, minute=0, second=0, microsecond=0)).total_seconds()
             secondsToWait = userSettings["Playback"]["Repeat"]["Scheduled"] - seconds_since_midnight
             if secondsToWait < 0:
-                secondsToWait = 86400 + secondsToWait # 86400 + -secondsToWait. Meaning it will happen tomorrow
+                secondsToWait = 86400 + secondsToWait  # 86400 + -secondsToWait. Meaning it will happen tomorrow
             sleep(secondsToWait)
-        for repeat in range(repeat_times):
+
+        repeat_count = 0
+
+        while self.playback and (is_infinite or repeat_count < repeat_times):
             for events in range(len(self.macro_events["events"])):
                 if self.playback == False:
                     self.unPressEverything(keyToUnpress)
                     return
+
                 if userSettings["Others"]["Fixed_timestamp"] > 0:
                     timeSleep = userSettings["Others"]["Fixed_timestamp"]
                 else:
                     timeSleep = (
-                        self.macro_events["events"][events]["timestamp"]
-                        * (1 / userSettings["Playback"]["Speed"])
+                            self.macro_events["events"][events]["timestamp"]
+                            * (1 / userSettings["Playback"]["Speed"])
                     )
                 if timeSleep < 0:
                     timeSleep = abs(timeSleep)
@@ -251,8 +261,8 @@ class Macro:
                             if self.playback == True:
                                 if keyToPress != None:
                                     if (
-                                        self.macro_events["events"][events]["pressed"]
-                                        == True
+                                            self.macro_events["events"][events]["pressed"]
+                                            == True
                                     ):
                                         self.keyboardControl.press(keyToPress)
                                         if keyToPress not in keyToUnpress:
@@ -263,11 +273,16 @@ class Macro:
                             if keyToPress == None:
                                 pass
                             else:
-                                messagebox.showerror("Error", f"Error during playback \"{e}\". Please open an issue on Github.")
+                                messagebox.showerror("Error",
+                                                     f"Error during playback \"{e}\". Please open an issue on Github.")
                                 self.stop_playback()
+
+            repeat_count += 1
+
             if userSettings["Playback"]["Repeat"]["Delay"] > 0:
-                if repeat + 1 != repeat_times:
+                if is_infinite or repeat_count < repeat_times:
                     sleep(userSettings["Playback"]["Repeat"]["Delay"])
+
         self.unPressEverything(keyToUnpress)
         if userSettings["Playback"]["Repeat"]["Interval"] == 0 and userSettings["Playback"]["Repeat"]["For"] == 0:
             self.stop_playback()
