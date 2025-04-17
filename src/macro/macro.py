@@ -35,6 +35,7 @@ class Macro:
         self.keyboard_listener = None
         self.mouse_listener = None
         self.time = None
+        self.event_delta_time=0
 
         self.keyboard_listener = keyboard.Listener(
                 on_press=self.__on_press, on_release=self.__on_release
@@ -54,7 +55,9 @@ class Macro:
         self.macro_events = {"events": []}
         self.record = True
         self.time = time()
+        self.event_delta_time=0
         userSettings = self.user_settings.get_config()
+        self.showEventsOnStatusBar = userSettings["Recordings"]["Show_Events_On_Status_Bar"]
         if (
             userSettings["Recordings"]["Mouse_Move"]
             and userSettings["Recordings"]["Mouse_Click"]
@@ -103,7 +106,7 @@ class Macro:
             self.mouse_listener.stop()
             self.mouseBeingListened = False
         if self.keyboardBeingListened:
-            self.keyboardBeingListened = False 
+            self.keyboardBeingListened = False
         self.main_app.recordBtn.configure(
             image=self.main_app.recordImg, command=self.start_record
         )
@@ -346,73 +349,75 @@ class Macro:
     def import_record(self, record):
         self.macro_events = record
 
+    def __record_event(self,e):
+        e['timestamp'] = self.event_delta_time
+        self.macro_events["events"].append(e)
+
+    def __get_event_delta_time(self):
+        timenow=time()
+        self.event_delta_time = timenow - self.time
+        self.time=timenow
+
     def __on_move(self, x, y):
-        self.macro_events["events"].append(
-            {"type": "cursorMove", "x": x, "y": y, "timestamp": time() - self.time}
+        self.__get_event_delta_time()
+        self.__record_event(
+            {"type": "cursorMove", "x": x, "y": y}
         )
-        self.time = time()
+        if self.showEventsOnStatusBar:
+            self.main_app.status_text.configure(text=f"cursorMove {x} {y}")
 
     def __on_click(self, x, y, button, pressed):
+        self.__get_event_delta_time()
+        button_event = "unknownButtonClickEvent"
         if button == Button.left:
-            self.macro_events["events"].append(
-                {
-                    "type": "leftClickEvent",
-                    "x": x,
-                    "y": y,
-                    "timestamp": time() - self.time,
-                    "pressed": pressed,
-                }
-            )
+            button_event = "leftClickEvent"
         elif button == Button.right:
-            self.macro_events["events"].append(
-                {
-                    "type": "rightClickEvent",
-                    "x": x,
-                    "y": y,
-                    "timestamp": time() - self.time,
-                    "pressed": pressed,
-                }
-            )
+            button_event = "rightClickEvent"
         elif button == Button.middle:
-            self.macro_events["events"].append(
-                {
-                    "type": "middleClickEvent",
-                    "x": x,
-                    "y": y,
-                    "timestamp": time() - self.time,
-                    "pressed": pressed,
-                }
-            )
-        self.time = time()
+            button_event = "middleClickEvent"
+        self.__record_event(
+            {
+                "type": button_event,
+                "x": x,
+                "y": y,
+                "pressed": pressed
+            }
+        )
+        if self.showEventsOnStatusBar:
+            self.main_app.status_text.configure(text=f"{button_event} {x} {y} {pressed}")
 
     def __on_scroll(self, x, y, dx, dy):
-        self.macro_events["events"].append(
-            {"type": "scrollEvent", "dx": dx, "dy": dy, "timestamp": time() - self.time}
+        self.__get_event_delta_time()
+        self.__record_event(
+            {"type": "scrollEvent", "dx": dx, "dy": dy}
         )
-        self.time = time()
+        if self.showEventsOnStatusBar:
+            self.main_app.status_text.configure(text=f"scrollEvent {dx} {dy}")
 
     def __on_press(self, key):
+        self.__get_event_delta_time()
         keyPressed = getKeyPressed(self.keyboard_listener, key)
         if self.keyboardBeingListened:
-            self.macro_events["events"].append(
+            self.__record_event(
                 {
                     "type": "keyboardEvent",
                     "key": keyPressed,
-                    "timestamp": time() - self.time,
                     "pressed": True,
                 }
             )
-            self.time = time()
+        if self.showEventsOnStatusBar:
+            self.main_app.status_text.configure(text=f"keyboardEvent {keyPressed} pressed")
 
     def __on_release(self, key):
+        self.__get_event_delta_time()
         keyPressed = getKeyPressed(self.keyboard_listener, key)
         if self.keyboardBeingListened:
-            self.macro_events["events"].append(
+            self.__record_event(
                 {
                     "type": "keyboardEvent",
                     "key": keyPressed,
-                    "timestamp": time() - self.time,
                     "pressed": False,
                 }
             )
-            self.time = time()
+        if self.showEventsOnStatusBar:
+            self.main_app.status_text.configure(text=f"keyboardEvent {keyPressed} released")
