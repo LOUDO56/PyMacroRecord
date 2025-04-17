@@ -51,6 +51,7 @@ class UserSettings:
                 "Mouse_Move": True,
                 "Mouse_Click": True,
                 "Keyboard": True,
+                "Show_Events_On_Status_Bar": False,
             },
 
             "Saving": {

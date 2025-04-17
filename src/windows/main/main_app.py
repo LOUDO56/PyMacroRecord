@@ -51,6 +51,9 @@ class MainApp(Window):
 
         self.version = Version(self.settings.get_config(), self)
 
+        self.status_text = Label(self, text='', relief=SUNKEN, anchor=W)
+        self.status_text.pack(side=BOTTOM, fill=X)
+
         self.menu = MenuBar(self)  # Menu Bar
         self.macro = Macro(self)
 

@@ -63,6 +63,15 @@ class MenuBar(Menu):
         recordings_sub.add_checkbutton(label=self.text_config["options_menu"]["recordings_menu"]["keyboard_text"], variable=self.keyboardInput,
                                        command=lambda: settings.change_settings("Recordings", "Keyboard"))
 
+        #old setting files don't have this entry, if we don't check this, users need to delete settings file to cause a re-init, or manually add it
+        if "Show_Events_On_Status_Bar" not in userSettings["Recordings"]:
+            userSettings["Recordings"]["Show_Events_On_Status_Bar"]=False
+        print("user settings:",userSettings["Recordings"])
+        self.showEventsOnStatusBar = BooleanVar(value=userSettings["Recordings"]["Show_Events_On_Status_Bar"])
+        #TODO: add "Show events on status bar" text to language files
+        recordings_sub.add_checkbutton(label="Show events on status bar", variable=self.showEventsOnStatusBar,
+                                       command=lambda: settings.change_settings("Recordings", "Show_Events_On_Status_Bar"))
+
         # Settings Sub
         self.options_sub = Menu(self.options_menu, tearoff=0)
         self.compactJson = BooleanVar(value=userSettings["Saving"]["Compact_json"])
