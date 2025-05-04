@@ -21,10 +21,18 @@ from PIL import Image
 from threading import Thread
 from json import load
 from time import time
+import copy
 
 if platform.lower() == "win32":
     from tkinter.ttk import *
 
+def deepcopy_dict_missing_entries(dst:dict,src:dict):
+# recursively copy entries that are in src but not in dst
+    for k,v in src.items():
+        if k not in dst:
+            dst[k] = copy.deepcopy(v)
+        elif isinstance(v,dict):
+            deepcopy_dict_missing_entries(dst[k],v)
 
 class MainApp(Window):
     """Main windows of the application"""
@@ -37,11 +45,7 @@ class MainApp(Window):
 
         self.settings = UserSettings(self)
 
-        self.lang = self.settings.get_config()["Language"]
-        with open(resource_path(path.join('langs',  self.lang+'.json')), encoding='utf-8') as f:
-            self.text_content = json.load(f)
-
-        self.text_content = self.text_content["content"]
+        self.load_language()
 
         # For save message purpose
         self.macro_saved = False
@@ -111,6 +115,17 @@ class MainApp(Window):
                 if time() > self.settings.get_config()["Others"]["Remind_new_ver_at"]:
                     NewVerAvailable(self, self.version.new_version)
         self.mainloop()
+
+    def load_language(self):
+        self.lang = self.settings.get_config()["Language"]
+        with open(resource_path(path.join('langs', self.lang + '.json')), encoding='utf-8') as f:
+            self.text_content = json.load(f)
+        self.text_content = self.text_content["content"]
+
+        if self.lang != "en":
+            with open(resource_path(path.join('langs', 'en.json')), encoding='utf-8') as f:
+                en = json.load(f)
+            deepcopy_dict_missing_entries(self.text_content, en["content"])
 
     def systemTray(self):
         """Just to show little icon on system tray"""
