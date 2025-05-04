@@ -2,6 +2,7 @@ from sys import platform
 from os import path, getenv, mkdir
 from json import dumps, load
 from tkinter import messagebox
+from tkinter.constants import BOTTOM, X
 
 
 class UserSettings:
@@ -116,6 +117,11 @@ class UserSettings:
     def change_settings(self, category, option=None, option2=None, newValue=None):
         """Change settings of user"""
         userSettings = self.get_config()
+        if option == "Show_Events_On_Status_Bar":
+            if userSettings[category][option]:
+                self.main_app.status_text.pack_forget()
+            else:
+                self.main_app.status_text.pack(side=BOTTOM, fill=X)
         if not category in userSettings:
             userSettings[category] = ""
         if newValue is None:
@@ -157,4 +163,6 @@ class UserSettings:
             userSettings["Time_format"] = "PM"
         if "Infinite" not in userSettings["Playback"]["Repeat"]:
             userSettings["Playback"]["Repeat"]["Infinite"] = False
+        if "Show_Events_On_Status_Bar" not in userSettings["Recordings"]:
+            userSettings["Recordings"]["Show_Events_On_Status_Bar"]=False
         self.update_settings(dumps(userSettings, indent=4))

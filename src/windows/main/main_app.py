@@ -21,18 +21,9 @@ from PIL import Image
 from threading import Thread
 from json import load
 from time import time
-import copy
 
 if platform.lower() == "win32":
     from tkinter.ttk import *
-
-def deepcopy_dict_missing_entries(dst:dict,src:dict):
-# recursively copy entries that are in src but not in dst
-    for k,v in src.items():
-        if k not in dst:
-            dst[k] = copy.deepcopy(v)
-        elif isinstance(v,dict):
-            deepcopy_dict_missing_entries(dst[k],v)
 
 
 class MainApp(Window):
@@ -45,7 +36,12 @@ class MainApp(Window):
             self.iconbitmap(resource_path(path.join("assets", "logo.ico")))
 
         self.settings = UserSettings(self)
-        self.load_language()
+
+        self.lang = self.settings.get_config()["Language"]
+        with open(resource_path(path.join('langs',  self.lang+'.json')), encoding='utf-8') as f:
+            self.text_content = json.load(f)
+
+        self.text_content = self.text_content["content"]
 
         # For save message purpose
         self.macro_saved = False
@@ -55,9 +51,6 @@ class MainApp(Window):
 
         self.version = Version(self.settings.get_config(), self)
 
-        self.status_text = Label(self, text='', relief=SUNKEN, anchor=W)
-        self.status_text.pack(side=BOTTOM, fill=X)
-
         self.menu = MenuBar(self)  # Menu Bar
         self.macro = Macro(self)
 
@@ -65,26 +58,33 @@ class MainApp(Window):
 
         self.hotkeyManager = HotkeysManager(self)
 
+        self.status_text = Label(self, text='', relief=SUNKEN, anchor=W)
+        if self.settings.get_config()["Recordings"]["Show_Events_On_Status_Bar"]:
+            self.status_text.pack(side=BOTTOM, fill=X)
+
         # Main Buttons (Start record, stop record, start playback, stop playback)
 
         # Play Button
         self.playImg = PhotoImage(file=resource_path(path.join("assets", "button", "play.png")))
+
+        self.center_frame = Frame(self)
+        self.center_frame.pack(expand=True, fill=BOTH)
 
         # Import record if opened with .pmr extension
         if len(argv) > 1:
             with open(sys.argv[1], 'r') as record:
                 loaded_content = load(record)
             self.macro.import_record(loaded_content)
-            self.playBtn = Button(self, image=self.playImg, command=self.macro.start_playback)
             self.macro_recorded = True
             self.macro_saved = True
-        else:
-            self.playBtn = Button(self, image=self.playImg, state=DISABLED)
+
+        self.playBtn = Button(self.center_frame, image=self.playImg,
+                              command=self.macro.start_playback if self.macro_recorded else None)
         self.playBtn.pack(side=LEFT, padx=50)
 
         # Record Button
         self.recordImg = PhotoImage(file=resource_path(path.join("assets", "button", "record.png")))
-        self.recordBtn = Button(self, image=self.recordImg, command=self.macro.start_record)
+        self.recordBtn = Button(self.center_frame, image=self.recordImg, command=self.macro.start_record)
         self.recordBtn.pack(side=RIGHT, padx=50)
 
         # Stop Button
@@ -110,23 +110,7 @@ class MainApp(Window):
             if self.version.new_version != "" and self.version.version != self.version.new_version:
                 if time() > self.settings.get_config()["Others"]["Remind_new_ver_at"]:
                     NewVerAvailable(self, self.version.new_version)
-
         self.mainloop()
-
-    def load_language(self):
-        self.lang = self.settings.get_config()["Language"]
-        with open(resource_path(path.join('langs',  self.lang+'.json')), encoding='utf-8') as f:
-            self.text_content = json.load(f)
-        self.text_content = self.text_content["content"]
-
-        if self.lang != "en":
-            with open(resource_path(path.join('langs',  'en.json')), encoding='utf-8') as f:
-                en = json.load(f)
-            deepcopy_dict_missing_entries(self.text_content,en["content"])
-        #print(self.text_content["test1"])
-        #print(self.text_content["test2"])
-        #print(self.text_content["global"]["test3"])
-        #print(self.text_content["global"]["test4"])
 
     def systemTray(self):
         """Just to show little icon on system tray"""
