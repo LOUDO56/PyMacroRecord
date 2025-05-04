@@ -2,6 +2,7 @@ from sys import platform
 from os import path, getenv, mkdir
 from json import dumps, load
 from tkinter import messagebox
+from tkinter.constants import BOTTOM, X
 
 
 class UserSettings:
@@ -18,6 +19,7 @@ class UserSettings:
             self.path_setting = path.join(path.expanduser("~"), "Library", "Application Support", "PyMacroRecord")
 
         self.user_setting = path.join(self.path_setting, "userSettings.json")
+        self.cached_settings=None
 
         if not path.isdir(self.path_setting) or not path.isfile(self.user_setting):
             self.first_time = True
@@ -50,6 +52,7 @@ class UserSettings:
                 "Mouse_Move": True,
                 "Mouse_Click": True,
                 "Keyboard": True,
+                "Show_Events_On_Status_Bar": False,
             },
 
             "Saving": {
@@ -88,15 +91,17 @@ class UserSettings:
             }
         }
 
+        self.cached_settings=userSettings
         userSettings_json = dumps(userSettings, indent=4)
         with open(self.user_setting, "w") as settingFile:
             settingFile.write(userSettings_json)
 
     def get_config(self):
         """Get settings of users"""
-        with open(self.user_setting, "r") as settingFile:
-            settingFile_json = load(settingFile)
-        return settingFile_json
+        if self.cached_settings is None:
+            with open(self.user_setting, "r") as settingFile:
+                self.cached_settings = load(settingFile)
+        return self.cached_settings
 
     def update_settings(self, updatedValues):
         with open(self.user_setting, "w") as settingFile:
@@ -112,6 +117,11 @@ class UserSettings:
     def change_settings(self, category, option=None, option2=None, newValue=None):
         """Change settings of user"""
         userSettings = self.get_config()
+        if option == "Show_Events_On_Status_Bar":
+            if userSettings[category][option]:
+                self.main_app.status_text.pack_forget()
+            else:
+                self.main_app.status_text.pack(side=BOTTOM, fill=X)
         if not category in userSettings:
             userSettings[category] = ""
         if newValue is None:
@@ -153,4 +163,6 @@ class UserSettings:
             userSettings["Time_format"] = "PM"
         if "Infinite" not in userSettings["Playback"]["Repeat"]:
             userSettings["Playback"]["Repeat"]["Infinite"] = False
+        if "Show_Events_On_Status_Bar" not in userSettings["Recordings"]:
+            userSettings["Recordings"]["Show_Events_On_Status_Bar"]=False
         self.update_settings(dumps(userSettings, indent=4))
