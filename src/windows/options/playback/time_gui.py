@@ -12,7 +12,7 @@ class TimeGui(Popup):
         super().__init__(main_app.text_content["options_menu"]["playback_menu"][f"{type.lower()}_settings"]["title"], 300, height, parent)
         main_app.prevent_record = True
         self.settings = main_app.settings
-        userSettings = main_app.settings.get_config()
+        userSettings = main_app.settings.settings_dict
         self.time_string = userSettings["Time_string"]
         self.time_format = userSettings["Time_format"]
         self.type = type

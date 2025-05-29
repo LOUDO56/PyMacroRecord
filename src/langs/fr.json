@@ -15,7 +15,8 @@
       "confirm_save": "Voulez-vous sauvegarder votre enregistrement?",
       "confirm": "Confirmer",
       "information": "Information",
-      "restart_software_text": "Vous devez redémarrer le logiciel pour que cela prenne effet."
+      "restart_software_text": "Vous devez redémarrer le logiciel pour que cela prenne effet.",
+      "load_macro_settings": "Importer les paramètres macro également ?"
     },
     "new_version": {
       "title": "Mise à jour du logiciel",
@@ -85,6 +86,7 @@
       "json_compact": "Données macro compactes",
       "settings_menu": {
         "settings_text": "Paramètres",
+        "always_import_macro_settings": "Toujours importer les paramètres macro",
         "lang_text": "Language",
         "lang_settings": {
           "title": "Réglage du language",

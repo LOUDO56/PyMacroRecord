@@ -20,7 +20,7 @@ class AfterPlayBack(Popup):
 
         menuOptions = LabelFrame(self, text=main_app.text_content["options_menu"]["settings_menu"]["after_playback_settings"]["when_playback_complete_text"])
         AfterPlaybackOption = StringVar()
-        userSettings = main_app.settings.get_config()
+        userSettings = main_app.settings.settings_dict
         (OptionMenu(menuOptions,
                    AfterPlaybackOption,
                    main_app.text_content["options_menu"]["settings_menu"]["after_playback_settings"][userSettings["After_Playback"]["Mode"].lower()],

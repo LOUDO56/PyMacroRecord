@@ -67,6 +67,11 @@ To change, simply click to the one you want to disable.
 Macro are wrote with JSON, and to make the file smaller, I compact everything. But, if do like writing your own lines, you can disable this option so you have a beautiful and readable file (but more bigger in size).
 To enable/disable go to `Options` -> `Settings` -> `Compact macro data`.
 
+### Always import macro settings
+
+If you always want to import macro settings when loading a macro, enable this option in `Options` -> `Settings` -> `Always import macro settings`.
+This will remove the confirmation windows each time you load a macro and automatically import the macro settings.
+
 ### Hotkeys
 
 To change your hotkeys to start, stop, start playback and stop playback, go to `Options` -> `Settings` -> `Hotkeys`.

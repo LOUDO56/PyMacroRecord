@@ -10,7 +10,7 @@ class Hotkeys(Popup):
         super().__init__(main_app.text_content["options_menu"]["settings_menu"]["hotkeys_settings"]["title"], 300, 200, parent)
         main_app.prevent_record = True
         hotkeyLine = Frame(self)
-        userSettings = main_app.settings.get_config()
+        userSettings = main_app.settings.settings_dict
         hotkeyStart = userSettings["Hotkeys"]["Record_Start"]
         hotkeyStop = userSettings["Hotkeys"]["Record_Stop"]
         hotkeyPlaybackStart = userSettings["Hotkeys"]["Playback_Start"]

@@ -24,6 +24,7 @@ class UserSettings:
             self.first_time = True
             self.init_settings()
 
+        self.settings_dict = self.__get_config()
         self.check_new_options()
 
     def init_settings(self):
@@ -56,6 +57,9 @@ class UserSettings:
 
             "Saving": {
                 "Compact_json": True
+            },
+            "Loading": {
+                "Always_import_macro_settings": False
             },
 
             "Hotkeys": {
@@ -94,15 +98,15 @@ class UserSettings:
         with open(self.user_setting, "w") as settingFile:
             settingFile.write(userSettings_json)
 
-    def get_config(self):
+    def __get_config(self):
         """Get settings of users"""
         with open(self.user_setting, "r") as settingFile:
             settingFile_json = load(settingFile)
         return settingFile_json
 
-    def update_settings(self, updatedValues):
+    def update_settings(self):
         with open(self.user_setting, "w") as settingFile:
-            settingFile.write(updatedValues)
+            settingFile.write(dumps(self.settings_dict, indent=4))
 
     def reset_settings(self):
         if messagebox.askyesno(self.main_app.text_content["global"]["confirm"], self.main_app.text_content["options_menu"]["others_menu"]["reset_settings_confirmation"]):
@@ -113,33 +117,32 @@ class UserSettings:
 
     def change_settings(self, category, option=None, option2=None, newValue=None):
         """Change settings of user"""
-        userSettings = self.get_config()
         if option == "Show_Events_On_Status_Bar":
-            if userSettings[category][option]:
+            if self.settings_dict[category][option]:
                 self.main_app.status_text.pack_forget()
             else:
                 self.main_app.status_text.pack(side=BOTTOM, fill=X)
-        if not category in userSettings:
-            userSettings[category] = ""
+        if not category in self.settings_dict:
+            self.settings_dict[category] = ""
         if newValue is None:
             if option is None:
-                userSettings[category] = not userSettings[category]
+                self.settings_dict[category] = not self.settings_dict[category]
             elif option2 is not None:
-                userSettings[category][option][option2] = not userSettings[category][option][option2]
+                self.settings_dict[category][option][option2] = not self.settings_dict[category][option][option2]
             else:
-                userSettings[category][option] = not userSettings[category][option]
+                self.settings_dict[category][option] = not self.settings_dict[category][option]
 
         elif option is not None and newValue is not None:
             if option2 is not None:
-                userSettings[category][option][option2] = newValue
+                self.settings_dict[category][option][option2] = newValue
             else:
-                userSettings[category][option] = newValue
+                self.settings_dict[category][option] = newValue
         elif option is None and option2 is None:
-            userSettings[category] = newValue
-        self.update_settings(dumps(userSettings, indent=4))
+            self.settings_dict[category] = newValue
+        self.update_settings()
 
     def check_new_options(self):
-        userSettings = self.get_config()
+        userSettings = self.settings_dict
         if "Others" not in userSettings:
             userSettings["Others"] = {"Check_update": True}
         if "Fixed_timestamp" not in userSettings["Others"]:
@@ -161,5 +164,9 @@ class UserSettings:
         if "Infinite" not in userSettings["Playback"]["Repeat"]:
             userSettings["Playback"]["Repeat"]["Infinite"] = False
         if "Show_Events_On_Status_Bar" not in userSettings["Recordings"]:
-            userSettings["Recordings"]["Show_Events_On_Status_Bar"]=False
-        self.update_settings(dumps(userSettings, indent=4))
+            userSettings["Recordings"]["Show_Events_On_Status_Bar"] = False
+        if "Loading" not in userSettings:
+            userSettings["Loading"] = {}
+            if "Always_import_macro_settings" not in userSettings["Loading"]:
+                userSettings["Loading"]["Always_import_macro_settings"] = False
+        self.update_settings()

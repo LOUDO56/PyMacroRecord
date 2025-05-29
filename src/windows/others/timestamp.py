@@ -9,7 +9,7 @@ class Timestamp(Popup):
         main_app.prevent_record = True
         self.settings = main_app.settings
         Label(self, text=main_app.text_content["options_menu"]["others_menu"]["fixed_timestamp_settings"]["sub_text"], font=('Segoe UI', 10)).pack(side=TOP, pady=10)
-        userSettings = main_app.settings.get_config()
+        userSettings = main_app.settings.settings_dict
         fixed_timetamp = Spinbox(self, from_=0, to=100000000, width=7, validate="key",
                               validatecommand=(main_app.validate_cmd, "%d", "%P"))
         fixed_timetamp.insert(0, userSettings["Others"]["Fixed_timestamp"])

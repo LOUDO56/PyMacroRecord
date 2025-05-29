@@ -53,7 +53,7 @@ class MainApp(Window):
         self.current_file = None
         self.prevent_record = False
 
-        self.version = Version(self.settings.get_config(), self)
+        self.version = Version(self.settings.settings_dict, self)
 
         self.menu = MenuBar(self)  # Menu Bar
         self.macro = Macro(self)
@@ -63,7 +63,7 @@ class MainApp(Window):
         self.hotkeyManager = HotkeysManager(self)
 
         self.status_text = Label(self, text='', relief=SUNKEN, anchor=W)
-        if self.settings.get_config()["Recordings"]["Show_Events_On_Status_Bar"]:
+        if self.settings.settings_dict["Recordings"]["Show_Events_On_Status_Bar"]:
             self.status_text.pack(side=BOTTOM, fill=X)
 
         # Main Buttons (Start record, stop record, start playback, stop playback)
@@ -110,14 +110,14 @@ class MainApp(Window):
         if platform != "win32" and self.settings.first_time:
             NotWindows(self)
 
-        if self.settings.get_config()["Others"]["Check_update"]:
+        if self.settings.settings_dict["Others"]["Check_update"]:
             if self.version.new_version != "" and self.version.version != self.version.new_version:
-                if time() > self.settings.get_config()["Others"]["Remind_new_ver_at"]:
+                if time() > self.settings.settings_dict["Others"]["Remind_new_ver_at"]:
                     NewVerAvailable(self, self.version.new_version)
         self.mainloop()
 
     def load_language(self):
-        self.lang = self.settings.get_config()["Language"]
+        self.lang = self.settings.settings_dict["Language"]
         with open(resource_path(path.join('langs', self.lang + '.json')), encoding='utf-8') as f:
             self.text_content = json.load(f)
         self.text_content = self.text_content["content"]

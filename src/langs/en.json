@@ -15,7 +15,8 @@
       "confirm_save": "Do you want to save your record?",
       "confirm": "Confirm",
       "information": "Information",
-      "restart_software_text": "You need to restart the software for it to take effect."
+      "restart_software_text": "You need to restart the software for it to take effect.",
+      "load_macro_settings": "Import macro settings too?"
     },
     "new_version": {
       "title": "Software update",
@@ -85,6 +86,7 @@
       "json_compact": "Compact macro data",
       "settings_menu": {
         "settings_text": "Settings",
+        "always_import_macro_settings": "Always import macro settings",
         "lang_text": "Language",
         "lang_settings": {
           "title": "Language settings",

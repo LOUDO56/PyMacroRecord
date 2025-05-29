@@ -24,7 +24,7 @@ class Macro:
         self.keyboardControl = keyboard.Controller()
         self.record = False
         self.playback = False
-        self.macro_events = {"events": []}
+        self.macro_events = {}
         self.main_app = main_app
         self.user_settings = self.main_app.settings
         self.main_menu = self.main_app.menu
@@ -56,7 +56,7 @@ class Macro:
         self.record = True
         self.time = time()
         self.event_delta_time=0
-        userSettings = self.user_settings.get_config()
+        userSettings = self.user_settings.settings_dict
         self.showEventsOnStatusBar = userSettings["Recordings"]["Show_Events_On_Status_Bar"]
         if (
             userSettings["Recordings"]["Mouse_Move"]
@@ -100,7 +100,7 @@ class Macro:
     def stop_record(self):
         if not self.record:
             return
-        userSettings = self.user_settings.get_config()
+        userSettings = self.user_settings.settings_dict
         self.record = False
         if self.mouseBeingListened:
             self.mouse_listener.stop()
@@ -131,7 +131,7 @@ class Macro:
         print("record stopped")
 
     def start_playback(self):
-        userSettings = self.user_settings.get_config()
+        userSettings = self.user_settings.settings_dict
         self.playback = True
         self.main_app.playBtn.configure(
             image=self.main_app.stopImg, command=lambda: self.stop_playback(True)
@@ -155,7 +155,7 @@ class Macro:
         print("playback started")
 
     def __play_interval(self):
-        userSettings = self.user_settings.get_config()
+        userSettings = self.user_settings.settings_dict
         if userSettings["Playback"]["Repeat"]["For"] > 0:
             self.__play_for()
         else:
@@ -172,7 +172,7 @@ class Macro:
 
 
     def __play_for(self):
-        userSettings = self.user_settings.get_config()
+        userSettings = self.user_settings.settings_dict
         debut = time()
         while self.playback and (time() - debut) < userSettings["Playback"]["Repeat"]["For"]:
             self.__play_events()
@@ -180,7 +180,7 @@ class Macro:
             self.stop_playback()
 
     def __play_events(self):
-        userSettings = self.user_settings.get_config()
+        userSettings = self.user_settings.settings_dict
         click_func = {
             "leftClickEvent": Button.left,
             "rightClickEvent": Button.right,
@@ -302,7 +302,7 @@ class Macro:
             print("playback stopped")
         else:
             print("playback stopped manually")
-        userSettings = self.user_settings.get_config()
+        userSettings = self.user_settings.settings_dict
         self.main_app.recordBtn.configure(state=NORMAL)
         self.main_app.playBtn.configure(
             image=self.main_app.playImg, command=self.start_playback

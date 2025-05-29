@@ -12,7 +12,7 @@ class Repeat(Popup):
         self.settings = main_app.settings
         Label(self, text=main_app.text_content["options_menu"]["playback_menu"]["repeat_settings"]["sub_text"],
               font=('Segoe UI', 10)).pack(side=TOP, pady=5)
-        userSettings = main_app.settings.get_config()
+        userSettings = main_app.settings.settings_dict
         self.repeat_infinitely = BooleanVar()
         self.repeat_infinitely.set(userSettings["Playback"]["Repeat"]["Infinite"])
         infiniteCheck = Checkbutton(self,

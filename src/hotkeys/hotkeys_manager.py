@@ -45,7 +45,7 @@ class HotkeysManager:
                 return True
 
     def __on_press(self, key):
-        userSettings = self.settings.get_config()
+        userSettings = self.settings.settings_dict
         if self.changeKey:
             keyPressed = getKeyPressed(self.keyboard_listener, key)
             if keyPressed not in self.hotkeys:

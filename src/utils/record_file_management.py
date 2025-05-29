@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import filedialog
+from tkinter import messagebox
 from os import path
 from json import load, dumps
 
@@ -34,11 +35,21 @@ class RecordFileManagement:
             return
         if self.main_app.current_file is not None:
             with open(self.main_app.current_file, "w") as current_file:
-                compactJson = UserSettings(self.main_app).get_config()["Saving"]["Compact_json"]
+                compactJson = UserSettings(self.main_app).settings_dict["Saving"]["Compact_json"]
+                userSettings = self.main_app.settings.settings_dict
+                macroSettings = {"settings": {
+                    "Playback": userSettings["Playback"],
+                    "Minimization": userSettings["Minimization"],
+                    "After_Playback": userSettings["After_Playback"]
+                }}
+                macroData = {
+                    **macroSettings,
+                    **self.main_app.macro.macro_events
+                }
                 if compactJson:
-                    json_macroEvents = dumps(self.main_app.macro.macro_events, separators=(',', ':'))
+                    json_macroEvents = dumps(macroData, separators=(',', ':'))
                 else:
-                    json_macroEvents = dumps(self.main_app.macro.macro_events, indent=4)
+                    json_macroEvents = dumps(macroData, indent=4)
                 current_file.write(json_macroEvents)
         else:
             self.save_macro_as()
@@ -77,7 +88,14 @@ class RecordFileManagement:
             self.main_app.macro_recorded = True
             self.main_app.macro_saved = True
             self.main_app.current_file = macroFile.name
+            if not self.main_app.settings.settings_dict["Loading"]["Always_import_macro_settings"]:
+                if messagebox.askyesno("PyMacroRecord", self.config_text["global"]["load_macro_settings"]):
+                    macro_settings = self.main_app.macro.macro_events["settings"]
+                    self.main_app.settings.settings_dict["Playback"] = macro_settings["Playback"]
+                    self.main_app.settings.settings_dict["Minimization"] = macro_settings["Minimization"]
+                    self.main_app.settings.settings_dict["After_Playback"] = macro_settings["After_Playback"]
         self.main_app.prevent_record = False
+
 
     def new_macro(self, event=None):
         if not self.main_app.macro_recorded or self.main_app.macro.playback:
