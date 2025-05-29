@@ -46,7 +46,7 @@ class HotkeysManager:
 
     def __on_press(self, key):
         userSettings = self.settings.get_config()
-        if self.changeKey == True:
+        if self.changeKey:
             keyPressed = getKeyPressed(self.keyboard_listener, key)
             if keyPressed not in self.hotkeys:
                 if ">" in keyPressed:
@@ -93,41 +93,53 @@ class HotkeysManager:
                     keyPressed = vk_nb[keyPressed]
                 except:
                     pass
+
             for keys in userSettings["Hotkeys"]:
-                if userSettings["Hotkeys"][keys] == []:
+                if not userSettings["Hotkeys"][keys]:
                     userSettings["Hotkeys"][keys] = ""
+
             if keyPressed not in self.hotkey_detection:
                 self.hotkey_detection.append(keyPressed)
+
             by_hotkey = True
+
             if (
-                self.hotkey_detection == userSettings["Hotkeys"]["Record_Start"]
-                and self.macro.record == False
-                and self.macro.playback == False
+                    self.__is_hotkey_triggered(userSettings["Hotkeys"]["Record_Start"], self.hotkey_detection)
+                    and self.macro.record == False
+                    and self.macro.playback == False
             ):
                 self.macro.start_record(by_hotkey)
 
             elif (
-                self.hotkey_detection == userSettings["Hotkeys"]["Record_Stop"]
-                and self.macro.record == True
-                and self.macro.playback == False
+                    self.__is_hotkey_triggered(userSettings["Hotkeys"]["Record_Stop"], self.hotkey_detection)
+                    and self.macro.record == True
+                    and self.macro.playback == False
             ):
                 self.macro.stop_record()
 
             elif (
-                self.hotkey_detection == userSettings["Hotkeys"]["Playback_Start"]
-                and self.macro.record == False
-                and self.macro.playback == False
-                and self.main_app.macro_recorded == True
+                    self.__is_hotkey_triggered(userSettings["Hotkeys"]["Playback_Start"], self.hotkey_detection)
+                    and self.macro.record == False
+                    and self.macro.playback == False
+                    and self.main_app.macro_recorded == True
             ):
                 self.macro.start_playback()
 
             elif (
-                self.hotkey_detection == userSettings["Hotkeys"]["Playback_Stop"]
-                and self.macro.record == False
-                and self.macro.playback == True
+                    self.__is_hotkey_triggered(userSettings["Hotkeys"]["Playback_Stop"], self.hotkey_detection)
+                    and self.macro.record == False
+                    and self.macro.playback == True
             ):
                 self.macro.stop_playback(by_hotkey)
 
     def __on_release(self, key):
         if len(self.hotkey_detection) != 0:
             self.hotkey_detection.pop()
+
+    def __is_hotkey_triggered(self, hotkey_config, detected_keys):
+        has_modifier = any("Key." in key for key in hotkey_config)
+        if has_modifier:
+            return set(hotkey_config) == set(detected_keys)
+        else:
+            return any(key in detected_keys for key in hotkey_config)
+

@@ -79,11 +79,11 @@ class MainApp(Window):
             with open(sys.argv[1], 'r') as record:
                 loaded_content = load(record)
             self.macro.import_record(loaded_content)
+            self.playBtn = Button(self.center_frame, image=self.playImg, command=self.macro.start_playback)
             self.macro_recorded = True
             self.macro_saved = True
-
-        self.playBtn = Button(self.center_frame, image=self.playImg,
-                              command=self.macro.start_playback if self.macro_recorded else None)
+        else:
+            self.playBtn = Button(self.center_frame, image=self.playImg, state=DISABLED)
         self.playBtn.pack(side=LEFT, padx=50)
 
         # Record Button

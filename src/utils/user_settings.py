@@ -19,7 +19,6 @@ class UserSettings:
             self.path_setting = path.join(path.expanduser("~"), "Library", "Application Support", "PyMacroRecord")
 
         self.user_setting = path.join(self.path_setting, "userSettings.json")
-        self.cached_settings=None
 
         if not path.isdir(self.path_setting) or not path.isfile(self.user_setting):
             self.first_time = True
@@ -91,17 +90,15 @@ class UserSettings:
             }
         }
 
-        self.cached_settings=userSettings
         userSettings_json = dumps(userSettings, indent=4)
         with open(self.user_setting, "w") as settingFile:
             settingFile.write(userSettings_json)
 
     def get_config(self):
         """Get settings of users"""
-        if self.cached_settings is None:
-            with open(self.user_setting, "r") as settingFile:
-                self.cached_settings = load(settingFile)
-        return self.cached_settings
+        with open(self.user_setting, "r") as settingFile:
+            settingFile_json = load(settingFile)
+        return settingFile_json
 
     def update_settings(self, updatedValues):
         with open(self.user_setting, "w") as settingFile:
