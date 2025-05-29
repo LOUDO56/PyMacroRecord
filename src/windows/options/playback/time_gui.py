@@ -37,7 +37,7 @@ class TimeGui(Popup):
             validatecommand=(main_app.validate_cmd, "%d", "%P"),
         )
         hourValue = str(value // 3600)
-        if self.type == "Scheduled" and self.time_format == "12 hours"  and self.time_string == "PM" and int(hourValue) >= 12:
+        if self.type == "Scheduled" and self.time_format == "12 hours" and self.time_string == "PM" and int(hourValue) >= 12:
             hourInput.insert(0, int(hourValue) - 12)
         else:
             hourInput.insert(0, hourValue)
@@ -121,7 +121,7 @@ class TimeGui(Popup):
         hour = int(hour)
         min = int(min)
         sec = int(sec)
-        hourCondition = (hour > 24 and self.time_format == "24 hours" or hour > 12 and self.time_format == "12 hours")
+        hourCondition = (hour > 24 and self.type != "Scheduled") or (self.type == "Scheduled" and hour > 24 and self.time_format == "24 hours" or self.type == "Scheduled" and hour > 12 and self.time_format == "12 hours")
         if hourCondition or min > 60 or sec > 60:
             causes = []
             if hourCondition:
@@ -140,7 +140,7 @@ class TimeGui(Popup):
             else:
                 messagebox.showerror("Error", f'{causes[0]} {main_app.text_content["options_menu"]["playback_menu"]["for_interval_settings"]["error_new_value_single"]}')
             return
-        if self.type != "Interval" and self.time_string == "PM" and self.time_format == "12 hours":
+        if self.type != "Interval" and self.time_string == "PM" and self.time_format == "12 hours" and self.type == "Scheduled":
             hour += 12
         total_sec = hour * 3600 + min * 60 + sec
         if self.type == "Interval":
