@@ -88,12 +88,13 @@ class RecordFileManagement:
             self.main_app.macro_recorded = True
             self.main_app.macro_saved = True
             self.main_app.current_file = macroFile.name
-            if not self.main_app.settings.settings_dict["Loading"]["Always_import_macro_settings"]:
-                if messagebox.askyesno("PyMacroRecord", self.config_text["global"]["load_macro_settings"]):
-                    macro_settings = self.main_app.macro.macro_events["settings"]
-                    self.main_app.settings.settings_dict["Playback"] = macro_settings["Playback"]
-                    self.main_app.settings.settings_dict["Minimization"] = macro_settings["Minimization"]
-                    self.main_app.settings.settings_dict["After_Playback"] = macro_settings["After_Playback"]
+            if "settings" in self.main_app.macro.macro_events:
+                if not self.main_app.settings.settings_dict["Loading"]["Always_import_macro_settings"]:
+                    if messagebox.askyesno("PyMacroRecord", self.config_text["global"]["load_macro_settings"]):
+                        macro_settings = self.main_app.macro.macro_events["settings"]
+                        self.main_app.settings.settings_dict["Playback"] = macro_settings["Playback"]
+                        self.main_app.settings.settings_dict["Minimization"] = macro_settings["Minimization"]
+                        self.main_app.settings.settings_dict["After_Playback"] = macro_settings["After_Playback"]
         self.main_app.prevent_record = False
 
 
