@@ -1,7 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
 from pynput import mouse, keyboard
-from pynput.keyboard import Key
 from pynput.mouse import Button
 from utils.get_key_pressed import getKeyPressed
 from utils.record_file_management import RecordFileManagement
@@ -20,6 +19,7 @@ class Macro:
     """Init a new Macro"""
 
     def __init__(self, main_app):
+        self.showEventsOnStatusBar = None
         self.mouseControl = mouse.Controller()
         self.keyboardControl = keyboard.Controller()
         self.record = False
@@ -180,6 +180,7 @@ class Macro:
             self.stop_playback()
 
     def __play_events(self):
+        global keyToPress
         userSettings = self.user_settings.settings_dict
         click_func = {
             "leftClickEvent": Button.left,
@@ -206,10 +207,14 @@ class Macro:
             sleep(secondsToWait)
 
         repeat_count = 0
+        now = time()
 
         while self.playback and (is_infinite or repeat_count < repeat_times):
             for events in range(len(self.macro_events["events"])):
-                if self.playback == False:
+                elapsed_time = int(time() - now)
+                self.main_app.status_text.configure(
+                    text=f"Repeat: {repeat_count + 1}/{repeat_times}, Time elapsed: {elapsed_time}s")
+                if not self.playback:
                     self.unPressEverything(keyToUnpress)
                     return
 
@@ -236,7 +241,7 @@ class Macro:
                         self.macro_events["events"][events]["x"],
                         self.macro_events["events"][events]["y"],
                     )
-                    if self.macro_events["events"][events]["pressed"] == True:
+                    if self.macro_events["events"][events]["pressed"]:
                         self.mouseControl.press(click_func[event_type])
                     else:
                         self.mouseControl.release(click_func[event_type])
@@ -248,7 +253,7 @@ class Macro:
                     )
 
                 elif event_type == "keyboardEvent":  # Keyboard Press,Release
-                    if self.macro_events["events"][events]["key"] != None:
+                    if self.macro_events["events"][events]["key"] is not None:
                         try:
                             keyToPress = (
                                 self.macro_events["events"][events]["key"]
@@ -261,8 +266,8 @@ class Macro:
                                         keyToPress = vk_nb[keyToPress]
                                     except:
                                         keyToPress = None
-                            if self.playback == True:
-                                if keyToPress != None:
+                            if self.playback:
+                                if keyToPress is not None:
                                     if (
                                             self.macro_events["events"][events]["pressed"]
                                             == True
@@ -273,7 +278,7 @@ class Macro:
                                     else:
                                         self.keyboardControl.release(keyToPress)
                         except ValueError as e:
-                            if keyToPress == None:
+                            if keyToPress is None:
                                 pass
                             else:
                                 messagebox.showerror("Error",
@@ -287,8 +292,10 @@ class Macro:
                     sleep(userSettings["Playback"]["Repeat"]["Delay"])
 
         self.unPressEverything(keyToUnpress)
-        if userSettings["Playback"]["Repeat"]["Interval"] == 0 and userSettings["Playback"]["Repeat"]["For"] == 0:
+        if userSettings["Playback"]["Repeat"]["Interval"] == 0 and userSettings["Playback"]["Repeat"]["For"] == 0 and repeat_count:
             self.stop_playback()
+            if userSettings["Minimization"]["When_Playing"]:
+                self.main_app.deiconify()
 
     def unPressEverything(self, keyToUnpress):
         for key in keyToUnpress:
