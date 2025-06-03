@@ -24,7 +24,7 @@ class HotkeysManager:
         self.index_to_change = 0
         self.keyboard_listener.start()
 
-    def enableHotKeyDetection(self, type_of_hotkey, entry_to_change, index):
+    def enable_hot_key_detection(self, type_of_hotkey, entry_to_change, index):
         self.hotkey_button = entry_to_change
         self.type_of_hotkey = type_of_hotkey
         self.index_to_change = index
@@ -32,7 +32,7 @@ class HotkeysManager:
         self.entry_to_change = entry_to_change
         self.entry_to_change.configure(text=self.main_app.text_content["options_menu"]["settings_menu"]["hotkeys_settings"]["please_key_text"])
 
-    def clearHotKey(self, type, entry_to_change):
+    def clear_hot_key(self, type, entry_to_change):
         self.settings.change_settings("Hotkeys", type, None, [])
         entry_to_change.configure(text="")
 
