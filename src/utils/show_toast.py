@@ -1,5 +1,6 @@
 from os import path, system
 from sys import platform
+
 from utils.get_file import resource_path
 
 try:

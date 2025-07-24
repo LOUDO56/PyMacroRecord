@@ -1,8 +1,7 @@
+from json import load, dumps
 from tkinter import *
 from tkinter import filedialog
 from tkinter import messagebox
-from os import path
-from json import load, dumps
 
 from utils import UserSettings
 from utils.warning_pop_up_save import confirm_save

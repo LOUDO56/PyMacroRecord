@@ -1,13 +1,14 @@
+from sys import platform
 from tkinter import *
 from tkinter import Label as oldLabel
 from tkinter.ttk import *
+from webbrowser import open_new
 
+import requests
 from requests import RequestException
 
 from windows.popup import Popup
-import requests
-from sys import platform
-from webbrowser import open_new
+
 
 class Donors(Popup):
     def __init__(self, parent, main_app):

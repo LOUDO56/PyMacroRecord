@@ -1,10 +1,11 @@
+from sys import platform
+from time import time
 from tkinter import *
 from tkinter.ttk import *
-from windows.popup import Popup
 from webbrowser import open as OpenUrl
+
 from utils.user_settings import UserSettings
-from time import time
-from sys import platform
+from windows.popup import Popup
 
 
 class NewVerAvailable(Popup):

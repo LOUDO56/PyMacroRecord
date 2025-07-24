@@ -1,5 +1,6 @@
-from tkinter import *
 from sys import platform
+from tkinter import *
+
 
 class Popup(Toplevel):
     def __init__(self, name, w, h, parent):

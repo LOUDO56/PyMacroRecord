@@ -1,18 +1,18 @@
-from tkinter import *
-from tkinter import messagebox
-from pynput import mouse, keyboard
-from pynput.mouse import Button
-from utils.get_key_pressed import getKeyPressed
-from utils.record_file_management import RecordFileManagement
-from utils.warning_pop_up_save import confirm_save
-from utils.show_toast import show_notification_minim
-from utils.keys import vk_nb
-from time import time, sleep
+from datetime import datetime
 from os import getlogin, system
 from sys import platform
 from threading import Thread
-from datetime import datetime
-
+from time import time, sleep
+from tkinter import *
+from tkinter import messagebox
+from pynput.keyboard import Key # FUTURE SELF: DON'T REMOVE THIS!!
+from pynput import mouse, keyboard
+from pynput.mouse import Button
+from utils.get_key_pressed import getKeyPressed
+from utils.keys import vk_nb
+from utils.record_file_management import RecordFileManagement
+from utils.show_toast import show_notification_minim
+from utils.warning_pop_up_save import confirm_save
 
 
 class Macro:
@@ -34,7 +34,7 @@ class Macro:
         self.keyboardBeingListened = None
         self.keyboard_listener = None
         self.mouse_listener = None
-        self.time = None
+        self.time = time()
         self.event_delta_time=0
 
         self.keyboard_listener = keyboard.Listener(
@@ -255,11 +255,10 @@ class Macro:
                 elif event_type == "keyboardEvent":  # Keyboard Press,Release
                     if self.macro_events["events"][events]["key"] is not None:
                         try:
-                            keyToPress = (
-                                self.macro_events["events"][events]["key"]
-                                if "Key." not in self.macro_events["events"][events]["key"]
-                                else eval(self.macro_events["events"][events]["key"])
-                            )
+                            if "Key." not in self.macro_events["events"][events]["key"]:
+                                keyToPress = self.macro_events["events"][events]["key"]
+                            else:
+                                keyToPress = eval(self.macro_events["events"][events]["key"])
                             if isinstance(keyToPress, str):
                                 if ">" in keyToPress:
                                     try:
@@ -278,12 +277,14 @@ class Macro:
                                     else:
                                         self.keyboardControl.release(keyToPress)
                         except ValueError as e:
-                            if keyToPress is None:
-                                pass
-                            else:
-                                messagebox.showerror("Error",
-                                                     f"Error during playback \"{e}\". Please open an issue on Github.")
-                                self.stop_playback()
+                            messagebox.showerror("Error",
+                                                 f"Error during playback \"{e}\". Please open an issue on Github.")
+                            self.stop_playback()
+                        except Exception as e:
+                            messagebox.showerror("Error",
+                                                 f"An unexpected error occurred\n{e}")
+                            self.stop_playback()
+
 
             repeat_count += 1
 

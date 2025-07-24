@@ -5,6 +5,7 @@ from tkinter.ttk import *
 from utils.keys import vk_nb
 from windows.popup import Popup
 
+
 class Hotkeys(Popup):
     def __init__(self, parent, main_app):
         super().__init__(main_app.text_content["options_menu"]["settings_menu"]["hotkeys_settings"]["title"], 300, 200, parent)

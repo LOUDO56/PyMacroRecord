@@ -1,6 +1,8 @@
-from pynput import keyboard
-from utils.get_key_pressed import getKeyPressed
 from tkinter import messagebox
+
+from pynput import keyboard
+
+from utils.get_key_pressed import getKeyPressed
 from utils.keys import vk_nb
 
 

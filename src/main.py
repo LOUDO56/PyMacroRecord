@@ -1,5 +1,6 @@
-from windows import MainApp
 from sys import platform
+
+from windows import MainApp
 
 if platform.lower() == "win32":
     import ctypes

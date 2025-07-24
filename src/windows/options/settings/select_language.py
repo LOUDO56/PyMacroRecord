@@ -1,10 +1,11 @@
-from tkinter import *
-from tkinter.ttk import *
-from tkinter import messagebox
-from windows.popup import Popup
-import os
 import json
+import os
+from tkinter import *
+from tkinter import messagebox
+from tkinter.ttk import *
+
 from utils.get_file import resource_path
+from windows.popup import Popup
 
 
 class SelectLanguage(Popup):

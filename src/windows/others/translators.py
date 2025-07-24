@@ -1,11 +1,11 @@
-from tkinter import *
-from tkinter import Label as oldLabel
-from tkinter.ttk import *
-from windows.popup import Popup
-from sys import platform
-from webbrowser import open_new
-import os
 import json
+import os
+from sys import platform
+from tkinter import *
+from tkinter.ttk import *
+
+from windows.popup import Popup
+
 
 class Translators(Popup):
     def __init__(self, parent, main_app):

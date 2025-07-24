@@ -1,12 +1,14 @@
+from sys import argv
+from webbrowser import open as OpenUrl
+
+from utils.record_file_management import RecordFileManagement
 from windows.help.about import *
-from windows.others.donors import *
-from windows.others.translators import *
 from windows.options.playback import *
 from windows.options.settings import *
+from windows.others.donors import *
 from windows.others.timestamp import Timestamp
-from utils.record_file_management import RecordFileManagement
-from webbrowser import open as OpenUrl
-from sys import argv
+from windows.others.translators import *
+
 
 class MenuBar(Menu):
     def __init__(self, parent):

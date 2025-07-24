@@ -1,4 +1,4 @@
-from .time_gui import TimeGui
+from .delay import Delay
 from .repeat import Repeat
 from .speed import Speed
-from .delay import Delay
+from .time_gui import TimeGui

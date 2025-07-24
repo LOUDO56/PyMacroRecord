@@ -1,27 +1,28 @@
+import copy
 import json
 import sys
-from tkinter import *
-
-from utils.not_windows import NotWindows
-from windows.window import Window
-from windows.main.menu_bar import MenuBar
-from utils.user_settings import UserSettings
-from utils.get_file import resource_path
-from utils.warning_pop_up_save import confirm_save
-from utils.record_file_management import RecordFileManagement
-from utils.version import Version
-from windows.others.new_ver_avalaible import NewVerAvailable
-from hotkeys.hotkeys_manager import HotkeysManager
-from macro import Macro
+from json import load
 from os import path
 from sys import platform, argv
+from threading import Thread
+from time import time
+from tkinter import *
+
+from PIL import Image
 from pystray import Icon
 from pystray import MenuItem
-from PIL import Image
-from threading import Thread
-from json import load
-from time import time
-import copy
+
+from hotkeys.hotkeys_manager import HotkeysManager
+from macro import Macro
+from utils.get_file import resource_path
+from utils.not_windows import NotWindows
+from utils.record_file_management import RecordFileManagement
+from utils.user_settings import UserSettings
+from utils.version import Version
+from utils.warning_pop_up_save import confirm_save
+from windows.main.menu_bar import MenuBar
+from windows.others.new_ver_avalaible import NewVerAvailable
+from windows.window import Window
 
 if platform.lower() == "win32":
     from tkinter.ttk import *

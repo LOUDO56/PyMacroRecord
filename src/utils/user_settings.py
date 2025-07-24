@@ -1,6 +1,6 @@
-from sys import platform
-from os import path, getenv, mkdir
 from json import dumps, load
+from os import path, getenv, mkdir
+from sys import platform
 from tkinter import messagebox
 from tkinter.constants import BOTTOM, X
 
