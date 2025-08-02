@@ -8,4 +8,5 @@ SecretCorndog;
 Cartilo;
 George;
 Szikra Vivien;
-Bill D.
+Bill D.;
+Miguel Salazar
