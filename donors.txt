@@ -9,4 +9,5 @@ Cartilo;
 George;
 Szikra Vivien;
 Bill D.;
-Miguel Salazar
+Miguel Salazar;
+DuckReconMajor
