@@ -10,4 +10,6 @@ George;
 Szikra Vivien;
 Bill D.;
 Miguel Salazar;
-DuckReconMajor
+DuckReconMajor;
+DIMM_V2;
+Ersin Uyma
