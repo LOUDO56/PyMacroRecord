@@ -81,7 +81,8 @@
         "recordings_text": "Recordings",
         "mouse_movement_text": "Mouse Movement",
         "mouse_click_text": "Mouse click",
-        "keyboard_text": "Keyboard"
+        "keyboard_text": "Keyboard",
+        "show_events_statut": "Show events on status bar"
       },
       "json_compact": "Compact macro data",
       "settings_menu": {

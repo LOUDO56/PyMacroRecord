@@ -66,8 +66,7 @@ class MenuBar(Menu):
                                        command=lambda: settings.change_settings("Recordings", "Keyboard"))
 
         self.showEventsOnStatusBar = BooleanVar(value=userSettings["Recordings"]["Show_Events_On_Status_Bar"])
-        #add "Show events on status bar" text to language files in the future, the way it's setup now, all files need to be changed at the same time
-        recordings_sub.add_checkbutton(label="Show events on status bar", variable=self.showEventsOnStatusBar,
+        recordings_sub.add_checkbutton(label=self.text_config["options_menu"]["recordings_menu"]["show_events_statut"], variable=self.showEventsOnStatusBar,
                                        command=lambda: settings.change_settings("Recordings", "Show_Events_On_Status_Bar"))
 
         # Settings Sub

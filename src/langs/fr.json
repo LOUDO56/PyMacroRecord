@@ -81,7 +81,8 @@
         "recordings_text": "Enregistrer",
         "mouse_movement_text": "Mouvement de souris",
         "mouse_click_text": "Clique de la souris",
-        "keyboard_text": "Clavier"
+        "keyboard_text": "Clavier",
+        "show_events_statut": "Montrer les events sur la bar"
       },
       "json_compact": "Données macro compactes",
       "settings_menu": {
