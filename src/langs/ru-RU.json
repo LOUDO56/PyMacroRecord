@@ -1,0 +1,170 @@
+{
+  "information": {
+    "author": "theSame",
+    "lang_short": "ru-RU",
+    "lang_long": "Russian"
+  },
+  "content": {
+    "global": {
+      "confirm_button": "Подтвердить",
+      "cancel_button": "Отмена",
+      "close_button": "Закрыть",
+      "error": "Ошибка",
+      "previous_text": "Назад",
+      "next_text": "Далее",
+      "confirm_save": "Вы хотите сохранить вашу запись?",
+      "confirm": "Подтверждение",
+      "information": "Информация",
+      "restart_software_text": "Необходимо перезапустить программу, чтобы изменения вступили в силу.",
+      "load_macro_settings": "Импортировать настройки макроса тоже?"
+    },
+    "new_version": {
+      "title": "Обновление программы",
+      "sub_text_1": "Новая версия",
+      "sub_text_2": "доступна!",
+      "sub_text_3": "Хотите скачать её сейчас?",
+      "ignore_button": "Игнорировать",
+      "remind_later_button": "Напомнить позже",
+      "download_button": "Скачать обновление"
+    },
+    "file_menu": {
+      "file_text": "Файл",
+      "new_text": "Создать",
+      "load_text": "Загрузить",
+      "save_text": "Сохранить",
+      "save_as_text": "Сохранить как"
+    },
+    "options_menu": {
+      "options_text": "Опции",
+      "playback_menu": {
+        "playback_text": "Воспроизведение",
+        "speed_text": "Скорость",
+        "speed_settings": {
+          "title": "Настройки скорости",
+          "sub_text": "Введите скорость от 0.1 до 10",
+          "error_new_value": "Значение скорости должно быть между 0.1 и 10!"
+        },
+        "repeat_text": "Повтор",
+        "repeat_settings": {
+          "title": "Настройки повторов",
+          "infinite_repeat": "Бесконечный повтор?",
+          "sub_text": "Введите количество повторов",
+          "error_new_value": "Количество повторов не может быть меньше 1."
+        },
+        "for_text": "Цикл по времени",
+        "for_settings": {
+          "title": "Настройки для цикла по времени"
+        },
+        "interval_text": "Интервал",
+        "interval_settings": {
+          "title": "Настройки интервала"
+        },
+        "for_interval_settings": {
+          "hours_text": "Часы",
+          "minutes_text": "Минуты",
+          "seconds_text": "Секунды",
+          "error_new_value_multiple": "введены некорректные значения",
+          "error_new_value_single": "введено некорректное значение"
+        },
+        "scheduled_text": "По расписанию",
+        "scheduled_settings": {
+          "title": "Настройки расписания"
+        },
+        "delay_text": "Задержка между повторами",
+        "delay_settings": {
+          "title": "Настройки задержки",
+          "sub_text": "Введите задержку между повторами",
+          "error_new_value": "Задержка не может быть меньше 0."
+        }
+      },
+      "recordings_menu": {
+        "recordings_text": "Записи",
+        "mouse_movement_text": "Движения мыши",
+        "mouse_click_text": "Клик мыши",
+        "keyboard_text": "Клавиатура"
+      },
+      "json_compact": "Сжать данные макроса",
+      "settings_menu": {
+        "settings_text": "Настройки",
+        "always_import_macro_settings": "Всегда импортировать настройки макроса",
+        "lang_text": "Язык",
+        "lang_settings": {
+          "title": "Настройки языка",
+          "sub_text": "Выберите язык"
+        },
+        "hotkeys_text": "Горячие клавиши",
+        "hotkeys_settings": {
+          "title": "Настройки горячих клавиш",
+          "start_record_text": "Начать запись",
+          "stop_record_text": "Остановить запись",
+          "start_playback_text": "Начать воспроизведение",
+          "stop_playback_text": "Остановить воспроизведение",
+          "clear_text": "Очистить",
+          "please_key_text": "Нажмите клавишу",
+          "error_hotkeys": "Нельзя назначать одинаковые горячие клавиши для начала записи и воспроизведения"
+        },
+        "minimization_text": "Свернуть",
+        "minimization_toast": "PyMacroRecord свернут в трей.",
+        "minimization_menu": {
+          "minimization_when_playing_text": "Сворачивать при воспроизведении",
+          "minimization_when_recording_text": "Сворачивать при записи"
+        },
+        "after_playback_text": "После воспроизведения",
+        "after_playback_settings": {
+          "when_playback_complete_text": "После завершения воспроизведения",
+          "title": "Настройки после воспроизведения",
+          "sub_text": "После завершения воспроизведения",
+          "idle": "Ожидание",
+          "quit software": "Выйти из программы",
+          "standby": "Режим ожидания",
+          "log off computer": "Выйти из системы",
+          "turn off computer": "Выключить компьютер",
+          "restart computer": "Перезапустить компьютер",
+          "hibernate (if enabled)": "Гибернация (если включена)"
+        }
+      },
+      "others_menu": {
+        "others_text": "Прочее",
+        "check_update_text": "Проверить обновления",
+        "reset_settings_text": "Сбросить настройки",
+        "reset_settings_confirmation": "Вы уверены, что хотите сбросить настройки?",
+        "fixed_timestamp_text": "Фиксированное время",
+        "fixed_timestamp_settings": {
+          "title": "Настройки фиксированного времени",
+          "sub_text": "Введите фиксированное время"
+        }
+      }
+    },
+    "help_menu": {
+      "help_text": "Справка",
+      "tutorial_text": "Руководство",
+      "about_text": "О программе",
+      "website_text": "Веб-сайт",
+      "about_settings": {
+        "title": "О программе",
+        "publisher_text": "Автор",
+        "version_text": "Версия",
+        "license_text": "Под лицензией",
+        "version_check_update_text": {
+          "up_to_date": "Актуальная версия",
+          "outdated": "Устаревшая версия",
+          "disabled": "Проверка обновлений отключена",
+          "failed": "Не удалось получить информацию об обновлении"
+        }
+      }
+    },
+    "others_menu": {
+      "others_text": "Прочее",
+      "donors_text": "Донатеры",
+      "donors_settings": {
+        "title": "Донатеры",
+        "sub_text": "Донатеры"
+      },
+      "translators_text": "Переводчики",
+      "translators_settings": {
+        "title": "Переводчики",
+        "sub_text": "Все переводчики"
+      }
+    }
+  }
+}
