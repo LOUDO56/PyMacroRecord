@@ -13,4 +13,5 @@ Miguel Salazar;
 DuckReconMajor;
 DIMM_V2;
 Ersin Uyma;
-Sirko
+Sirko;
+cedi_lc
