@@ -3,6 +3,7 @@ import os
 from sys import platform
 from tkinter import *
 from tkinter.ttk import *
+from utils.get_file import resource_path
 
 from windows.popup import Popup
 
@@ -17,7 +18,7 @@ class Translators(Popup):
         self.element_per_page = 6
 
         self.translators_list = []
-        directory_path = os.path.join(os.path.dirname(__file__), '../../langs')
+        directory_path = resource_path('langs')
         for filename in os.listdir(directory_path):
             if filename.endswith('.json'):
                 filepath = os.path.join(directory_path, filename)

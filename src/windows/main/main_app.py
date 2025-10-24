@@ -159,3 +159,17 @@ class MainApp(Window):
         if platform.lower() == "linux":
             self.destroy()
         self.quit()
+
+    def on_version_checked(self):
+        about = getattr(self, 'about_window', None)
+        if about is not None:
+            updated_text = self.version.update if self.version.update else "Checking..."  # TODO: Move to langs files
+            about.update_status(updated_text)
+
+        if self.settings.settings_dict["Others"]["Check_update"]:
+            try:
+                if self.version.new_version != "" and self.version.version != self.version.new_version:
+                    if time() > self.settings.settings_dict["Others"]["Remind_new_ver_at"]:
+                        NewVerAvailable(self, self.version.new_version)
+            except Exception:
+                pass
