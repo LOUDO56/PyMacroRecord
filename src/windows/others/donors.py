@@ -1,4 +1,5 @@
 from sys import platform
+from threading import Thread
 from tkinter import BOTTOM, LEFT, TOP, Button, Frame, Label
 from tkinter.font import Font
 from webbrowser import open_new
@@ -29,23 +30,19 @@ class Donors(Popup):
         super().__init__(main_app.text_content["others_menu"]["donors_settings"]["title"], width, 300, parent)
         parent.prevent_record = True
         self.element_per_page = 6
-
-        donors_link = 'https://pymacrorecord.com/donors.txt'
-        try:
-            response = get(donors_link)
-            self.donors_list = response.text.split(';')
-            self.donors_list.reverse()
-        except RequestException:
-            pass
+        self.donors_list = []
+        self._main_app = main_app
+        Thread(target=self._fetch_donors, daemon=True).start()
 
         Label(self, text=main_app.text_content["others_menu"]["donors_settings"]["sub_text"] + "! <3", font=('Arial', 12, 'bold')).pack(side=TOP, pady=5)
-        support_work = HyperlinkLabel(self, text="Want to be a donor? Click here!", url="https://www.ko-fi.com/loudo", font=("Arial", 10, "bold"))
+        support_work = HyperlinkLabel(self, text="Want to be a donor? Click here!", url="https://www.ko-fi.com/loudo", font=("Arial", 10, "bold"))  # TODO: Move to langs files
         support_work.pack(side=TOP, pady=3)
         self.donorsArea = Frame(self)
         self.navigationArea = Frame(self)
         self.pageArea = Frame(self)
         Button(self, text=main_app.text_content["global"]["close_button"], command=self.destroy).pack(side=BOTTOM, pady=5)
-        self.display_donors(0, 1, main_app)
+        self.donorsArea.pack(side=TOP)
+        Label(self.donorsArea, text="Loading donors...").pack(side=TOP, pady=2)  # TODO: Move to langs files
         self.wait_window()
         parent.prevent_record = False
 
@@ -74,3 +71,24 @@ class Donors(Popup):
         self.navigationArea.pack(side=BOTTOM)
         Label(self.pageArea, text=f'Page {page} / {maxPage}').pack(side=TOP, pady=2)
         self.pageArea.pack(side=BOTTOM)
+
+    def _fetch_donors(self):
+        donors_link = 'https://pymacrorecord.com/donors.txt'
+        try:
+            response = get(donors_link, timeout=10)
+            text = response.text if response is not None else ""
+            lst = [s.strip() for s in text.split(';') if s.strip()]
+            lst.reverse()
+            self.donors_list = lst
+        except RequestException:
+            self.donors_list = []
+        finally:
+            self.after(0, self._on_donors_ready)
+
+    def _on_donors_ready(self):
+        if self.donors_list:
+            self.display_donors(0, 1, self._main_app)
+        else:
+            for w in self.donorsArea.winfo_children():
+                w.destroy()
+            Label(self.donorsArea, text="Сan't get donars :(").pack(side=TOP, pady=2)  # TODO: Move to langs files
