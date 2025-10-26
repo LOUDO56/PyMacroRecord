@@ -40,3 +40,20 @@ class Version:
                 return self.main_app.text_content["help_menu"]["about_settings"]["version_check_update_text"]["failed"]
         except RequestException:
             return self.main_app.text_content["help_menu"]["about_settings"]["version_check_update_text"]["failed"]
+
+    def refresh_locale_text(self):
+        """Recompute localized update text for current language without rechecking network."""
+        vt = self.main_app.text_content["help_menu"]["about_settings"]["version_check_update_text"]
+        try:
+            if not self.main_app.settings.settings_dict["Others"]["Check_update"]:
+                self.update = vt["disabled"]
+                return
+        except Exception:
+            pass
+        if self.new_version:
+            self.update = vt["outdated"] if self.new_version != self.version else vt["up_to_date"]
+        else:
+            if not self.update:
+                self.update = vt.get("checking", "")
+            else:
+                self.update = vt["failed"]
