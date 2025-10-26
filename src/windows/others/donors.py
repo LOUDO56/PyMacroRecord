@@ -1,6 +1,7 @@
 from sys import platform
 from threading import Thread
 from tkinter import BOTTOM, LEFT, TOP
+from tkinter import TclError
 from tkinter.font import Font
 from tkinter.ttk import Button, Frame, Label, Style
 from webbrowser import open_new
@@ -105,9 +106,19 @@ class Donors(Popup):
             self.after(0, self._on_donors_ready)
 
     def _on_donors_ready(self):
-        if self.donors_list:
-            self.display_donors(0, 1, self._main_app)
-        else:
-            for w in self.donorsArea.winfo_children():
-                w.destroy()
-            Label(self.donorsArea, text=self._main_app.text_content["others_menu"]["donors_settings"]["cant_get_donors"]).pack(side=TOP, pady=2)
+        try:
+            if not self.winfo_exists():
+                return
+            if not (getattr(self, 'donorsArea', None) and getattr(self, 'navigationArea', None) and getattr(self, 'pageArea', None)):
+                return
+            if not (self.donorsArea.winfo_exists() and self.navigationArea.winfo_exists() and self.pageArea.winfo_exists()):
+                return
+
+            if self.donors_list:
+                self.display_donors(0, 1, self._main_app)
+            else:
+                for w in self.donorsArea.winfo_children():
+                    w.destroy()
+                Label(self.donorsArea, text=self._main_app.text_content["others_menu"]["donors_settings"]["cant_get_donors"]).pack(side=TOP, pady=2)
+        except TclError:
+            return
