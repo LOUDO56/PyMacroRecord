@@ -3,14 +3,24 @@ import json
 import sys
 from json import load
 from os import path
-from sys import platform, argv
+from sys import argv, platform
 from threading import Thread
 from time import time
-from tkinter import *
+from tkinter import (
+    BOTH,
+    BOTTOM,
+    DISABLED,
+    LEFT,
+    RIGHT,
+    SUNKEN,
+    PhotoImage,
+    W,
+    X,
+)
+from tkinter.ttk import Button, Frame, Label
 
 from PIL import Image
-from pystray import Icon
-from pystray import MenuItem
+from pystray import Icon, MenuItem
 
 from hotkeys.hotkeys_manager import HotkeysManager
 from macro import Macro
@@ -24,8 +34,6 @@ from windows.main.menu_bar import MenuBar
 from windows.others.new_ver_avalaible import NewVerAvailable
 from windows.window import Window
 
-if platform.lower() == "win32":
-    from tkinter.ttk import *
 
 def deepcopy_dict_missing_entries(dst:dict,src:dict):
 # recursively copy entries that are in src but not in dst
@@ -152,7 +160,7 @@ class MainApp(Window):
             wantToSave = confirm_save(self)
             if wantToSave:
                 RecordFileManagement(self, self.menu).save_macro()
-            elif wantToSave == None:
+            elif wantToSave is None:
                 return
         if platform.lower() != "darwin":
             self.icon.stop()

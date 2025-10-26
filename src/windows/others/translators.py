@@ -1,10 +1,10 @@
 import json
 import os
 from sys import platform
-from tkinter import *
-from tkinter.ttk import *
-from utils.get_file import resource_path
+from tkinter import BOTTOM, LEFT, TOP
+from tkinter.ttk import Button, Frame, Label
 
+from utils.get_file import resource_path
 from windows.popup import Popup
 
 
@@ -66,5 +66,3 @@ class Translators(Popup):
         self.navigationArea.pack(side=BOTTOM)
         Label(self.pageArea, text=f'Page {page} / {maxPage}').pack(side=TOP, pady=2)
         self.pageArea.pack(side=BOTTOM)
-
-

@@ -1,5 +1,5 @@
-from tkinter import *
-from tkinter.ttk import *
+from tkinter import BOTTOM, LEFT, TOP
+from tkinter.ttk import Button, Frame, Label, Spinbox
 
 from windows.popup import Popup
 
@@ -23,4 +23,3 @@ class Timestamp(Popup):
         buttonArea.pack(side=BOTTOM, pady=10)
         self.wait_window()
         main_app.prevent_record = False
-

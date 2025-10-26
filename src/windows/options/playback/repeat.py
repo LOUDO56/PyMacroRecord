@@ -1,6 +1,11 @@
-from tkinter import *
-from tkinter import messagebox
-from tkinter.ttk import *
+from tkinter import (
+    LEFT,
+    TOP,
+    BooleanVar,
+    Spinbox,
+    messagebox,
+)
+from tkinter.ttk import Button, Checkbutton, Frame, Label
 
 from windows.popup import Popup
 
@@ -43,4 +48,3 @@ class Repeat(Popup):
             self.settings.change_settings("Playback", "Repeat", "Times", newValue)
             self.settings.change_settings("Playback", "Repeat", "Infinite", self.repeat_infinitely.get())
             self.destroy()
-

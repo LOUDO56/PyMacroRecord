@@ -1,8 +1,12 @@
 import json
 import os
-from tkinter import *
-from tkinter import messagebox
-from tkinter.ttk import *
+from tkinter import (
+    BOTTOM,
+    LEFT,
+    StringVar,
+    messagebox,
+)
+from tkinter.ttk import Button, Frame, LabelFrame, OptionMenu
 
 from utils.get_file import resource_path
 from windows.popup import Popup

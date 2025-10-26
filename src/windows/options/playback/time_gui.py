@@ -1,6 +1,5 @@
-from tkinter import *
-from tkinter import messagebox
-from tkinter.ttk import *
+from tkinter import BOTTOM, LEFT, messagebox
+from tkinter.ttk import Button, Frame, Label, Spinbox
 
 from windows.popup import Popup
 
@@ -17,6 +16,7 @@ class TimeGui(Popup):
         self.time_string = userSettings["Time_string"]
         self.time_format = userSettings["Time_format"]
         self.type = type
+        value = 3600
         if self.type == "Interval":
             value = userSettings["Playback"]["Repeat"]["Interval"]
         elif self.type == "For":

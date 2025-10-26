@@ -1,7 +1,8 @@
 from sys import platform
 from threading import Thread
-from tkinter import BOTTOM, LEFT, TOP, Button, Frame, Label
+from tkinter import BOTTOM, LEFT, TOP
 from tkinter.font import Font
+from tkinter.ttk import Button, Frame, Label, Style
 from webbrowser import open_new
 
 from requests import RequestException, get
@@ -11,11 +12,24 @@ from windows.popup import Popup
 
 class HyperlinkLabel(Label):
     def __init__(self, master=None, text="", url=None, command=None, **kw):
-        f = kw.pop("font", None)
-        super().__init__(master, text=text, fg="blue", font=f, **kw)
-        underline_font = Font(self, self.cget("font"))
-        underline_font.configure(underline=True)
-        self.configure(font=underline_font)
+        passed_font = kw.pop("font", None)
+        super().__init__(master, text=text, **kw)
+
+        base = Font(self, font=passed_font or self.cget("font"))
+        a = base.actual()
+        link_font = Font(
+            self,
+            family=a.get("family"),
+            size=a.get("size"),
+            weight=a.get("weight"),
+            slant=a.get("slant"),
+            underline=True,
+        )
+
+        style_name = f"{self._w}.Hyperlink.TLabel"
+        Style(self).configure(style_name, foreground="blue", font=link_font)
+        self.configure(style=style_name)
+
         self.bind("<Enter>", lambda e: self.configure(cursor="hand2"))
         self.bind("<Leave>", lambda e: self.configure(cursor=""))
         if command or url:
@@ -32,7 +46,6 @@ class Donors(Popup):
         self.element_per_page = 6
         self.donors_list = []
         self._main_app = main_app
-        Thread(target=self._fetch_donors, daemon=True).start()
 
         Label(self, text=main_app.text_content["others_menu"]["donors_settings"]["sub_text"] + "! <3", font=('Arial', 12, 'bold')).pack(side=TOP, pady=5)
         support_work = HyperlinkLabel(self, text="Want to be a donor? Click here!", url="https://www.ko-fi.com/loudo", font=("Arial", 10, "bold"))  # TODO: Move to langs files
@@ -43,6 +56,7 @@ class Donors(Popup):
         Button(self, text=main_app.text_content["global"]["close_button"], command=self.destroy).pack(side=BOTTOM, pady=5)
         self.donorsArea.pack(side=TOP)
         Label(self.donorsArea, text="Loading donors...").pack(side=TOP, pady=2)  # TODO: Move to langs files
+        Thread(target=self._fetch_donors, daemon=True).start()
         self.wait_window()
         parent.prevent_record = False
 

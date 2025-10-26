@@ -1,5 +1,5 @@
-from tkinter import *
-from tkinter.ttk import *
+from tkinter import BOTTOM, TOP
+from tkinter.ttk import Button, Frame, Label
 
 from windows.popup import Popup
 

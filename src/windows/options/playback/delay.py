@@ -1,6 +1,5 @@
-from tkinter import *
-from tkinter import messagebox
-from tkinter.ttk import *
+from tkinter import BOTTOM, LEFT, TOP, Spinbox, messagebox
+from tkinter.ttk import Button, Frame, Label
 
 from windows.popup import Popup
 
