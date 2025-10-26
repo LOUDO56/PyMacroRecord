@@ -64,5 +64,5 @@ class Translators(Popup):
                    command=lambda: self.display_translators(current_index + self.element_per_page, page + 1, main_app)).pack(
                 side=LEFT, padx=5, pady=5)
         self.navigationArea.pack(side=BOTTOM)
-        Label(self.pageArea, text=f'Page {page} / {maxPage}').pack(side=TOP, pady=2)
+        Label(self.pageArea, text=f'{main_app.text_content["others_menu"]["translators_settings"]["page"]} {page} / {maxPage}').pack(side=TOP, pady=2)
         self.pageArea.pack(side=BOTTOM)

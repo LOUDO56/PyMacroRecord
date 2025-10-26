@@ -10,20 +10,22 @@ class NotWindows(Popup):
         parent.prevent_record = True
         Label(
             self,
-            text="You are currently running on Linux or MacOS",
+            text=parent.text_content["global"]["mac_linux_run"],
             font=("Segoe UI", 10),
         ).pack(side=TOP, pady=2)
         Label(
             self,
-            text="Be careful with hotkeys, conflits can happen when doing playback",
+            text=parent.text_content["global"]["hotkeys_warning"],
             font=("Segoe UI", 10),
         ).pack(side=TOP, pady=2)
         Label(
-            self, text="It cannot be fixed on MacOS and Linux", font=("Segoe UI", 10)
+            self,
+            text=parent.text_content["global"]["not_fix_mac_linux"],
+            font=("Segoe UI", 10),
         ).pack(side=TOP, pady=2)
         Label(
             self,
-            text="So, choose safe Hotkeys but not one only letter.",
+            text=parent.text_content["global"]["choose_safe_hotkeys"],
             font=("Segoe UI", 10),
         ).pack(side=TOP, pady=2)
         buttonArea = Frame(self)

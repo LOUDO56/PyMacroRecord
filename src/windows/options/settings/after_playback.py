@@ -11,12 +11,12 @@ class AfterPlayBack(Popup):
         self.settings = main_app.settings
         options = {
             main_app.text_content["options_menu"]["settings_menu"]["after_playback_settings"]["idle"]: "Idle",
-            main_app.text_content["options_menu"]["settings_menu"]["after_playback_settings"]["quit software"]: "Quit software",
+            main_app.text_content["options_menu"]["settings_menu"]["after_playback_settings"]["quit_software"]: "Quit software",
             main_app.text_content["options_menu"]["settings_menu"]["after_playback_settings"]["standby"]: "Standby",
-            main_app.text_content["options_menu"]["settings_menu"]["after_playback_settings"]["log off computer"]: "Log off computer",
-            main_app.text_content["options_menu"]["settings_menu"]["after_playback_settings"]["turn off computer"]: "Turn off computer",
+            main_app.text_content["options_menu"]["settings_menu"]["after_playback_settings"]["log_off_computer"]: "Log off computer",
+            main_app.text_content["options_menu"]["settings_menu"]["after_playback_settings"]["turn_off_computer"]: "Turn off computer",
             main_app.text_content["options_menu"]["settings_menu"]["after_playback_settings"]["restart computer"]: "Restart computer",
-            main_app.text_content["options_menu"]["settings_menu"]["after_playback_settings"]["hibernate (if enabled)"]: "Hibernate (if enabled)"
+            main_app.text_content["options_menu"]["settings_menu"]["after_playback_settings"]["hibernate_if_enabled"]: "Hibernate (if enabled)"
         }
 
         menuOptions = LabelFrame(self, text=main_app.text_content["options_menu"]["settings_menu"]["after_playback_settings"]["when_playback_complete_text"])

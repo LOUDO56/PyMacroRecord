@@ -326,12 +326,12 @@ class Macro:
                     system("subprocess.callctl suspend")
                 elif "darwin" in platform.lower():
                     system("pmset sleepnow")
-            elif userSettings["After_Playback"]["Mode"].lower() == "log off computer":
+            elif userSettings["After_Playback"]["Mode"].lower() == "log_off_computer":
                 if platform == "win32":
                     system("shutdown /l")
                 else:
                     system(f"pkill -KILL -u {getlogin()}")
-            elif userSettings["After_Playback"]["Mode"].lower() == "turn off computer":
+            elif userSettings["After_Playback"]["Mode"].lower() == "turn_off_computer":
                 if platform == "win32":
                     system("shutdown /s /t 0")
                 else:
@@ -341,7 +341,7 @@ class Macro:
                     system("shutdown /r /t 0")
                 else:
                     system("shutdown -r now")
-            elif userSettings["After_Playback"]["Mode"].lower() == "hibernate (if enabled)":
+            elif userSettings["After_Playback"]["Mode"].lower() == "hibernate_if_enabled":
                 if platform == "win32":
                     system("shutdown -h")
                 elif "linux" in platform.lower():

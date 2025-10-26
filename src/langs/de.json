@@ -9,17 +9,22 @@
       "confirm_button": "Bestätigen",
       "cancel_button": "Abbrechen",
       "close_button": "Schließen",
+      "mac_linux_run": "Sie verwenden derzeit Linux oder macOS",
+      "hotkeys_warning": "Vorsicht mit hotkeys, bei der Wiedergabe können Konflikte auftreten",
+      "not_fix_mac_linux": "Dies kann unter macOS und Linux nicht behoben werden",
+      "choose_safe_hotkeys": "Wählen Sie sichere hotkeys, keinen einzelnen Buchstaben.",
       "error": "Fehler",
       "previous_text": "Zurück",
       "next_text": "Weiter",
       "confirm_save": "Wollen Sie die Aufzeichnung speichern?",
       "confirm": "Bestätigen",
-      "information": "Information",
-      "restart_software_text": "Sie müssen das Programm neu starten, damit die Änderung übernommen wird."
+      "information": "Informatie",
+      "restart_software_text": "Sie müssen das Programm neu starten, damit die Änderung übernommen wird.",
+      "load_macro_settings": "Macro-instellingen ook importeren?"
     },
     "new_version": {
-      "title": "Software Update",
-      "sub_text_1": "Neue Version",
+      "title": "Software update",
+      "sub_text_1": "Neue version",
       "sub_text_2": "verfügbar!",
       "sub_text_3": "Wollen Sie es jetzt herunterladen?",
       "ignore_button": "Ignorieren",
@@ -46,7 +51,7 @@
         "repeat_text": "Wiederholen",
         "repeat_settings": {
           "title": "Wiederholen",
-          "infinite_repeat": "Infinite repeat?",
+          "infinite_repeat": "Oneindige herhaling?",
           "sub_text": "Anzahl der Wiederholungen",
           "error_new_value": "Ein Minium von einer Wiederholung ist nötig."
         },
@@ -54,9 +59,9 @@
         "for_settings": {
           "title": "Dauer Einstellungen"
         },
-        "interval_text": "Intervall",
+        "interval_text": "Interval",
         "interval_settings": {
-          "title": "Intervall Einstellung"
+          "title": "Interval Einstellung"
         },
         "for_interval_settings": {
           "hours_text": "Stunden",
@@ -67,7 +72,7 @@
         },
         "scheduled_text": "Geplant",
         "scheduled_settings": {
-          "title": "Planungseinstellung"
+          "title": "Geplande instellingen"
         },
         "delay_text": "Verzögerung",
         "delay_settings": {
@@ -79,12 +84,14 @@
       "recordings_menu": {
         "recordings_text": "Aufnahmen",
         "mouse_movement_text": "Maus Bewegung",
-        "mouse_click_text": "Maus Klick",
-        "keyboard_text": "Tastatur"
+        "mouse_click_text": "Maus klick",
+        "keyboard_text": "Tastatur",
+        "show_events_statut": "Toon gebeurtenissen op statusbalk"
       },
       "json_compact": "Makrodaten optimieren",
       "settings_menu": {
         "settings_text": "Einstellungen",
+        "always_import_macro_settings": "Macro-instellingen altijd importeren",
         "lang_text": "Sprache",
         "lang_settings": {
           "title": "Spracheinstellung",
@@ -99,7 +106,7 @@
           "stop_playback_text": "Wiedergabe stoppen",
           "clear_text": "Säubern",
           "please_key_text": "Bitte eingeben",
-          "error_hotkeys": "Sie können nicht dieselben Hotkeys für den Aufnahmestart und den Wiedergabestart verwenden."
+          "error_hotkeys": "Sie können nicht dieselben hotkeys für den Aufnahmestart und den Wiedergabestart verwenden."
         },
         "minimization_text": "Minimieren",
         "minimization_toast": "PyMacroRecord wurde minimiert.",
@@ -113,12 +120,12 @@
           "title": "Nachbearbeitungseinstellungen",
           "sub_text": "Bei abgeschlossener Wiedergabe",
           "idle": "Leerlauf",
-          "quit software": "Software beenden",
+          "quit_software": "Software beenden",
           "standby": "Standby",
-          "log off computer": "Benutzer Abmelden",
-          "turn off computer": "Computer herunterfahren",
+          "log_off_computer": "Benutzer Abmelden",
+          "turn_off_computer": "Computer herunterfahren",
           "restart computer": "Computer neu starten",
-          "hibernate (if enabled)": "Computer in den Schlafmodus versetzen (wenn verfügbar)"
+          "hibernate_if_enabled": "Slaapstand (indien ingeschakeld)"
         }
       },
       "others_menu": {
@@ -137,15 +144,16 @@
       "help_text": "Hilfe",
       "tutorial_text": "Anleitung",
       "about_text": "Info",
-      "website_text": "Webseite",
+      "website_text": "Website",
       "about_settings": {
-        "title": "Information",
+        "title": "Over",
         "publisher_text": "Herausgeber",
-        "version_text": "Version",
+        "version_text": "Versie",
         "license_text": "Software Lizenz",
         "version_check_update_text": {
-          "up_to_date": "Version ist aktuell",
-          "outdated": "Eine neue Version ist verfügbar",
+          "checking": "Prüfen...",
+          "up_to_date": "Versie ist aktuell",
+          "outdated": "Eine neue Versie ist verfügbar",
           "disabled": "Updateprüfung ist deaktiviert",
           "failed": "Updateprüfung ist fehlgeschlagen"
         }
@@ -156,12 +164,16 @@
       "donors_text": "Spender",
       "donors_settings": {
         "title": "Spender",
-        "sub_text": "Alle Spender"
+        "sub_text": "Alle Spender",
+        "load_donors": "Spender werden geladen...",
+        "want_be_donor": "Möchten Sie Spender werden? Klicken Sie hier!",
+        "cant_get_donors": "Spender konnten nicht geladen werden :("
       },
       "translators_text": "Übersetzer",
       "translators_settings": {
-          "title": "Übersetzer",
-          "sub_text": "Alle Übersetzer"
+        "title": "Übersetzer",
+        "sub_text": "Alle Übersetzer",
+        "page": "Seite"
       }
     }
   }

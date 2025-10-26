@@ -13,7 +13,7 @@ class About(Popup):
         Label(self, text=f"{main_app.text_content['help_menu']['about_settings']['publisher_text']}: LOUDO").pack(
             side=TOP, pady=3)
 
-        updated_display = updated if updated else "Checking..."
+        updated_display = updated if updated else main_app.text_content["help_menu"]["about_settings"]["version_check_update_text"]["checking"]
         self.version_label = Label(
             self,
             text=f"{main_app.text_content['help_menu']['about_settings']['version_text']}: {version} ({updated_display})"
@@ -24,7 +24,7 @@ class About(Popup):
               text=f"{main_app.text_content['help_menu']['about_settings']['license_text']}: General Public License v3.0").pack(
             side=TOP, pady=3)
         buttonArea = Frame(self)
-        Button(buttonArea, text="Close", command=self.destroy).pack(side=LEFT, padx=10)
+        Button(buttonArea, text=main_app.text_content["global"]["close_button"], command=self.destroy).pack(side=LEFT, padx=10)
         buttonArea.pack(side=BOTTOM, pady=10)
         main_app.prevent_record = True
         self.wait_window()
@@ -44,4 +44,3 @@ class About(Popup):
         except Exception:
             pass
         return super().destroy()
-

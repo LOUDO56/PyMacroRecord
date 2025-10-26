@@ -9,13 +9,18 @@
       "confirm_button": "Confirmar",
       "cancel_button": "Cancelar",
       "close_button": "Cerrar",
+      "mac_linux_run": "Actualmente está ejecutando Linux o macOS",
+      "hotkeys_warning": "Tenga cuidado con los atajos; pueden ocurrir conflictos durante la reproducción",
+      "not_fix_mac_linux": "Esto no se puede corregir en macOS y Linux",
+      "choose_safe_hotkeys": "Elija atajos seguros, no una sola letra.",
       "error": "Error",
       "previous_text": "Texto Anterior",
       "next_text": "Siguente Texto",
       "confirm_save": "¿Quieres ahorrar tu registro?",
       "confirm": "Confirmar",
       "information": "Información",
-      "restart_software_text": "Debe reiniciar el software para que los cambios tomen efecto."
+      "restart_software_text": "Debe reiniciar el software para que los cambios tomen efecto.",
+      "load_macro_settings": "¿Importar también la configuración de macros?"
     },
     "new_version": {
       "title": "Actualización de Software",
@@ -46,7 +51,7 @@
         "repeat_text": "Repetir",
         "repeat_settings": {
           "title": "Ajusted de repetición",
-          "infinite_repeat": "Infinite repeat?",
+          "infinite_repeat": "¿Repetición infinita?",
           "sub_text": "Ingrese el número de repetición",
           "error_new_value": "No puedes tener menos de 1 repetición."
         },
@@ -80,11 +85,13 @@
         "recordings_text": "Grabaciones",
         "mouse_movement_text": "Movimiento del ratón",
         "mouse_click_text": "Clic del ratón",
-        "keyboard_text": "Teclado"
+        "keyboard_text": "Teclado",
+        "show_events_statut": "Mostrar eventos en la barra de estado"
       },
       "json_compact": "Datos macro compactos",
       "settings_menu": {
         "settings_text": "Ajustes",
+        "always_import_macro_settings": "Importar siempre la configuración de macros",
         "lang_text": "Idioma",
         "lang_settings": {
           "title": "Ajusted de idioma",
@@ -113,19 +120,19 @@
           "title": "Ajustes después de la reproducción",
           "sub_text": "Sobre reproducción completada",
           "idle": "Inactivo",
-          "quit software": "Salir del software",
+          "quit_software": "Salir del software",
           "standby": "Apoyar",
-          "log off computer": "Cerrar sesión en la computadora",
-          "turn off computer": "Apagar la computadora",
+          "log_off_computer": "Cerrar sesión en la computadora",
+          "turn_off_computer": "Apagar la computadora",
           "restart computer": "Reiniciar la computadora",
-          "hibernate (if enabled)": "Hibernar (si está habilitada)"
+          "hibernate_if_enabled": "Hibernar (si está habilitada)"
         }
       },
       "others_menu": {
         "others_text": "Otros",
         "check_update_text": "Comprobar actualización",
         "reset_settings_text": "Restablecer configuración",
-        "reset_settings_confirmation": "¿Estás seguro/a de que quieres restablecer tu configuración?",
+        "reset_settings_confirmation": "¿Estás seguro de que deseas restablecer la configuración?",
         "fixed_timestamp_text": "Marca de tiempo fija",
         "fixed_timestamp_settings": {
           "title": "Ajusted de marca de tiempo fija",
@@ -141,13 +148,14 @@
       "about_settings": {
         "title": "Acerca de",
         "publisher_text": "Publicador",
-        "version_text": "Version",
+        "version_text": "Versión",
         "license_text": "Licensia",
         "version_check_update_text": {
+          "checking": "Comprobando...",
           "up_to_date": "Actualizado",
           "outdated": "Anticuado",
           "disabled": "Comprobar actualización desactivada",
-          "failed": "No se puede recuperar si hay una nueva actualización"
+          "failed": "No se puede obtener si hay una nueva actualización"
         }
       }
     },
@@ -156,15 +164,17 @@
       "donors_text": "Donantes",
       "donors_settings": {
         "title": "Donantes",
-        "sub_text": "Todos los donantes"
+        "sub_text": "Todos los donantes",
+        "load_donors": "Cargando donantes...",
+        "want_be_donor": "¿Quieres ser donante? ¡Haz clic aquí!",
+        "cant_get_donors": "No se pueden obtener donantes :("
       },
       "translators_text": "Traductores",
       "translators_settings": {
         "title": "Traductores",
-        "sub_text": "Todos los traductores"
+        "sub_text": "Todos los traductores",
+        "page": "Página"
       }
     }
   }
 }
-
-

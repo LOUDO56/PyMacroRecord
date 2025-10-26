@@ -171,7 +171,11 @@ class MainApp(Window):
     def on_version_checked(self):
         about = getattr(self, 'about_window', None)
         if about is not None:
-            updated_text = self.version.update if self.version.update else "Checking..."  # TODO: Move to langs files
+            updated_text = (
+                self.version.update
+                if self.version.update
+                else self.text_content["help_menu"]["about_settings"]["version_check_update_text"]["checking"]
+            )
             about.update_status(updated_text)
 
         if self.settings.settings_dict["Others"]["Check_update"]:

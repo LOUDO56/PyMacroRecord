@@ -48,14 +48,19 @@ class Donors(Popup):
         self._main_app = main_app
 
         Label(self, text=main_app.text_content["others_menu"]["donors_settings"]["sub_text"] + "! <3", font=('Arial', 12, 'bold')).pack(side=TOP, pady=5)
-        support_work = HyperlinkLabel(self, text="Want to be a donor? Click here!", url="https://www.ko-fi.com/loudo", font=("Arial", 10, "bold"))  # TODO: Move to langs files
+        support_work = HyperlinkLabel(
+            self,
+            text=main_app.text_content["others_menu"]["donors_settings"]["want_be_donor"],
+            url="https://www.ko-fi.com/loudo",
+            font=("Arial", 10, "bold"),
+        )
         support_work.pack(side=TOP, pady=3)
         self.donorsArea = Frame(self)
         self.navigationArea = Frame(self)
         self.pageArea = Frame(self)
         Button(self, text=main_app.text_content["global"]["close_button"], command=self.destroy).pack(side=BOTTOM, pady=5)
         self.donorsArea.pack(side=TOP)
-        Label(self.donorsArea, text="Loading donors...").pack(side=TOP, pady=2)  # TODO: Move to langs files
+        Label(self.donorsArea, text=main_app.text_content["others_menu"]["donors_settings"]["load_donors"]).pack(side=TOP, pady=2)
         Thread(target=self._fetch_donors, daemon=True).start()
         self.wait_window()
         parent.prevent_record = False
@@ -83,7 +88,7 @@ class Donors(Popup):
                    command=lambda: self.display_donors(current_index + self.element_per_page, page + 1, main_app)).pack(
                 side=LEFT, padx=5, pady=5)
         self.navigationArea.pack(side=BOTTOM)
-        Label(self.pageArea, text=f'Page {page} / {maxPage}').pack(side=TOP, pady=2)
+        Label(self.pageArea, text=f'{main_app.text_content["others_menu"]["translators_settings"]["page"]} {page} / {maxPage}').pack(side=TOP, pady=2)
         self.pageArea.pack(side=BOTTOM)
 
     def _fetch_donors(self):
@@ -105,4 +110,4 @@ class Donors(Popup):
         else:
             for w in self.donorsArea.winfo_children():
                 w.destroy()
-            Label(self.donorsArea, text="Сan't get donars :(").pack(side=TOP, pady=2)  # TODO: Move to langs files
+            Label(self.donorsArea, text=self._main_app.text_content["others_menu"]["donors_settings"]["cant_get_donors"]).pack(side=TOP, pady=2)
