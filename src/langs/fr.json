@@ -65,7 +65,7 @@
         },
         "for_interval_settings": {
           "hours_text": "Heures",
-          "minutes_text": "Procès-verbal",
+          "minutes_text": "Minutes",
           "seconds_text": "Secondes",
           "error_new_value_multiple": "les données saisies sont incorrectes",
           "error_new_value_single": "entrée incorrecte"
