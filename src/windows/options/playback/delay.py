@@ -13,6 +13,7 @@ class Delay(Popup):
         userSettings = main_app.settings.settings_dict
         setNewDelayInput = Spinbox(self, from_=1, to=100000000, width=7, validate="key",
                               validatecommand=(main_app.validate_cmd, "%d", "%P"))
+        setNewDelayInput.delete(0, "end")
         setNewDelayInput.insert(0, str(userSettings["Playback"]["Repeat"]["Delay"]))
         setNewDelayInput.pack(pady=20)
         buttonArea = Frame(self)
