@@ -1,6 +1,11 @@
-from tkinter import *
-from tkinter import messagebox
-from tkinter.ttk import *
+from tkinter import (
+    LEFT,
+    TOP,
+    BooleanVar,
+    Spinbox,
+    messagebox,
+)
+from tkinter.ttk import Button, Checkbutton, Frame, Label
 
 from windows.popup import Popup
 
@@ -23,6 +28,7 @@ class Repeat(Popup):
 
         repeatTimes = Spinbox(self, from_=1, to=100000000, width=7, validate="key",
                               validatecommand=(main_app.validate_cmd, "%d", "%P"))
+        repeatTimes.delete(0, "end")
         repeatTimes.insert(0, userSettings["Playback"]["Repeat"]["Times"])
         repeatTimes.pack(pady=5)
 
@@ -43,4 +49,3 @@ class Repeat(Popup):
             self.settings.change_settings("Playback", "Repeat", "Times", newValue)
             self.settings.change_settings("Playback", "Repeat", "Infinite", self.repeat_infinitely.get())
             self.destroy()
-

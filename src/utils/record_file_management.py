@@ -1,7 +1,5 @@
-from json import load, dumps
-from tkinter import *
-from tkinter import filedialog
-from tkinter import messagebox
+from json import dumps, load
+from tkinter import DISABLED, NORMAL, filedialog, messagebox
 
 from utils import UserSettings
 from utils.warning_pop_up_save import confirm_save

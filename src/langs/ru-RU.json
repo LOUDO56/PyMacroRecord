@@ -9,6 +9,10 @@
       "confirm_button": "Подтвердить",
       "cancel_button": "Отмена",
       "close_button": "Закрыть",
+      "mac_linux_run": "Вы используете Linux или macOS",
+      "hotkeys_warning": "Осторожнее с горячими клавишами: при воспроизведении возможны конфликты",
+      "not_fix_mac_linux": "Это нельзя исправить в macOS и Linux",
+      "choose_safe_hotkeys": "Выбирайте безопасные сочетания, не одну букву.",
       "error": "Ошибка",
       "previous_text": "Назад",
       "next_text": "Далее",
@@ -81,7 +85,8 @@
         "recordings_text": "Записи",
         "mouse_movement_text": "Движения мыши",
         "mouse_click_text": "Клик мыши",
-        "keyboard_text": "Клавиатура"
+        "keyboard_text": "Клавиатура",
+        "show_events_statut": "Показывать события в status bar"
       },
       "json_compact": "Сжать данные макроса",
       "settings_menu": {
@@ -115,12 +120,12 @@
           "title": "Настройки после воспроизведения",
           "sub_text": "После завершения воспроизведения",
           "idle": "Ожидание",
-          "quit software": "Выйти из программы",
+          "quit_software": "Выйти из программы",
           "standby": "Режим ожидания",
-          "log off computer": "Выйти из системы",
-          "turn off computer": "Выключить компьютер",
+          "log_off_computer": "Выйти из системы",
+          "turn_off_computer": "Выключить компьютер",
           "restart computer": "Перезапустить компьютер",
-          "hibernate (if enabled)": "Гибернация (если включена)"
+          "hibernate_if_enabled": "Гибернация (если включена)"
         }
       },
       "others_menu": {
@@ -146,6 +151,7 @@
         "version_text": "Версия",
         "license_text": "Под лицензией",
         "version_check_update_text": {
+          "checking": "Проверка...",
           "up_to_date": "Актуальная версия",
           "outdated": "Устаревшая версия",
           "disabled": "Проверка обновлений отключена",
@@ -158,12 +164,16 @@
       "donors_text": "Донатеры",
       "donors_settings": {
         "title": "Донатеры",
-        "sub_text": "Донатеры"
+        "sub_text": "Донатеры",
+        "load_donors": "Загрузка доноров...",
+        "want_be_donor": "Хотите стать донором? Нажмите здесь!",
+        "cant_get_donors": "Не удалось получить список доноров :("
       },
       "translators_text": "Переводчики",
       "translators_settings": {
         "title": "Переводчики",
-        "sub_text": "Все переводчики"
+        "sub_text": "Все переводчики",
+        "page": "Страница"
       }
     }
   }

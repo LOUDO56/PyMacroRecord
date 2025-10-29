@@ -9,13 +9,18 @@
       "confirm_button": "确认",
       "cancel_button": "取消",
       "close_button": "关闭",
+      "mac_linux_run": "您当前正在使用 Linux 或 macOS",
+      "hotkeys_warning": "请谨慎使用快捷键，回放时可能发生冲突",
+      "not_fix_mac_linux": "在 macOS 和 Linux 上无法修复此问题",
+      "choose_safe_hotkeys": "请选择安全的快捷键，而不是单个字母。",
       "error": "错误",
       "previous_text": "上一步",
       "next_text": "下一步",
       "confirm_save": "是否保存此记录？",
       "confirm": "确认",
       "information": "信息",
-      "restart_software_text": "重启软件以应用更改。"
+      "restart_software_text": "重启软件以应用更改。",
+      "load_macro_settings": "也导入宏设置吗?"
     },
     "new_version": {
       "title": "软件更新",
@@ -40,15 +45,15 @@
         "speed_text": "速度",
         "speed_settings": {
           "title": "速度设置",
-          "sub_text": "设定速度（0.1到10）",
-          "error_new_value": "速度值必须为0.1到10之间的数值！"
+          "sub_text": "设定速(0.1到10)",
+          "error_new_value": "速度值必须为0.1到10之间的数值!"
         },
         "repeat_text": "重复",
         "repeat_settings": {
           "title": "重复设置",
-          "infinite_repeat": "Infinite repeat?",
+          "infinite_repeat": "无限循环?",
           "sub_text": "设定重复回放次数",
-          "error_new_value": "回放次数必须大于等于1！"
+          "error_new_value": "回放次数必须大于等于1!"
         },
         "for_text": "持续时间",
         "for_settings": {
@@ -73,18 +78,20 @@
         "delay_settings": {
           "title": "延迟设置",
           "sub_text": "输入每次重复回放之间的延迟",
-          "error_new_value": "延迟必须大于0！"
+          "error_new_value": "延迟必须大于0."
         }
       },
       "recordings_menu": {
         "recordings_text": "记录",
         "mouse_movement_text": "鼠标移动",
         "mouse_click_text": "鼠标点击",
-        "keyboard_text": "键盘输入"
+        "keyboard_text": "键盘输入",
+        "show_events_statut": "在状态栏上显示事件"
       },
       "json_compact": "紧凑型宏数据",
       "settings_menu": {
         "settings_text": "设置",
+        "always_import_macro_settings": "始终导入宏设置",
         "lang_text": "语言",
         "lang_settings": {
           "title": "语言设置",
@@ -113,19 +120,19 @@
           "title": "重放后动作设置",
           "sub_text": "重放完成后",
           "idle": "什么也不做",
-          "quit software": "退出软件",
+          "quit_software": "退出软件",
           "standby": "待机",
-          "log off computer": "注销",
-          "turn off computer": "关机",
+          "log_off_computer": "注销",
+          "turn_off_computer": "关机",
           "restart computer": "重启",
-          "hibernate (if enabled)": "休眠 (需启用)"
+          "hibernate_if_enabled": "休眠 (需启用)"
         }
       },
       "others_menu": {
         "others_text": "其它",
         "check_update_text": "检查更新",
         "reset_settings_text": "重置设置",
-        "reset_settings_confirmation": "你确定要重置所有设置吗？",
+        "reset_settings_confirmation": "你确定要重置所有设置吗?",
         "fixed_timestamp_text": "固定时间戳",
         "fixed_timestamp_settings": {
           "title": "固定时间戳设置",
@@ -144,6 +151,7 @@
         "version_text": "版本",
         "license_text": "证书",
         "version_check_update_text": {
+          "checking": "正在检查...",
           "up_to_date": "（已是最新）",
           "outdated": "过时版本",
           "disabled": "自动更新已关闭",
@@ -156,16 +164,17 @@
       "donors_text": "贡献者",
       "donors_settings": {
         "title": "贡献者",
-        "sub_text": "所有贡献者"
+        "sub_text": "所有贡献者",
+        "load_donors": "正在加载捐助者...",
+        "want_be_donor": "想成为捐助者吗？点击这里！",
+        "cant_get_donors": "无法获取捐助者 :("
       },
       "translators_text": "翻译者",
       "translators_settings": {
           "title": "翻译者",
-          "sub_text": "所有翻译者"
+          "sub_text": "所有翻译者",
+          "page": "第 页"
       }
-
     }
   }
 }
-
-

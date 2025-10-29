@@ -1,5 +1,6 @@
 from sys import platform
 
+
 def getKeyPressed(keyboardListener, key):
     """Return right key. canonical() prevents from weird characters to show up with ctrl active. Like ctrl + d,
     pynput will not print Key.ctrl and d, it will print Key.ctrl and a weird character"""

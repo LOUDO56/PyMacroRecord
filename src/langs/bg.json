@@ -9,13 +9,18 @@
       "confirm_button": "Потвърди",
       "cancel_button": "Отказ",
       "close_button": "Затвори",
+      "mac_linux_run": "В момента използвате Linux или macOS",
+      "hotkeys_warning": "Внимавайте с бързите клавиши, при възпроизвеждане могат да възникнат конфликти",
+      "not_fix_mac_linux": "Това не може да бъде поправено в macOS и Linux",
+      "choose_safe_hotkeys": "Избирайте безопасни бързи клавиши, не само една буква.",
       "error": "Грешка",
       "previous_text": "Предишен",
       "next_text": "Следващ",
       "confirm_save": "Желаете ли да запазите записа си?",
       "confirm": "Потвърди",
       "information": "Информация",
-      "restart_software_text": "Трябва да рестартирате софтуера, за да влязат в сила промените."
+      "restart_software_text": "Трябва да рестартирате софтуера, за да влязат в сила промените.",
+      "load_macro_settings": "Да импортирате и настройките на макрото?"
     },
     "new_version": {
       "title": "Актуализация на софтуера",
@@ -46,6 +51,7 @@
       "repeat_text": "Повтаряне",
       "repeat_settings": {
         "title": "Настройки за повтаряне",
+        "infinite_repeat": "Безкрайно повторение?",
         "sub_text": "Въведете броя на повторенията",
         "error_new_value": "Не можете да имате по-малко от 1 повторение."
       },
@@ -79,11 +85,13 @@
       "recordings_text": "Записи",
       "mouse_movement_text": "Движение на мишката",
       "mouse_click_text": "Щракване с мишка",
-      "keyboard_text": "Клавиатура"
+      "keyboard_text": "Клавиатура",
+      "show_events_statut": "Показване на събития в лентата за състояние"
     },
     "json_compact": "Компактирани макро данни",
     "settings_menu": {
       "settings_text": "Настройки",
+      "always_import_macro_settings": "Винаги импортирай макро настройки",
       "lang_text": "Език",
       "lang_settings": {
         "title": "Настройки на езика",
@@ -117,7 +125,7 @@
         "log_off_computer": "Излизане от компютъра",
         "turn_off_computer": "Изключване на компютъра",
         "restart_computer": "Рестартиране на компютъра",
-        "hibernate_(if_enabled)": "Хибернация (ако е възможно)"
+        "hibernate_if_enabled": "Хибернация (ако е възможно)"
       }
     },
       "others_menu": {
@@ -143,6 +151,7 @@
         "version_text": "Версия",
         "license_text": "Под лиценз",
         "version_check_update_text": {
+          "checking": "Проверка...",
           "up_to_date": "Актуално",
           "outdated": "Неактуално",
           "disabled": "Проверката за актуализация е деактивирана",
@@ -155,12 +164,16 @@
       "donors_text": "Дарители",
       "donors_settings": {
         "title": "Дарители",
-        "sub_text": "Всички дарители"
+        "sub_text": "Всички дарители",
+        "load_donors": "Зареждане на дарители...",
+        "want_be_donor": "Искате да станете дарител? Кликнете тук!",
+        "cant_get_donors": "Неуспешно зареждане на дарители :("
       },
       "translators_text": "Преводачи",
       "translators_settings": {
         "title": "Преводачи",
-        "sub_text": "Всички преводачи"
+        "sub_text": "Всички преводачи",
+        "page": "Страница"
       }
     }
   }

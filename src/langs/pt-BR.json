@@ -9,13 +9,18 @@
         "confirm_button": "Confirmar",
         "cancel_button": "Cancelar",
         "close_button": "Fechar",
+        "mac_linux_run": "Você está usando Linux ou macOS",
+        "hotkeys_warning": "Cuidado com as teclas de atalho; podem ocorrer conflitos durante a reprodução",
+        "not_fix_mac_linux": "Isso não pode ser corrigido no macOS e Linux",
+        "choose_safe_hotkeys": "Escolha atalhos seguros, não apenas uma letra.",
         "error": "Erro",
         "previous_text": "Anterior",
         "next_text": "Próximo",
         "confirm_save": "Deseja salvar sua gravação?",
         "confirm": "Confirmar",
         "information": "Informação",
-        "restart_software_text": "Você precisa reiniciar o software para que as alterações tenham efeito."
+        "restart_software_text": "Você precisa reiniciar o software para que as alterações tenham efeito.",
+        "load_macro_settings": "Importar também as configurações macro?"
       },
       "new_version": {
         "title": "Atualização de Software",
@@ -80,11 +85,13 @@
           "recordings_text": "Gravações",
           "mouse_movement_text": "Movimento do Mouse",
           "mouse_click_text": "Clique do Mouse",
-          "keyboard_text": "Teclado"
+          "keyboard_text": "Teclado",
+          "show_events_statut": "Mostrar eventos na barra de status"
         },
         "json_compact": "Compactar dados do macro",
         "settings_menu": {
           "settings_text": "Configurações",
+          "always_import_macro_settings": "Importeer altijd macro-instellingen",
           "lang_text": "Idioma",
           "lang_settings": {
             "title": "Configurações de Idioma",
@@ -113,12 +120,12 @@
             "title": "Configurações pós-reprodução",
             "sub_text": "Ao concluir a reprodução",
             "idle": "Ocioso",
-            "quit software": "Fechar software",
+            "quit_software": "Fechar software",
             "standby": "Suspender",
-            "log off computer": "Encerrar sessão",
-            "turn off computer": "Desligar o computador",
+            "log_off_computer": "Encerrar sessão",
+            "turn_off_computer": "Desligar o computador",
             "restart computer": "Reiniciar o computador",
-            "hibernate (if enabled)": "Hibernar (se habilitado)"
+            "hibernate_if_enabled": "Hibernar (se habilitado)"
           }
         },
         "others_menu": {
@@ -144,6 +151,7 @@
           "version_text": "Versão",
           "license_text": "Sob licença",
           "version_check_update_text": {
+            "checking": "Verificando...",
             "up_to_date": "Atualizado",
             "outdated": "Desatualizado",
             "disabled": "Verificação de atualização desativada",
@@ -156,14 +164,17 @@
         "donors_text": "Doadores",
         "donors_settings": {
           "title": "Doadores",
-          "sub_text": "Todos os doadores"
+          "sub_text": "Todos os doadores",
+          "load_donors": "Carregando doadores...",
+          "want_be_donor": "Quer ser um doador? Clique aqui!",
+          "cant_get_donors": "Não foi possível obter os doadores :("
         },
         "translators_text": "Tradutores",
         "translators_settings": {
             "title": "Tradutores",
-            "sub_text": "Todos os tradutores"
+            "sub_text": "Todos os tradutores",
+            "page": "Página"
         }
       }
     }
   }
-  

@@ -1,7 +1,7 @@
 from sys import platform
 from time import time
-from tkinter import *
-from tkinter.ttk import *
+from tkinter import BOTTOM, LEFT, TOP
+from tkinter.ttk import Button, Frame, Label
 from webbrowser import open as OpenUrl
 
 from utils.user_settings import UserSettings
