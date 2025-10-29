@@ -9,6 +9,10 @@
       "confirm_button": "Confirm",
       "cancel_button": "Cancel",
       "close_button": "Close",
+      "mac_linux_run": "You are currently running on Linux or macOS",
+      "hotkeys_warning": "Be careful with hotkeys, conflicts can happen during playback",
+      "not_fix_mac_linux": "It cannot be fixed on macOS and Linux",
+      "choose_safe_hotkeys": "So, choose safe Hotkeys but not one only letter.",
       "error": "Error",
       "previous_text": "Previous",
       "next_text": "Next",
@@ -116,12 +120,12 @@
           "title": "After playback settings",
           "sub_text": "On playback complete",
           "idle": "Idle",
-          "quit software": "Quit software",
+          "quit_software": "Quit software",
           "standby": "Standby",
-          "log off computer": "Log off computer",
-          "turn off computer": "Turn off computer",
+          "log_off_computer": "Log off computer",
+          "turn_off_computer": "Turn off computer",
           "restart computer": "Restart computer",
-          "hibernate (if enabled)": "Hibernate (if enabled)"
+          "hibernate_if_enabled": "Hibernate (if enabled)"
         }
       },
       "others_menu": {
@@ -147,6 +151,7 @@
         "version_text": "Version",
         "license_text": "Under license",
         "version_check_update_text": {
+          "checking": "Checking...",
           "up_to_date": "Up to date",
           "outdated": "Outdated",
           "disabled": "Check update disabled",
@@ -159,15 +164,17 @@
       "donors_text": "Donors",
       "donors_settings": {
         "title": "Donors",
-        "sub_text": "All donors"
+        "sub_text": "All donors",
+        "load_donors": "Loading donors...",
+        "want_be_donor": "Want to be a donor? Click here!",
+        "cant_get_donors": "Can't get donors :("
       },
       "translators_text": "Translators",
       "translators_settings": {
         "title": "Translators",
-        "sub_text": "All translators"
+        "sub_text": "All translators",
+        "page": "Page"
       }
     }
   }
 }
-
-

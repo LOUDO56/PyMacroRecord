@@ -9,6 +9,10 @@
       "confirm_button": "Confirmer",
       "cancel_button": "Annuler",
       "close_button": "Fermer",
+      "mac_linux_run": "Vous utilisez actuellement Linux ou macOS",
+      "hotkeys_warning": "Attention aux raccourcis, des conflits peuvent survenir pendant la lecture",
+      "not_fix_mac_linux": "Cela ne peut pas être corrigé sous macOS et Linux",
+      "choose_safe_hotkeys": "Choisissez des raccourcis sûrs, pas une seule lettre.",
       "error": "Erreur",
       "previous_text": "Précédent",
       "next_text": "Suivant",
@@ -16,7 +20,7 @@
       "confirm": "Confirmer",
       "information": "Information",
       "restart_software_text": "Vous devez redémarrer le logiciel pour que cela prenne effet.",
-      "load_macro_settings": "Importer les paramètres macro également ?"
+      "load_macro_settings": "Importer également les paramètres macro ?"
     },
     "new_version": {
       "title": "Mise à jour du logiciel",
@@ -47,7 +51,7 @@
         "repeat_text": "Répéter",
         "repeat_settings": {
           "title": "Réglagle de répétition",
-          "infinite_repeat": "Infinite repeat?",
+          "infinite_repeat": "Répétition infinie ?",
           "sub_text": "Entrez un nombre",
           "error_new_value": "Vous devez au moins avoir une répétition."
         },
@@ -63,8 +67,8 @@
           "hours_text": "Heures",
           "minutes_text": "Minutes",
           "seconds_text": "Secondes",
-          "error_new_value_multiple": "sont incorrect",
-          "error_new_value_single": "est incorrect"
+          "error_new_value_multiple": "les données saisies sont incorrectes",
+          "error_new_value_single": "entrée incorrecte"
         },
         "scheduled_text": "Programmé",
         "scheduled_settings": {
@@ -116,12 +120,12 @@
           "title": "Réglage après lecture",
           "sub_text": "Quand la lecture est terminée",
           "idle": "Ne rien faire",
-          "quit software": "Quitter le logiciel",
+          "quit_software": "Quitter le logiciel",
           "standby": "Mode veille",
-          "log off computer": "Déconnecter le compte",
-          "turn off computer": "Éteindre le pc",
+          "log_off_computer": "Déconnecter le compte",
+          "turn_off_computer": "Éteindre le pc",
           "restart computer": "Redémarrer le pc",
-          "hibernate (if enabled)": "Hibernation (si activé)"
+          "hibernate_if_enabled": "Hibernation (si activé)"
         }
       },
       "others_menu": {
@@ -147,6 +151,7 @@
         "version_text": "Version",
         "license_text": "Sous la license",
         "version_check_update_text": {
+          "checking": "Vérification...",
           "up_to_date": "À jour",
           "outdated": "Obselète",
           "disabled": "Vérification désactivé",
@@ -159,15 +164,17 @@
       "donors_text": "Donateurs",
       "donors_settings": {
         "title": "Donateurs",
-        "sub_text": "Tous les donateurs "
+        "sub_text": "Tous les donateurs ",
+        "load_donors": "Chargement des donateurs...",
+        "want_be_donor": "Vous voulez devenir donateur ? Cliquez ici !",
+        "cant_get_donors": "Impossible d'obtenir les donateurs :("
       },
       "translators_text": "Traducteurs",
       "translators_settings": {
         "title": "Traducteurs",
-        "sub_text": "Tous les traducteurs"
+        "sub_text": "Tous les traducteurs",
+        "page": "Page"
       }
     }
   }
 }
-
-

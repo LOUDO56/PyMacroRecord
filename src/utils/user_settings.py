@@ -1,5 +1,5 @@
 from json import dumps, load
-from os import path, getenv, mkdir
+from os import getenv, mkdir, path
 from sys import platform
 from tkinter import messagebox
 from tkinter.constants import BOTTOM, X
@@ -122,7 +122,7 @@ class UserSettings:
                 self.main_app.status_text.pack_forget()
             else:
                 self.main_app.status_text.pack(side=BOTTOM, fill=X)
-        if not category in self.settings_dict:
+        if category not in self.settings_dict:
             self.settings_dict[category] = ""
         if newValue is None:
             if option is None:

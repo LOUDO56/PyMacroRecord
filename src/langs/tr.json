@@ -9,13 +9,18 @@
       "confirm_button": "Onayla",
       "cancel_button": "İptal",
       "close_button": "Kapat",
+      "next_text": "Sonraki",
+      "hotkeys_warning": "Kısayollara dikkat edin; oynatma sırasında çatışmalar olabilir",
+      "not_fix_mac_linux": "Bu, macOS ve Linux'ta düzeltilemez",
+      "choose_safe_hotkeys": "Güvenli kısayollar seçin, tek bir harf değil.",
       "error": "Hata",
       "previous_text": "Önceki",
-      "next_text": "Sonraki",
+      "mac_linux_run": "Şu anda Linux veya macOS kullanıyorsunuz",
       "confirm_save": "Kaydetmek istiyor musunuz?",
       "confirm": "Onayla",
       "information": "Bilgi",
-      "restart_software_text": "Etkili olması için yazılımı yeniden başlatmanız gerekir."
+      "restart_software_text": "Etkili olması için yazılımı yeniden başlatmanız gerekir.",
+      "load_macro_settings": "Makro ayarlarını da içe aktarmak ister misiniz?"
     },
     "new_version": {
       "title": "Yazılım güncellemesi",
@@ -46,7 +51,7 @@
         "repeat_text": "Tekrarla",
         "repeat_settings": {
           "title": "Tekrar ayarları",
-          "infinite_repeat": "Infinite repeat?",
+          "infinite_repeat": "Sonsuz tekrar mı?v",
           "sub_text": "Tekrar sayısını girin",
           "error_new_value": "Tekrar en az 1 olmalı."
         },
@@ -80,11 +85,13 @@
         "recordings_text": "Kayıtlar",
         "mouse_movement_text": "Fare hareketi",
         "mouse_click_text": "Fare tıklaması",
-        "keyboard_text": "Klavye"
+        "keyboard_text": "Klavye",
+        "show_events_statut": "Durum çubuğunda olayları göster"
       },
       "json_compact": "Kompakt makro verileri",
       "settings_menu": {
         "settings_text": "Ayarlar",
+        "always_import_macro_settings": "Makro ayarlarını her zaman içe aktar",
         "lang_text": "Dil",
         "lang_settings": {
           "title": "Dil ayarları",
@@ -113,12 +120,12 @@
           "title": "Oynatma sonrası ayarlar",
           "sub_text": "Oynatma tamamlandığında",
           "idle": "Boşta kal",
-          "quit software": "Yazılımdan çık",
+          "quit_software": "Yazılımdan çık",
           "standby": "Beklemede kal",
-          "log off computer": "Oturumu kapat",
-          "turn off computer": "Bilgisayarı kapat",
+          "log_off_computer": "Oturumu kapat",
+          "turn_off_computer": "Bilgisayarı kapat",
           "restart computer": "Yeniden başlat",
-          "hibernate (if enabled)": "Hazırda beklet"
+          "hibernate_if_enabled": "Hazırda beklet"
         }
       },
       "others_menu": {
@@ -144,6 +151,7 @@
         "version_text": "Sürüm",
         "license_text": "Lisans altında",
         "version_check_update_text": {
+          "checking": "Kontrol ediliyor...",
           "up_to_date": "Güncel",
           "outdated": "Eski",
           "disabled": "Güncellemeleri kapat",
@@ -156,16 +164,17 @@
       "donors_text": "Bağışçılar",
       "donors_settings": {
         "title": "Bağışçılar",
-        "sub_text": "Tüm bağışçılar"
+        "sub_text": "Tüm bağışçılar",
+        "load_donors": "Bağışçılar yükleniyor...",
+        "want_be_donor": "Bağışçı olmak ister misiniz? Buraya tıklayın!",
+        "cant_get_donors": "Bağışçılar alınamadı :("
       },
       "translators_text": "Çevirmenler",
       "translators_settings": {
           "title": "Çevirmenler",
-          "sub_text": "Tüm çevirmenler"
+          "sub_text": "Tüm çevirmenler",
+          "page": "Sayfa"
       }
-
     }
   }
 }
-
-

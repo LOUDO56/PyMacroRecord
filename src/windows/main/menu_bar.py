@@ -1,13 +1,14 @@
 from sys import argv
+from tkinter import DISABLED, BooleanVar, Menu
 from webbrowser import open as OpenUrl
 
 from utils.record_file_management import RecordFileManagement
-from windows.help.about import *
-from windows.options.playback import *
-from windows.options.settings import *
-from windows.others.donors import *
+from windows.help.about import About
+from windows.options.playback import Delay, Repeat, Speed, TimeGui
+from windows.options.settings import AfterPlayBack, Hotkeys, SelectLanguage
+from windows.others.donors import Donors
 from windows.others.timestamp import Timestamp
-from windows.others.translators import *
+from windows.others.translators import Translators
 
 
 class MenuBar(Menu):
@@ -17,7 +18,6 @@ class MenuBar(Menu):
         settings = parent.settings
         userSettings = settings.settings_dict
         self.text_config = parent.text_content
-
 
         # Menu Setup
         my_menu = Menu(parent)
@@ -66,8 +66,11 @@ class MenuBar(Menu):
                                        command=lambda: settings.change_settings("Recordings", "Keyboard"))
 
         self.showEventsOnStatusBar = BooleanVar(value=userSettings["Recordings"]["Show_Events_On_Status_Bar"])
-        recordings_sub.add_checkbutton(label=self.text_config["options_menu"]["recordings_menu"]["show_events_statut"], variable=self.showEventsOnStatusBar,
-                                       command=lambda: settings.change_settings("Recordings", "Show_Events_On_Status_Bar"))
+        recordings_sub.add_checkbutton(
+            label=self.text_config["options_menu"]["recordings_menu"]["show_events_statut"],
+            variable=self.showEventsOnStatusBar,
+            command=lambda: settings.change_settings("Recordings", "Show_Events_On_Status_Bar"),
+        )
 
         # Settings Sub
         self.options_sub = Menu(self.options_menu, tearoff=0)

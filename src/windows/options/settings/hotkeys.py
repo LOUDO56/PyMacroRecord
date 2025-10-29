@@ -1,6 +1,5 @@
 import copy
-from tkinter import *
-from tkinter.ttk import *
+from tkinter import BOTTOM, LEFT, Button, Frame, Label
 
 from utils.keys import vk_nb
 from windows.popup import Popup

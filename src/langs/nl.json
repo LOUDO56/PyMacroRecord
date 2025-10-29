@@ -9,13 +9,18 @@
       "confirm_button": "Bevestig",
       "cancel_button": "Annuleer",
       "close_button": "Sluiten",
+      "mac_linux_run": "U gebruikt momenteel Linux of macOS",
+      "hotkeys_warning": "Wees voorzichtig met sneltoetsen; er kunnen conflicten optreden tijdens het afspelen",
+      "not_fix_mac_linux": "Dit kan niet worden opgelost op macOS en Linux",
+      "choose_safe_hotkeys": "Kies veilige sneltoetsen, niet slechts één letter.",
       "error": "Fout",
       "previous_text": "Vorige",
       "next_text": "Volgende",
       "confirm_save": "Wil je bewaren?",
       "confirm": "Bevestig",
       "information": "Informatie",
-      "restart_software_text": "Je dient de software te herstarten om dit toe te passen."
+      "restart_software_text": "Je dient de software te herstarten om dit toe te passen.",
+      "load_macro_settings": "Macro-instellingen ook importeren?"
     },
     "new_version": {
       "title": "Software update",
@@ -46,7 +51,7 @@
         "repeat_text": "Herhaal",
         "repeat_settings": {
           "title": "Herhalings instellingen",
-          "infinite_repeat": "Infinite repeat?",
+          "infinite_repeat": "Oneindig herhalen?",
           "sub_text": "Hoe vaak herhalen?",
           "error_new_value": "Je kan niet minder dan 1 keer herhalen."
         },
@@ -80,11 +85,13 @@
         "recordings_text": "Opnames",
         "mouse_movement_text": "Muis beweging",
         "mouse_click_text": "Muis klik",
-        "keyboard_text": "Toetsenbord"
+        "keyboard_text": "Toetsenbord",
+        "show_events_statut": "Gebeurtenissen weergeven op de statusbalk"
       },
       "json_compact": "Comprimeer macro data",
       "settings_menu": {
         "settings_text": "Instellingen",
+        "always_import_macro_settings": "Importeer altijd macro-instellingen",
         "lang_text": "Taal",
         "lang_settings": {
           "title": "Taal instellingen",
@@ -113,12 +120,12 @@
           "title": "Instellingen na afspelen",
           "sub_text": "Bij het beëindigen van het afspelen",
           "idle": "Doe niets",
-          "quit software": "Sluit software af",
+          "quit_software": "Sluit software af",
           "standby": "Standby",
-          "log off computer": "Uitloggen computer",
-          "turn off computer": "Afsluiten computer",
+          "log_off_computer": "Uitloggen computer",
+          "turn_off_computer": "Afsluiten computer",
           "restart computer": "Herstart computer",
-          "hibernate (if enabled)": "Hibernate (indien mogelijk)"
+          "hibernate_if_enabled": "Hibernate (indien mogelijk)"
         }
       },
       "others_menu": {
@@ -134,8 +141,8 @@
       }
     },
     "help_menu": {
-      "help_text": "Help",
-      "tutorial_text": "Tutorial",
+      "help_text": "Hulp",
+      "tutorial_text": "Zelfstudie",
       "about_text": "Over",
       "website_text": "Website",
       "about_settings": {
@@ -144,6 +151,7 @@
         "version_text": "Versie",
         "license_text": "Onder licentie",
         "version_check_update_text": {
+          "checking": "Bezig met controleren...",
           "up_to_date": "Up to date",
           "outdated": "Verouders",
           "disabled": "Check update uitgeschakeld",
@@ -156,14 +164,17 @@
       "donors_text": "Donors",
       "donors_settings": {
         "title": "Donors",
-        "sub_text": "Alle donors"
+        "sub_text": "Alle donors",
+        "load_donors": "Donateurs laden...",
+        "want_be_donor": "Wilt u donateur worden? Klik hier!",
+        "cant_get_donors": "Kan donateurs niet ophalen :("
       },
       "translators_text": "Vertalers",
       "translators_settings": {
-          "title": "Vertalers",
-          "sub_text": "Alle vertalers"
+        "title": "Vertalers",
+        "sub_text": "Alle vertalers",
+        "page": "Pagina"
       }
-
     }
   }
 }

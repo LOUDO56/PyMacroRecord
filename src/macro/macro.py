@@ -2,12 +2,13 @@ from datetime import datetime
 from os import getlogin, system
 from sys import platform
 from threading import Thread
-from time import time, sleep
-from tkinter import *
-from tkinter import messagebox
-from pynput.keyboard import Key # FUTURE SELF: DON'T REMOVE THIS!!
-from pynput import mouse, keyboard
+from time import sleep, time
+from tkinter import DISABLED, NORMAL, messagebox
+
+from pynput import keyboard, mouse
+from pynput.keyboard import Key  # FUTURE SELF: DON'T REMOVE THIS!!
 from pynput.mouse import Button
+
 from utils.get_key_pressed import getKeyPressed
 from utils.keys import vk_nb
 from utils.record_file_management import RecordFileManagement
@@ -267,10 +268,7 @@ class Macro:
                                         keyToPress = None
                             if self.playback:
                                 if keyToPress is not None:
-                                    if (
-                                            self.macro_events["events"][events]["pressed"]
-                                            == True
-                                    ):
+                                    if self.macro_events["events"][events]["pressed"]:
                                         self.keyboardControl.press(keyToPress)
                                         if keyToPress not in keyToUnpress:
                                             keyToUnpress.append(keyToPress)
@@ -284,7 +282,6 @@ class Macro:
                             messagebox.showerror("Error",
                                                  f"An unexpected error occurred\n{e}")
                             self.stop_playback()
-
 
             repeat_count += 1
 
@@ -329,12 +326,12 @@ class Macro:
                     system("subprocess.callctl suspend")
                 elif "darwin" in platform.lower():
                     system("pmset sleepnow")
-            elif userSettings["After_Playback"]["Mode"].lower() == "log off computer":
+            elif userSettings["After_Playback"]["Mode"].lower() == "log_off_computer":
                 if platform == "win32":
                     system("shutdown /l")
                 else:
                     system(f"pkill -KILL -u {getlogin()}")
-            elif userSettings["After_Playback"]["Mode"].lower() == "turn off computer":
+            elif userSettings["After_Playback"]["Mode"].lower() == "turn_off_computer":
                 if platform == "win32":
                     system("shutdown /s /t 0")
                 else:
@@ -344,7 +341,7 @@ class Macro:
                     system("shutdown /r /t 0")
                 else:
                     system("shutdown -r now")
-            elif userSettings["After_Playback"]["Mode"].lower() == "hibernate (if enabled)":
+            elif userSettings["After_Playback"]["Mode"].lower() == "hibernate_if_enabled":
                 if platform == "win32":
                     system("shutdown -h")
                 elif "linux" in platform.lower():

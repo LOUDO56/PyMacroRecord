@@ -9,13 +9,18 @@
             "confirm_button": "Conferma",
             "cancel_button": "Annulla",
             "close_button": "Chiudi",
+            "mac_linux_run": "Stai utilizzando Linux o macOS",
+            "hotkeys_warning": "Attenzione alle scorciatoie, possono verificarsi conflitti durante la riproduzione",
+            "not_fix_mac_linux": "Questo non può essere risolto su macOS e Linux",
+            "choose_safe_hotkeys": "Scegli scorciatoie sicure, non una singola lettera.",
             "error": "Errore",
             "previous_text": "Precedente",
             "next_text": "Successivo",
             "confirm_save": "Vuoi salvare la tua registrazione?",
             "confirm": "Conferma",
             "information": "Informazione",
-            "restart_software_text": "È necessario riavviare il software per applicare le modifiche."
+            "restart_software_text": "È necessario riavviare il software per applicare le modifiche.",
+            "load_macro_settings": "Import macro settings too?"
         },
         "new_version": {
             "title": "Aggiornamento del software",
@@ -46,7 +51,7 @@
                 "repeat_text": "Ripeti",
                 "repeat_settings": {
                     "title": "Impostazioni della ripetizione",
-                    "infinite_repeat": "Infinite repeat?",
+                    "infinite_repeat": "Ripetizione infinita?",
                     "sub_text": "Inserisci il numero di ripetizioni",
                     "error_new_value": "Non puoi avere meno di una ripetizione."
                 },
@@ -80,11 +85,13 @@
                 "recordings_text": "Registrazioni",
                 "mouse_movement_text": "Movimento del mouse",
                 "mouse_click_text": "Clic del mouse",
-                "keyboard_text": "Tastiera"
+                "keyboard_text": "Tastiera",
+                "show_events_statut": "Mostra eventi sulla barra di stato"
             },
             "json_compact": "Dati macro compatti",
             "settings_menu": {
                 "settings_text": "Impostazioni",
+                "always_import_macro_settings": "Importa sempre le impostazioni macro",
                 "lang_text": "Lingua",
                 "lang_settings": {
                     "title": "Impostazioni della lingua",
@@ -113,12 +120,12 @@
                     "title": "Impostazioni dopo la riproduzione",
                     "sub_text": "Al termine della riproduzione",
                     "idle": "Inattivo",
-                    "quit software": "Esci dal software",
+                    "quit_software": "Esci dal software",
                     "standby": "Standby",
-                    "log off computer": "Disconnetti computer",
-                    "turn off computer": "Spegni computer",
+                    "log_off_computer": "Disconnetti computer",
+                    "turn_off_computer": "Spegni computer",
                     "restart computer": "Riavvia computer",
-                    "hibernate (if enabled)": "Ibernazione (se abilitata)"
+                    "hibernate_if_enabled": "Ibernazione (se abilitata)"
                 }
             },
             "others_menu": {
@@ -144,6 +151,7 @@
                 "version_text": "Versione",
                 "license_text": "Sotto licenza",
                 "version_check_update_text": {
+                    "checking": "Verifica...",
                     "up_to_date": "Aggiornato",
                     "outdated": "Obsoleto",
                     "disabled": "Verifica aggiornamenti disabilitata",
@@ -156,14 +164,17 @@
             "donors_text": "Donatori",
             "donors_settings": {
                 "title": "Donatori",
-                "sub_text": "Tutti i donatori"
+                "sub_text": "Tutti i donatori",
+                "load_donors": "Caricamento donatori...",
+                "want_be_donor": "Vuoi diventare donatore? Clicca qui!",
+                "cant_get_donors": "Impossibile ottenere i donatori :("
             },
             "translators_text": "Traduttori",
             "translators_settings": {
                 "title": "Traduttori",
-                "sub_text": "Tutti i traduttori"
+                "sub_text": "Tutti i traduttori",
+                "page": "Pagina"
             }
-
         }
     }
 }

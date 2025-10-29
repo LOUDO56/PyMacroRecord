@@ -1,5 +1,5 @@
 from sys import platform
-from tkinter import *
+from tkinter import Toplevel
 
 
 class Popup(Toplevel):
@@ -35,4 +35,3 @@ class Popup(Toplevel):
         else:
             self.attributes("-topmost", 1)
         self.grab_set()
-

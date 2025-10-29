@@ -1,6 +1,5 @@
-from tkinter import *
-from tkinter import messagebox
-from tkinter.ttk import *
+from tkinter import BOTTOM, LEFT, messagebox
+from tkinter.ttk import Button, Frame, Label, Spinbox
 
 from windows.popup import Popup
 
@@ -17,6 +16,7 @@ class TimeGui(Popup):
         self.time_string = userSettings["Time_string"]
         self.time_format = userSettings["Time_format"]
         self.type = type
+        value = 3600
         if self.type == "Interval":
             value = userSettings["Playback"]["Repeat"]["Interval"]
         elif self.type == "For":
@@ -25,7 +25,7 @@ class TimeGui(Popup):
             value = userSettings["Playback"]["Repeat"]["Scheduled"]
         hourFrame = Frame(self)
         if self.type == "Scheduled":
-            self.buttonTimeFormat = Button(hourFrame, text=self.time_format, command=self.changeTimeFormat)
+            self.buttonTimeFormat = Button(hourFrame, text=self.time_format, command=lambda: self.changeTimeFormat(main_app))
             self.buttonTimeFormat.pack(pady=5)
         hourText = Label(hourFrame, text=main_app.text_content["options_menu"]["playback_menu"]["for_interval_settings"]["hours_text"], font=("Segoe UI", 9))
         hourText.pack(pady=10)
@@ -104,16 +104,16 @@ class TimeGui(Popup):
             self.settings.change_settings("Time_string", None, None, "AM")
 
 
-    def changeTimeFormat(self):
+    def changeTimeFormat(self, main_app):
         if self.time_format == "12 hours":
             self.time_format = "24 hours"
-            self.buttonTimeFormat.configure(text="24 hours")
+            self.buttonTimeFormat.configure(text=f"24 {main_app.text_content['options_menu']['playback_menu']['for_interval_settings']['hours_text']}")
             self.settings.change_settings("Time_format", None, None, "24 hours")
             self.buttonAmPm.pack_forget()
 
         else:
             self.time_format = "12 hours"
-            self.buttonTimeFormat.configure(text="12 hours")
+            self.buttonTimeFormat.configure(text=f"12 {main_app.text_content['options_menu']['playback_menu']['for_interval_settings']['hours_text']}")
             self.settings.change_settings("Time_format", None, None, "12 hours")
             self.buttonAmPm.pack(pady=5)
 
