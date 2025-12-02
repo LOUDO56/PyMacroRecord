@@ -30,32 +30,29 @@ if(window.location.href.includes('download')){
     fetch('https://api.github.com/repos/LOUDO56/PyMacroRecord/releases/latest')
         .then(resp => resp.json())
         .then(ver => {
-            const setupToDl = 'https://github.com/LOUDO56/PyMacroRecord/releases/download/'+ver.tag_name+'/PyMacroRecord_'+ver.tag_name.replace('v', '')+'_Setup.exe'
-            const portableToDl = 'https://github.com/LOUDO56/PyMacroRecord/releases/download/'+ver.tag_name+'/PyMacroRecord_'+ver.tag_name.replace('v', '')+'-portable.exe'
-            const sourcetoDl = 'https://github.com/LOUDO56/PyMacroRecord/archive/refs/tags/'+ver.tag_name+'.zip'
-            downdloadLink.href = setupToDl;
-            downloadPortable.href = portableToDl
-            sourceLink.href = sourcetoDl;
+            const setupAsset = ver.assets.find(asset => asset.name.endsWith('_Setup.exe'));
+            const portableAsset = ver.assets.find(asset => asset.name.endsWith('-portable.exe'));
+
+            if (setupAsset) downdloadLink.href = setupAsset.browser_download_url;
+            if (portableAsset) downloadPortable.href = portableAsset.browser_download_url;
+            sourceLink.href = ver.zipball_url;
         })
 }
 
 fetch("/donors.txt")
     .then(res => res.text())
     .then(data => {
-        let lastDonators = "";
-        maxDonators = 5
-        data = data.split(";")
-        if(data.length < 5){
-            maxDonators = data.length
+        const donors = data.split(";")
+            .map(d => d.trim())
+            .filter(d => d.length > 0)
+            .reverse()
+            .slice(0, 5);
+
+        if (donors.length > 0) {
+            const formatter = new Intl.ListFormat('en', { style: 'long', type: 'conjunction' });
+            document.querySelector(".last-donators").textContent = formatter.format(donors);
+            
+            const label = donors.length === 1 ? "last donator: " : `${donors.length} last donators: `;
+            document.querySelector(".nb-top-donators").textContent = label;
         }
-        for(let i = 0; i < maxDonators; i++){
-            if(i == maxDonators - 1 && i != 0) lastDonators += " and " + data[data.length - 1 - i]
-            else lastDonators += data[data.length - 1  - i]
-            if(i < maxDonators - 1 && maxDonators != 1 && i < maxDonators - 2){
-                lastDonators += ","
-            }
-        }
-        document.querySelector(".last-donators").textContent = lastDonators;
-        if(maxDonators == 1) document.querySelector(".nb-top-donators").textContent = "last donator: ";
-        else document.querySelector(".nb-top-donators").textContent = maxDonators += " last donators: ";
     });
