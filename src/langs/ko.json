@@ -1,0 +1,180 @@
+{
+    "information": {
+        "author": "Jinwoo.Seo",
+        "lang_short": "ko",
+        "lang_long": "한국어"
+    },
+    "content": {
+        "global": {
+            "confirm_button": "확인",
+            "cancel_button": "취소",
+            "close_button": "닫기",
+            "mac_linux_run": "Linux 또는 macOS를 사용 중입니다",
+            "hotkeys_warning": "단축키 충돌이 재생 중에 발생할 수 있습니다",
+            "not_fix_mac_linux": "macOS 및 Linux에서는 이 문제를 해결할 수 없습니다",
+            "choose_safe_hotkeys": "안전한 단축키를 선택하세요, 한 글자만 사용하지 마세요.",
+            "error": "오류",
+            "previous_text": "이전",
+            "next_text": "다음",
+            "confirm_save": "녹화를 저장하시겠습니까?",
+            "confirm": "확인",
+            "information": "정보",
+            "restart_software_text": "변경 사항을 적용하려면 소프트웨어를 다시 시작해야 합니다.",
+            "load_macro_settings": "매크로 설정도 가져오시겠습니까?"
+        },
+        "new_version": {
+            "title": "소프트웨어 업데이트",
+            "sub_text_1": "새 버전",
+            "sub_text_2": "사용 가능!",
+            "sub_text_3": "지금 다운로드하시겠습니까?",
+            "ignore_button": "무시",
+            "remind_later_button": "나중에 알림",
+            "download_button": "업데이트 다운로드"
+        },
+        "file_menu": {
+            "file_text": "파일",
+            "new_text": "새로 만들기",
+            "load_text": "불러오기",
+            "save_text": "저장",
+            "save_as_text": "다른 이름으로 저장"
+        },
+        "options_menu": {
+            "options_text": "옵션",
+            "playback_menu": {
+                "playback_text": "재생",
+                "speed_text": "속도",
+                "speed_settings": {
+                    "title": "속도 설정",
+                    "sub_text": "0.1에서 10 사이의 속도 값을 입력하세요",
+                    "error_new_value": "속도 값은 0.1과 10 사이여야 합니다!"
+                },
+                "repeat_text": "반복",
+                "repeat_settings": {
+                    "title": "반복 설정",
+                    "infinite_repeat": "무한 반복?",
+                    "sub_text": "반복 횟수를 입력하세요",
+                    "error_new_value": "반복 횟수는 최소 1이어야 합니다."
+                },
+                "for_text": "기간",
+                "for_settings": {
+                    "title": "기간 설정"
+                },
+                "interval_text": "간격",
+                "interval_settings": {
+                    "title": "간격 설정"
+                },
+                "for_interval_settings": {
+                    "hours_text": "시간",
+                    "minutes_text": "분",
+                    "seconds_text": "초",
+                    "error_new_value_multiple": "입력이 올바르지 않습니다",
+                    "error_new_value_single": "입력이 올바르지 않습니다"
+                },
+                "scheduled_text": "예약됨",
+                "scheduled_settings": {
+                  "title": "예약 설정"
+                },
+                "delay_text": "지연",
+                "delay_settings": {
+                    "title": "지연 설정",
+                    "sub_text": "반복 간 지연을 입력하세요",
+                    "error_new_value": "지연 시간은 0보다 작을 수 없습니다."
+                }
+            },
+            "recordings_menu": {
+                "recordings_text": "녹화",
+                "mouse_movement_text": "마우스 이동",
+                "mouse_click_text": "마우스 클릭",
+                "keyboard_text": "키보드",
+                "show_events_statut": "상태 표시줄에 이벤트 표시"
+            },
+            "json_compact": "매크로 데이터 축약",
+            "settings_menu": {
+                "settings_text": "설정",
+                "always_import_macro_settings": "매크로 설정 항상 가져오기",
+                "lang_text": "언어",
+                "lang_settings": {
+                    "title": "언어 설정",
+                    "sub_text": "언어를 선택하세요"
+                },
+                "hotkeys_text": "단축키",
+                "hotkeys_settings": {
+                    "title": "단축키 설정",
+                    "start_record_text": "녹화 시작",
+                    "stop_record_text": "녹화 중지",
+                    "start_playback_text": "재생 시작",
+                    "stop_playback_text": "재생 중지",
+                    "clear_text": "해제",
+                    "please_key_text": "키를 누르세요",
+                    "error_hotkeys": "녹화 시작과 재생 시작에 동일한 단축키를 지정할 수 없습니다"
+                },
+                "minimization_text": "최소화",
+                "minimization_toast": "PyMacroRecord가 최소화되었습니다.",
+                "minimization_menu": {
+                    "minimization_when_playing_text": "재생 중 최소화",
+                    "minimization_when_recording_text": "녹화 중 최소화"
+                },
+                "after_playback_text": "재생 후",
+                "after_playback_settings": {
+                    "when_playback_complete_text": "재생 완료 시",
+                    "title": "재생 후 설정",
+                    "sub_text": "재생이 끝났을 때",
+                    "idle": "휴기",
+                    "quit_software": "프로그램 종료",
+                    "standby": "대기 모드",
+                    "log_off_computer": "로그오프",
+                    "turn_off_computer": "컴퓨터 종료",
+                    "restart computer": "컴퓨터 재시작",
+                    "hibernate_if_enabled": "최대 절전 모드(활성화된 경우)"
+                }
+            },
+            "others_menu": {
+                "others_text": "기타",
+                "check_update_text": "업데이트 확인",
+                "reset_settings_text": "설정 재설정",
+                "reset_settings_confirmation": "설정을 재설정하시겠습니까?",
+                "fixed_timestamp_text": "고정 타임스탬프",
+                "fixed_timestamp_settings": {
+                    "title": "고정 타임스탬프 설정",
+                    "sub_text": "고정 타임스탬프를 입력하세요"
+                }
+            }
+        },
+        "help_menu": {
+            "help_text": "도움말",
+            "tutorial_text": "튜토리얼",
+            "about_text": "정보",
+            "website_text": "웹사이트",
+            "about_settings": {
+                "title": "정보",
+                "publisher_text": "배포자",
+                "version_text": "버전",
+                "license_text": "라이선스",
+                "version_check_update_text": {
+                    "checking": "확인 중...",
+                    "up_to_date": "최신",
+                    "outdated": "구버전",
+                    "disabled": "업데이트 확인 비활성화됨",
+                    "failed": "업데이트 확인에 실패했습니다"
+                }
+            }
+        },
+        "others_menu": {
+            "others_text": "기타",
+            "donors_text": "기부자",
+            "donors_settings": {
+                "title": "기부자",
+                "sub_text": "모든 기부자",
+                "load_donors": "기부자 불러오는 중...",
+                "want_be_donor": "기부자가 되고 싶으신가요? 여기를 클릭하세요!",
+                "cant_get_donors": "기부자 정보를 가져올 수 없습니다 :("
+            },
+            "translators_text": "번역자",
+            "translators_settings": {
+                "title": "번역자",
+                "sub_text": "모든 번역자",
+                "page": "페이지"
+            }
+        }
+    }
+}
