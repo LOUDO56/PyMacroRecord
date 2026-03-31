@@ -18,9 +18,9 @@
       "next_text": "Weiter",
       "confirm_save": "Wollen Sie die Aufzeichnung speichern?",
       "confirm": "Bestätigen",
-      "information": "Informatie",
+      "information": "Informationen",
       "restart_software_text": "Sie müssen das Programm neu starten, damit die Änderung übernommen wird.",
-      "load_macro_settings": "Macro-instellingen ook importeren?"
+      "load_macro_settings": "Macro-Einstellungen laden?"
     },
     "new_version": {
       "title": "Software update",
@@ -51,7 +51,7 @@
         "repeat_text": "Wiederholen",
         "repeat_settings": {
           "title": "Wiederholen",
-          "infinite_repeat": "Oneindige herhaling?",
+          "infinite_repeat": "Unendlich wiederholen?",
           "sub_text": "Anzahl der Wiederholungen",
           "error_new_value": "Ein Minium von einer Wiederholung ist nötig."
         },
@@ -72,7 +72,7 @@
         },
         "scheduled_text": "Geplant",
         "scheduled_settings": {
-          "title": "Geplande instellingen"
+          "title": "Gesetzte Einstellungen"
         },
         "delay_text": "Verzögerung",
         "delay_settings": {
@@ -86,12 +86,12 @@
         "mouse_movement_text": "Maus Bewegung",
         "mouse_click_text": "Maus klick",
         "keyboard_text": "Tastatur",
-        "show_events_statut": "Toon gebeurtenissen op statusbalk"
+        "show_events_statut": "Zeige Event-Status"
       },
       "json_compact": "Makrodaten optimieren",
       "settings_menu": {
         "settings_text": "Einstellungen",
-        "always_import_macro_settings": "Macro-instellingen altijd importeren",
+        "always_import_macro_settings": "Makro-Einstellungen immer importieren",
         "lang_text": "Sprache",
         "lang_settings": {
           "title": "Spracheinstellung",
@@ -104,7 +104,7 @@
           "stop_record_text": "Aufnahme stoppen",
           "start_playback_text": "Wiedergabe starten",
           "stop_playback_text": "Wiedergabe stoppen",
-          "clear_text": "Säubern",
+          "clear_text": "Text leeren",
           "please_key_text": "Bitte eingeben",
           "error_hotkeys": "Sie können nicht dieselben hotkeys für den Aufnahmestart und den Wiedergabestart verwenden."
         },
@@ -120,12 +120,12 @@
           "title": "Nachbearbeitungseinstellungen",
           "sub_text": "Bei abgeschlossener Wiedergabe",
           "idle": "Leerlauf",
-          "quit_software": "Software beenden",
+          "quit_software": "Programm beenden",
           "standby": "Standby",
           "log_off_computer": "Benutzer Abmelden",
           "turn_off_computer": "Computer herunterfahren",
           "restart computer": "Computer neu starten",
-          "hibernate_if_enabled": "Slaapstand (indien ingeschakeld)"
+          "hibernate_if_enabled": "Schlafmodus (Falls aktiviert)"
         }
       },
       "others_menu": {
@@ -146,14 +146,14 @@
       "about_text": "Info",
       "website_text": "Website",
       "about_settings": {
-        "title": "Over",
+        "title": "Über",
         "publisher_text": "Herausgeber",
-        "version_text": "Versie",
+        "version_text": "Version",
         "license_text": "Software Lizenz",
         "version_check_update_text": {
           "checking": "Prüfen...",
-          "up_to_date": "Versie ist aktuell",
-          "outdated": "Eine neue Versie ist verfügbar",
+          "up_to_date": "Version ist aktuell",
+          "outdated": "Eine neue Version ist verfügbar",
           "disabled": "Updateprüfung ist deaktiviert",
           "failed": "Updateprüfung ist fehlgeschlagen"
         }
