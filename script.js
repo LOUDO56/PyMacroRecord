@@ -22,22 +22,40 @@ if(ageDoc !== null){
 }
 
 
-// To get the right version of the software without updating everytime the website
-if(window.location.href.includes('download')){
-    const downdloadLink = document.querySelector('.download')
-    const downloadPortable = document.querySelector('.download-portable-link');
-    const sourceLink = document.querySelector('.source-code')
-    fetch('https://api.github.com/repos/LOUDO56/PyMacroRecord/releases/latest')
-        .then(resp => resp.json())
-        .then(ver => {
-            const setupAsset = ver.assets.find(asset => asset.name.endsWith('_Setup.exe'));
-            const portableAsset = ver.assets.find(asset => asset.name.endsWith('-portable.exe'));
-
-            if (setupAsset) downdloadLink.href = setupAsset.browser_download_url;
-            if (portableAsset) downloadPortable.href = portableAsset.browser_download_url;
-            sourceLink.href = ver.zipball_url;
-        })
+function getOS() {
+    const ua = navigator.userAgent;
+    if (/windows/i.test(ua)) return 'windows';
+    if (/linux/i.test(ua) && !/android/i.test(ua)) return 'linux';
+    return 'other';
 }
+
+const os = getOS();
+
+fetch('https://api.github.com/repos/LOUDO56/PyMacroRecord/releases/latest')
+    .then(resp => resp.json())
+    .then(release => {
+        const setupAsset    = release.assets.find(a => a.name.endsWith('-setup.exe'));
+        const portableAsset = release.assets.find(a => a.name.endsWith('-portable.exe'));
+        const appImageAsset = release.assets.find(a => a.name.endsWith('.AppImage'));
+
+        const heroBtn = document.getElementById('hero-download-btn');
+        const hint    = document.getElementById('download-os-hint');
+        if (!heroBtn) return;
+
+        if (os === 'windows' && setupAsset) {
+            heroBtn.href = setupAsset.browser_download_url;
+            let hintHTML = 'for Windows — Setup';
+            if (portableAsset)
+                hintHTML += ` · <a href="${portableAsset.browser_download_url}" class="linked">portable version</a>`;
+            hint.innerHTML = hintHTML;
+        } else if (os === 'linux' && appImageAsset) {
+            heroBtn.href = appImageAsset.browser_download_url;
+            hint.textContent = 'for Linux — AppImage';
+        } else {
+            heroBtn.href = 'https://github.com/LOUDO56/PyMacroRecord/releases/latest';
+            hint.textContent = 'view all releases on GitHub';
+        }
+    });
 
 fetch("/donors.txt")
     .then(res => res.text())
