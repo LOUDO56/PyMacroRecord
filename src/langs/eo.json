@@ -1,0 +1,180 @@
+{
+  "information": {
+    "author": "Mineeagle",
+    "lang_short": "eo",
+    "lang_long": "Esperanto"
+  },
+  "content": {
+    "global": {
+      "confirm_button": "Konfirmi",
+      "cancel_button": "Nuligi",
+      "close_button": "Fermi",
+      "mac_linux_run": "Nuntempe vi uzas aŭ Linukson aŭ Makintoŝon OS.",
+      "hotkeys_warning": "Estu antentema je rapidklavoj, konfliktoj povas okazi dum ludado.",
+      "not_fix_mac_linux": "Ĝi ne repareblas ĉe Linukso aŭ Makintoŝ OS.",
+      "choose_safe_hotkeys": "Do, elektu sekuran rapidklavon, sed ne nur unu literon.",
+      "error": "Eraro",
+      "previous_text": "Antaŭa",
+      "next_text": "Onta",
+      "confirm_save": "Ĉu vi volas konservi vian registraĵon?",
+      "confirm": "Konfirmi",
+      "information": "Informo",
+      "restart_software_text": "Necesas relanĉi la programon, por ke ĝi efektiviĝas.",
+      "load_macro_settings": "Ĉu importi ankaŭ la makroaj agordoj?"
+    },
+    "new_version": {
+      "title": "Programĝisdatiĝo",
+      "sub_text_1": "Nova versio",
+      "sub_text_2": "elŝultebla!",
+      "sub_text_3": "Ĉu vi volas elŝuti ĝin nun?",
+      "ignore_button": "Ignori",
+      "remind_later_button": "Memorigu min poste",
+      "download_button": "Elŝuti ĝisdatiĝon"
+    },
+    "file_menu": {
+      "file_text": "Dosiero",
+      "new_text": "Nova",
+      "load_text": "Ŝargi",
+      "save_text": "Savi",
+      "save_as_text": "Savi kiel"
+    },
+    "options_menu": {
+      "options_text": "Agordoj",
+      "playback_menu": {
+        "playback_text": "Ludado",
+        "speed_text": "Rapideco",
+        "speed_settings": {
+          "title": "Rapid-agordoj",
+          "sub_text": "Enmetu rapidecon inter 0.1 kaj 10",
+          "error_new_value": "Via rapideco devas esti inter 0.1 kaj 10!"
+        },
+        "repeat_text": "Ripeto",
+        "repeat_settings": {
+          "title": "Ripet-agordoj",
+          "infinite_repeat": "Ĉu senfinaj ripetoj?",
+          "sub_text": "Enmetu numeron",
+          "error_new_value": "Vi ne povas havi malpli ol 1 ripeton."
+        },
+        "for_text": "Dum",
+        "for_settings": {
+          "title": "Dum-agordoj"
+        },
+        "interval_text": "Intervalo",
+        "interval_settings": {
+          "title": "Interval-agordoj"
+        },
+        "for_interval_settings": {
+          "hours_text": "Horoj",
+          "minutes_text": "Minutoj",
+          "seconds_text": "Sekundoj",
+          "error_new_value_multiple": "enigoj estas malĝustaj",
+          "error_new_value_single": "enigo estas malĝusta"
+        },
+        "scheduled_text": "Plano",
+        "scheduled_settings": {
+          "title": "Planagordoj"
+        },
+        "delay_text": "Prokrasto",
+        "delay_settings": {
+          "title": "Prokrast-agordoj",
+          "sub_text": "Enmetu prokraston inter ripetoj",
+          "error_new_value": "Vi ne povas havi malpli ol 0 da prokrasto."
+        }
+      },
+      "recordings_menu": {
+        "recordings_text": "Registrado",
+        "mouse_movement_text": "Musmovo",
+        "mouse_click_text": "Musklako",
+        "keyboard_text": "Klavaro",
+        "show_events_statut": "Montri eventojn en la stata breto"
+      },
+      "json_compact": "Malgrandigi makro-datumojn",
+      "settings_menu": {
+        "settings_text": "Agordoj",
+        "always_import_macro_settings": "Ĉiam importi makroajn agordojn",
+        "lang_text": "Lingvo",
+        "lang_settings": {
+          "title": "Lingvo-agordoj",
+          "sub_text": "Elektu vian lingvon"
+        },
+        "hotkeys_text": "Rapidklavoj",
+        "hotkeys_settings": {
+          "title": "Rapidklav-agordoj",
+          "start_record_text": "Komenci registradon",
+          "stop_record_text": "Haltigi registradon",
+          "start_playback_text": "Komenci ludadon",
+          "stop_playback_text": "Haltigi ludadon",
+          "clear_text": "Malplenigi",
+          "please_key_text": "Bv. klavon",
+          "error_hotkeys": "Vi ne povas uzi la saman klavon por komenci kaj haltigi la ludadon"
+        },
+        "minimization_text": "Minimumigo",
+        "minimization_toast": "PyMacroRecord minimumiĝis.",
+        "minimization_menu": {
+          "minimization_when_playing_text": "Minimumigo dum ludado",
+          "minimization_when_recording_text": "Minimumigo dum registrado"
+        },
+        "after_playback_text": "Post ludado",
+        "after_playback_settings": {
+          "when_playback_complete_text": "Post ludado farita",
+          "title": "Postludad-agordoj",
+          "sub_text": "Kiam ludado faritas",
+          "idle": "Senokupa",
+          "quit_software": "Forlasi programon",
+          "standby": "Atendada",
+          "log_off_computer": "Elsaluti komputilon",
+          "turn_off_computer": "Malŝalti komputilon",
+          "restart computer": "Restartigi komputilon",
+          "hibernate_if_enabled": "Pasivumi (se ŝaltita)"
+        }
+      },
+      "others_menu": {
+        "others_text": "Aliaj",
+        "check_update_text": "Kontroli ĝisdatiĝojn",
+        "reset_settings_text": "Pravalorizi agordojn",
+        "reset_settings_confirmation": "Ĉu vi certas, ke vi volas pravalorizi viajn agordojn?",
+        "fixed_timestamp_text": "Fiksa tempindiko",
+        "fixed_timestamp_settings": {
+          "title": "Fiksaj tempindik-agordoj",
+          "sub_text": "Enmetu fiksan tempindikon"
+        }
+      }
+    },
+    "help_menu": {
+      "help_text": "Helpo",
+      "tutorial_text": "Lernilo",
+      "about_text": "Pri",
+      "website_text": "Retpaĝo",
+      "about_settings": {
+        "title": "Pri",
+        "publisher_text": "Eldonanto",
+        "version_text": "Versio",
+        "license_text": "Sub permesilo",
+        "version_check_update_text": {
+          "checking": "Kontrolas...",
+          "up_to_date": "Ĝisdata",
+          "outdated": "Neĝisdata",
+          "disabled": "Kontroli ĝisdatiĝojn estas malŝaltita",
+          "failed": "Ne elŝuteblas ĉu nova ĝisdatigo ekzistas"
+        }
+      }
+    },
+    "others_menu": {
+      "others_text": "Aliaj",
+      "donors_text": "Donacintoj",
+      "donors_settings": {
+        "title": "Donacintoj",
+        "sub_text": "Ĉiuj donacintoj",
+        "load_donors": "Elŝuti donacintojn...",
+        "want_be_donor": "Ĉu vi volas fariĝi donacinto? Klaku ĉi tien!",
+        "cant_get_donors": "Ne eblas elŝuti donacintojn :("
+      },
+      "translators_text": "Tradukintoj",
+      "translators_settings": {
+        "title": "Tradukintoj",
+        "sub_text": "Ĉiuj tradukintoj",
+        "page": "Paĝo"
+      }
+    }
+  }
+}
