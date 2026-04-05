@@ -40,7 +40,7 @@ DisableProgramGroupPage=yes
 LicenseFile={#SourcePath}LICENSE.md
 PrivilegesRequired=lowest
 OutputDir={#MyOutputDir}
-OutputBaseFilename=PyMacroRecord_{#MyAppVersion}_Setup
+OutputBaseFilename=PyMacroRecord-{#MyAppVersion}-setup
 SetupIconFile={#SourcePath}src\assets\logo.ico
 Compression=lzma
 SolidCompression=yes
@@ -61,7 +61,6 @@ Name: "french"; MessagesFile: "compiler:Languages\French.isl"
 Name: "german"; MessagesFile: "compiler:Languages\German.isl"
 Name: "hebrew"; MessagesFile: "compiler:Languages\Hebrew.isl"
 Name: "hungarian"; MessagesFile: "compiler:Languages\Hungarian.isl"
-Name: "icelandic"; MessagesFile: "compiler:Languages\Icelandic.isl"
 Name: "italian"; MessagesFile: "compiler:Languages\Italian.isl"
 Name: "japanese"; MessagesFile: "compiler:Languages\Japanese.isl"
 Name: "norwegian"; MessagesFile: "compiler:Languages\Norwegian.isl"

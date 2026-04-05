@@ -50,6 +50,14 @@ jobs:
       - name: Install Python dependencies
         run: pip install pyinstaller pynput Pillow requests pystray
 
+      - name: Get version
+        id: version
+        shell: pwsh
+        run: |
+          $content = Get-Content src/utils/version.py -Raw
+          $v = [regex]::Match($content, 'version\s*=\s*"([\d.]+)"').Groups[1].Value
+          echo "VALUE=$v" >> $env:GITHUB_OUTPUT
+
       - name: Download UPX
         shell: pwsh
         run: |
@@ -63,7 +71,7 @@ jobs:
         run: >
           pyinstaller --noconfirm --onefile --windowed
           --icon "src/assets/logo.ico"
-          --name "PyMacroRecord-portable"
+          --name "PyMacroRecord-${{ steps.version.outputs.VALUE }}-portable"
           --contents-directory "."
           --upx-dir upx
           --add-data "src/assets;assets/"
@@ -88,14 +96,6 @@ jobs:
           --add-data "src/windows;windows/"
           "src/main.py"
 
-      - name: Get version
-        id: version
-        shell: pwsh
-        run: |
-          $content = Get-Content src/utils/version.py -Raw
-          $v = [regex]::Match($content, 'version\s*=\s*"([\d.]+)"').Groups[1].Value
-          echo "VALUE=$v" >> $env:GITHUB_OUTPUT
-
       - name: Build setup installer (Inno Setup)
         shell: pwsh
         run: |
@@ -111,8 +111,8 @@ jobs:
         with:
           name: windows-artifacts
           path: |
-            dist/PyMacroRecord-portable.exe
-            setup_output/PyMacroRecord_*_Setup.exe
+            dist/PyMacroRecord-*-portable.exe
+            setup_output/PyMacroRecord-*-setup.exe
 
   release:
     needs: [build-linux, build-windows]
@@ -136,6 +136,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           generate_release_notes: true
-          draft: ${{ github.event_name == 'workflow_dispatch' && inputs.draft }}
+          draft: true
           tag_name: ${{ github.ref_name != '' && github.ref_name || 'v0.0.0-test' }}
           files: release-files/**
