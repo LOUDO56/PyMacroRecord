@@ -17,6 +17,7 @@ from tkinter import (
     W,
     X,
 )
+from tkinter import font as tkfont
 from tkinter.ttk import Button, Frame, Label
 
 from PIL import Image
@@ -49,7 +50,9 @@ class MainApp(Window):
     """Main windows of the application"""
 
     def __init__(self):
-        super().__init__("PyMacroRecord", 350, 200)
+        self.default_width = 350
+        self.default_height = 200
+        super().__init__("PyMacroRecord", self.default_width, self.default_height)
         self.attributes("-topmost", 1)
         if platform == "win32":
             self.iconbitmap(resource_path(path.join("assets", "logo.ico")))
@@ -67,6 +70,7 @@ class MainApp(Window):
         self.version = Version(self.settings.settings_dict, self)
 
         self.menu = MenuBar(self)  # Menu Bar
+        self.adjust_width_for_menu()
         self.macro = Macro(self)
 
         self.validate_cmd = self.register(self.validate_input)
@@ -126,6 +130,30 @@ class MainApp(Window):
                 if time() > self.settings.settings_dict["Others"]["Remind_new_ver_at"]:
                     NewVerAvailable(self, self.version.new_version)
         self.mainloop()
+
+    def adjust_width_for_menu(self):
+        labels = (
+            self.text_content["file_menu"]["file_text"],
+            self.text_content["options_menu"]["options_text"],
+            self.text_content["help_menu"]["help_text"],
+            self.text_content["others_menu"]["others_text"],
+        )
+
+        try:
+            menu_font = tkfont.nametofont("TkMenuFont")
+        except Exception:
+            menu_font = tkfont.nametofont("TkDefaultFont")
+
+        required_width = 20 + sum(menu_font.measure(label) + 32 for label in labels)
+        target_width = max(self.default_width, required_width)
+
+        self.update_idletasks()
+        current_height = max(self.winfo_height(), self.default_height)
+        current_width = self.winfo_width()
+        if current_width >= target_width:
+            return
+
+        self.geometry(f"{target_width}x{current_height}+{self.winfo_x()}+{self.winfo_y()}")
 
     def load_language(self):
         self.lang = self.settings.settings_dict["Language"]
