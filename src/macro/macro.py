@@ -323,7 +323,7 @@ class Macro:
                 if platform == "win32":
                     system("rundll32.exe powrprof.dll, SetSuspendState 0,1,0")
                 elif "linux" in platform.lower():
-                    system("subprocess.callctl suspend")
+                    system("systemctl suspend")
                 elif "darwin" in platform.lower():
                     system("pmset sleepnow")
             elif userSettings["After_Playback"]["Mode"].lower() == "log_off_computer":
