@@ -20,7 +20,9 @@ from tkinter import (
 from tkinter.ttk import Button, Frame, Label
 
 from PIL import Image
-from pystray import Icon, MenuItem
+
+if platform == "win32":
+    from pystray import Icon, MenuItem
 
 from hotkeys.hotkeys_manager import HotkeysManager
 from macro import Macro
@@ -111,7 +113,7 @@ class MainApp(Window):
         self.bind('<Control-n>', record_management.new_macro)
 
         self.protocol("WM_DELETE_WINDOW", self.quit_software)
-        if platform.lower() != "darwin":
+        if platform == "win32":
             Thread(target=self.systemTray).start()
 
         self.attributes("-topmost", 0)
@@ -162,7 +164,7 @@ class MainApp(Window):
                 RecordFileManagement(self, self.menu).save_macro()
             elif wantToSave is None:
                 return
-        if platform.lower() != "darwin":
+        if platform == "win32":
             self.icon.stop()
         if platform.lower() == "linux":
             self.destroy()

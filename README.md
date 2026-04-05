@@ -44,78 +44,58 @@ And to stop the playback, press the `f3` key (By default).
 
 ## Windows
 
-
-
-
-
-
 https://github.com/LOUDO56/PyMacroRecord/assets/117168736/ac77b7b6-02d0-4c12-a71a-65119c4acc59
 
-
-## macOS
-
-
-
-
-
-https://github.com/LOUDO56/PyMacroRecord/assets/117168736/2e8d8a85-c96b-4906-b8d9-b91de2c3d35b
-
-
-
-
-
-
-
-
-## Linux
-
-
-
-
-
+## Linux (X11)
 
 https://github.com/LOUDO56/PyMacroRecord/assets/117168736/25ab7c60-9f48-425f-bd5f-68c8b76e4c9c
-
-
-
-
-
 
 
 # For bug reports or update requests
 If you encounter a bug or want to request an update, simply create an issue [here](https://github.com/LOUDO56/PyMacroRecord/issues)
 
-# For people who don't have windows or don't want to use exe file
-- First, if you didn't already, install [Python](https://www.python.org/downloads/)
-- Download the last source code release [here](https://github.com/LOUDO56/PyMacroRecord/releases)
+# Running from source
 
+- First, install [Python](https://www.python.org/downloads/)
+- Download the last source code release [here](https://github.com/LOUDO56/PyMacroRecord/releases)
 - Extract it wherever you want.
 - Open the terminal and type `cd <PATH TO SOFTWARE FOLDER>`
-- Type the command:
+- Install dependencies:
   ```bash
   pip3 install -r requirements.txt
   ```
-  - If you are on **Linux**, you might need to install Tkinter manually, commands to install are [here](https://www.geeksforgeeks.org/how-to-install-tkinter-on-linux/)
-  - Mac Users, you must add terminal to accessibility and input monitoring settings in system preferences to allow mouse and keyboard inputs.
-  - (Optional) If you want these package to be on virtual environment follow these step [here](https://stackoverflow.com/a/41799834)
-- Finally, do `cd src` and type: `python3 main.py`
-- And boom! The software is now ready to use.
+  - On **Linux**, you might need to install Tkinter manually: `sudo apt install python3-tk` (or equivalent for your distro)
+  - On **Linux**, the app requires an **X11** session. Wayland is not supported.
+- Run:
+  ```bash
+  cd src && python3 main.py
+  ```
 
-# Build (Windows)
-To build the application, I use PyInstaller.
+# Build
 
-You need to be on home directory, not on src.
+The project uses **cx_Freeze** to build the application.
 
-Then, use that command for onefile output (upx is optional).
+## Linux (AppImage)
+
+Requirements: `cx_Freeze`, `imagemagick` (`convert`), `curl`
+
+```bash
+./build.sh
 ```
-pyinstaller --noconfirm --onefile --windowed --icon "src/assets/logo.ico" --name "PyMacroRecord-portable" --contents-directory "." --upx-dir upx --add-data "src/assets;assets/" --add-data "src/hotkeys;hotkeys/" --add-data "src/macro;macro/" --add-data "src/utils;utils/" --add-data "src/windows;windows/" --add-data "src/langs;langs"  "src/main.py"
+
+This will produce a `PyMacroRecord-x86_64.AppImage` (or the current arch) in the project root.
+
+> **Note:** The AppImage runs in X11 mode only. Wayland is not supported because the mouse can't leave the current window.
+
+## Windows
+
+Requirements: `cx_Freeze`
+
+```bash
+python setup_cx.py build
 ```
 
-For onedir output, use that command (upx is optional).
-
-```
-pyinstaller --noconfirm --onedir --windowed --icon "src/assets/logo.ico" --name "PyMacroRecord" --contents-directory "." --upx-dir upx --add-data "src/assets;assets/" --add-data "src/hotkeys;hotkeys/" --add-data "src/macro;macro/" --add-data "src/utils;utils/" --add-data "src/langs;langs" --add-data "src/windows;windows/"  "src/main.py"
-```
+The output will be in the `build/` directory.
 
 # Support
 Developing a software is not an easy task. If you really like this project, please consider making a small donation, it really helps and means a lot! <3
