@@ -10,5 +10,5 @@ if platform.lower() == "win32":
     ctypes.windll.shcore.SetProcessDpiAwareness(PROCESS_PER_MONITOR_DPI_AWARE)
 
 if __name__ == "__main__":
-    os.chdir(os.path.dirname(os.path.realname(__file__)))
+    os.chdir(os.path.dirname(os.path.realpath(__file__)))
     MainApp()
