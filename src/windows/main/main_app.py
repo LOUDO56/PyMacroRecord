@@ -94,6 +94,7 @@ class MainApp(Window):
             with open(sys.argv[1], 'r') as record:
                 loaded_content = load(record)
             self.macro.import_record(loaded_content)
+            self.current_file = sys.argv[1]
             self.playBtn = Button(self.center_frame, image=self.playImg, command=self.macro.start_playback)
             self.macro_recorded = True
             self.macro_saved = True
