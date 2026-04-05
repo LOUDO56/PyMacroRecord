@@ -47,7 +47,7 @@ cat > "${APPDIR}/usr/share/metainfo/${APP_ID}.appdata.xml" <<EOF
   <summary>Free macro recorder for Linux and Windows</summary>
   <metadata_license>MIT</metadata_license>
   <project_license>GPL-3.0</project_license>
-  <developer>
+  <developer id="io.github.LOUDO56">
     <name>LOUDO56</name>
   </developer>
   <launchable type="desktop-id">${APP_ID}.desktop</launchable>
@@ -84,7 +84,7 @@ if [ ! -f "${APPIMAGETOOL}" ]; then
 fi
 
 echo ">>> Creating AppImage..."
-ARCH="${ARCH}" "${APPIMAGETOOL}" -u "${UPDATE_INFO}" \
+ARCH="${ARCH}" "${APPIMAGETOOL}" --no-appstream -u "${UPDATE_INFO}" \
     "${APPDIR}" "${APP_NAME}-${VERSION}-${ARCH}.AppImage"
 
 if command -v zsyncmake &>/dev/null; then

@@ -1,0 +1,141 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      draft:
+        description: 'Create as draft release'
+        type: boolean
+        default: true
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install Python dependencies
+        run: pip install cx_Freeze pynput Pillow requests
+
+      - name: Install system dependencies
+        run: sudo apt-get install -y imagemagick zsync python3-tk libfuse2
+
+      - name: Build AppImage
+        run: bash build.sh
+
+      - name: Upload AppImage artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-appimage
+          path: |
+            PyMacroRecord-*.AppImage
+            PyMacroRecord-*.AppImage.zsync
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install Python dependencies
+        run: pip install pyinstaller pynput Pillow requests pystray
+
+      - name: Download UPX
+        shell: pwsh
+        run: |
+          Invoke-WebRequest -Uri "https://github.com/upx/upx/releases/download/v4.2.4/upx-4.2.4-win64.zip" -OutFile upx.zip
+          Expand-Archive upx.zip -DestinationPath upx_tmp
+          New-Item -ItemType Directory -Force -Path upx | Out-Null
+          Copy-Item upx_tmp\upx-4.2.4-win64\upx.exe upx\
+          Remove-Item -Recurse -Force upx.zip, upx_tmp
+
+      - name: Build portable exe (onefile)
+        run: >
+          pyinstaller --noconfirm --onefile --windowed
+          --icon "src/assets/logo.ico"
+          --name "PyMacroRecord-portable"
+          --contents-directory "."
+          --upx-dir upx
+          --add-data "src/assets;assets/"
+          --add-data "src/langs;langs/"
+          --add-data "src/hotkeys;hotkeys/"
+          --add-data "src/macro;macro/"
+          --add-data "src/utils;utils/"
+          --add-data "src/windows;windows/"
+          "src/main.py"
+
+      - name: Build folder exe (for setup installer)
+        run: >
+          pyinstaller --noconfirm --windowed
+          --icon "src/assets/logo.ico"
+          --name "PyMacroRecord"
+          --upx-dir upx
+          --add-data "src/assets;assets/"
+          --add-data "src/langs;langs/"
+          --add-data "src/hotkeys;hotkeys/"
+          --add-data "src/macro;macro/"
+          --add-data "src/utils;utils/"
+          --add-data "src/windows;windows/"
+          "src/main.py"
+
+      - name: Get version
+        id: version
+        shell: pwsh
+        run: |
+          $content = Get-Content src/utils/version.py -Raw
+          $v = [regex]::Match($content, 'version\s*=\s*"([\d.]+)"').Groups[1].Value
+          echo "VALUE=$v" >> $env:GITHUB_OUTPUT
+
+      - name: Build setup installer (Inno Setup)
+        shell: pwsh
+        run: |
+          choco install innosetup --yes --no-progress
+          New-Item -ItemType Directory -Force -Path setup_output | Out-Null
+          iscc `
+            "/DMyAppVersion=${{ steps.version.outputs.VALUE }}" `
+            "/DMyOutputDir=${{ github.workspace }}\setup_output" `
+            "setup.iss"
+
+      - name: Upload Windows artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-artifacts
+          path: |
+            dist/PyMacroRecord-portable.exe
+            setup_output/PyMacroRecord_*_Setup.exe
+
+  release:
+    needs: [build-linux, build-windows]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download Linux artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: linux-appimage
+          path: release-files
+
+      - name: Download Windows artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: windows-artifacts
+          path: release-files
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          draft: ${{ github.event_name == 'workflow_dispatch' && inputs.draft }}
+          tag_name: ${{ github.ref_name != '' && github.ref_name || 'v0.0.0-test' }}
+          files: release-files/**
