@@ -1,5 +1,20 @@
 from sys import platform
 
+_MODIFIER_NORMALIZE = {
+    "Key.ctrl_l":  "Key.ctrl",
+    "Key.ctrl_r":  "Key.ctrl",
+    "Key.shift_l": "Key.shift",
+    "Key.shift_r": "Key.shift",
+    "Key.alt_r":   "Key.alt",
+    "Key.cmd_r":   "Key.cmd",
+}
+
+
+def normalize_key(key_str):
+    if key_str is None:
+        return None
+    return _MODIFIER_NORMALIZE.get(key_str, key_str)
+
 
 def getKeyPressed(keyboardListener, key):
     """Return right key. canonical() prevents from weird characters to show up with ctrl active. Like ctrl + d,
