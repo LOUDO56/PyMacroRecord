@@ -1,10 +1,10 @@
 ; CI-compatible Inno Setup script.
 ; Run locally:  iscc setup.iss
-; Run in CI:    iscc /DMyAppVersion=1.4.3 /DMyOutputDir=C:\path\setup_output setup.iss
+; Run in CI:    iscc /DMyAppVersion=1.4.4 /DMyOutputDir=C:\path\setup_output setup.iss
 
 #define MyAppName "PyMacroRecord"
 #ifndef MyAppVersion
-  #define MyAppVersion "1.4.3"
+  #define MyAppVersion "1.4.4"
 #endif
 #define MyAppPublisher "LOUDO"
 #define MyAppURL "https://www.pymacrorecord.com/"
