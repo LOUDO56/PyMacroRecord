@@ -48,7 +48,7 @@ jobs:
           python-version: '3.x'
 
       - name: Install Python dependencies
-        run: pip install pyinstaller pynput Pillow requests pystray
+        run: pip install pyinstaller cx_Freeze pynput Pillow requests pystray
 
       - name: Get version
         id: version
@@ -82,19 +82,15 @@ jobs:
           --add-data "src/windows;windows/"
           "src/main.py"
 
-      - name: Build folder exe (for setup installer)
-        run: >
-          pyinstaller --noconfirm --windowed
-          --icon "src/assets/logo.ico"
-          --name "PyMacroRecord"
-          --upx-dir upx
-          --add-data "src/assets;assets/"
-          --add-data "src/langs;langs/"
-          --add-data "src/hotkeys;hotkeys/"
-          --add-data "src/macro;macro/"
-          --add-data "src/utils;utils/"
-          --add-data "src/windows;windows/"
-          "src/main.py"
+      - name: Build folder with cx_Freeze (for setup installer)
+        run: python setup_cx.py build_exe
+
+      - name: Get cx_Freeze build directory
+        id: cxfreeze
+        shell: pwsh
+        run: |
+          $dir = Get-ChildItem build -Filter "exe.win-*" | Select-Object -First 1 -ExpandProperty FullName
+          echo "DIR=$dir" >> $env:GITHUB_OUTPUT
 
       - name: Build setup installer (Inno Setup)
         shell: pwsh
@@ -103,6 +99,7 @@ jobs:
           New-Item -ItemType Directory -Force -Path setup_output | Out-Null
           iscc `
             "/DMyAppVersion=${{ steps.version.outputs.VALUE }}" `
+            "/DMyDistDir=${{ steps.cxfreeze.outputs.DIR }}" `
             "/DMyOutputDir=${{ github.workspace }}\setup_output" `
             "setup.iss"
 
