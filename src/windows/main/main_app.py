@@ -21,8 +21,7 @@ from tkinter.ttk import Button, Frame, Label
 
 from PIL import Image
 
-if platform == "win32":
-    from pystray import Icon, MenuItem
+from pystray import Icon, MenuItem
 
 from hotkeys.hotkeys_manager import HotkeysManager
 from macro import Macro
