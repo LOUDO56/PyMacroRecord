@@ -145,8 +145,6 @@ class UserSettings:
         userSettings = self.settings_dict
         if "Others" not in userSettings:
             userSettings["Others"] = {"Check_update": True}
-        if "Fixed_timestamp" not in userSettings["Others"]:
-            userSettings["Others"]["Fixed_timestamp"] = 0
         if "Delay" not in userSettings["Playback"]["Repeat"]:
             userSettings["Playback"]["Repeat"]["Delay"] = 0
         if "Remind_new_ver_at" not in userSettings["Others"]:
