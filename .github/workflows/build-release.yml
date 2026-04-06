@@ -22,7 +22,7 @@ jobs:
           python-version: '3.x'
 
       - name: Install Python dependencies
-        run: pip install cx_Freeze pynput Pillow requests
+        run: pip install cx_Freeze pynput Pillow requests pystray
 
       - name: Install system dependencies
         run: sudo apt-get install -y imagemagick zsync python3-tk libfuse2

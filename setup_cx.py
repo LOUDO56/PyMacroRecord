@@ -26,10 +26,10 @@ elif sys.platform == "win32":
     packages += [
         "pynput.keyboard._win32",
         "pynput.mouse._win32",
-        "pystray",
     ]
 
-excludes = [] if sys.platform == "win32" else ["pystray"]
+packages += ["pystray"]
+excludes = []
 
 include_files = [
     ("src/assets", "assets"),

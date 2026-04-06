@@ -18,3 +18,4 @@ src/.DS_Store
 appimagetool.AppImage
 src/*.egg-info
 *.AppDir
+PyMacroRecord-*-*.AppImage*
