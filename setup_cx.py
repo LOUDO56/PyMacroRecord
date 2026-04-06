@@ -48,7 +48,7 @@ build_exe_options = {
 
 target = Executable(
     script="src/main.py",
-    base="Win32GUI" if sys.platform == "win32" else None,
+    base="gui" if sys.platform == "win32" else None,
     target_name="PyMacroRecord",
     icon="src/assets/logo.ico",
 )

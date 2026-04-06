@@ -4,3 +4,4 @@ requests==2.33.1
 pystray==0.19.5
 win10toast==0.9; sys_platform == 'win32'
 pyinstaller==6.19.0; sys_platform == 'win32'
+cx-Freeze==8.6.3

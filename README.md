@@ -85,10 +85,11 @@ Requirements: `cx_Freeze`, `imagemagick` (`convert`), `curl`
 
 This will produce a `PyMacroRecord-x86_64.AppImage` (or the current arch) in the project root.
 
-> **Note:** The AppImage runs in X11 mode only. Wayland is not supported because the mouse can't leave the current window.
+> **Note:** The AppImage runs in X11 mode only. Wayland is not supported.
 
 ## Windows
 
+### Folder
 Requirements: `cx_Freeze`
 
 ```bash
@@ -97,6 +98,16 @@ python setup_cx.py build
 
 The output will be in the `build/` directory.
 
+### Portable
+Requirements: `PyInstaller`
+
+Run
+```bash
+build.bat
+```
+
+The output will be in the `dist/` directory.
+
 # Support
 Developing a software is not an easy task. If you really like this project, please consider making a small donation, it really helps and means a lot! <3
 \
@@ -104,8 +115,7 @@ Developing a software is not an easy task. If you really like this project, plea
 By making a donation, your name will appear in the "Donors" section of the PyMacroRecord software and among the last 5 donors on the [PyMacroRecord](https://www.pymacrorecord.com) website as a thank you!
 \
 \
-<a href='https://ko-fi.com/loudo' target='_blank'><img height='35' style='border:0px;height:46px;' src='https://az743702.vo.msecnd.net/cdn/kofi3.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' />
-
+<a href='https://ko-fi.com/C0C41PJM6B' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi5.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 # License
 
 This program is under [GNU General Public License v3.0](https://github.com/LOUDO56/PyMacroRecord/blob/main/LICENSE.md)
