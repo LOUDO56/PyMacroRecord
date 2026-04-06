@@ -9,6 +9,7 @@ from time import time
 from tkinter import (
     BOTH,
     BOTTOM,
+    Canvas,
     DISABLED,
     LEFT,
     RIGHT,
@@ -89,6 +90,22 @@ class MainApp(Window):
         self.center_frame = Frame(self)
         self.center_frame.pack(expand=True, fill=BOTH)
 
+        self.activity_progress = Canvas(
+            self,
+            height=10,
+            bg="#d8d8d8",
+            highlightthickness=0,
+            bd=0,
+        )
+        self.activity_progress_fill = self.activity_progress.create_rectangle(0, 0, 0, 10, fill="#2e8b57", width=0)
+        self.activity_progress_mode = "hidden"
+        self.activity_progress_value = 0
+        self.activity_progress_maximum = 1
+        self.activity_progress_job = None
+        self.activity_progress_offset = 0
+        self.activity_progress_started_at = None
+        self.activity_progress.bind("<Configure>", lambda _event: self._render_activity_progress())
+
         # Import record if opened with .pmr extension
         if len(argv) > 1:
             with open(sys.argv[1], 'r') as record:
@@ -166,6 +183,97 @@ class MainApp(Window):
             with open(resource_path(path.join('langs', 'en.json')), encoding='utf-8') as f:
                 en = json.load(f)
             deepcopy_dict_missing_entries(self.text_content, en["content"])
+
+    def show_activity_progress(self):
+        self.after(0, self._show_activity_progress)
+
+    def _show_activity_progress(self):
+        self._cancel_activity_progress_job()
+        self.activity_progress_mode = "indeterminate"
+        self.activity_progress_value = 0
+        self.activity_progress_offset = 0
+        self.activity_progress_started_at = None
+        if not self.activity_progress.winfo_ismapped():
+            self.activity_progress.pack(side=BOTTOM, fill=X, padx=12, pady=(0, 8))
+        self._render_activity_progress()
+        self._animate_activity_progress()
+
+    def show_precise_progress(self, maximum):
+        self.after(0, self._show_precise_progress, maximum)
+
+    def _show_precise_progress(self, maximum):
+        self._cancel_activity_progress_job()
+        self.activity_progress_mode = "determinate"
+        self.activity_progress_maximum = max(maximum, 1)
+        self.activity_progress_value = 0
+        self.activity_progress_started_at = time()
+        if not self.activity_progress.winfo_ismapped():
+            self.activity_progress.pack(side=BOTTOM, fill=X, padx=12, pady=(0, 8))
+        self._render_activity_progress()
+        self._animate_precise_progress()
+
+    def set_precise_progress(self, value):
+        self.after(0, self._set_precise_progress, value)
+
+    def _set_precise_progress(self, value):
+        if self.activity_progress_mode != "determinate":
+            return
+        self.activity_progress_value = min(max(value, 0), self.activity_progress_maximum)
+        self._render_activity_progress()
+
+    def hide_activity_progress(self):
+        self.after(0, self._hide_activity_progress)
+
+    def _hide_activity_progress(self):
+        self._cancel_activity_progress_job()
+        self.activity_progress_mode = "hidden"
+        self.activity_progress_value = 0
+        self.activity_progress_started_at = None
+        if self.activity_progress.winfo_ismapped():
+            self.activity_progress.pack_forget()
+
+    def _render_activity_progress(self):
+        width = max(self.activity_progress.winfo_width(), 1)
+        height = max(self.activity_progress.winfo_height(), 10)
+
+        if self.activity_progress_mode == "determinate":
+            ratio = self.activity_progress_value / max(self.activity_progress_maximum, 1)
+            fill_width = int(width * ratio)
+            self.activity_progress.coords(self.activity_progress_fill, 0, 0, fill_width, height)
+        elif self.activity_progress_mode == "indeterminate":
+            block_width = max(width // 4, 40)
+            start_x = self.activity_progress_offset - block_width
+            end_x = self.activity_progress_offset
+            self.activity_progress.coords(self.activity_progress_fill, start_x, 0, end_x, height)
+        else:
+            self.activity_progress.coords(self.activity_progress_fill, 0, 0, 0, height)
+
+    def _animate_activity_progress(self):
+        if self.activity_progress_mode != "indeterminate":
+            return
+        width = max(self.activity_progress.winfo_width(), 240)
+        block_width = max(width // 4, 40)
+        self.activity_progress_offset = (self.activity_progress_offset + 10) % (width + block_width)
+        self._render_activity_progress()
+        self.activity_progress_job = self.after(30, self._animate_activity_progress)
+
+    def _animate_precise_progress(self):
+        if self.activity_progress_mode != "determinate":
+            return
+        if self.activity_progress_started_at is None:
+            return
+
+        elapsed = time() - self.activity_progress_started_at
+        self.activity_progress_value = min(elapsed, self.activity_progress_maximum)
+        self._render_activity_progress()
+
+        if getattr(self, "macro", None) is not None and self.macro.playback and self.activity_progress_value < self.activity_progress_maximum:
+            self.activity_progress_job = self.after(50, self._animate_precise_progress)
+
+    def _cancel_activity_progress_job(self):
+        if self.activity_progress_job is not None:
+            self.after_cancel(self.activity_progress_job)
+            self.activity_progress_job = None
 
     def systemTray(self):
         """Just to show little icon on system tray"""
