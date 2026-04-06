@@ -111,6 +111,8 @@ class UserSettings:
     def reset_settings(self):
         if messagebox.askyesno(self.main_app.text_content["global"]["confirm"], self.main_app.text_content["options_menu"]["others_menu"]["reset_settings_confirmation"]):
             self.init_settings()
+            self.settings_dict = self.__get_config()
+            self.check_new_options()
 
     def get_path(self):
         return self.path_setting

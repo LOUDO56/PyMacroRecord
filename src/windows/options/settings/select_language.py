@@ -58,6 +58,7 @@ class SelectLanguage(Popup):
             main_app.nametowidget(old_menu_name).destroy()
         from windows.main.menu_bar import MenuBar
         main_app.menu = MenuBar(main_app)
+        main_app.adjust_width_for_menu()
         main_app.macro.main_menu = main_app.menu
         main_app.macro.macro_file_management.menu_bar = main_app.menu
         self.title(main_app.text_content["options_menu"]["settings_menu"]["lang_settings"]["title"])

@@ -37,6 +37,7 @@ class Macro:
         self.mouse_listener = None
         self.time = time()
         self.event_delta_time=0
+        self.playback_progress_total = None
 
         self.keyboard_listener = keyboard.Listener(
                 on_press=self.__on_press, on_release=self.__on_release
@@ -93,6 +94,7 @@ class Macro:
         self.main_menu.file_menu.entryconfig(self.main_app.text_content["file_menu"]["save_as_text"], state=DISABLED)
         self.main_menu.file_menu.entryconfig(self.main_app.text_content["file_menu"]["new_text"], state=DISABLED)
         self.main_menu.file_menu.entryconfig(self.main_app.text_content["file_menu"]["load_text"], state=DISABLED)
+        self.main_app.show_activity_progress()
         if userSettings["Minimization"]["When_Recording"]:
             self.main_app.withdraw()
             Thread(target=lambda: show_notification_minim(self.main_app)).start()
@@ -125,6 +127,7 @@ class Macro:
 
         self.main_app.macro_recorded = True
         self.main_app.macro_saved = False
+        self.main_app.hide_activity_progress()
 
         if userSettings["Minimization"]["When_Recording"]:
             self.main_app.deiconify()
@@ -134,6 +137,7 @@ class Macro:
     def start_playback(self):
         userSettings = self.user_settings.settings_dict
         self.playback = True
+        self.playback_progress_total = self.__get_total_playback_duration(userSettings)
         self.main_app.playBtn.configure(
             image=self.main_app.stopImg, command=lambda: self.stop_playback(True)
         )
@@ -142,6 +146,10 @@ class Macro:
         self.main_menu.file_menu.entryconfig(self.main_app.text_content["file_menu"]["new_text"], state=DISABLED)
         self.main_menu.file_menu.entryconfig(self.main_app.text_content["file_menu"]["load_text"], state=DISABLED)
         self.main_app.recordBtn.configure(state=DISABLED)
+        if self.playback_progress_total is None:
+            self.main_app.show_activity_progress()
+        else:
+            self.main_app.show_precise_progress(self.playback_progress_total)
         if userSettings["Minimization"]["When_Playing"]:
             self.main_app.withdraw()
             Thread(target=lambda: show_notification_minim(self.main_app)).start()
@@ -205,7 +213,9 @@ class Macro:
             secondsToWait = userSettings["Playback"]["Repeat"]["Scheduled"] - seconds_since_midnight
             if secondsToWait < 0:
                 secondsToWait = 86400 + secondsToWait  # 86400 + -secondsToWait. Meaning it will happen tomorrow
-            sleep(secondsToWait)
+            if not self.__sleep_with_progress(secondsToWait):
+                self.unPressEverything(keyToUnpress)
+                return
 
         repeat_count = 0
         now = time()
@@ -228,7 +238,9 @@ class Macro:
                     )
                 if timeSleep < 0:
                     timeSleep = abs(timeSleep)
-                sleep(timeSleep)
+                if not self.__sleep_with_progress(timeSleep):
+                    self.unPressEverything(keyToUnpress)
+                    return
                 event_type = self.macro_events["events"][events]["type"]
 
                 if event_type == "cursorMove":  # Cursor Move
@@ -287,13 +299,55 @@ class Macro:
 
             if userSettings["Playback"]["Repeat"]["Delay"] > 0:
                 if is_infinite or repeat_count < repeat_times:
-                    sleep(userSettings["Playback"]["Repeat"]["Delay"])
+                    if not self.__sleep_with_progress(userSettings["Playback"]["Repeat"]["Delay"]):
+                        self.unPressEverything(keyToUnpress)
+                        return
 
         self.unPressEverything(keyToUnpress)
         if userSettings["Playback"]["Repeat"]["Interval"] == 0 and userSettings["Playback"]["Repeat"]["For"] == 0 and repeat_count:
             self.stop_playback()
             if userSettings["Minimization"]["When_Playing"]:
                 self.main_app.deiconify()
+
+    def __get_total_playback_duration(self, userSettings):
+        repeat_settings = userSettings["Playback"]["Repeat"]
+        if repeat_settings.get("Infinite", False) or repeat_settings["Interval"] > 0:
+            return None
+        scheduled_duration = repeat_settings.get("Scheduled", 0)
+        if repeat_settings["For"] > 0:
+            return scheduled_duration + repeat_settings["For"]
+        if "events" not in self.macro_events:
+            return scheduled_duration
+
+        fixed_timestamp = userSettings["Others"]["Fixed_timestamp"]
+        if fixed_timestamp > 0:
+            single_run_duration = fixed_timestamp * len(self.macro_events["events"])
+        else:
+            speed = userSettings["Playback"]["Speed"]
+            if speed <= 0:
+                return None
+            single_run_duration = sum(
+                abs(event.get("timestamp", 0)) * (1 / speed)
+                for event in self.macro_events["events"]
+            )
+
+        total_duration = scheduled_duration + (single_run_duration * repeat_settings["Times"])
+        if repeat_settings["Times"] > 1:
+            total_duration += repeat_settings["Delay"] * (repeat_settings["Times"] - 1)
+        return total_duration
+
+    def __sleep_with_progress(self, duration):
+        if duration <= 0:
+            return self.playback
+
+        remaining = duration
+        started_at = time()
+        while self.playback and remaining > 0:
+            chunk = min(0.05, remaining)
+            sleep(chunk)
+            elapsed = time() - started_at
+            remaining = duration - elapsed
+        return self.playback
 
     def unPressEverything(self, keyToUnpress):
         for key in keyToUnpress:
@@ -316,6 +370,7 @@ class Macro:
         self.main_menu.file_menu.entryconfig(self.main_app.text_content["file_menu"]["save_as_text"], state=NORMAL)
         self.main_menu.file_menu.entryconfig(self.main_app.text_content["file_menu"]["new_text"], state=NORMAL)
         self.main_menu.file_menu.entryconfig(self.main_app.text_content["file_menu"]["load_text"], state=NORMAL)
+        self.main_app.hide_activity_progress()
         if userSettings["Minimization"]["When_Playing"]:
             self.main_app.deiconify()
         if userSettings["After_Playback"]["Mode"] != "Idle" and not playback_stopped_manually:
@@ -323,7 +378,7 @@ class Macro:
                 if platform == "win32":
                     system("rundll32.exe powrprof.dll, SetSuspendState 0,1,0")
                 elif "linux" in platform.lower():
-                    system("subprocess.callctl suspend")
+                    system("systemctl suspend")
                 elif "darwin" in platform.lower():
                     system("pmset sleepnow")
             elif userSettings["After_Playback"]["Mode"].lower() == "log_off_computer":
