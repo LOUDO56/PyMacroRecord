@@ -7,7 +7,6 @@ from windows.help.about import About
 from windows.options.playback import Delay, Repeat, Speed, TimeGui
 from windows.options.settings import AfterPlayBack, Hotkeys, SelectLanguage
 from windows.others.donors import Donors
-from windows.others.timestamp import Timestamp
 from windows.others.translators import Translators
 
 
@@ -100,7 +99,6 @@ class MenuBar(Menu):
         self.Check_update = BooleanVar(value=userSettings["Others"]["Check_update"])
         self.others_sub.add_checkbutton(label=self.text_config["options_menu"]["others_menu"]["check_update_text"], variable=self.Check_update, command=lambda: settings.change_settings("Others", "Check_update"))
         self.others_sub.add_command(label=self.text_config["options_menu"]["others_menu"]["reset_settings_text"], command=settings.reset_settings)
-        self.others_sub.add_command(label=self.text_config["options_menu"]["others_menu"]["fixed_timestamp_text"], command=lambda: Timestamp(self, parent))
 
         # Help section
         self.help_section = Menu(my_menu, tearoff=0)

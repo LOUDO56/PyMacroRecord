@@ -219,13 +219,10 @@ class Macro:
                     self.unPressEverything(keyToUnpress)
                     return
 
-                if userSettings["Others"]["Fixed_timestamp"] > 0:
-                    timeSleep = userSettings["Others"]["Fixed_timestamp"]
-                else:
-                    timeSleep = (
-                            self.macro_events["events"][events]["timestamp"]
-                            * (1 / userSettings["Playback"]["Speed"])
-                    )
+                timeSleep = (
+                        self.macro_events["events"][events]["timestamp"]
+                        * (1 / userSettings["Playback"]["Speed"])
+                )
                 if timeSleep < 0:
                     timeSleep = abs(timeSleep)
                 sleep(timeSleep)
