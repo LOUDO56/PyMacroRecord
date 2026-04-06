@@ -27,7 +27,6 @@ if platform == "win32":
 from hotkeys.hotkeys_manager import HotkeysManager
 from macro import Macro
 from utils.get_file import resource_path
-from utils.not_windows import NotWindows
 from utils.record_file_management import RecordFileManagement
 from utils.user_settings import UserSettings
 from utils.version import Version
@@ -117,9 +116,6 @@ class MainApp(Window):
             Thread(target=self.systemTray).start()
 
         self.attributes("-topmost", 0)
-
-        if platform != "win32" and self.settings.first_time:
-            NotWindows(self)
 
         if self.settings.settings_dict["Others"]["Check_update"]:
             if self.version.new_version != "" and self.version.version != self.version.new_version:
