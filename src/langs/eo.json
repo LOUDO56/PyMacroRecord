@@ -89,6 +89,7 @@
         "settings_text": "Agordoj",
         "always_import_macro_settings": "Ĉiam importi makroajn agordojn",
         "lang_text": "Lingvo",
+        "dark_mode_text": "Malhela reĝimo",
         "lang_settings": {
           "title": "Lingvo-agordoj",
           "sub_text": "Elektu vian lingvon"

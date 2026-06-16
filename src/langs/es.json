@@ -89,6 +89,7 @@
         "settings_text": "Ajustes",
         "always_import_macro_settings": "Importar siempre la configuración de macros",
         "lang_text": "Idioma",
+        "dark_mode_text": "Modo oscuro",
         "lang_settings": {
           "title": "Ajusted de idioma",
           "sub_text": "Elige tu idioma"

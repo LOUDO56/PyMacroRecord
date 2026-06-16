@@ -35,3 +35,12 @@ class Popup(Toplevel):
         else:
             self.attributes("-topmost", 1)
         self.grab_set()
+        # Theme the popup once its widgets have been built by the subclass.
+        self.after(0, self._apply_current_theme)
+
+    def _apply_current_theme(self):
+        from utils.theme import apply_theme
+        if not self.winfo_exists():
+            return
+        dark = getattr(self._root(), "dark_mode", False)
+        apply_theme(self, dark)

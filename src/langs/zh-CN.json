@@ -89,6 +89,7 @@
         "settings_text": "设置",
         "always_import_macro_settings": "始终导入宏设置",
         "lang_text": "语言",
+        "dark_mode_text": "深色模式",
         "lang_settings": {
           "title": "语言设置",
           "sub_text": "选择语言"

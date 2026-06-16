@@ -81,6 +81,10 @@ class MenuBar(Menu):
         self.options_sub.add_command(label=self.text_config["options_menu"]["settings_menu"]["hotkeys_text"], command=lambda: Hotkeys(self, parent))
         self.options_sub.add_command(label=self.text_config["options_menu"]["settings_menu"]["lang_text"], command=lambda: SelectLanguage(self, parent))
 
+        self.darkMode = BooleanVar(value=userSettings.get("Dark_Mode", False))
+        self.options_sub.add_checkbutton(label=self.text_config["options_menu"]["settings_menu"]["dark_mode_text"], variable=self.darkMode,
+                                         command=lambda: parent.set_dark_mode(self.darkMode.get()))
+
         minimization_sub = Menu(self.options_sub, tearoff=0)
         self.options_sub.add_cascade(label=self.text_config["options_menu"]["settings_menu"]["minimization_text"], menu=minimization_sub)
         self.minimization_playing = BooleanVar(value=userSettings["Minimization"]["When_Playing"])

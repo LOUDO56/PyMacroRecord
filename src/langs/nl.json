@@ -89,6 +89,7 @@
         "settings_text": "Instellingen",
         "always_import_macro_settings": "Importeer altijd macro-instellingen",
         "lang_text": "Taal",
+        "dark_mode_text": "Donkere modus",
         "lang_settings": {
           "title": "Taal instellingen",
           "sub_text": "Kies je taal"

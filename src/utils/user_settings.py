@@ -78,6 +78,8 @@ class UserSettings:
 
             "Run_On_StartUp": False,
 
+            "Dark_Mode": False,
+
             "After_Playback": {
                 "Mode": "Idle"
                 # Quit, Lock Computer, Lof off computer, Turn off computer, Restart Computer, Standby, Hibernate
@@ -167,4 +169,6 @@ class UserSettings:
             userSettings["Loading"] = {}
             if "Always_import_macro_settings" not in userSettings["Loading"]:
                 userSettings["Loading"]["Always_import_macro_settings"] = False
+        if "Dark_Mode" not in userSettings:
+            userSettings["Dark_Mode"] = False
         self.update_settings()

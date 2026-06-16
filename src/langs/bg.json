@@ -89,6 +89,7 @@
       "settings_text": "Настройки",
       "always_import_macro_settings": "Винаги импортирай макро настройки",
       "lang_text": "Език",
+      "dark_mode_text": "Тъмен режим",
       "lang_settings": {
         "title": "Настройки на езика",
         "sub_text": "Изберете вашия език"

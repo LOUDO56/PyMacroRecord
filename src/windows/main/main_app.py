@@ -27,6 +27,7 @@ from hotkeys.hotkeys_manager import HotkeysManager
 from macro import Macro
 from utils.get_file import resource_path
 from utils.record_file_management import RecordFileManagement
+from utils.theme import apply_theme
 from utils.user_settings import UserSettings
 from utils.version import Version
 from utils.warning_pop_up_save import confirm_save
@@ -115,11 +116,20 @@ class MainApp(Window):
 
         self.attributes("-topmost", 0)
 
+        self.dark_mode = self.settings.settings_dict.get("Dark_Mode", False)
+        apply_theme(self, self.dark_mode)
+
         if self.settings.settings_dict["Others"]["Check_update"]:
             if self.version.new_version != "" and self.version.version != self.version.new_version:
                 if time() > self.settings.settings_dict["Others"]["Remind_new_ver_at"]:
                     NewVerAvailable(self, self.version.new_version)
         self.mainloop()
+
+    def set_dark_mode(self, enabled):
+        """Persist and apply the dark/light theme live."""
+        self.dark_mode = enabled
+        self.settings.change_settings("Dark_Mode", newValue=enabled)
+        apply_theme(self, enabled)
 
     def load_language(self):
         self.lang = self.settings.settings_dict["Language"]

@@ -89,6 +89,7 @@
         "settings_text": "Einstellungen",
         "always_import_macro_settings": "Makro-Einstellungen immer importieren",
         "lang_text": "Sprache",
+        "dark_mode_text": "Dunkler Modus",
         "lang_settings": {
           "title": "Spracheinstellung",
           "sub_text": "Wähle eine Sprache"

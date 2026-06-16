@@ -90,6 +90,7 @@
         "settings_text": "Ayarlar",
         "always_import_macro_settings": "Makro ayarlarını her zaman içe aktar",
         "lang_text": "Dil",
+        "dark_mode_text": "Karanlık mod",
         "lang_settings": {
           "title": "Dil ayarları",
           "sub_text": "Dil seç"
