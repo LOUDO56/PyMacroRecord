@@ -1,0 +1,176 @@
+{
+  "information": {
+    "author": "AMiMohammad",
+    "lang_short": "bn",
+    "lang_long": "বাংলা"
+  },
+  "content": {
+    "global": {
+      "confirm_button": "নিশ্চিত করুন",
+      "cancel_button": "বাতিল করুন",
+      "close_button": "বন্ধ করুন",
+      "error": "ত্রুটি",
+      "previous_text": "পূর্ববর্তী",
+      "next_text": "পরবর্তী",
+      "confirm_save": "আপনি কি আপনার রেকর্ড সংরক্ষণ করতে চান?",
+      "confirm": "নিশ্চিত করুন",
+      "information": "তথ্য",
+      "restart_software_text": "কার্যকর করার জন্য আপনাকে সফটওয়্যারটি পুনরায় চালু করতে হবে।",
+      "load_macro_settings": "ম্যাক্রোর সেটিংসও আমদানি করবেন?"
+    },
+    "new_version": {
+      "title": "সফটওয়্যার আপডেট",
+      "sub_text_1": "নতুন সংস্করণ",
+      "sub_text_2": "উপলব্ধ!",
+      "sub_text_3": "আপনি কি এখন এটি ডাউনলোড করতে চান?",
+      "ignore_button": "উপেক্ষা করুন",
+      "remind_later_button": "পরে মনে করিয়ে দিন",
+      "download_button": "আপডেট ডাউনলোড করুন"
+    },
+    "file_menu": {
+      "file_text": "ফাইল",
+      "new_text": "নতুন",
+      "load_text": "লোড করুন",
+      "save_text": "সংরক্ষণ করুন",
+      "save_as_text": "নাম দিয়ে সংরক্ষণ করুন"
+    },
+    "options_menu": {
+      "options_text": "বিকল্পসমূহ",
+      "playback_menu": {
+        "playback_text": "প্লেব্যাক",
+        "speed_text": "গতি",
+        "speed_settings": {
+          "title": "গতির সেটিংস",
+          "sub_text": "০.১ থেকে ১০-এর মধ্যে গতির সংখ্যা লিখুন",
+          "error_new_value": "আপনার গতির মান অবশ্যই ০.১ থেকে ১০-এর মধ্যে হতে হবে!"
+        },
+        "repeat_text": "পুনরাবৃত্তি",
+        "repeat_settings": {
+          "title": "পুনরাবৃত্তির সেটিংস",
+          "infinite_repeat": "অসীম পুনরাবৃত্তি?",
+          "sub_text": "পুনরাবৃত্তির সংখ্যা লিখুন",
+          "error_new_value": "আপনি ১-এর কম পুনরাবৃত্তি করতে পারবেন না।"
+        },
+        "for_text": "জন্য",
+        "for_settings": {
+          "title": "এর সেটিংস"
+        },
+        "interval_text": "বিরতি",
+        "interval_settings": {
+          "title": "বিরতির সেটিংস"
+        },
+        "for_interval_settings": {
+          "hours_text": "ঘণ্টা",
+          "minutes_text": "মিনিট",
+          "seconds_text": "সেকেন্ড",
+          "error_new_value_multiple": "ইনপুটগুলো সঠিক নয়",
+          "error_new_value_single": "ইনপুটটি সঠিক নয়"
+        },
+        "scheduled_text": "নির্ধারিত",
+        "scheduled_settings": {
+          "title": "নির্ধারিত সেটিংস"
+        },
+        "delay_text": "বিলম্ব",
+        "delay_settings": {
+          "title": "বিলম্বের সেটিংস",
+          "sub_text": "পুনরাবৃত্তির মধ্যবর্তী বিলম্ব লিখুন",
+          "error_new_value": "আপনি ০-এর কম বিলম্ব দিতে পারবেন না।"
+        }
+      },
+      "recordings_menu": {
+        "recordings_text": "রেকর্ডিংসমূহ",
+        "mouse_movement_text": "মাউসের নড়াচড়া",
+        "mouse_click_text": "মাউস ক্লিক",
+        "keyboard_text": "কীবোর্ড",
+        "show_events_statut": "স্ট্যাটাস বারে ইভেন্ট দেখান"
+      },
+      "json_compact": "সংক্ষিপ্ত ম্যাক্রো ডেটা",
+      "settings_menu": {
+        "settings_text": "সেটিংস",
+        "always_import_macro_settings": "সবসময় ম্যাক্রোর সেটিংস আমদানি করুন",
+        "lang_text": "ভাষা",
+        "lang_settings": {
+          "title": "ভাষার সেটিংস",
+          "sub_text": "আপনার ভাষা নির্বাচন করুন"
+        },
+        "hotkeys_text": "হটকি",
+        "hotkeys_settings": {
+          "title": "হটকির সেটিংস",
+          "start_record_text": "রেকর্ডিং শুরু করুন",
+          "stop_record_text": "রেকর্ডিং বন্ধ করুন",
+          "start_playback_text": "প্লেব্যাক শুরু করুন",
+          "stop_playback_text": "প্লেব্যাক বন্ধ করুন",
+          "clear_text": "পরিষ্কার করুন",
+          "please_key_text": "অনুগ্রহ করে কী চাপুন",
+          "error_hotkeys": "রেকর্ডিং শুরু এবং প্লেব্যাক শুরুর জন্য একই হটকি ব্যবহার করা যাবে না"
+        },
+        "minimization_text": "ছোট করা",
+        "minimization_toast": "PyMacroRecord ছোট করা হয়েছে।",
+        "minimization_menu": {
+          "minimization_when_playing_text": "প্লেব্যাকের সময় ছোট করা",
+          "minimization_when_recording_text": "রেকর্ডিংয়ের সময় ছোট করা"
+        },
+        "after_playback_text": "প্লেব্যাকের পরে",
+        "after_playback_settings": {
+          "when_playback_complete_text": "প্লেব্যাক সম্পন্ন হওয়ার পরে",
+          "title": "প্লেব্যাক-পরবর্তী সেটিংস",
+          "sub_text": "প্লেব্যাক সম্পন্ন হলে",
+          "idle": "নিষ্ক্রিয়",
+          "quit_software": "সফটওয়্যার বন্ধ করুন",
+          "standby": "স্ট্যান্ডবাই",
+          "log_off_computer": "কম্পিউটার থেকে লগ আউট করুন",
+          "turn_off_computer": "কম্পিউটার বন্ধ করুন",
+          "restart computer": "কম্পিউটার পুনরায় চালু করুন",
+          "hibernate_if_enabled": "হাইবারনেট করুন (সক্রিয় থাকলে)"
+        }
+      },
+      "others_menu": {
+        "others_text": "অন্যান্য",
+        "check_update_text": "আপডেট পরীক্ষা করুন",
+        "reset_settings_text": "সেটিংস রিসেট করুন",
+        "reset_settings_confirmation": "আপনি কি আপনার সেটিংস রিসেট করতে চান?",
+        "fixed_timestamp_text": "নির্দিষ্ট টাইমস্ট্যাম্প",
+        "fixed_timestamp_settings": {
+          "title": "নির্দিষ্ট টাইমস্ট্যাম্পের সেটিংস",
+          "sub_text": "নির্দিষ্ট টাইমস্ট্যাম্প লিখুন"
+        }
+      }
+    },
+    "help_menu": {
+      "help_text": "সহায়তা",
+      "tutorial_text": "টিউটোরিয়াল",
+      "about_text": "পরিচিতি",
+      "website_text": "ওয়েবসাইট",
+      "about_settings": {
+        "title": "পরিচিতি",
+        "publisher_text": "প্রকাশক",
+        "version_text": "সংস্করণ",
+        "license_text": "লাইসেন্সের অধীনে",
+        "version_check_update_text": {
+          "checking": "পরীক্ষা করা হচ্ছে...",
+          "up_to_date": "সর্বশেষ সংস্করণ",
+          "outdated": "পুরোনো সংস্করণ",
+          "disabled": "আপডেট পরীক্ষা নিষ্ক্রিয়",
+          "failed": "নতুন আপ��েট আনা যাচ্ছে না"
+        }
+      }
+    },
+    "others_menu": {
+      "others_text": "অন্যান্য",
+      "donors_text": "দাতারা",
+      "donors_settings": {
+        "title": "দাতারা",
+        "sub_text": "সকল দাতা",
+        "load_donors": "দাতাদের লোড করা হচ্ছে...",
+        "want_be_donor": "দাতা হতে চান? এখানে ক্লিক করুন!",
+        "cant_get_donors": "দাতাদের আনা যাচ্ছে না :("
+      },
+      "translators_text": "অনুবাদকরা",
+      "translators_settings": {
+        "title": "অনুবাদকরা",
+        "sub_text": "সকল অনুবাদক",
+        "page": "পৃষ্ঠা"
+      }
+    }
+  }
+}
