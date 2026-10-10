@@ -1,0 +1,176 @@
+{
+  "information": {
+    "author": "Mohammareh",
+    "lang_short": "ar",
+    "lang_long": "العربية"
+  },
+  "content": {
+    "global": {
+      "confirm_button": "إكمال",
+      "cancel_button": "إلغاء",
+      "close_button": "إغلاق",
+      "error": "خطأ",
+      "previous_text": "السابق",
+      "next_text": "التالي",
+      "confirm_save": "هل تريد حفظ تسجيلك؟",
+      "confirm": "موافق",
+      "information": "معلومات",
+      "restart_software_text": "عليك إعادة تشغيل البرنامج لتطبيق التغييرات.",
+      "load_macro_settings": "هل تريد استيراد إعدادات الماكرو أيضاً؟"
+    },
+    "new_version": {
+      "title": "تحديث البرنامج",
+      "sub_text_1": "إصدار جديد",
+      "sub_text_2": "متوفر!",
+      "sub_text_3": "هل تريد تنزيله الآن?",
+      "ignore_button": "تجاهل",
+      "remind_later_button": "ذكرني لاحقًا",
+      "download_button": "تنزيل التحديث"
+    },
+    "file_menu": {
+      "file_text": "ملف",
+      "new_text": "جديد",
+      "load_text": "تحميل",
+      "save_text": "حفظ",
+      "save_as_text": "حفظ باسم"
+    },
+    "options_menu": {
+      "options_text": "إعدادات",
+      "playback_menu": {
+        "playback_text": "تشغيل",
+        "speed_text": "السرعة",
+        "speed_settings": {
+          "title": "إعدادات السرعة",
+          "sub_text": "أدخل رقم للسرعة بين 0.1 و 10",
+          "error_new_value": "يجب أن تكون قيمة السرعة بين 0.1 و 10!"
+        },
+        "repeat_text": "تكرار",
+        "repeat_settings": {
+          "title": "إعدادات التكرار",
+          "infinite_repeat": "تكرار لا نهائي?",
+          "sub_text": "أدخل مرات التكرار",
+          "error_new_value": "لا يمكن أن يكون لديك قيمة التكرار أقل من 1."
+        },
+        "for_text": "لمدة",
+        "for_settings": {
+          "title": "إعدادات المدة"
+        },
+        "interval_text": "الفاصل الزمني",
+        "interval_settings": {
+          "title": "إعدادات الفاصل الزمني"
+        },
+        "for_interval_settings": {
+          "hours_text": "ساعات",
+          "minutes_text": "دقائق",
+          "seconds_text": "ثوانٍ",
+          "error_new_value_multiple": "القيم غير صحيحة",
+          "error_new_value_single": "القيمة غير صحيحة"
+        },
+        "scheduled_text": "مجدول",
+        "scheduled_settings": {
+          "title": "إعدادات الجدولة"
+        },
+        "delay_text": "التأخير",
+        "delay_settings": {
+          "title": "إعدادات التأخير",
+          "sub_text": "أدخل التأخير بين التكرار",
+          "error_new_value": "لا يمكن أن يكون لديك قيمة التأخير أقل من 0."
+        }
+      },
+      "recordings_menu": {
+        "recordings_text": "التسجيلات",
+        "mouse_movement_text": "حركة الماوس",
+        "mouse_click_text": "نقر الماوس",
+        "keyboard_text": "لوحة المفاتيح",
+        "show_events_statut": "عرض الأحداث في شريط الحالة"
+      },
+      "json_compact": "ضغط بيانات الماكرو",
+      "settings_menu": {
+        "settings_text": "الإعدادات",
+        "always_import_macro_settings": "استيراد إعدادات الماكرو دائمًا",
+        "lang_text": "اللغة",
+        "lang_settings": {
+          "title": "إعدادات اللغة",
+          "sub_text": "إختر الغة"
+        },
+        "hotkeys_text": "مفاتيح الوصول السريع",
+        "hotkeys_settings": {
+          "title": "إعدادات مفاتيح الوصول السريع",
+          "start_record_text": "إبدأ التسجيل",
+          "stop_record_text": "إنهاء التسجيل",
+          "start_playback_text": "إبدأ التشغيل",
+          "stop_playback_text": "إنهاء التشغيل",
+          "clear_text": "مسح",
+          "please_key_text": "يرجى إدخال المفتاح",
+          "error_hotkeys": "لا يمكنك تعيين نفس مفتاح الوصول السريع للتسجيل و التشغيل"
+        },
+        "minimization_text": "تصغير",
+        "minimization_toast": "تم التصغير.",
+        "minimization_menu": {
+          "minimization_when_playing_text": "تصغير عند التشغيل",
+          "minimization_when_recording_text": "تصغير عند التسجيل"
+        },
+        "after_playback_text": "بعد التشغيل",
+        "after_playback_settings": {
+          "when_playback_complete_text": "بعد اكتمال التشغيل",
+          "title": "إعدادات بعد التشغيل",
+          "sub_text": "أدخل الإجراء الذي تريد أن يقوم به البرنامج بعد اكتمال التشغيل",
+          "idle": "خمول",
+          "quit_software": "إغلاق البرنامج",
+          "standby": "وضع الاستعداد",
+          "log_off_computer": "تسجيل الخروج من الكمبيوتر",
+          "turn_off_computer": "إطفاء الكمبيوتر",
+          "restart computer": "إعادة تشغيل الكمبيوتر",
+          "hibernate_if_enabled": "وضع الإسبات (إذا كان ممكنًا)"
+        }
+      },
+      "others_menu": {
+        "others_text": "أخرى",
+        "check_update_text": "التحقق من التحديث",
+        "reset_settings_text": "إعادة تعيين الإعدادات",
+        "reset_settings_confirmation": "هل أنت متأكد أنك تريد إعادة تعيين إعداداتك?",
+        "fixed_timestamp_text": "الطابع الزمني الثابت",
+        "fixed_timestamp_settings": {
+          "title": "إعدادات الطابع الزمني الثابت",
+          "sub_text": "أدخل الطابع الزمني الثابت"
+        }
+      }
+    },
+    "help_menu": {
+      "help_text": "مساعدة",
+      "tutorial_text": "شرح",
+      "about_text": "حول",
+      "website_text": "الموقع الإلكتروني",
+      "about_settings": {
+        "title": "حول",
+        "publisher_text": "الناشر",
+        "version_text": "الإصدار",
+        "license_text": "تحت الترخيص",
+        "version_check_update_text": {
+          "checking": "يجري التحقق...",
+          "up_to_date": "الإصدار الحالي",
+          "outdated": "قديم",
+          "disabled": "التحقق من التحديث مُعطل",
+          "failed": "لا يمكن التحقق من توفر التحديثات الجديدة"
+        }
+      }
+    },
+    "others_menu": {
+      "others_text": "أخرى",
+      "donors_text": "الداعمين",
+      "donors_settings": {
+        "title": "الداعمين",
+        "sub_text": "جميع الداعمين",
+        "load_donors": "يجري تحميل الداعمين...",
+        "want_be_donor": "هل تريد أن تكون داعمًا؟ إضغط هنا!",
+        "cant_get_donors": "لا يمكن الحصول على الداعمين :("
+      },
+      "translators_text": "المترجمون",
+      "translators_settings": {
+        "title": "المترجمون",
+        "sub_text": "جميع المترجمون",
+        "page": "الصفحة"
+      }
+    }
+  }
+}
