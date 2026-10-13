@@ -9,7 +9,7 @@ from pynput import keyboard, mouse
 from pynput.keyboard import Key  # FUTURE SELF: DON'T REMOVE THIS!!
 from pynput.mouse import Button
 
-from utils.get_key_pressed import getKeyPressed
+from utils.get_key_pressed import getKeyPressed, normalize_key
 from utils.keys import vk_nb
 from utils.record_file_management import RecordFileManagement
 from utils.show_toast import show_notification_minim
@@ -123,6 +123,8 @@ class Macro:
         )
         self.main_menu.file_menu.entryconfig(self.main_app.text_content["file_menu"]["load_text"], state=NORMAL)
 
+        self.__strip_record_hotkeys(userSettings["Hotkeys"])
+
         self.main_app.macro_recorded = True
         self.main_app.macro_saved = False
 
@@ -130,6 +132,52 @@ class Macro:
             self.main_app.deiconify()
 
         print("record stopped")
+
+    def __strip_record_hotkeys(self, hotkeys):
+        """Remove the record hotkey caught at the edges of the recording:
+        the release of Record_Start at the beginning and the press of Record_Stop at the end.
+        Cursor moves in between are kept, anything else ends the search.
+        Delays are kept, so the macro timing doesn't change."""
+        events = self.macro_events["events"]
+
+        def hotkey_keys(name):
+            return {normalize_key(k) for k in hotkeys.get(name) or []}
+
+        def is_hotkey_event(event, keys, pressed):
+            return (
+                event["type"] == "keyboardEvent"
+                and event["pressed"] == pressed
+                and normalize_key(vk_nb.get(event["key"], event["key"])) in keys
+            )
+
+        def remove(index):
+            removed = events.pop(index)
+            if index < len(events):
+                events[index]["timestamp"] += removed["timestamp"]
+            elif removed["timestamp"]:
+                # Last event: keep its wait, playback skips keyboard events without a key
+                events.append({"type": "keyboardEvent", "key": None, "pressed": False, "timestamp": removed["timestamp"]})
+
+        start_keys = hotkey_keys("Record_Start")
+        i = 0
+        while i < len(events):
+            if events[i]["type"] == "cursorMove":
+                i += 1
+            elif is_hotkey_event(events[i], start_keys, False):
+                remove(i)
+            else:
+                break
+
+        stop_keys = hotkey_keys("Record_Stop")
+        i = len(events) - 1
+        while i >= 0:
+            if events[i]["type"] == "cursorMove":
+                i -= 1
+            elif is_hotkey_event(events[i], stop_keys, True):
+                remove(i)
+                i -= 1
+            else:
+                break
 
     def start_playback(self):
         userSettings = self.user_settings.settings_dict
