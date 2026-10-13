@@ -41,7 +41,7 @@ class HotkeysManager:
 
     def __win32_event_filter(self, msg, data):
         """Detect if key is pressed by real keyboard or pynput"""
-        if data.flags == 0x10:
+        if data.flags & 0x10:  # LLKHF_INJECTED; flags can also carry LLKHF_EXTENDED, LLKHF_ALTDOWN, LLKHF_UP
             if self.macro.playback and not self.macro.record:
                 return False
             else:
