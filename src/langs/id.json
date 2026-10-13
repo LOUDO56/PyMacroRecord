@@ -1,0 +1,176 @@
+{
+  "information": {
+    "author": "RizqullahY",
+    "lang_short": "id",
+    "lang_long": "Bahasa Indonesia"
+  },
+  "content": {
+    "global": {
+      "confirm_button": "Konfirmasi",
+      "cancel_button": "Batal",
+      "close_button": "Tutup",
+      "error": "Kesalahan",
+      "previous_text": "Sebelumnya",
+      "next_text": "Berikutnya",
+      "confirm_save": "Apakah anda ingin menyimpan data ini?",
+      "confirm": "Konfirmasi",
+      "information": "Informasi",
+      "restart_software_text": "Anda perlu memulai ulang perangkat lunak agar perubahan diterapkan.",
+      "load_macro_settings": "Impor pengaturan makro juga?"
+    },
+    "new_version": {
+      "title": "Pembaruan Perangkat Lunak",
+      "sub_text_1": "Versi baru",
+      "sub_text_2": "tersedia!",
+      "sub_text_3": "Apakah anda ingin mengunduhnya sekarang?",
+      "ignore_button": "Abaikan",
+      "remind_later_button": "Ingatkan Nanti",
+      "download_button": "Unduh Pembaruan"
+    },
+    "file_menu": {
+      "file_text": "Berkas",
+      "new_text": "Baru",
+      "load_text": "Muat",
+      "save_text": "Simpan",
+      "save_as_text": "Simpan Sebagai"
+    },
+    "options_menu": {
+      "options_text": "Opsi",
+      "playback_menu": {
+        "playback_text": "Pemutaran",
+        "speed_text": "Kecepatan",
+        "speed_settings": {
+          "title": "Pengaturan Kecepatan",
+          "sub_text": "Masukkan angka kecepatan antara 0,1 hingga 10",
+          "error_new_value": "Nilai kecepatan harus antara 0,1 hingga 10!"
+        },
+        "repeat_text": "Pengulangan",
+        "repeat_settings": {
+          "title": "Pengaturan Pengulangan",
+          "infinite_repeat": "Ulangi tanpa batas?",
+          "sub_text": "Masukkan jumlah pengulangan",
+          "error_new_value": "Jumlah pengulangan tidak boleh kurang dari 1."
+        },
+        "for_text": "Durasi",
+        "for_settings": {
+          "title": "Pengaturan Durasi"
+        },
+        "interval_text": "Interval",
+        "interval_settings": {
+          "title": "Pengaturan Interval"
+        },
+        "for_interval_settings": {
+          "hours_text": "Jam",
+          "minutes_text": "Menit",
+          "seconds_text": "Detik",
+          "error_new_value_multiple": "Input tidak valid",
+          "error_new_value_single": "Input tidak valid"
+        },
+        "scheduled_text": "Terjadwal",
+        "scheduled_settings": {
+          "title": "Pengaturan Jadwal"
+        },
+        "delay_text": "Jeda",
+        "delay_settings": {
+          "title": "Pengaturan Jeda",
+          "sub_text": "Masukkan jeda antar pengulangan",
+          "error_new_value": "Jeda tidak boleh kurang dari 0."
+        }
+      },
+      "recordings_menu": {
+        "recordings_text": "Perekaman",
+        "mouse_movement_text": "Pergerakan Mouse",
+        "mouse_click_text": "Klik Mouse",
+        "keyboard_text": "Papan Ketik",
+        "show_events_statut": "Tampilkan aktivitas pada bilah status"
+      },
+      "json_compact": "Ringkas data makro",
+      "settings_menu": {
+        "settings_text": "Pengaturan",
+        "always_import_macro_settings": "Selalu impor pengaturan makro",
+        "lang_text": "Bahasa",
+        "lang_settings": {
+          "title": "Pengaturan Bahasa",
+          "sub_text": "Pilih bahasa Anda"
+        },
+        "hotkeys_text": "Pintasan Tombol",
+        "hotkeys_settings": {
+          "title": "Pengaturan Pintasan Tombol",
+          "start_record_text": "Mulai Merekam",
+          "stop_record_text": "Hentikan Perekaman",
+          "start_playback_text": "Mulai Pemutaran",
+          "stop_playback_text": "Hentikan Pemutaran",
+          "clear_text": "Hapus",
+          "please_key_text": "Tekan tombol",
+          "error_hotkeys": "Pintasan untuk mulai merekam dan mulai memutar tidak boleh sama."
+        },
+        "minimization_text": "Minimisasi",
+        "minimization_toast": "PyMacroRecord telah diminimalkan.",
+        "minimization_menu": {
+          "minimization_when_playing_text": "Minimalkan saat pemutaran",
+          "minimization_when_recording_text": "Minimalkan saat perekaman"
+        },
+        "after_playback_text": "Setelah Pemutaran",
+        "after_playback_settings": {
+          "when_playback_complete_text": "Setelah pemutaran selesai",
+          "title": "Pengaturan Setelah Pemutaran",
+          "sub_text": "Tindakan setelah pemutaran selesai",
+          "idle": "Tidak melakukan apa pun",
+          "quit_software": "Keluar dari perangkat lunak",
+          "standby": "Mode siaga",
+          "log_off_computer": "Keluar dari akun komputer",
+          "turn_off_computer": "Matikan komputer",
+          "restart computer": "Mulai ulang komputer",
+          "hibernate_if_enabled": "Hibernasi (jika diaktifkan)"
+        }
+      },
+      "others_menu": {
+        "others_text": "Lainnya",
+        "check_update_text": "Periksa Pembaruan",
+        "reset_settings_text": "Atur Ulang Pengaturan",
+        "reset_settings_confirmation": "Apakah Anda yakin ingin mengatur ulang pengaturan?",
+        "fixed_timestamp_text": "Stempel Waktu Tetap",
+        "fixed_timestamp_settings": {
+          "title": "Pengaturan Stempel Waktu Tetap",
+          "sub_text": "Masukkan stempel waktu tetap"
+        }
+      }
+    },
+    "help_menu": {
+      "help_text": "Bantuan",
+      "tutorial_text": "Panduan",
+      "about_text": "Tentang",
+      "website_text": "Situs Web",
+      "about_settings": {
+        "title": "Tentang",
+        "publisher_text": "Pengembang",
+        "version_text": "Versi",
+        "license_text": "Lisensi",
+        "version_check_update_text": {
+          "checking": "Memeriksa...",
+          "up_to_date": "Sudah menggunakan versi terbaru",
+          "outdated": "Versi sudah usang",
+          "disabled": "Pemeriksaan pembaruan dinonaktifkan",
+          "failed": "Tidak dapat memeriksa pembaruan"
+        }
+      }
+    },
+    "others_menu": {
+      "others_text": "Lainnya",
+      "donors_text": "Donatur",
+      "donors_settings": {
+        "title": "Donatur",
+        "sub_text": "Semua donatur",
+        "load_donors": "Memuat daftar donatur...",
+        "want_be_donor": "Ingin menjadi donatur? Klik di sini!",
+        "cant_get_donors": "Tidak dapat memuat daftar donatur :("
+      },
+      "translators_text": "Penerjemah",
+      "translators_settings": {
+        "title": "Penerjemah",
+        "sub_text": "Semua penerjemah",
+        "page": "Halaman"
+      }
+    }
+  }
+}
