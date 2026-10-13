@@ -67,7 +67,8 @@ class MainApp(Window):
         self.menu = MenuBar(self)  # Menu Bar
         self.macro = Macro(self)
 
-        self.validate_cmd = self.register(self.validate_input)
+        self.validate_cmd_float = self.register(self.validate_input_float)
+        self.validate_cmd_int = self.register(self.validate_input_int)
 
         self.hotkeyManager = HotkeysManager(self)
 
@@ -141,11 +142,21 @@ class MainApp(Window):
         self.icon = Icon("name", image, "PyMacroRecord", menu)
         self.icon.run()
 
-    def validate_input(self, action, value_if_allowed):
+    def validate_input_float(self, action, value_if_allowed):
         """Prevents from adding letters on an Entry label"""
         if action == "1":  # Insert
             try:
                 float(value_if_allowed)
+                return True
+            except ValueError:
+                return False
+        return True
+
+    def validate_input_int(self, action, value_if_allowed):
+        """Prevents from adding letters on an Entry label"""
+        if action == "1":  # Insert
+            try:
+                int(value_if_allowed)
                 return True
             except ValueError:
                 return False

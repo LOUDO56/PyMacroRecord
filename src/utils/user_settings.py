@@ -38,6 +38,12 @@ class UserSettings:
         userSettings = {
             "Playback": {
                 "Speed": 1,
+                "Randomized_Delay": {
+                    "Enabled": False,
+                    "Lower": 0,
+                    "Upper": 0,
+                    "Distribution": []
+                },
                 "Repeat": {
                     "Times": 1,
                     "For": 0,
@@ -80,7 +86,7 @@ class UserSettings:
 
             "After_Playback": {
                 "Mode": "Idle"
-                # Quit, Lock Computer, Lof off computer, Turn off computer, Restart Computer, Standby, Hibernate
+                # Quit, Lock Computer, Log off computer, Turn off computer, Restart Computer, Standby, Hibernate
             },
 
             "Language": "en",
@@ -147,6 +153,21 @@ class UserSettings:
             userSettings["Others"] = {"Check_update": True}
         if "Delay" not in userSettings["Playback"]["Repeat"]:
             userSettings["Playback"]["Repeat"]["Delay"] = 0
+        if "Randomized_Delay" not in userSettings["Playback"]:
+            userSettings["Playback"]["Randomized_Delay"] = {
+                "Enabled": False,
+                "Lower": 0,
+                "Upper": 0,
+                "Distribution": []
+            }
+        else:
+            randomized_delay = userSettings["Playback"]["Randomized_Delay"]
+            if "Enabled" not in randomized_delay:
+                randomized_delay["Enabled"] = (randomized_delay.get("Lower", 0) != 0 or randomized_delay.get("Upper", 0) != 0)
+            if "Lower" not in randomized_delay:
+                randomized_delay["Lower"] = 0
+            if "Upper" not in randomized_delay:
+                randomized_delay["Upper"] = 0
         if "Remind_new_ver_at" not in userSettings["Others"]:
             userSettings["Others"]["Remind_new_ver_at"] = 0
         if "Language" not in userSettings:

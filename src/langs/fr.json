@@ -41,7 +41,7 @@
         "speed_text": "Vitesse",
         "speed_settings": {
           "title": "Réglagle de la vitesse",
-          "sub_text": "Entrez un nombre entre 0.1 et 10",
+          "sub_text": "Entrez un nombre de vitesse compris entre 0,1 et 10\nLe réglage de la vitesse affectera uniquement l'intervalle de temps entre les actions,\nil n'affectera pas les autres paramètres liés au temps.",
           "error_new_value": "La valeur de votre vitesse doit être entre 0,1 et 10 !"
         },
         "repeat_text": "Répéter",
@@ -75,6 +75,21 @@
           "title": "Réglage du délai",
           "sub_text": "Entrez un délai entre chaque répétition",
           "error_new_value": "Vous ne pouvez pas allez en dessous de 0 délai."
+        },
+        "randomized_delay_text": "Délai aléatoire",
+        "randomized_delay_settings": {
+          "title": "Paramètres du délai aléatoire",
+          "sub_text": "Configurez les limites du délai aléatoire entre les actions en millisecondes.\nLes valeurs inférieures à zéro réduiront le temps avant l'action suivante.\nLes valeurs supérieures à zéro augmenteront le temps avant l'action suivante.",
+          "lower_text": "Inférieure :",
+          "upper_text": "Supérieure :",
+          "error_new_value": "Les deux limites du délai aléatoire doivent être des nombres valides."
+        },
+        "distribution_drawer_settings": {
+          "title": "Personnaliser la distribution",
+          "sub_text": "Dessinez la fréquence à laquelle chaque délai doit apparaître.",
+          "more_text": "Plus fréquent",
+          "less_text": "Moins fréquent",
+          "clear_text": "Effacer"
         }
       },
       "recordings_menu": {

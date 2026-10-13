@@ -42,7 +42,7 @@
         "speed_text": "Hız",
         "speed_settings": {
           "title": "Hız ayarları",
-          "sub_text": "Hız değerini 0,1 ile 10 arasında girin",
+          "sub_text": "0,1 ile 10 arasında bir hız değeri girin\nHız ayarı yalnızca eylemler arasındaki zaman aralığını etkiler,\nzamanla ilgili diğer ayarları etkilemez.",
           "error_new_value": "Hız değeriniz 0,1 ile 10 arasında olmalıdır!"
         },
         "repeat_text": "Tekrarla",
@@ -76,6 +76,21 @@
           "title": "Gecikme ayarları",
           "sub_text": "Tekrarlama arasındaki gecikmeyi girin.",
           "error_new_value": "Gecikme süresi en az 0 olabilir"
+        },
+        "randomized_delay_text": "Rastgele gecikme",
+        "randomized_delay_settings": {
+          "title": "Rastgele gecikme ayarları",
+          "sub_text": "Eylemler arasındaki rastgele gecikme sınırlarını milisaniye cinsinden yapılandırın.\nSıfırın altındaki değerler bir sonraki eyleme kadar olan süreyi azaltır.\nSıfırın üzerindeki değerler bir sonraki eyleme kadar olan süreyi artırır.",
+          "lower_text": "Alt:",
+          "upper_text": "Üst:",
+          "error_new_value": "Rastgele gecikmenin her iki sınırı da geçerli sayılar olmalıdır."
+        },
+        "distribution_drawer_settings": {
+          "title": "Dağılımı özelleştir",
+          "sub_text": "Her gecikmenin ne kadar sık olması gerektiğini çizin.",
+          "more_text": "Daha sık",
+          "less_text": "Daha az sık",
+          "clear_text": "Temizle"
         }
       },
       "recordings_menu": {
@@ -168,9 +183,9 @@
       },
       "translators_text": "Çevirmenler",
       "translators_settings": {
-          "title": "Çevirmenler",
-          "sub_text": "Tüm çevirmenler",
-          "page": "Sayfa"
+        "title": "Çevirmenler",
+        "sub_text": "Tüm çevirmenler",
+        "page": "Sayfa"
       }
     }
   }

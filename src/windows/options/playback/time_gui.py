@@ -35,7 +35,7 @@ class TimeGui(Popup):
             to=24,
             width=10,
             validate="key",
-            validatecommand=(main_app.validate_cmd, "%d", "%P"),
+            validatecommand=(main_app.validate_cmd_int, "%d", "%P"),
         )
         hourValue = str(value // 3600)
         if self.type == "Scheduled" and self.time_format == "12 hours" and self.time_string == "PM" and int(hourValue) >= 12:
@@ -59,7 +59,7 @@ class TimeGui(Popup):
             to=60,
             width=10,
             validate="key",
-            validatecommand=(main_app.validate_cmd, "%d", "%P"),
+            validatecommand=(main_app.validate_cmd_int, "%d", "%P"),
         )
         minInput.insert(
             0, str((value % 3600) // 60)
@@ -75,7 +75,7 @@ class TimeGui(Popup):
             to=60,
             width=10,
             validate="key",
-            validatecommand=(main_app.validate_cmd, "%d", "%P"),
+            validatecommand=(main_app.validate_cmd_float, "%d", "%P"),
         )
         secInput.insert(0, str(value % 60))
         secInput.pack()
@@ -90,6 +90,10 @@ class TimeGui(Popup):
         ).pack(side=LEFT, padx=10)
         Button(buttonArea, text=main_app.text_content["global"]["cancel_button"], command=self.destroy).pack(side=LEFT, padx=10)
         buttonArea.pack(side=BOTTOM, pady=10)
+        self.update_idletasks()
+        popup_width = min(max(300, self.winfo_reqwidth() + 10), 800)
+        popup_height = min(max(height, self.winfo_reqheight() + 10), 600)
+        self.geometry(f"{popup_width}x{popup_height}")
         self.wait_window()
         main_app.prevent_record = False
 

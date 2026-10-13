@@ -11,16 +11,18 @@ class Delay(Popup):
         self.settings = main_app.settings
         Label(self, text=main_app.text_content["options_menu"]["playback_menu"]["delay_settings"]["sub_text"], font=('Segoe UI', 10)).pack(side=TOP, pady=10)
         userSettings = main_app.settings.settings_dict
-        setNewDelayInput = Spinbox(self, from_=1, to=100000000, width=7, validate="key",
-                              validatecommand=(main_app.validate_cmd, "%d", "%P"))
+        setNewDelayInput = Spinbox(self, from_=0, to=100000000, width=7, validate="key", validatecommand=(main_app.validate_cmd_float, "%d", "%P"))
         setNewDelayInput.delete(0, "end")
         setNewDelayInput.insert(0, str(userSettings["Playback"]["Repeat"]["Delay"]))
         setNewDelayInput.pack(pady=20)
         buttonArea = Frame(self)
-        Button(buttonArea, text=main_app.text_content["global"]["confirm_button"], command=lambda: self.setNewDelayNumber(setNewDelayInput.get(), main_app)).pack(side=LEFT,
-                                                                                                           padx=10)
+        Button(buttonArea, text=main_app.text_content["global"]["confirm_button"], command=lambda: self.setNewDelayNumber(setNewDelayInput.get(), main_app)).pack(side=LEFT, padx=10)
         Button(buttonArea, text=main_app.text_content["global"]["cancel_button"], command=self.destroy).pack(side=LEFT, padx=10)
         buttonArea.pack(side=BOTTOM, pady=10)
+        self.update_idletasks()
+        popup_width = min(max(300, self.winfo_reqwidth() + 10), 800)
+        popup_height = min(max(150, self.winfo_reqheight() + 10), 600)
+        self.geometry(f"{popup_width}x{popup_height}")
         self.wait_window()
         main_app.prevent_record = False
 

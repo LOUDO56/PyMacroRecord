@@ -36,94 +36,109 @@
     },
     "options_menu": {
       "options_text": "Опции",
-    "playback_menu": {
-      "playback_text": "Възпроизвеждане",
-      "speed_text": "Скорост",
-      "speed_settings": {
-        "title": "Настройки на скоростта",
-        "sub_text": "Въведете число за скорост между 0.1 и 10",
-        "error_new_value": "Стойността на скоростта трябва да бъде между 0.1 и 10!"
+      "playback_menu": {
+        "playback_text": "Възпроизвеждане",
+        "speed_text": "Скорост",
+        "speed_settings": {
+          "title": "Настройки на скоростта",
+          "sub_text": "Въведете число за скорост между 0,1 и 10\nНастройката за скорост ще влияе само на интервала от време между действията,\nняма да влияе на други настройки, свързани с времето.",
+          "error_new_value": "Стойността на скоростта трябва да бъде между 0.1 и 10!"
+        },
+        "repeat_text": "Повтаряне",
+        "repeat_settings": {
+          "title": "Настройки за повтаряне",
+          "infinite_repeat": "Безкрайно повторение?",
+          "sub_text": "Въведете броя на повторенията",
+          "error_new_value": "Не можете да имате по-малко от 1 повторение."
+        },
+        "for_text": "За",
+        "for_settings": {
+          "title": "Настройки за За"
+        },
+        "interval_text": "Интервал",
+        "interval_settings": {
+          "title": "Настройки на интервала"
+        },
+        "for_interval_settings": {
+          "hours_text": "Часове",
+          "minutes_text": "Минути",
+          "seconds_text": "Секунди",
+          "error_new_value_multiple": "Въведените стойности са грешни",
+          "error_new_value_single": "Въведената стойност е грешна"
+        },
+        "scheduled_text": "Планирани",
+        "scheduled_settings": {
+          "title": "Настройки за планирани"
+        },
+        "delay_text": "Закъснение",
+        "delay_settings": {
+          "title": "Настройки за закъснение",
+          "sub_text": "Въведете закъснение между повторенията",
+          "error_new_value": "Не можете да имате закъснение по-малко от 0."
+        },
+        "randomized_delay_text": "Случайно забавяне",
+        "randomized_delay_settings": {
+          "title": "Настройки за случайно забавяне",
+          "sub_text": "Конфигурирайте границите на случайното забавяне между действията в милисекунди.\nСтойности под нулата ще намалят времето до следващото действие.\nСтойности над нулата ще увеличат времето до следващото действие.",
+          "lower_text": "Долна граница:",
+          "upper_text": "Горна граница:",
+          "error_new_value": "И двете граници на случайното забавяне трябва да бъдат валидни числа."
+        },
+        "distribution_drawer_settings": {
+          "title": "Персонализиране на разпределението",
+          "sub_text": "Начертайте колко често трябва да се среща всяко забавяне.",
+          "more_text": "По-често",
+          "less_text": "По-рядко",
+          "clear_text": "Изчистване"
+        }
       },
-      "repeat_text": "Повтаряне",
-      "repeat_settings": {
-        "title": "Настройки за повтаряне",
-        "infinite_repeat": "Безкрайно повторение?",
-        "sub_text": "Въведете броя на повторенията",
-        "error_new_value": "Не можете да имате по-малко от 1 повторение."
+      "recordings_menu": {
+        "recordings_text": "Записи",
+        "mouse_movement_text": "Движение на мишката",
+        "mouse_click_text": "Щракване с мишка",
+        "keyboard_text": "Клавиатура",
+        "show_events_statut": "Показване на събития в лентата за състояние"
       },
-      "for_text": "За",
-      "for_settings": {
-        "title": "Настройки за За"
+      "json_compact": "Компактирани макро данни",
+      "settings_menu": {
+        "settings_text": "Настройки",
+        "always_import_macro_settings": "Винаги импортирай макро настройки",
+        "lang_text": "Език",
+        "lang_settings": {
+          "title": "Настройки на езика",
+          "sub_text": "Изберете вашия език"
+        },
+        "hotkeys_text": "Бързи клавиши",
+        "hotkeys_settings": {
+          "title": "Настройки за бързи клавиши",
+          "start_record_text": "Започни запис",
+          "stop_record_text": "Спри запис",
+          "start_playback_text": "Започни възпроизвеждане",
+          "stop_playback_text": "Спри възпроизвеждане",
+          "clear_text": "Изчисти",
+          "please_key_text": "Моля, натиснете клавиш",
+          "error_hotkeys": "Не можете да имате същите бързи клавиши за започване на запис и започване на възпроизвеждане"
+        },
+        "minimization_text": "Минимизиране",
+        "minimization_toast": "PyMacroRecord беше минимизиран.",
+        "minimization_menu": {
+          "minimization_when_playing_text": "Минимизиране повреме на възпроизвеждане",
+          "minimization_when_recording_text": "Минимизиране повреме на запис"
+        },
+        "after_playback_text": "След възпроизвеждане",
+        "after_playback_settings": {
+          "when_playback_complete_text": "След завършване на възпроизвеждането",
+          "title": "Настройки след възпроизвеждане",
+          "sub_text": "При завършване на възпроизвеждането",
+          "idle": "Неактивно",
+          "quit_software": "Изключване на софтуера",
+          "standby": "Изчакване",
+          "log_off_computer": "Излизане от компютъра",
+          "turn_off_computer": "Изключване на компютъра",
+          "restart_computer": "Рестартиране на компютъра",
+          "hibernate_if_enabled": "Хибернация (ако е възможно)"
+        }
       },
-      "interval_text": "Интервал",
-      "interval_settings": {
-        "title": "Настройки на интервала"
-      },
-      "for_interval_settings": {
-        "hours_text": "Часове",
-        "minutes_text": "Минути",
-        "seconds_text": "Секунди",
-        "error_new_value_multiple": "Въведените стойности са грешни",
-        "error_new_value_single": "Въведената стойност е грешна"
-      },
-      "scheduled_text": "Планирани",
-      "scheduled_settings": {
-        "title": "Настройки за планирани"
-      },
-      "delay_text": "Закъснение",
-      "delay_settings": {
-        "title": "Настройки за закъснение",
-        "sub_text": "Въведете закъснение между повторенията",
-        "error_new_value": "Не можете да имате закъснение по-малко от 0."
-      }
-    },
-    "recordings_menu": {
-      "recordings_text": "Записи",
-      "mouse_movement_text": "Движение на мишката",
-      "mouse_click_text": "Щракване с мишка",
-      "keyboard_text": "Клавиатура",
-      "show_events_statut": "Показване на събития в лентата за състояние"
-    },
-    "json_compact": "Компактирани макро данни",
-    "settings_menu": {
-      "settings_text": "Настройки",
-      "always_import_macro_settings": "Винаги импортирай макро настройки",
-      "lang_text": "Език",
-      "lang_settings": {
-        "title": "Настройки на езика",
-        "sub_text": "Изберете вашия език"
-      },
-      "hotkeys_text": "Бързи клавиши",
-      "hotkeys_settings": {
-        "title": "Настройки за бързи клавиши",
-        "start_record_text": "Започни запис",
-        "stop_record_text": "Спри запис",
-        "start_playback_text": "Започни възпроизвеждане",
-        "stop_playback_text": "Спри възпроизвеждане",
-        "clear_text": "Изчисти",
-        "please_key_text": "Моля, натиснете клавиш",
-        "error_hotkeys": "Не можете да имате същите бързи клавиши за започване на запис и започване на възпроизвеждане"
-      },
-      "minimization_text": "Минимизиране",
-      "minimization_toast": "PyMacroRecord беше минимизиран.",
-      "minimization_menu": {
-        "minimization_when_playing_text": "Минимизиране повреме на възпроизвеждане",
-        "minimization_when_recording_text": "Минимизиране повреме на запис"
-      },
-      "after_playback_text": "След възпроизвеждане",
-      "after_playback_settings": {
-        "when_playback_complete_text": "След завършване на възпроизвеждането",
-        "title": "Настройки след възпроизвеждане",
-        "sub_text": "При завършване на възпроизвеждането",
-        "idle": "Неактивно",
-        "quit_software": "Изключване на софтуера",
-        "standby": "Изчакване",
-        "log_off_computer": "Излизане от компютъра",
-        "turn_off_computer": "Изключване на компютъра",
-        "restart_computer": "Рестартиране на компютъра",
-        "hibernate_if_enabled": "Хибернация (ако е възможно)"
-      }
-    },
       "others_menu": {
         "others_text": "Други",
         "check_update_text": "Проверка за актуализации",

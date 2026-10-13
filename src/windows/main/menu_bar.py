@@ -4,7 +4,7 @@ from webbrowser import open as OpenUrl
 
 from utils.record_file_management import RecordFileManagement
 from windows.help.about import About
-from windows.options.playback import Delay, Repeat, Speed, TimeGui
+from windows.options.playback import Delay, RandomizedDelay, Repeat, Speed, TimeGui
 from windows.options.settings import AfterPlayBack, Hotkeys, SelectLanguage
 from windows.others.donors import Donors
 from windows.others.translators import Translators
@@ -50,6 +50,7 @@ class MenuBar(Menu):
         playback_sub.add_command(label=self.text_config["options_menu"]["playback_menu"]["for_text"], command=lambda: TimeGui(self, parent, "For"))
         playback_sub.add_command(label=self.text_config["options_menu"]["playback_menu"]["scheduled_text"], command=lambda: TimeGui(self, parent, "Scheduled"))
         playback_sub.add_command(label=self.text_config["options_menu"]["playback_menu"]["delay_text"], command=lambda: Delay(self, parent))
+        playback_sub.add_command(label=self.text_config["options_menu"]["playback_menu"]["randomized_delay_text"], command=lambda: RandomizedDelay(self, parent))
 
         # Recordings Sub
         self.mouseMove = BooleanVar(value=userSettings["Recordings"]["Mouse_Move"])

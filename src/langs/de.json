@@ -41,7 +41,7 @@
         "speed_text": "Geschwindigkeit",
         "speed_settings": {
           "title": "Geschwindigkeit",
-          "sub_text": "Wählen Sie eine Geschwindigkeit zwischen 0.1 und 10",
+          "sub_text": "Wählen Sie eine Geschwindigkeit zwischen 0,1 und 10.\nDie Geschwindigkeitseinstellung wirkt sich nur auf das Zeitintervall zwischen den Aktionen aus,\nsie beeinflusst keine anderen zeitbezogenen Einstellungen.",
           "error_new_value": "Die Geschwindigkeit muss zwischen 0.1 und 10 liegen!"
         },
         "repeat_text": "Wiederholen",
@@ -75,6 +75,21 @@
           "title": "Verzögerungseinstellung",
           "sub_text": "Verzögerung zwischen den Ausführungen",
           "error_new_value": "Eine Minimum-Verzögerung von Null ist nötig."
+        },
+        "randomized_delay_text": "Zufällige Verzögerung",
+        "randomized_delay_settings": {
+          "title": "Einstellungen für zufällige Verzögerung",
+          "sub_text": "Konfigurieren Sie die Grenzen der zufälligen Verzögerung zwischen Aktionen in Millisekunden.\nWerte unter null verkürzen die Zeit bis zur nächsten Aktion.\nWerte über null verlängern die Zeit bis zur nächsten Aktion.",
+          "lower_text": "Untergrenze:",
+          "upper_text": "Obergrenze:",
+          "error_new_value": "Beide Grenzen der zufälligen Verzögerung müssen gültige Zahlen sein."
+        },
+        "distribution_drawer_settings": {
+          "title": "Verteilung anpassen",
+          "sub_text": "Zeichnen Sie, wie häufig jede Verzögerung vorkommen soll.",
+          "more_text": "Häufiger",
+          "less_text": "Seltener",
+          "clear_text": "Löschen"
         }
       },
       "recordings_menu": {

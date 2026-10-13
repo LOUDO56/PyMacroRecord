@@ -41,7 +41,7 @@
         "speed_text": "Velocidad",
         "speed_settings": {
           "title": "Ajustes de velocidad",
-          "sub_text": "Introduzca el número de velocidad entre 0.1 y 10",
+          "sub_text": "Introduzca el número de velocidad entre 0,1 y 10\nLa configuración de velocidad solo afectará al intervalo de tiempo entre acciones,\nesto no afectará a otras configuraciones relacionadas con el tiempo.",
           "error_new_value": "¡Su valor de velocidad debe estar entre 0.1 y 10!"
         },
         "repeat_text": "Repetir",
@@ -75,6 +75,21 @@
           "title": "Ajustes de retrazo",
           "sub_text": "Introduzca el retraso entre repetición",
           "error_new_value": "No puede tener menos de 0 retrasos"
+        },
+        "randomized_delay_text": "Retraso aleatorio",
+        "randomized_delay_settings": {
+          "title": "Configuración del retraso aleatorio",
+          "sub_text": "Configure los límites del retraso aleatorio entre acciones en milisegundos.\nLos valores inferiores a cero reducirán el tiempo hasta la siguiente acción.\nLos valores superiores a cero aumentarán el tiempo hasta la siguiente acción.",
+          "lower_text": "Inferior:",
+          "upper_text": "Superior:",
+          "error_new_value": "Ambos límites del retraso aleatorio deben ser números válidos."
+        },
+        "distribution_drawer_settings": {
+          "title": "Personalizar la distribución",
+          "sub_text": "Dibuja con qué frecuencia debería aparecer cada retraso.",
+          "more_text": "Más frecuente",
+          "less_text": "Menos frecuente",
+          "clear_text": "Borrar"
         }
       },
       "recordings_menu": {

@@ -41,7 +41,7 @@
         "speed_text": "Snelheid",
         "speed_settings": {
           "title": "Snelheidsinstellingen",
-          "sub_text": "Geef snelheid tussen 0.1 and 10 in",
+          "sub_text": "Voer een snelheidsgetal tussen 0,1 en 10 in\nDe snelheidsinstelling heeft alleen invloed op het tijdsinterval tussen acties,\ndit heeft geen invloed op andere tijdgerelateerde instellingen.",
           "error_new_value": "De snelheid moet tussen 0.1 en 10 zijn!"
         },
         "repeat_text": "Herhaal",
@@ -75,6 +75,21 @@
           "title": "Uitstel instellingen",
           "sub_text": "Geef uitstel tussen herhalingen op",
           "error_new_value": "Je kan niet minder dan 0 uitstel hebben."
+        },
+        "randomized_delay_text": "Willekeurige vertraging",
+        "randomized_delay_settings": {
+          "title": "Instellingen voor willekeurige vertraging",
+          "sub_text": "Configureer de grenzen van de willekeurige vertraging tussen acties in milliseconden.\nWaarden onder nul verkorten de tijd tot de volgende actie.\nWaarden boven nul verlengen de tijd tot de volgende actie.",
+          "lower_text": "Ondergrens:",
+          "upper_text": "Bovengrens:",
+          "error_new_value": "Beide grenzen van de willekeurige vertraging moeten geldige getallen zijn."
+        },
+        "distribution_drawer_settings": {
+          "title": "Verdeling aanpassen",
+          "sub_text": "Teken hoe vaak elke vertraging moet voorkomen.",
+          "more_text": "Vaker",
+          "less_text": "Minder vaak",
+          "clear_text": "Wissen"
         }
       },
       "recordings_menu": {

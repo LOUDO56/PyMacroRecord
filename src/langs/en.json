@@ -41,7 +41,7 @@
         "speed_text": "Speed",
         "speed_settings": {
           "title": "Speed settings",
-          "sub_text": "Enter speed number between 0.1 and 10",
+          "sub_text": "Enter speed number between 0.1 and 10\nThe speed setting will only affect the time interval between actions,\nthis will not affect other settings that are time related.",
           "error_new_value": "Your speed value must be between 0.1 and 10!"
         },
         "repeat_text": "Repeat",
@@ -75,6 +75,21 @@
           "title": "Delay settings",
           "sub_text": "Enter delay between repeat",
           "error_new_value": "You cannot have less than 0 delay."
+        },
+        "randomized_delay_text": "Randomized delay",
+        "randomized_delay_settings": {
+          "title": "Randomized delay settings",
+          "sub_text": "Configure randomized delay bounds between actions in milliseconds.\nValues below zero will allow for decreased time to next action.\nValues above zero will allow for increased time to next action.",
+          "lower_text": "Lower:",
+          "upper_text": "Upper:",
+          "error_new_value": "Both randomized delay bounds must be valid numbers."
+        },
+        "distribution_drawer_settings": {
+          "title": "Customize distribution",
+          "sub_text": "Draw how common each delay should be.",
+          "more_text": "More common",
+          "less_text": "Less common",
+          "clear_text": "Clear"
         }
       },
       "recordings_menu": {

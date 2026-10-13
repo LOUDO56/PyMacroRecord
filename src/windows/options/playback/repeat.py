@@ -27,7 +27,7 @@ class Repeat(Popup):
         infiniteCheck.pack(pady=5)
 
         repeatTimes = Spinbox(self, from_=1, to=100000000, width=7, validate="key",
-                              validatecommand=(main_app.validate_cmd, "%d", "%P"))
+                              validatecommand=(main_app.self.validate_cmd_int, "%d", "%P"))
         repeatTimes.delete(0, "end")
         repeatTimes.insert(0, userSettings["Playback"]["Repeat"]["Times"])
         repeatTimes.pack(pady=5)
@@ -39,6 +39,10 @@ class Repeat(Popup):
                command=self.destroy).pack(side=LEFT, padx=5)
         buttonArea.pack(pady=10)
 
+        self.update_idletasks()
+        popup_width = min(max(300, self.winfo_reqwidth() + 10), 800)
+        popup_height = min(max(180, self.winfo_reqheight() + 10), 600)
+        self.geometry(f"{popup_width}x{popup_height}")
         self.wait_window()
         main_app.prevent_record = False
 

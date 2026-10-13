@@ -41,7 +41,7 @@
         "speed_text": "Rapideco",
         "speed_settings": {
           "title": "Rapid-agordoj",
-          "sub_text": "Enmetu rapidecon inter 0.1 kaj 10",
+          "sub_text": "Enmetu rapidecon inter 0,1 kaj 10\nLa rapideca agordo influos nur la tempintervalon inter agoj,\nĝi ne influos aliajn agordojn rilatajn al tempo.",
           "error_new_value": "Via rapideco devas esti inter 0.1 kaj 10!"
         },
         "repeat_text": "Ripeto",
@@ -75,6 +75,21 @@
           "title": "Prokrast-agordoj",
           "sub_text": "Enmetu prokraston inter ripetoj",
           "error_new_value": "Vi ne povas havi malpli ol 0 da prokrasto."
+        },
+        "randomized_delay_text": "Hazarda prokrasto",
+        "randomized_delay_settings": {
+          "title": "Agordoj de hazarda prokrasto",
+          "sub_text": "Agordu la limojn de la hazarda prokrasto inter agoj en milisekundoj.\nValoroj sub nul reduktos la tempon ĝis la sekva ago.\nValoroj super nul pliigos la tempon ĝis la sekva ago.",
+          "lower_text": "Malsupra:",
+          "upper_text": "Supra:",
+          "error_new_value": "Ambaŭ limoj de la hazarda prokrasto devas esti validaj nombroj."
+        },
+        "distribution_drawer_settings": {
+          "title": "Agordi distribuon",
+          "sub_text": "Desegnu, kiom ofta estu ĉiu prokrasto.",
+          "more_text": "Pli ofta",
+          "less_text": "Malpli ofta",
+          "clear_text": "Forigi"
         }
       },
       "recordings_menu": {

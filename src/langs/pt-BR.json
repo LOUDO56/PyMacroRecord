@@ -1,176 +1,191 @@
 {
-    "information": {
-      "author": "takiem",
-      "lang_short": "pt-BR",
-      "lang_long": "Brazilian-Portuguese"
+  "information": {
+    "author": "takiem",
+    "lang_short": "pt-BR",
+    "lang_long": "Brazilian-Portuguese"
+  },
+  "content": {
+    "global": {
+      "confirm_button": "Confirmar",
+      "cancel_button": "Cancelar",
+      "close_button": "Fechar",
+      "error": "Erro",
+      "previous_text": "Anterior",
+      "next_text": "Próximo",
+      "confirm_save": "Deseja salvar sua gravação?",
+      "confirm": "Confirmar",
+      "information": "Informação",
+      "restart_software_text": "Você precisa reiniciar o software para que as alterações tenham efeito.",
+      "load_macro_settings": "Importar também as configurações macro?"
     },
-    "content": {
-      "global": {
-        "confirm_button": "Confirmar",
-        "cancel_button": "Cancelar",
-        "close_button": "Fechar",
-        "error": "Erro",
-        "previous_text": "Anterior",
-        "next_text": "Próximo",
-        "confirm_save": "Deseja salvar sua gravação?",
-        "confirm": "Confirmar",
-        "information": "Informação",
-        "restart_software_text": "Você precisa reiniciar o software para que as alterações tenham efeito.",
-        "load_macro_settings": "Importar também as configurações macro?"
-      },
-      "new_version": {
-        "title": "Atualização de Software",
-        "sub_text_1": "Nova versão",
-        "sub_text_2": "disponível!",
-        "sub_text_3": "Deseja baixar agora?",
-        "ignore_button": "Ignorar",
-        "remind_later_button": "Lembrar mais tarde",
-        "download_button": "Baixar atualização"
-      },
-      "file_menu": {
-        "file_text": "Arquivo",
-        "new_text": "Novo",
-        "load_text": "Carregar",
-        "save_text": "Salvar",
-        "save_as_text": "Salvar como"
-      },
-      "options_menu": {
-        "options_text": "Opções",
-        "playback_menu": {
-          "playback_text": "Reprodução",
-          "speed_text": "Velocidade",
-          "speed_settings": {
-            "title": "Configurações de Velocidade",
-            "sub_text": "Digite um valor de velocidade entre 0.1 e 10",
-            "error_new_value": "O valor de velocidade deve estar entre 0.1 e 10!"
-          },
-          "repeat_text": "Repetir",
-          "repeat_settings": {
-            "title": "Configurações de Repetição",
-            "infinite_repeat": "Repetir infinitamente?",
-            "sub_text": "Digite o número de repetições",
-            "error_new_value": "O número de repetições não pode ser inferior a 1."
-          },
-          "for_text": "Por",
-          "for_settings": {
-            "title": "Configurações de tempo"
-          },
-          "interval_text": "Intervalo",
-          "interval_settings": {
-            "title": "Configurações de Intervalo"
-          },
-          "for_interval_settings": {
-            "hours_text": "Horas",
-            "minutes_text": "Minutos",
-            "seconds_text": "Segundos",
-            "error_new_value_multiple": "entradas estão incorretas",
-            "error_new_value_single": "entrada está incorreta"
-          },
-          "scheduled_text": "Programado",
-          "scheduled_settings": {
-            "title": "Configurações programadas"
-          },
-          "delay_text": "Atraso",
-          "delay_settings": {
-            "title": "Configurações de Atraso",
-            "sub_text": "Digite o atraso entre as repetições",
-            "error_new_value": "O atraso não pode ser inferior a 0."
-          }
+    "new_version": {
+      "title": "Atualização de Software",
+      "sub_text_1": "Nova versão",
+      "sub_text_2": "disponível!",
+      "sub_text_3": "Deseja baixar agora?",
+      "ignore_button": "Ignorar",
+      "remind_later_button": "Lembrar mais tarde",
+      "download_button": "Baixar atualização"
+    },
+    "file_menu": {
+      "file_text": "Arquivo",
+      "new_text": "Novo",
+      "load_text": "Carregar",
+      "save_text": "Salvar",
+      "save_as_text": "Salvar como"
+    },
+    "options_menu": {
+      "options_text": "Opções",
+      "playback_menu": {
+        "playback_text": "Reprodução",
+        "speed_text": "Velocidade",
+        "speed_settings": {
+          "title": "Configurações de Velocidade",
+          "sub_text": "Digite um valor de velocidade entre 0,1 e 10\nA configuração de velocidade afetará apenas o intervalo de tempo entre as ações,\nisso não afetará outras configurações relacionadas ao tempo.",
+          "error_new_value": "O valor de velocidade deve estar entre 0.1 e 10!"
         },
-        "recordings_menu": {
-          "recordings_text": "Gravações",
-          "mouse_movement_text": "Movimento do Mouse",
-          "mouse_click_text": "Clique do Mouse",
-          "keyboard_text": "Teclado",
-          "show_events_statut": "Mostrar eventos na barra de status"
+        "repeat_text": "Repetir",
+        "repeat_settings": {
+          "title": "Configurações de Repetição",
+          "infinite_repeat": "Repetir infinitamente?",
+          "sub_text": "Digite o número de repetições",
+          "error_new_value": "O número de repetições não pode ser inferior a 1."
         },
-        "json_compact": "Compactar dados do macro",
-        "settings_menu": {
-          "settings_text": "Configurações",
-          "always_import_macro_settings": "Importeer altijd macro-instellingen",
-          "lang_text": "Idioma",
-          "lang_settings": {
-            "title": "Configurações de Idioma",
-            "sub_text": "Escolha seu idioma"
-          },
-          "hotkeys_text": "Teclas de Atalho",
-          "hotkeys_settings": {
-            "title": "Configurações de Teclas de Atalho",
-            "start_record_text": "Iniciar gravação",
-            "stop_record_text": "Parar gravação",
-            "start_playback_text": "Iniciar reprodução",
-            "stop_playback_text": "Parar reprodução",
-            "clear_text": "Limpar",
-            "please_key_text": "Por favor, pressione uma tecla",
-            "error_hotkeys": "As teclas de atalho para iniciar a gravação e a reprodução não podem ser as mesmas"
-          },
-          "minimization_text": "Minimizar",
-          "minimization_toast": "PyMacroRecord foi minimizado.",
-          "minimization_menu": {
-            "minimization_when_playing_text": "Minimizar ao reproduzir",
-            "minimization_when_recording_text": "Minimizar ao gravar"
-          },
-          "after_playback_text": "Após a reprodução",
-          "after_playback_settings": {
-            "when_playback_complete_text": "Quando a reprodução for concluída",
-            "title": "Configurações pós-reprodução",
-            "sub_text": "Ao concluir a reprodução",
-            "idle": "Ocioso",
-            "quit_software": "Fechar software",
-            "standby": "Suspender",
-            "log_off_computer": "Encerrar sessão",
-            "turn_off_computer": "Desligar o computador",
-            "restart computer": "Reiniciar o computador",
-            "hibernate_if_enabled": "Hibernar (se habilitado)"
-          }
+        "for_text": "Por",
+        "for_settings": {
+          "title": "Configurações de tempo"
         },
-        "others_menu": {
-          "others_text": "Outros",
-          "check_update_text": "Verificar atualização",
-          "reset_settings_text": "Redefinir configurações",
-          "reset_settings_confirmation": "Tem certeza de que deseja redefinir suas configurações?",
-          "fixed_timestamp_text": "Timestamp fixo",
-          "fixed_timestamp_settings": {
-            "title": "Configurações de Timestamp Fixo",
-            "sub_text": "Digite o timestamp fixo"
-          }
+        "interval_text": "Intervalo",
+        "interval_settings": {
+          "title": "Configurações de Intervalo"
+        },
+        "for_interval_settings": {
+          "hours_text": "Horas",
+          "minutes_text": "Minutos",
+          "seconds_text": "Segundos",
+          "error_new_value_multiple": "entradas estão incorretas",
+          "error_new_value_single": "entrada está incorreta"
+        },
+        "scheduled_text": "Programado",
+        "scheduled_settings": {
+          "title": "Configurações programadas"
+        },
+        "delay_text": "Atraso",
+        "delay_settings": {
+          "title": "Configurações de Atraso",
+          "sub_text": "Digite o atraso entre as repetições",
+          "error_new_value": "O atraso não pode ser inferior a 0."
+        },
+        "randomized_delay_text": "Atraso aleatório",
+        "randomized_delay_settings": {
+          "title": "Configurações do atraso aleatório",
+          "sub_text": "Configure os limites do atraso aleatório entre ações em milissegundos.\nValores abaixo de zero reduzirão o tempo até a próxima ação.\nValores acima de zero aumentarão o tempo até a próxima ação.",
+          "lower_text": "Inferior:",
+          "upper_text": "Superior:",
+          "error_new_value": "Ambos os limites do atraso aleatório devem ser números válidos."
+        },
+        "distribution_drawer_settings": {
+          "title": "Personalizar distribuição",
+          "sub_text": "Desenhe com que frequência cada atraso deve ocorrer.",
+          "more_text": "Mais frequente",
+          "less_text": "Menos frequente",
+          "clear_text": "Limpar"
         }
       },
-      "help_menu": {
-        "help_text": "Ajuda",
-        "tutorial_text": "Tutorial",
-        "about_text": "Sobre",
-        "website_text": "Website",
-        "about_settings": {
-          "title": "Sobre",
-          "publisher_text": "Editor",
-          "version_text": "Versão",
-          "license_text": "Sob licença",
-          "version_check_update_text": {
-            "checking": "Verificando...",
-            "up_to_date": "Atualizado",
-            "outdated": "Desatualizado",
-            "disabled": "Verificação de atualização desativada",
-            "failed": "Não foi possível verificar se há uma nova atualização"
-          }
+      "recordings_menu": {
+        "recordings_text": "Gravações",
+        "mouse_movement_text": "Movimento do Mouse",
+        "mouse_click_text": "Clique do Mouse",
+        "keyboard_text": "Teclado",
+        "show_events_statut": "Mostrar eventos na barra de status"
+      },
+      "json_compact": "Compactar dados do macro",
+      "settings_menu": {
+        "settings_text": "Configurações",
+        "always_import_macro_settings": "Importeer altijd macro-instellingen",
+        "lang_text": "Idioma",
+        "lang_settings": {
+          "title": "Configurações de Idioma",
+          "sub_text": "Escolha seu idioma"
+        },
+        "hotkeys_text": "Teclas de Atalho",
+        "hotkeys_settings": {
+          "title": "Configurações de Teclas de Atalho",
+          "start_record_text": "Iniciar gravação",
+          "stop_record_text": "Parar gravação",
+          "start_playback_text": "Iniciar reprodução",
+          "stop_playback_text": "Parar reprodução",
+          "clear_text": "Limpar",
+          "please_key_text": "Por favor, pressione uma tecla",
+          "error_hotkeys": "As teclas de atalho para iniciar a gravação e a reprodução não podem ser as mesmas"
+        },
+        "minimization_text": "Minimizar",
+        "minimization_toast": "PyMacroRecord foi minimizado.",
+        "minimization_menu": {
+          "minimization_when_playing_text": "Minimizar ao reproduzir",
+          "minimization_when_recording_text": "Minimizar ao gravar"
+        },
+        "after_playback_text": "Após a reprodução",
+        "after_playback_settings": {
+          "when_playback_complete_text": "Quando a reprodução for concluída",
+          "title": "Configurações pós-reprodução",
+          "sub_text": "Ao concluir a reprodução",
+          "idle": "Ocioso",
+          "quit_software": "Fechar software",
+          "standby": "Suspender",
+          "log_off_computer": "Encerrar sessão",
+          "turn_off_computer": "Desligar o computador",
+          "restart computer": "Reiniciar o computador",
+          "hibernate_if_enabled": "Hibernar (se habilitado)"
         }
       },
       "others_menu": {
         "others_text": "Outros",
-        "donors_text": "Doadores",
-        "donors_settings": {
-          "title": "Doadores",
-          "sub_text": "Todos os doadores",
-          "load_donors": "Carregando doadores...",
-          "want_be_donor": "Quer ser um doador? Clique aqui!",
-          "cant_get_donors": "Não foi possível obter os doadores :("
-        },
-        "translators_text": "Tradutores",
-        "translators_settings": {
-            "title": "Tradutores",
-            "sub_text": "Todos os tradutores",
-            "page": "Página"
+        "check_update_text": "Verificar atualização",
+        "reset_settings_text": "Redefinir configurações",
+        "reset_settings_confirmation": "Tem certeza de que deseja redefinir suas configurações?",
+        "fixed_timestamp_text": "Timestamp fixo",
+        "fixed_timestamp_settings": {
+          "title": "Configurações de Timestamp Fixo",
+          "sub_text": "Digite o timestamp fixo"
         }
+      }
+    },
+    "help_menu": {
+      "help_text": "Ajuda",
+      "tutorial_text": "Tutorial",
+      "about_text": "Sobre",
+      "website_text": "Website",
+      "about_settings": {
+        "title": "Sobre",
+        "publisher_text": "Editor",
+        "version_text": "Versão",
+        "license_text": "Sob licença",
+        "version_check_update_text": {
+          "checking": "Verificando...",
+          "up_to_date": "Atualizado",
+          "outdated": "Desatualizado",
+          "disabled": "Verificação de atualização desativada",
+          "failed": "Não foi possível verificar se há uma nova atualização"
+        }
+      }
+    },
+    "others_menu": {
+      "others_text": "Outros",
+      "donors_text": "Doadores",
+      "donors_settings": {
+        "title": "Doadores",
+        "sub_text": "Todos os doadores",
+        "load_donors": "Carregando doadores...",
+        "want_be_donor": "Quer ser um doador? Clique aqui!",
+        "cant_get_donors": "Não foi possível obter os doadores :("
+      },
+      "translators_text": "Tradutores",
+      "translators_settings": {
+        "title": "Tradutores",
+        "sub_text": "Todos os tradutores",
+        "page": "Página"
       }
     }
   }
+}

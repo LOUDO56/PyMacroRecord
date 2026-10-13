@@ -9,12 +9,12 @@ from pynput import keyboard, mouse
 from pynput.keyboard import Key  # FUTURE SELF: DON'T REMOVE THIS!!
 from pynput.mouse import Button
 
+from utils.random import generate_weighted_random_func, update_random_seed
 from utils.get_key_pressed import getKeyPressed
 from utils.keys import vk_nb
 from utils.record_file_management import RecordFileManagement
 from utils.show_toast import show_notification_minim
 from utils.warning_pop_up_save import confirm_save
-
 
 class Macro:
     """Init a new Macro"""
@@ -210,6 +210,12 @@ class Macro:
         repeat_count = 0
         now = time()
 
+        randomized_delay_opts = userSettings["Playback"].get("Randomized_Delay", {})
+        randomized_delay_weights = randomized_delay_opts.get("Distribution")
+        lower_bound = float(randomized_delay_opts["Lower"])
+        upper_bound = float(randomized_delay_opts["Upper"])
+        get_weighted_random = generate_weighted_random_func(randomized_delay_weights, lower_bound, upper_bound)
+
         while self.playback and (is_infinite or repeat_count < repeat_times):
             for events in range(len(self.macro_events["events"])):
                 elapsed_time = int(time() - now)
@@ -223,9 +229,21 @@ class Macro:
                         self.macro_events["events"][events]["timestamp"]
                         * (1 / userSettings["Playback"]["Speed"])
                 )
-                if timeSleep < 0:
-                    timeSleep = abs(timeSleep)
-                sleep(timeSleep)
+
+                # base sleep time
+                base_ms = self.macro_events["events"][events]["timestamp"]
+                # the speed adjustments only affect the base interval between actions, it should not affect other time modifiers
+                adjusted_speed = 1/(userSettings["Playback"]["Speed"] or 1)
+                # randomized delay between actions, default to zero for no change
+                randomized_delay_ms = get_weighted_random()
+                update_random_seed()
+
+                # sleep for the adjusted speed delay, and add the randomized delay time
+                sleep_time = max(0, (base_ms * adjusted_speed) + ((randomized_delay_ms or 0)/1000))
+
+                sleep(sleep_time)
+
+                # continue to execute action
                 event_type = self.macro_events["events"][events]["type"]
 
                 if event_type == "cursorMove":  # Cursor Move

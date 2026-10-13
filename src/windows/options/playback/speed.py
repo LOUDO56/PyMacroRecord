@@ -12,7 +12,7 @@ class Speed(Popup):
         Label(self, text=main_app.text_content["options_menu"]["playback_menu"]["speed_settings"]["sub_text"], font=('Segoe UI', 10)).pack(side=TOP, pady=10)
         userSettings = main_app.settings.settings_dict
         setNewSpeedInput = Spinbox(self, from_=0.1, to=10, width=7, validate="key",
-                              validatecommand=(main_app.validate_cmd, "%d", "%P"))
+                              validatecommand=(main_app.validate_cmd_float, "%d", "%P"))
         setNewSpeedInput.insert(0, str(userSettings["Playback"]["Speed"]))
         setNewSpeedInput.pack(pady=20)
         buttonArea = Frame(self)
@@ -20,6 +20,10 @@ class Speed(Popup):
                                                                                                            padx=10)
         Button(buttonArea, text=main_app.text_content["global"]["cancel_button"], command=self.destroy).pack(side=LEFT, padx=10)
         buttonArea.pack(side=BOTTOM, pady=10)
+        self.update_idletasks()
+        popup_width = min(max(300, self.winfo_reqwidth() + 10), 800)
+        popup_height = min(max(150, self.winfo_reqheight() + 10), 600)
+        self.geometry(f"{popup_width}x{popup_height}")
         self.wait_window()
         main_app.prevent_record = False
 
